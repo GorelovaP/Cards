@@ -1,0 +1,17 @@
+.span {
+    display: inline-block;
+    height: calc(2.25rem + 2px);;
+    color: grey;
+
+
+}
+
+.span:hover {
+    color: #2EE59D;
+}
+.span:nth-child(1){
+    padding-left: 0.75rem;
+}
+.span img{
+    margin-left: 5px;
+}

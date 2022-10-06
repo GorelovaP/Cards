@@ -1,0 +1,17 @@
+@import "./src/common/styles/variables";
+@import "./src/common/styles/mixins";
+
+.ErrorPage {
+  background: $bgColorDark;
+  height: calc(100vh);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+
+  .text {
+    margin-bottom: 10px;
+  }
+}
+

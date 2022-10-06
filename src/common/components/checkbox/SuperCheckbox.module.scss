@@ -1,0 +1,55 @@
+@import "./src/common/styles/variables";
+@import "./src/common/styles/mixins";
+
+
+.label {
+  max-width: 200px;
+  width: 100%;
+
+  .checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  .spanClassName {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      flex-shrink: 0;
+      flex-grow: 0;
+      border: 1px solid #bdbdbd;
+      margin-right: 0.5em;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 50% 50%;
+    }
+
+    &:hover:before {
+      border-color: $BtnActiveShadow;
+    }
+  }
+
+}
+
+.checkbox:checked + .spanClassName:before {
+  box-sizing: border-box;
+  height: 18px;
+  width: 18px;
+  border: 5px solid $BtnMainTextColor;
+}
+
+.checkbox:checked + .spanClassName:hover:before {
+  border-color: $BtnActiveShadow;
+}
+
+
+
