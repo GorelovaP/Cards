@@ -15,6 +15,7 @@ export const PATH = {
     PROFILE: '/profile',
     PASSWORD_RECOVERY: '/password-recovery',
     PASSWORD_ENTERING: '/password-entering',
+    ERROR404: '/404',
 }
 
 
@@ -32,7 +33,8 @@ function Pages() {
                 <Route path={PATH.PASSWORD_RECOVERY} element={<PasswordRecovery/>}/>
                 <Route path={PATH.PASSWORD_ENTERING} element={<PasswordEntering/>}/>
 
-                <Route path={'/*'} element={<Error404/>}/>
+                <Route path={PATH.ERROR404} element={<Error404/>}/>
+                <Route path={'/*'} element={<Navigate to={PATH.ERROR404}/>}/>
             </Routes>
         </div>
     )
