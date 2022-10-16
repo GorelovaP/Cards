@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const StyledSingFormWrapper = styled.div`
   width: 413px;
-  height: 522px;
+  height: 100%;
   padding: 33px;
   margin: 120px auto 0;
   background: ${({ theme }) => theme.colors.colorWhite};

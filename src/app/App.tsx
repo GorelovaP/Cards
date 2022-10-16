@@ -5,16 +5,13 @@ import { ThemeProvider } from 'styled-components'
 
 import { GlobalStyles } from '../common/styledComponents/globalStyles'
 import { theme } from '../common/styledComponents/theme'
-import { SignInPage } from '../features/singInPage/SignInPage'
 
 function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <HashRouter>
-          <GlobalStyles />
-          <SignInPage />
-        </HashRouter>
+        <GlobalStyles />
+        <HashRouter></HashRouter>
       </ThemeProvider>
     </div>
   )

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import styled from 'styled-components'
 
-import { StyledPrimaryFormButton } from '../common/styledComponents/styledButtons'
+import { StyleButtonFormAdjusted } from '../common/styledComponents/styledButtons'
 import { H2, H4, StyledBottomFormLink } from '../common/styledComponents/styledHeaders'
 import { StyledInput } from '../common/styledComponents/styledInput'
 import { StyledSingFormWrapper } from '../common/styledComponents/styledWrappers'
@@ -35,9 +35,7 @@ export const SignUpPage = () => {
             icon={passwordIcon ? AiFillEye : AiFillEyeInvisible}
             onClickAction={onClickAction}
           />
-          <div className={'formButton'}>
-            <StyledPrimaryFormButton text={'Sign Up'} />
-          </div>
+          <StyleButtonFormAdjusted>{'Sign Up'}</StyleButtonFormAdjusted>
         </form>
         <H4>Already have an account</H4>
         <div className={'styledBottomFormLink'}>
@@ -49,15 +47,12 @@ export const SignUpPage = () => {
 }
 
 // styled component
-const StyledSignUpForm = styled.div`
+export const StyledSignUpForm = styled.div`
   H2 {
     margin-bottom: 41px;
   }
   H4 {
     margin-bottom: 11px;
-  }
-  .formButton {
-    margin: 60px 0 31px;
   }
   .styledBottomFormLink {
     text-align: center;
