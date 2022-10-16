@@ -22,6 +22,10 @@ export const StyledButton = styled.button`
   }
 `
 
+export const StyleButtonFormAdjusted = styled(StyledButton)`
+  margin: 60px 0 31px;
+`
+
 // types
 type PropsType = {
   text: string

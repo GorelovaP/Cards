@@ -2,7 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import { StyledPrimaryFormButton } from '../common/styledComponents/styledButtons'
+import { StyleButtonFormAdjusted } from '../common/styledComponents/styledButtons'
 import {
   FormInfoText,
   H2,
@@ -24,9 +24,7 @@ export const ForgotPasswordPage = () => {
           <FormInfoText>
             Enter your email address and we will send you further instructions
           </FormInfoText>
-          <div className={'formButton'}>
-            <StyledPrimaryFormButton text={'Send indtructions'} />
-          </div>
+          <StyleButtonFormAdjusted>{'Send instructions'}</StyleButtonFormAdjusted>
         </form>
         <H4>Did you remember your password?</H4>
         <div className={'styledBottomFormLink'}>

@@ -5,13 +5,18 @@ import { ThemeProvider } from 'styled-components'
 
 import { GlobalStyles } from '../common/styledComponents/globalStyles'
 import { theme } from '../common/styledComponents/theme'
+import { ForgotPasswordPage } from '../features/ForgotPasswortPage'
+import { SignUpPage } from '../features/SignUpPage'
 
 function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        <HashRouter></HashRouter>
+        <HashRouter>
+          <SignUpPage />
+          <ForgotPasswordPage />
+        </HashRouter>
       </ThemeProvider>
     </div>
   )
