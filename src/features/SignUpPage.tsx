@@ -49,7 +49,7 @@ export const SignUpPage = () => {
 }
 
 // styled component
-const StyledSignUpForm = styled.div`
+export const StyledSignUpForm = styled.div`
   H2 {
     margin-bottom: 41px;
   }

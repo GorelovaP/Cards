@@ -7,4 +7,6 @@ import { XReducer } from './x-reducer'
 let rootReducer = combineReducers({ app: AppReducer, x: XReducer })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+
 export type RootStateType = ReturnType<typeof rootReducer>
+export type AppDispatch = typeof store.dispatch

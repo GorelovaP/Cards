@@ -17,6 +17,14 @@ export const H4 = styled.h4`
   opacity: 0.5;
 `
 
+export const FormInfoText = styled.div`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  opacity: 0.5;
+`
+
 // for Sign forms common bottom styled link
 export const StyledBottomFormLink = styled.a`
   font-style: normal;
