@@ -2,12 +2,8 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-export const StyledPrimaryButton = (props: PropsType) => {
-  return (
-    <StyledButton>
-      <a href="#">{props.text}</a>
-    </StyledButton>
-  )
+export const StyledPrimaryFormButton = (props: PropsType) => {
+  return <StyledButton>{props.text}</StyledButton>
 }
 
 //styled component
@@ -21,8 +17,8 @@ export const StyledButton = styled.button`
   line-height: 20px;
   letter-spacing: 0.01em;
   color: ${({ theme }) => theme.colors.colorWhite};
-  a {
-    color: ${({ theme }) => theme.colors.colorWhite};
+  &:hover {
+    cursor: pointer;
   }
 `
 
