@@ -3,9 +3,11 @@ import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import styled from 'styled-components'
+import * as Yup from 'yup'
 
-import { StyledPrimaryFormButton } from '../../common/styledComponents/styledButtons'
+import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledCheckbox } from '../../common/styledComponents/styledCheckbox'
+import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styledHeaders'
 import { StyledInput } from '../../common/styledComponents/styledInput'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
@@ -20,18 +22,10 @@ export const SignInPage = () => {
   }
 
   const formik = useFormik({
-    validate: values => {
-      if (!values.email) {
-        return {
-          email: 'Email is required',
-        }
-      }
-      if (!values.password) {
-        return {
-          password: 'Password is required',
-        }
-      }
-    },
+    validationSchema: Yup.object({
+      email: Yup.string().email('Invalid email address').required('* Email field is required'),
+      password: Yup.string().required('* Subject field is required'),
+    }),
     initialValues: {
       email: '',
       password: '',
@@ -48,23 +42,31 @@ export const SignInPage = () => {
       <StyledSignUpForm>
         <H2>Sing In</H2>
         <form onSubmit={formik.handleSubmit}>
-          <StyledInput text={'email'} label={'Email'} />
+          <StyledInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
+          {formik.errors.email && formik.touched.email ? (
+            <StyledErrorArea>{formik.errors.email}</StyledErrorArea>
+          ) : null}
           <StyledInput
             text={passwordShowMode ? 'password' : 'text'}
             label={'Password'}
             icon={passwordIcon ? AiFillEye : AiFillEyeInvisible}
             onClickAction={onClickAction}
+            {...formik.getFieldProps('password')}
           />
+          {formik.errors.password && formik.touched.password ? (
+            <StyledErrorArea>{formik.errors.password}</StyledErrorArea>
+          ) : null}
           <StyledCheckbox
             labelValue="Remember me"
             {...formik.getFieldProps('rememberMe')}
             checked={formik.values.rememberMe}
           />
+
           <a href="#" className={'navLink'}>
             Forgot password?
           </a>
           <div className={'formButton'}>
-            <StyledPrimaryFormButton text={'Sign In'} />
+            <StyleButtonFormAdjusted type="submit"> Sing In </StyleButtonFormAdjusted>
           </div>
         </form>
         <H4>Already have an account?</H4>
@@ -101,5 +103,6 @@ const StyledSignUpForm = styled.div`
 
   .styledBottomFormLink {
     text-align: center;
+    margin-bottom: 11px;
   }
 `
