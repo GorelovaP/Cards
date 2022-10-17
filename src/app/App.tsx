@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
 import { GlobalStyles } from '../common/styledComponents/globalStyles'
+import { Header } from '../common/styledComponents/Header'
 import { StyledMainWrapper } from '../common/styledComponents/styledWrappers'
 import { theme } from '../common/styledComponents/theme'
 import { ForgotPasswordPage } from '../features/forgotPasswordPage/ForgotPasswortPage'
@@ -16,6 +17,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <StyledMainWrapper>
+          <Header />
           <Routes>
             <Route index path={'/cards'} element={<div>main</div>} />
             <Route path={'/signup'} element={<SignUpPage />} />
