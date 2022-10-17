@@ -5,6 +5,8 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
+import { signUpTC } from '../../app/app-reducer'
+import { useAppDispatch } from '../../app/hooks'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styledHeaders'
@@ -20,6 +22,8 @@ export const SignUpPage = () => {
     setPasswordShowMode(!passwordShowMode)
   }
 
+  const dispatch = useAppDispatch()
+
   const formik = useFormik({
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('* Email field is required'),
@@ -31,9 +35,10 @@ export const SignUpPage = () => {
       password: '',
       confirmPassword: '',
     },
-    onSubmit: values => {
+    onSubmit: (values, { resetForm }) => {
       console.log(JSON.stringify(values))
-      //dispatch();
+      //dispatch(signUpTC())
+      resetForm()
     },
   })
 

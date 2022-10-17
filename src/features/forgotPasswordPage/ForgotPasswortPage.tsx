@@ -14,7 +14,7 @@ import {
 } from '../../common/styledComponents/styledHeaders'
 import { StyledInput } from '../../common/styledComponents/styledInput'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
-import { StyledSignUpForm } from '../SignUpPage/SignUpPage'
+import { StyledSignUpForm } from '../signUpPage/SignUpPage'
 
 export const ForgotPasswordPage = () => {
   const formik = useFormik({
@@ -24,9 +24,10 @@ export const ForgotPasswordPage = () => {
     initialValues: {
       email: '',
     },
-    onSubmit: values => {
+    onSubmit: (values, { resetForm }) => {
       console.log(JSON.stringify(values))
       //dispatch();
+      resetForm()
     },
   })
 
