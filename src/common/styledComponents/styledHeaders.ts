@@ -26,7 +26,7 @@ export const FormInfoText = styled.div`
 `
 
 // for Sign forms common bottom styled link
-export const StyledBottomFormLink = styled.a`
+export const StyledBottomFormLink = styled.div`
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -34,4 +34,7 @@ export const StyledBottomFormLink = styled.a`
   text-align: center;
   text-decoration-line: underline;
   color: ${({ theme }) => theme.colors.buttonPrimaryBg};
+  .bottomFormLink {
+    color: ${({ theme }) => theme.colors.buttonPrimaryBg};
+  }
 `

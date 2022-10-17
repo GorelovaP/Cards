@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useFormik } from 'formik'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
@@ -51,7 +52,11 @@ export const ForgotPasswordPage = () => {
         </form>
         <H4>Did you remember your password?</H4>
         <div className={'styledBottomFormLink'}>
-          <StyledBottomFormLink href="">Try logging in</StyledBottomFormLink>
+          <StyledBottomFormLink>
+            <NavLink to={'/signin'} className={'bottomFormLink'}>
+              Try logging in
+            </NavLink>
+          </StyledBottomFormLink>
         </div>
       </StyledForgotPasswordPage>
     </StyledSingFormWrapper>
