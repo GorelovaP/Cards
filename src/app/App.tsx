@@ -1,16 +1,16 @@
 import React from 'react'
 
-import { HashRouter } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
 import { GlobalStyles } from '../common/styledComponents/globalStyles'
-import { StyledMainWrapper } from '../common/styledComponents/styledWrappers'
 import { Header } from '../common/styledComponents/Header'
+import { StyledMainWrapper } from '../common/styledComponents/styledWrappers'
 import { theme } from '../common/styledComponents/theme'
 import { ForgotPasswordPage } from '../features/forgotPasswordPage/ForgotPasswortPage'
+import { PersonalInformation } from '../features/personalInformation/personalInformation'
 import { SignUpPage } from '../features/signUpPage/SignUpPage'
 import { SignInPage } from '../features/singInPage/SignInPage'
-import { PersonalInformation } from '../features/personalInformation/personalInformation'
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
           </Routes>
         </StyledMainWrapper>
         <Header />
-        <PersonalInformation />
+        {/*<PersonalInformation />*/}
       </ThemeProvider>
     </div>
   )
