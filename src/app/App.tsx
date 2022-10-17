@@ -18,6 +18,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <StyledMainWrapper>
+          <Header />
           <Routes>
             <Route index path={'/cards'} element={<div>main</div>} />
             <Route path={'/signup'} element={<SignUpPage />} />
