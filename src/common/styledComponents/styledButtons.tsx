@@ -19,6 +19,13 @@ export const StyledButton = styled.button`
   color: ${({ theme }) => theme.colors.colorWhite};
   &:hover {
     cursor: pointer;
+    transition: 0.3s;
+    text-shadow: 1px 0 1px rgba(255, 255, 255, 1);
+  }
+  :active {
+    position: relative;
+    top: 2px;
+    left: 0;
   }
 `
 
