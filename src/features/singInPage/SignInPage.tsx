@@ -32,7 +32,7 @@ export const SignInPage = () => {
       password: '',
       rememberMe: true,
     },
-    onSubmit: values => {
+    onSubmit: (values: any) => {
       console.log(JSON.stringify(values))
       //dispatch();
     },
