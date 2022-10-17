@@ -98,7 +98,7 @@ const StyledSignUpForm = styled.div`
   }
 
   .formButton {
-    margin: 69px 0 31px;
+    margin: 9px 0 31px;
   }
 
   .styledBottomFormLink {
