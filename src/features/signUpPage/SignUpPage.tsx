@@ -37,7 +37,7 @@ export const SignUpPage = () => {
     },
     onSubmit: (values, { resetForm }) => {
       console.log(JSON.stringify(values))
-      //dispatch(signUpTC())
+      dispatch(signUpTC(values.email, values.password))
       resetForm()
     },
   })

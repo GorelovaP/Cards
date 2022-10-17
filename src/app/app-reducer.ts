@@ -1,6 +1,9 @@
+import { Dispatch } from 'redux'
+import { ThunkAction } from 'redux-thunk'
+
 import { getInAPI } from '../api/api'
 
-import { AppDispatch } from './store'
+import { AppThunkType } from './store'
 
 export type AppStateType = {}
 const initialState: AppStateType = {}
@@ -17,15 +20,14 @@ export const AppReducer = (state: AppStateType = initialState, action: ActionsTy
   }
 }
 
-export const xAC = () => {
-  return { type: 'APP/X' }
-}
+export const xAC = () => ({ type: 'APP/X' } as const)
+export type xACType = ReturnType<typeof xAC>
 
 // thunk creators
-export const signUpTC = (email: string, password: string) => async (dispatch: AppDispatch) => {
-  const res = await getInAPI.signUp(email, password)
-
-  if (res.data.error) {
-    console.log(res.data.error)
+export const signUpTC =
+  (email: string, password: string): AppThunkType =>
+  async dispatch => {
+    const res = await getInAPI.signUp(email, password)
   }
-}
+
+export type AppReducerActionsType = xACType
