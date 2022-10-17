@@ -18,7 +18,7 @@ export const Header = () => {
 }
 
 export const StyledSignUpForm = styled.div`
-  position: fixed;
+  //position: fixed;
   width: 100%;
   display: flex;
   align-items: center;

@@ -57,7 +57,6 @@ export const ForgotPasswordPage = () => {
     </StyledSingFormWrapper>
   )
 }
-
 // styled component
 const StyledForgotPasswordPage = styled(StyledSignUpForm)`
   .inputErrorHandlerForm {
