@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
@@ -9,6 +9,7 @@ import { Loading } from '../common/styledComponents/Loading'
 import { StyledMainWrapper } from '../common/styledComponents/styledWrappers'
 import { theme } from '../common/styledComponents/theme'
 import { CheckEmail } from '../features/checkEmail/CheckEmail'
+import { CreateNewPassword } from '../features/createNewPassword/createNewPassword'
 import { ForgotPasswordPage } from '../features/forgotPasswordPage/ForgotPasswortPage'
 import { MainPage } from '../features/mainPage/MainPage'
 import { SignUpPage } from '../features/signUpPage/SignUpPage'
