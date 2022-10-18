@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useMatch } from 'react-router-dom'
 import styled from 'styled-components'
 
+import avatar from '../../assets/images/avatar.svg'
 import logo from '../../assets/images/logo.svg'
 
 import { StyledPrimaryFormButton } from './styledButtons'
@@ -10,8 +11,13 @@ import { StyledMainWrapper } from './styledWrappers'
 
 export const Header = () => {
   const navigate = useNavigate()
+  const match = useMatch('/:routeKey')
+
   const GotoSingIn = () => {
     navigate('/signin')
+  }
+  const GotoProfile = () => {
+    navigate('/profile')
   }
 
   return (
@@ -19,7 +25,17 @@ export const Header = () => {
       <StyleHeaderSecond>
         <img src={logo} alt="logo" />
         <div>
-          <StyledPrimaryFormButton callback={GotoSingIn} text={'sign in'} />
+          {match?.params.routeKey === 'signup' ||
+          match?.params.routeKey === 'signin' ||
+          match?.params.routeKey === 'checkemail' ||
+          match?.params.routeKey === 'forgotpassword' ? (
+            <StyledPrimaryFormButton callback={GotoSingIn} text={'sign in'} />
+          ) : (
+            <StyleHeaderRightIcons onClick={GotoProfile}>
+              <div className={'personalName'}> Login </div>
+              <img className={'personalIcon'} alt={'personalIcon'} src={avatar} />
+            </StyleHeaderRightIcons>
+          )}
         </div>
       </StyleHeaderSecond>
     </StyleHeader>
@@ -39,8 +55,18 @@ export const StyleHeaderSecond = styled(StyledMainWrapper)`
   align-items: center;
   justify-content: space-between;
   padding: 6px 0;
-
-  div {
-    width: 113px;
+`
+export const StyleHeaderRightIcons = styled.div`
+  display: flex;
+  align-items: center;
+  .personalName {
+    border-bottom: 1px dotted #000;
+    text-decoration: none;
+  }
+  .personalIcon {
+    margin-left: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
   }
 `
