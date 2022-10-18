@@ -20,14 +20,13 @@ function App() {
         <StyledMainWrapper>
           <Header />
           <Routes>
-            <Route index path={'/cards'} element={<div>main</div>} />
+            <Route index path={'/cards'} element={<SignInPage />} />
             <Route path={'/signup'} element={<SignUpPage />} />
             <Route path={'/signin'} element={<SignInPage />} />
             <Route path={'/forgotpassword'} element={<ForgotPasswordPage />} />
             <Route path={'/*'} element={<div>404</div>} />
           </Routes>
         </StyledMainWrapper>
-        <Header />
         {/*<PersonalInformation />*/}
       </ThemeProvider>
     </div>

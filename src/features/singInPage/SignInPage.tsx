@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
@@ -6,6 +6,8 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
+import { signUpAC } from '../../app/app-reducer'
+import { useAppDispatch } from '../../app/hooks'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledCheckbox } from '../../common/styledComponents/styledCheckbox'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
@@ -17,6 +19,12 @@ export const SignInPage = () => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
 
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(signUpAC(false))
+  }, [])
+
   const onClickAction = () => {
     setPasswordIcon(!passwordIcon)
     setPasswordShowMode(!passwordShowMode)
@@ -25,7 +33,7 @@ export const SignInPage = () => {
   const formik = useFormik({
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('* Email field is required'),
-      password: Yup.string().required('* Subject field is required'),
+      password: Yup.string().min(8).required('* Subject field is required'),
     }),
     initialValues: {
       email: '',

@@ -1,33 +1,41 @@
-import { Dispatch } from 'redux'
-import { ThunkAction } from 'redux-thunk'
-
 import { getInAPI } from '../api/api'
 
-import { AppThunkType } from './store'
+import { AppActionsType, AppThunkType } from './store'
 
-export type AppStateType = {}
-const initialState: AppStateType = {}
+// types variables
+const APP_SIGNUP = 'APP_SIGNUP'
+const initialState: AppStateType = {
+  registered: false,
+}
 
-type ActionsType = ReturnType<typeof xAC>
-
-export const AppReducer = (state: AppStateType = initialState, action: ActionsType) => {
+export const AppReducer = (state: AppStateType = initialState, action: AppActionsType) => {
   switch (action.type) {
-    case 'APP/X': {
-      return state
+    case APP_SIGNUP: {
+      return { ...state, registered: action.registered }
     }
     default:
       return state
   }
 }
 
-export const xAC = () => ({ type: 'APP/X' } as const)
-export type xACType = ReturnType<typeof xAC>
+export const signUpAC = (registered: boolean) => ({ type: APP_SIGNUP, registered } as const)
 
-// thunk creators
+// ================ Thunk creators ================
 export const signUpTC =
   (email: string, password: string): AppThunkType =>
   async dispatch => {
     const res = await getInAPI.signUp(email, password)
+
+    console.log(res)
+    if (!res.data.error) {
+      dispatch(signUpAC(true))
+    }
   }
 
-export type AppReducerActionsType = xACType
+// ================ Types ====================
+export type AppStateType = {
+  registered: boolean
+}
+
+//common type for reducer and to be merged in store
+export type AppReducerActionsType = ReturnType<typeof signUpAC>
