@@ -24,6 +24,7 @@ export const SignUpPage = () => {
   }
 
   const signUpStatus = useAppSelector(store => store.app.registered)
+  const signUpRegError = useAppSelector(store => store.app.regError)
   const dispatch = useAppDispatch()
 
   const formik = useFormik({
@@ -56,6 +57,11 @@ export const SignUpPage = () => {
         <H2>Sing Up</H2>
         <form onSubmit={formik.handleSubmit}>
           <div className={'inputErrorHandlerForm'}>
+            <div className={'formErrorPlacement'}>
+              {signUpRegError && !formik.touched.email && formik.initialTouched && (
+                <StyledErrorArea>{signUpRegError}</StyledErrorArea>
+              )}
+            </div>
             <StyledInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
             <div className={'formErrorPlacement'}>
               {formik.errors.email && formik.touched.email ? (

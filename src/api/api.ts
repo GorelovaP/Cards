@@ -18,7 +18,7 @@ export const getInAPI = {
 }
 
 // =============== Types ==============
-type SignUpResType = {
+export type SignUpResType = {
   error: string
   email: string
   in: string
