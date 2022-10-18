@@ -9,6 +9,7 @@ import { StyledMainWrapper } from '../common/styledComponents/styledWrappers'
 import { theme } from '../common/styledComponents/theme'
 import { CheckEmail } from '../features/checkEmail/CheckEmail'
 import { ForgotPasswordPage } from '../features/forgotPasswordPage/ForgotPasswortPage'
+import { MainPage } from '../features/mainPage/MainPage'
 import { SignUpPage } from '../features/signUpPage/SignUpPage'
 import { SignInPage } from '../features/singInPage/SignInPage'
 
@@ -20,7 +21,7 @@ function App() {
         <StyledMainWrapper>
           <Header />
           <Routes>
-            <Route index path={'/cards'} element={<SignInPage />} />
+            <Route path={'/cards'} element={<MainPage />} />
             <Route path={'/signup'} element={<SignUpPage />} />
             <Route path={'/signin'} element={<SignInPage />} />
             <Route path={'/checkemail'} element={<CheckEmail />} />
