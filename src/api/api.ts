@@ -6,6 +6,9 @@ const instance = axios.create({
 })
 
 export const getInAPI = {
+  me() {
+    return instance.post<AxiosResponse<SignInResType>>(`auth/me`)
+  },
   singIn(email: string, password: string, rememberMe: boolean) {
     return instance.post<AxiosResponse<SignInResType>>(`auth/login`, {
       email,

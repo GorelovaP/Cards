@@ -2,19 +2,25 @@ import axios, { AxiosError } from 'axios'
 
 import { getInAPI, SignUpResType } from '../api/api'
 
+import { signInAC } from './auth-reducer'
 import { AppActionsType, AppThunkType } from './store'
 
 // types variables
+const APP_SET_INITIALIZED = 'APP_SET_INITIALIZED'
 const APP_SIGNUP = 'APP_SIGNUP'
 const APP_SIGNUP_ERROR = 'APP_SIGNUP_ERROR'
 
 const initialState: AppStateType = {
+  isInitialized: false,
   registered: false,
   regError: '',
 }
 
 export const AppReducer = (state: AppStateType = initialState, action: AppActionsType) => {
   switch (action.type) {
+    case APP_SET_INITIALIZED: {
+      return { ...state, isInitialized: action.initialized }
+    }
     case APP_SIGNUP: {
       return { ...state, registered: action.registered }
     }
@@ -26,11 +32,25 @@ export const AppReducer = (state: AppStateType = initialState, action: AppAction
   }
 }
 
+export const setAppInitializedAC = (initialized: boolean) =>
+  ({ type: APP_SET_INITIALIZED, initialized } as const)
 export const signUpAC = (registered: boolean) => ({ type: APP_SIGNUP, registered } as const)
 export const signUpSetErrorAC = (regError: string) =>
   ({ type: APP_SIGNUP_ERROR, regError } as const)
 
 // ================ Thunk creators ================
+export const initializeAppTC = (): AppThunkType => async dispatch => {
+  try {
+    const res = await getInAPI.me()
+
+    dispatch(signInAC(true))
+  } catch (e) {
+    const errors = e as Error | AxiosError<SignUpResType>
+  } finally {
+    dispatch(setAppInitializedAC(true))
+  }
+}
+
 export const signUpTC =
   (email: string, password: string): AppThunkType =>
   async dispatch => {
@@ -52,6 +72,7 @@ export const signUpTC =
 
 // ================ Types ====================
 export type AppStateType = {
+  isInitialized: boolean
   registered: boolean
   regError: string
 }
@@ -60,3 +81,4 @@ export type AppStateType = {
 export type AppReducerActionsType =
   | ReturnType<typeof signUpAC>
   | ReturnType<typeof signUpSetErrorAC>
+  | ReturnType<typeof setAppInitializedAC>

@@ -6,11 +6,9 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
-import { signUpAC } from '../../app/app-reducer'
+import { signUpAC, signUpSetErrorAC } from '../../app/app-reducer'
 import { singInTC } from '../../app/auth-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { signUpAC, signUpSetErrorAC } from '../../app/app-reducer'
-import { useAppDispatch } from '../../app/hooks'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledCheckbox } from '../../common/styledComponents/styledCheckbox'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
@@ -25,6 +23,7 @@ export const SignInPage = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const signIpRegError = useAppSelector(store => store.auth.signInError)
 
   useEffect(() => {
     dispatch(signUpAC(false))
@@ -63,6 +62,9 @@ export const SignInPage = () => {
       <StyledSignUpForm>
         <H2>Sing In</H2>
         <form onSubmit={formik.handleSubmit}>
+          {signIpRegError && !formik.touched.email && (
+            <StyledErrorArea>{signIpRegError}</StyledErrorArea>
+          )}
           <StyledInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
           {formik.errors.email && formik.touched.email ? (
             <StyledErrorArea>{formik.errors.email}</StyledErrorArea>
