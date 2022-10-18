@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
@@ -31,7 +32,7 @@ export const SignInPage = () => {
       password: '',
       rememberMe: true,
     },
-    onSubmit: values => {
+    onSubmit: (values: any) => {
       console.log(JSON.stringify(values))
       //dispatch();
     },
@@ -62,16 +63,20 @@ export const SignInPage = () => {
             checked={formik.values.rememberMe}
           />
 
-          <a href="#" className={'navLink'}>
+          <NavLink to={'/forgotpassword'} className={'navLink'}>
             Forgot password?
-          </a>
+          </NavLink>
           <div className={'formButton'}>
             <StyleButtonFormAdjusted type="submit"> Sing In </StyleButtonFormAdjusted>
           </div>
         </form>
         <H4>Already have an account?</H4>
         <div className={'styledBottomFormLink'}>
-          <StyledBottomFormLink href="">Sign Up</StyledBottomFormLink>
+          <StyledBottomFormLink>
+            <NavLink to={'/signup'} className={'bottomFormLink'}>
+              Sign Up
+            </NavLink>
+          </StyledBottomFormLink>
         </div>
       </StyledSignUpForm>
     </StyledSingFormWrapper>

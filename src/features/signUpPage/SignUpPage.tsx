@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
@@ -87,7 +88,11 @@ export const SignUpPage = () => {
         </form>
         <H4>Already have an account</H4>
         <div className={'styledBottomFormLink'}>
-          <StyledBottomFormLink href="">Sign In</StyledBottomFormLink>
+          <StyledBottomFormLink>
+            <NavLink to={'/signin'} className={'bottomFormLink'}>
+              Sign In
+            </NavLink>
+          </StyledBottomFormLink>
         </div>
       </StyledSignUpForm>
     </StyledSingFormWrapper>
