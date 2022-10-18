@@ -7,6 +7,7 @@ import { GlobalStyles } from '../common/styledComponents/globalStyles'
 import { Header } from '../common/styledComponents/Header'
 import { StyledMainWrapper } from '../common/styledComponents/styledWrappers'
 import { theme } from '../common/styledComponents/theme'
+import { CreateNewPassword } from '../features/createNewPassword/createNewPassword'
 import { ForgotPasswordPage } from '../features/forgotPasswordPage/ForgotPasswortPage'
 import { PersonalInformation } from '../features/personalInformation/personalInformation'
 import { SignUpPage } from '../features/signUpPage/SignUpPage'
@@ -27,7 +28,8 @@ function App() {
           </Routes>
         </StyledMainWrapper>
         <Header />
-        {/*<PersonalInformation />*/}
+        <PersonalInformation />
+        <CreateNewPassword />
       </ThemeProvider>
     </div>
   )

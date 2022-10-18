@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
+// @ts-ignore
 import { signUpTC } from '../../app/app-reducer'
 import { useAppDispatch } from '../../app/hooks'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'

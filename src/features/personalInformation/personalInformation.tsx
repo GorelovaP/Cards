@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import avatar from '../../assets/images/avatar.png'
 import edit from '../../assets/images/edit.svg'
+import logOut from '../../assets/images/logout.svg'
 import photo from '../../assets/images/photo.png'
 import { StyledButton, StyledPrimaryFormButton } from '../../common/styledComponents/styledButtons'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
@@ -29,20 +30,27 @@ export const PersonalInformation = () => {
           </button>
         </div>
         <H4>email</H4>
-        <ButtonStyle></ButtonStyle>
+        <LogOutButton>
+          <img src={logOut} alt="logOut" />
+          Log out
+        </LogOutButton>
       </StyledPersonalInformation>
     </StyledSingFormWrapper>
   )
 }
 
 const StyledPersonalInformation = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
    {
     .photo {
+      text-align: center;
       position: relative;
     }
     .avatar {
       border-radius: 50%;
-      margin-left: 35px;
+      //margin-left: 35px;
       margin-top: 30px;
       height: 96px;
       width: 96px;
@@ -54,17 +62,22 @@ const StyledPersonalInformation = styled.div`
       border-radius: 50%;
       position: absolute;
       top: 95px;
-      left: 100px;
+      left: 65px;
       border: 2px solid white;
     }
     .title {
+      text-align: center;
       position: center;
       margin-bottom: 14px;
     }
   }
 `
 
-export const ButtonStyle = styled(StyledButton)`
+const LogOutButton = styled(StyledButton)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
   width: 127px;
   height: 36px;
   background: #fcfcfc;
