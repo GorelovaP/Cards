@@ -58,7 +58,7 @@ export const SignUpPage = () => {
         <form onSubmit={formik.handleSubmit}>
           <div className={'inputErrorHandlerForm'}>
             <div className={'formErrorPlacement'}>
-              {signUpRegError && !formik.touched.email && formik.initialTouched && (
+              {signUpRegError && !formik.touched.email && (
                 <StyledErrorArea>{signUpRegError}</StyledErrorArea>
               )}
             </div>

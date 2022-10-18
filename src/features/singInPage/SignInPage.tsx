@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
-import { signUpAC } from '../../app/app-reducer'
+import { signUpAC, signUpSetErrorAC } from '../../app/app-reducer'
 import { useAppDispatch } from '../../app/hooks'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledCheckbox } from '../../common/styledComponents/styledCheckbox'
@@ -23,6 +23,7 @@ export const SignInPage = () => {
 
   useEffect(() => {
     dispatch(signUpAC(false))
+    dispatch(signUpSetErrorAC(''))
   }, [])
 
   const onClickAction = () => {
