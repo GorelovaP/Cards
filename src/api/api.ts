@@ -33,7 +33,7 @@ export type SignUpResType = {
   email: string
   in: string
 }
-type SignInResType = {
+export type SignInResType = {
   _id: string
   email: string
   name: string

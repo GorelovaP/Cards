@@ -4,6 +4,7 @@ import { getInAPI, SignUpResType } from '../api/api'
 
 import { signInAC } from './auth-reducer'
 import { AppActionsType, AppThunkType } from './store'
+import { setUserAC } from './user-reducer'
 
 // types variables
 const APP_SET_INITIALIZED = 'APP_SET_INITIALIZED'
@@ -43,9 +44,17 @@ export const initializeAppTC = (): AppThunkType => async dispatch => {
   try {
     const res = await getInAPI.me()
 
+    console.log(res)
+
+    dispatch(setUserAC(res.data))
     dispatch(signInAC(true))
   } catch (e) {
     const errors = e as Error | AxiosError<SignUpResType>
+
+    if (axios.isAxiosError(errors)) {
+      //наверное обнулить данные в редюсере юзера
+      //dispatch(signUpSetErrorAC(errors.response?.data.error))
+    }
   } finally {
     dispatch(setAppInitializedAC(true))
   }
@@ -82,3 +91,4 @@ export type AppReducerActionsType =
   | ReturnType<typeof signUpAC>
   | ReturnType<typeof signUpSetErrorAC>
   | ReturnType<typeof setAppInitializedAC>
+  | ReturnType<typeof setUserAC>

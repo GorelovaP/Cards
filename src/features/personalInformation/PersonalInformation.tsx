@@ -1,16 +1,31 @@
 import React, { useState } from 'react'
 
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import avatar from '../../assets/images/avatar.png'
+import { useAppSelector } from '../../app/hooks'
+import avatar from '../../assets/images/avatar.svg'
 import edit from '../../assets/images/edit.svg'
-import logOut from '../../assets/images/logout.svg'
-import photo from '../../assets/images/photo.png'
-import { StyledButton, StyledPrimaryFormButton } from '../../common/styledComponents/styledButtons'
+import logOut from '../../assets/images/logOut.svg'
+import photo from '../../assets/images/photo.svg'
+import { StyledButton } from '../../common/styledComponents/styledButtons'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
 export const PersonalInformation = () => {
+  const navigate = useNavigate()
+  let user = useAppSelector(state => state.user.user)
+
+  if (Object.keys(user).length === 0) {
+    //проверка на пустоту, если объект будет пустой, то значит данные не записались в редюсер и значит, что не произошла логинезация
+    navigate('/signin')
+  }
+
+  //Осталось:
+  //добавить фотки в гит
+  //отобразить данные которые пришли в редюсер
+  //по кнопке лог аут выполнить разлогинезацию ( т е обнулить юзеровский редюсер и сделать свойство isLoggedIn в аус редюсере фолсовым)
+
   let [title, setTitle] = useState('wrwgfrsgfs')
 
   return (
@@ -81,5 +96,5 @@ const LogOutButton = styled(StyledButton)`
   width: 127px;
   height: 36px;
   background: #fcfcfc;
-  box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 `

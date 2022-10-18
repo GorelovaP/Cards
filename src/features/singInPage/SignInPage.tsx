@@ -32,7 +32,7 @@ export const SignInPage = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate('/cards')
+      navigate('/profile')
     }
   }, [isLoggedIn])
 
