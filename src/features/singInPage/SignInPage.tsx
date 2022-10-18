@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
 import { signUpAC } from '../../app/app-reducer'
-import { useAppDispatch } from '../../app/hooks'
+import { singInTC } from '../../app/auth-reducer'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledCheckbox } from '../../common/styledComponents/styledCheckbox'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
@@ -19,11 +20,19 @@ export const SignInPage = () => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
 
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
   useEffect(() => {
     dispatch(signUpAC(false))
   }, [])
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/cards')
+    }
+  }, [isLoggedIn])
 
   const onClickAction = () => {
     setPasswordIcon(!passwordIcon)
@@ -40,9 +49,9 @@ export const SignInPage = () => {
       password: '',
       rememberMe: true,
     },
-    onSubmit: (values: any) => {
-      console.log(JSON.stringify(values))
-      //dispatch();
+    onSubmit: (values, { resetForm }) => {
+      dispatch(singInTC(values))
+      resetForm()
     },
   })
 
@@ -111,7 +120,7 @@ const StyledSignUpForm = styled.div`
   }
 
   .formButton {
-    margin: 9px 0 31px;
+    margin-top: 9px;
   }
 
   .styledBottomFormLink {

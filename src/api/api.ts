@@ -6,6 +6,13 @@ const instance = axios.create({
 })
 
 export const getInAPI = {
+  singIn(email: string, password: string, rememberMe: boolean) {
+    return instance.post<AxiosResponse<SignInResType>>(`auth/login`, {
+      email,
+      password,
+      rememberMe,
+    })
+  },
   signUp(email: string, password: string) {
     return instance.post<{ email: string; password: string }, AxiosResponse<SignUpResType>>(
       `auth/register`,
@@ -22,4 +29,17 @@ type SignUpResType = {
   error: string
   email: string
   in: string
+}
+type SignInResType = {
+  _id: string
+  email: string
+  name: string
+  avatar?: string
+  publicCardPacksCount: number // количество колод
+  created: Date
+  updated: Date
+  isAdmin: boolean
+  verified: boolean // подтвердил ли почту
+  rememberMe: boolean
+  error?: string
 }
