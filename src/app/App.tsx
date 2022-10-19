@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
@@ -24,6 +24,7 @@ function App() {
             <Route path={'/signup'} element={<SignUpPage />} />
             <Route path={'/signin'} element={<SignInPage />} />
             <Route path={'/forgotpassword'} element={<ForgotPasswordPage />} />
+            <Route path={'/createnewpassword'} element={<CreateNewPassword />} />
             <Route path={'/*'} element={<div>404</div>} />
           </Routes>
         </StyledMainWrapper>
