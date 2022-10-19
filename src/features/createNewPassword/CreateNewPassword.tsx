@@ -7,13 +7,10 @@ import * as Yup from 'yup'
 
 import { signUpTC } from '../../app/app-reducer'
 import { useAppDispatch } from '../../app/hooks'
-import {
-  StyleButtonFormAdjusted,
-  StyledPrimaryFormButton,
-} from '../../common/styledComponents/styledButtons'
+import { StyledButton } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
-import { StyledInput, StyledInputItem } from '../../common/styledComponents/styledInput'
+import { StyledInput } from '../../common/styledComponents/styledInput'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
 export const CreateNewPassword = () => {
@@ -49,7 +46,7 @@ export const CreateNewPassword = () => {
           <div className={'inputErrorHandlerForm'}>
             <StyledInput
               text={passwordShowMode ? 'password' : 'text'}
-              label={'Password'}
+              placeholder={'Password'}
               icon={passwordIcon ? AiFillEye : AiFillEyeInvisible}
               onClickAction={onClickAction}
               {...formik.getFieldProps('password')}
@@ -61,7 +58,7 @@ export const CreateNewPassword = () => {
             </div>
           </div>
           <H4>Create new password and we will send you further instructions to email</H4>
-          <StyleButtonFormAdjusted>Create new password</StyleButtonFormAdjusted>
+          <StyledButton className={'CreateNewPasswordBtn'}>Create new password</StyledButton>
         </form>
       </StyledCreateNewPassword>
     </StyledSingFormWrapper>
@@ -69,7 +66,14 @@ export const CreateNewPassword = () => {
 }
 
 const StyledCreateNewPassword = styled.div`
+  .CreateNewPasswordBtn {
+    margin: 42px 0 15px;
+  }
   H2 {
     margin-bottom: 67px;
+  }
+  H4 {
+    font-weight: 400;
+    text-align: left;
   }
 `

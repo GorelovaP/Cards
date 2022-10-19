@@ -12,7 +12,7 @@ export const StyledInput: React.FC<PropsType> = ({
 }) => {
   return (
     <StyledInputItem>
-      <label>{label}</label>
+      {label && <label>{label}</label>}
       <input type={text} {...restProps} />
       <span className={'line'} />
       <span className={'ItemIcon'} onClick={onClickAction}>
@@ -54,7 +54,8 @@ export const StyledInputItem = styled.div`
     opacity: 0.2;
   }
 
-  label {
+  label,
+  input::placeholder {
     opacity: 0.5;
   }
 
@@ -72,7 +73,7 @@ export const StyledInputItem = styled.div`
 // types
 type PropsType = DefaultInputPropsType & {
   text: string
-  label: string
+  label?: string
   icon?: IconType
   onClickAction?: () => void
 }
