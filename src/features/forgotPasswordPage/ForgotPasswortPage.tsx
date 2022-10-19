@@ -22,6 +22,7 @@ import { StyledSignUpForm } from '../signUpPage/SignUpPage'
 export const ForgotPasswordPage = () => {
   const dispatch = useAppDispatch()
   const sent = useAppSelector(store => store.app.passwordRecoveryEmailSent)
+  const sentrecoveryLinkError = useAppSelector(store => store.app.passwordRecoveryError)
 
   const formik = useFormik({
     validationSchema: Yup.object({
@@ -55,6 +56,11 @@ Click here to set a new password</a>
         <H2>Forgot your password?</H2>
         <form onSubmit={formik.handleSubmit}>
           <div className={'inputErrorHandlerForm'}>
+            <div className={'formErrorPlacement'}>
+              {sentrecoveryLinkError && !formik.touched.email && (
+                <StyledErrorArea>{sentrecoveryLinkError}</StyledErrorArea>
+              )}
+            </div>
             <StyledInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
             <div className={'formErrorPlacement'}>
               {formik.errors.email && formik.touched.email ? (
