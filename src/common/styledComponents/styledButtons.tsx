@@ -2,10 +2,6 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-export const StyledPrimaryFormButton = (props: PropsType) => {
-  return <StyledButton onClick={props.callback}>{props.text}</StyledButton>
-}
-
 //styled component
 export const StyledButton = styled.button`
   width: 100%;
@@ -37,9 +33,3 @@ export const StyleButtonFormAdjusted = styled(StyledButton)`
 export const StyleButtonForHeader = styled(StyledButton)`
   padding: 0 28px;
 `
-
-// types
-type PropsType = {
-  text: string
-  callback?: () => void
-}
