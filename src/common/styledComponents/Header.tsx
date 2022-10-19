@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import avatar from '../../assets/images/avatar.svg'
 import logo from '../../assets/images/logo.svg'
 
-import { StyledPrimaryFormButton } from './styledButtons'
+import { StyleButtonForHeader } from './styledButtons'
 import { StyledMainWrapper } from './styledWrappers'
 
 export const Header = () => {
@@ -29,7 +29,7 @@ export const Header = () => {
           match?.params.routeKey === 'signin' ||
           match?.params.routeKey === 'checkemail' ||
           match?.params.routeKey === 'forgotpassword' ? (
-            <StyledPrimaryFormButton callback={GotoSingIn} text={'sign in'} />
+            <StyleButtonForHeader onClick={GotoSingIn}> Sign in</StyleButtonForHeader>
           ) : (
             <StyleHeaderRightIcons onClick={GotoProfile}>
               <div className={'personalName'}> Login </div>
