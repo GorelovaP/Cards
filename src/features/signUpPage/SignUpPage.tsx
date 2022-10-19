@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
 // @ts-ignore
 import { signUpTC } from '../../app/app-reducer'
-import { useAppDispatch } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styledHeaders'
@@ -24,13 +24,18 @@ export const SignUpPage = () => {
     setPasswordShowMode(!passwordShowMode)
   }
 
+  const signUpStatus = useAppSelector(store => store.app.registered)
+  const signUpRegError = useAppSelector(store => store.app.regError)
   const dispatch = useAppDispatch()
 
   const formik = useFormik({
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('* Email field is required'),
-      password: Yup.string().required('* Subject field is required'),
-      confirmPassword: Yup.string().required('* Subject field is required'),
+      password: Yup.string().min(8).required('* Subject field is required'),
+      confirmPassword: Yup.string()
+        .min(8)
+        .required('* Subject field is required')
+        .oneOf([Yup.ref('password'), null], 'Passwords must match'),
     }),
     initialValues: {
       email: '',
@@ -38,11 +43,14 @@ export const SignUpPage = () => {
       confirmPassword: '',
     },
     onSubmit: (values, { resetForm }) => {
-      console.log(JSON.stringify(values))
       dispatch(signUpTC(values.email, values.password))
       resetForm()
     },
   })
+
+  if (signUpStatus) {
+    return <Navigate to={'/signin'} />
+  }
 
   return (
     <StyledSingFormWrapper>
@@ -50,6 +58,11 @@ export const SignUpPage = () => {
         <H2>Sing Up</H2>
         <form onSubmit={formik.handleSubmit}>
           <div className={'inputErrorHandlerForm'}>
+            <div className={'formErrorPlacement'}>
+              {signUpRegError && !formik.touched.email && (
+                <StyledErrorArea>{signUpRegError}</StyledErrorArea>
+              )}
+            </div>
             <StyledInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
             <div className={'formErrorPlacement'}>
               {formik.errors.email && formik.touched.email ? (
@@ -105,16 +118,19 @@ export const StyledSignUpForm = styled.div`
   H2 {
     margin-bottom: 41px;
   }
+
   H4 {
     margin-bottom: 11px;
   }
+
   .styledBottomFormLink {
     text-align: center;
   }
+
   .inputErrorHandlerForm {
     position: relative;
+
     .formErrorPlacement {
-      position: absolute;
       top: 70px;
       left: 0;
     }

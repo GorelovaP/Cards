@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
+import { signUpAC, signUpSetErrorAC } from '../../app/app-reducer'
+import { singInTC } from '../../app/auth-reducer'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledCheckbox } from '../../common/styledComponents/styledCheckbox'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
@@ -17,6 +20,22 @@ export const SignInPage = () => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
 
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const signIpRegError = useAppSelector(store => store.auth.signInError)
+
+  useEffect(() => {
+    dispatch(signUpAC(false))
+    dispatch(signUpSetErrorAC(''))
+  }, [])
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/profile')
+    }
+  }, [isLoggedIn])
+
   const onClickAction = () => {
     setPasswordIcon(!passwordIcon)
     setPasswordShowMode(!passwordShowMode)
@@ -25,16 +44,16 @@ export const SignInPage = () => {
   const formik = useFormik({
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('* Email field is required'),
-      password: Yup.string().required('* Subject field is required'),
+      password: Yup.string().min(8).required('* Subject field is required'),
     }),
     initialValues: {
       email: '',
       password: '',
       rememberMe: true,
     },
-    onSubmit: (values: any) => {
-      console.log(JSON.stringify(values))
-      //dispatch();
+    onSubmit: (values, { resetForm }) => {
+      dispatch(singInTC(values))
+      resetForm()
     },
   })
 
@@ -43,6 +62,9 @@ export const SignInPage = () => {
       <StyledSignUpForm>
         <H2>Sing In</H2>
         <form onSubmit={formik.handleSubmit}>
+          {signIpRegError && !formik.touched.email && (
+            <StyledErrorArea>{signIpRegError}</StyledErrorArea>
+          )}
           <StyledInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
           {formik.errors.email && formik.touched.email ? (
             <StyledErrorArea>{formik.errors.email}</StyledErrorArea>
@@ -103,7 +125,7 @@ const StyledSignUpForm = styled.div`
   }
 
   .formButton {
-    margin: 69px 0 31px;
+    margin-top: 9px;
   }
 
   .styledBottomFormLink {
