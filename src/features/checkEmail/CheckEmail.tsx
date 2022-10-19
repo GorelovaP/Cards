@@ -1,6 +1,10 @@
+import { useEffect } from 'react'
+
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { passwordRecoveryEmailSentAC } from '../../app/app-reducer'
+import { useAppDispatch } from '../../app/hooks'
 import email from '../../assets/images/Email.svg'
 import { StyledButton } from '../../common/styledComponents/styledButtons'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
@@ -8,6 +12,12 @@ import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrapp
 import { theme } from '../../common/styledComponents/theme'
 
 export const CheckEmail = () => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(passwordRecoveryEmailSentAC(false))
+  }, [])
+
   let navigate = useNavigate()
   const goLogin = () => {
     navigate('/signin')

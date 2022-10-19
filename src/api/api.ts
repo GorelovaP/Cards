@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 
 const instance = axios.create({
-  baseURL: `http://localhost:7542/2.0/`,
+  baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
   withCredentials: true,
 })
 
@@ -25,6 +25,12 @@ export const getInAPI = {
       }
     )
   },
+  forgotPassword(email: string, from: string, message: string) {
+    return instance.post<
+      { email: string; from: string; message: string },
+      AxiosResponse<ForgotPassword>
+    >(`auth/forgot`, { email, from, message })
+  },
 }
 
 // =============== Types ==============
@@ -45,4 +51,8 @@ export type SignInResType = {
   verified: boolean // подтвердил ли почту
   rememberMe: boolean
   error?: string
+}
+
+export type ForgotPassword = {
+  error: string
 }
