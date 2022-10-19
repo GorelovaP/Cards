@@ -9,6 +9,7 @@ import edit from '../../assets/images/edit.svg'
 import logOut from '../../assets/images/logout.svg'
 import photo from '../../assets/images/photo.png'
 import { BackToPack } from '../../common/styledComponents/BackToPack'
+import { EditableSpan } from '../../common/styledComponents/EditableSpan'
 import { StyledButton } from '../../common/styledComponents/styledButtons'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
@@ -42,10 +43,7 @@ export const PersonalInformation = () => {
             </button>
           </div>
           <div className={'title'}>
-            {title}
-            <button>
-              <img src={edit} alt="edit" />
-            </button>
+            <EditableSpan onChange={setTitle} title={title} />
           </div>
           <H4>email</H4>
           <LogOutButton>
