@@ -9,10 +9,10 @@ import * as Yup from 'yup'
 // @ts-ignore
 import { signUpTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { StyledInput } from '../../common/components/styledInput'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styledHeaders'
-import { StyledInput } from '../../common/styledComponents/styledInput'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
 export const SignUpPage = memo(() => {

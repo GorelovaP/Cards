@@ -8,10 +8,10 @@ import * as Yup from 'yup'
 
 import { createNewPasswordTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { StyledInput } from '../../common/components/styledInput'
 import { StyledButton } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
-import { StyledInput } from '../../common/styledComponents/styledInput'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
 export const CreateNewPassword = memo(() => {

@@ -14,11 +14,11 @@ import {
 } from '../../app/app-reducer'
 import { singInTC } from '../../app/auth-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { StyledCheckbox } from '../../common/components/styledCheckbox'
+import { StyledInput } from '../../common/components/styledInput'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
-import { StyledCheckbox } from '../../common/styledComponents/styledCheckbox'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styledHeaders'
-import { StyledInput } from '../../common/styledComponents/styledInput'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
 export const SignInPage = () => {

@@ -7,10 +7,9 @@ import * as Yup from 'yup'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { changeUserNameTC } from '../../app/user-reducer'
 import edit from '../../assets/images/edit.svg'
-
-import { StyledInnerButton } from './styledButtons'
-import { StyledErrorArea } from './styledErrorArea'
-import { StyledInput } from './styledInput'
+import { StyledInput } from '../../common/components/styledInput'
+import { StyledInnerButton } from '../../common/styledComponents/styledButtons'
+import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 
 export const EditableSpan = () => {
   let name = useAppSelector(state => state.user.user.name)

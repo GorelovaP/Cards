@@ -5,9 +5,8 @@ import styled from 'styled-components'
 
 import avatar from '../../assets/images/avatar.png'
 import logo from '../../assets/images/logo.svg'
-
-import { StyleButtonForHeader } from './styledButtons'
-import { StyledMainWrapper } from './styledWrappers'
+import { StyleButtonForHeader } from '../../common/styledComponents/styledButtons'
+import { StyledMainWrapper } from '../../common/styledComponents/styledWrappers'
 
 export const Header = () => {
   const navigate = useNavigate()

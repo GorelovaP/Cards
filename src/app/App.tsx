@@ -3,14 +3,14 @@ import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
+import { Loading } from '../common/components/Loading'
 import { GlobalStyles } from '../common/styledComponents/globalStyles'
-import { Header } from '../common/styledComponents/Header'
-import { Loading } from '../common/styledComponents/Loading'
 import { StyledMainWrapper } from '../common/styledComponents/styledWrappers'
 import { theme } from '../common/styledComponents/theme'
 import { CheckEmail } from '../features/checkEmail/CheckEmail'
 import { CreateNewPassword } from '../features/createNewPassword/CreateNewPassword'
 import { ForgotPasswordPage } from '../features/forgotPasswordPage/ForgotPasswortPage'
+import { Header } from '../features/header/Header'
 import { MainPage } from '../features/mainPage/MainPage'
 import { PersonalInformation } from '../features/personalInformation/PersonalInformation'
 import { SignUpPage } from '../features/signUpPage/SignUpPage'
@@ -40,7 +40,9 @@ function App() {
           <Routes>
             {/*вместо карточек вначле нужно показывать профиль */}
             <Route path={'/profile'} element={<PersonalInformation />} />
-            <Route path={'/cards'} element={<MainPage />} />
+            <Route path={'/cards'} element={<PersonalInformation />} />
+            {/*/cards to be changed as initial route*/}
+            {/*<Route path={'/cards'} element={<MainPage />} />*/}
             <Route path={'/signup'} element={<SignUpPage />} />
             <Route path={'/signin'} element={<SignInPage />} />
             <Route path={'/checkemail'} element={<CheckEmail />} />

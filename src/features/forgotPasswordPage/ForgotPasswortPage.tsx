@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 
 import { sendPasswordRecoveryTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { StyledInput } from '../../common/components/styledInput'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import {
@@ -15,7 +16,6 @@ import {
   H4,
   StyledBottomFormLink,
 } from '../../common/styledComponents/styledHeaders'
-import { StyledInput } from '../../common/styledComponents/styledInput'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 import { StyledSignUpForm } from '../signUpPage/SignUpPage'
 

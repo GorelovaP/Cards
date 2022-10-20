@@ -8,11 +8,12 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import avatar from '../../assets/images/avatar.png'
 import logOut from '../../assets/images/logout.svg'
 import photo from '../../assets/images/photo.png'
-import { BackToPack } from '../../common/styledComponents/BackToPack'
-import { EditableSpan } from '../../common/styledComponents/EditableSpan'
+import { BackToPack } from '../../common/components/BackToPack'
 import { LogOutButton } from '../../common/styledComponents/styledButtons'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
+
+import { EditableSpan } from './EditableSpan'
 
 export const PersonalInformation = () => {
   const dispatch = useAppDispatch()
