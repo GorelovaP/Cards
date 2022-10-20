@@ -36,6 +36,11 @@ export const UserReducer = (
     case 'USER/CHANGE-USERS-NAME': {
       return { ...state, user: { ...state.user, name: action.userName } }
     }
+    case 'USER/SET-SING-OUT': {
+      debugger
+
+      return { ...state, user: { ...initialState.user } }
+    }
 
     default:
       return state
@@ -44,6 +49,9 @@ export const UserReducer = (
 
 export const setUserAC = (userData: UserType) => {
   return { type: 'USER/SET-USER', userData } as const
+}
+export const deleteUserInformationAC = () => {
+  return { type: 'USER/SET-SING-OUT' } as const
 }
 export const changeUserNameAC = (userName: string) => {
   return { type: 'USER/CHANGE-USERS-NAME', userName } as const
@@ -90,3 +98,4 @@ export type UserType = {
 export type UserReducerActionsType =
   | ReturnType<typeof setUserAC>
   | ReturnType<typeof changeUserNameAC>
+  | ReturnType<typeof deleteUserInformationAC>

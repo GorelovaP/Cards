@@ -1,58 +1,90 @@
-import React, { ChangeEvent, memo, useState } from 'react'
+import React, { useState } from 'react'
 
+import { useFormik } from 'formik'
 import styled from 'styled-components'
+import * as Yup from 'yup'
 
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { changeUserNameTC } from '../../app/user-reducer'
 import edit from '../../assets/images/edit.svg'
 
+import { StyledInnerButton } from './styledButtons'
+import { StyledErrorArea } from './styledErrorArea'
 import { StyledInput } from './styledInput'
 
-type EditableSpanPropsType = {
-  title: string
-  onChange: (newValue: string) => void
-}
+export const EditableSpan = () => {
+  let name = useAppSelector(state => state.user.user.name)
+  const dispatch = useAppDispatch()
 
-export const EditableSpan = memo((props: EditableSpanPropsType) => {
+  const formik = useFormik({
+    validationSchema: Yup.object({
+      name: Yup.string().min(1).required('* Subject field is required'),
+    }),
+    initialValues: {
+      name: name,
+    },
+    onSubmit: values => {
+      dispatch(changeUserNameTC(values.name))
+      setEditMode(false)
+    },
+  })
+
   let [editMode, setEditMode] = useState(false)
-  let [title, setTitle] = useState('')
 
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value)
-  }
   const activateEditMode = () => {
     setEditMode(true)
-    setTitle(props.title)
   }
-  const activateViewMode = () => {
-    setEditMode(false)
-    props.onChange(title)
-  }
+
   const activateViewModeByEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       setEditMode(false)
-      props.onChange(title)
+      formik.submitForm()
     }
   }
 
+  // function handleBlur(event: React.FocusEvent<HTMLInputElement>) {
+  //   setEditMode(false)
+  //   formik.handleBlur
+  //   // formik.values.name = name
+  // }
+
   return editMode ? (
-    <StyledInput
-      text={title}
-      autoFocus
-      value={title}
-      label={'Nickname'}
-      innerButton={'Save'}
-      onInnerBtnClick={activateViewMode}
-      onKeyPress={e => activateViewModeByEnter(e)}
-      onBlur={activateViewMode}
-      onChange={onChangeHandler}
-    />
+    <FormSpan onSubmit={formik.handleSubmit}>
+      <StyledInput
+        text={'text'}
+        className={'InputSpan'}
+        autoFocus
+        label={'Nickname'}
+        onKeyPress={e => activateViewModeByEnter(e)}
+        //onBlur={event => handleBlur(event)}
+        onBlur={formik.handleBlur}
+        name="name"
+        onChange={formik.handleChange}
+        value={formik.values.name}
+      />
+      {formik.errors.name && formik.touched.name ? (
+        <StyledErrorArea>{formik.errors.name}</StyledErrorArea>
+      ) : null}
+      <StyledInnerButton type="submit">Save</StyledInnerButton>
+    </FormSpan>
   ) : (
     <StyledSpan onDoubleClick={activateEditMode}>
-      {props.title} <img src={edit} alt="edit" />
+      {name} <img src={edit} alt="edit" />
     </StyledSpan>
   )
-})
+}
+
 export const StyledSpan = styled.span`
   text-align: center;
   position: center;
   margin-bottom: 14px;
+`
+export const FormSpan = styled.form`
+  width: 100%;
+  position: relative;
+  height: 67px;
+
+  .InputSpan {
+    margin-bottom: 0;
+  }
 `

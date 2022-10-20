@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { singOutTC } from '../../app/auth-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { changeUserNameTC } from '../../app/user-reducer'
 import avatar from '../../assets/images/avatar.png'
 import logOut from '../../assets/images/logout.svg'
 import photo from '../../assets/images/photo.png'
@@ -15,23 +15,17 @@ import { H2, H4 } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
 export const PersonalInformation = () => {
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  let user = useAppSelector(state => state.user.user)
-  let email = useAppSelector(state => state.user.user.email)
-  let name = useAppSelector(state => state.user.user.name)
 
-  if (user.email === '') {
-    navigate('/signin')
+  let isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  let email = useAppSelector(state => state.user.user.email)
+
+  const LogOut = () => {
+    dispatch(singOutTC())
   }
 
-  //Осталось:
-  //добавить фотки в гит
-  //отобразить данные которые пришли в редюсер
-  //по кнопке лог аут выполнить разлогинезацию ( т е обнулить юзеровский редюсер и сделать свойство isLoggedIn в аус редюсере фолсовым)
-
-  const ChangeUserName = (title: string) => {
-    dispatch(changeUserNameTC(title))
+  if (!isLoggedIn) {
+    return <Navigate to={'/signin'} />
   }
 
   return (
@@ -46,11 +40,9 @@ export const PersonalInformation = () => {
               <img src={photo} alt="button" />
             </button>
           </div>
-
-          <EditableSpan onChange={(title: string) => ChangeUserName(title)} title={name} />
-
+          <EditableSpan />
           <H4>{email}</H4>
-          <LogOutButton className={'logOutBtn'}>
+          <LogOutButton className={'logOutBtn'} onClick={LogOut}>
             <img src={logOut} alt="logOut" />
             Log out
           </LogOutButton>

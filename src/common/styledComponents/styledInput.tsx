@@ -3,15 +3,11 @@ import React, { createElement, DetailedHTMLProps, InputHTMLAttributes } from 're
 import { IconType } from 'react-icons'
 import styled from 'styled-components'
 
-import { StyledInnerButton } from './styledButtons'
-
 export const StyledInput: React.FC<PropsType> = ({
   text,
   label,
   onClickAction,
   icon,
-  innerButton,
-  onInnerBtnClick,
   ...restProps
 }) => {
   return (
@@ -21,9 +17,6 @@ export const StyledInput: React.FC<PropsType> = ({
       <span className={'line'} />
       <span className={'ItemIcon'} onClick={onClickAction}>
         {icon && createElement(icon)}
-        {innerButton && (
-          <StyledInnerButton onClick={onInnerBtnClick}>{innerButton}</StyledInnerButton>
-        )}
       </span>
     </StyledInputItem>
   )
@@ -86,8 +79,6 @@ export const StyledInputItem = styled.div`
 type PropsType = DefaultInputPropsType & {
   text: string
   label?: string
-  innerButton?: string
-  onInnerBtnClick?: () => void
   icon?: IconType
   onClickAction?: () => void
 }

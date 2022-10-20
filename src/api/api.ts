@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
+
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
   withCredentials: true,
@@ -9,7 +10,10 @@ export const getInAPI = {
     return instance.post<null, AxiosResponse<SignInResType>>(`auth/me`)
   },
   singIn(email: string, password: string, rememberMe: boolean) {
-    return instance.post<AxiosResponse<SignInResType>>(`auth/login`, {
+    return instance.post<
+      { email: string; password: string; rememberMe: boolean },
+      AxiosResponse<SignInResType>
+    >(`auth/login`, {
       email,
       password,
       rememberMe,
@@ -23,6 +27,9 @@ export const getInAPI = {
         password,
       }
     )
+  },
+  signOut() {
+    return instance.delete<null, AxiosResponse<SignUpResType>>(`auth/me`)
   },
   forgotPassword(email: string, from: string, message: string) {
     return instance.post<{ email: string; from: string; message: string }, AxiosResponse<AppError>>(
