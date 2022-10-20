@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios'
 import { getInAPI, SignUpResType } from '../api/api'
 
 import { AppThunkType } from './store'
+import { deleteUserInformationAC, setUserAC } from './user-reducer'
 
 export type initialStateType = {
   isLoggedIn: boolean
@@ -24,6 +25,9 @@ export const AuthReducer = (
     case 'AUTH/SET-IN-ERROR': {
       return { ...state, signInError: action.regError }
     }
+    case 'AUTH/SET-IS-LOGGED-OUT': {
+      return { ...state, isLoggedIn: false }
+    }
     default:
       return state
   }
@@ -31,6 +35,9 @@ export const AuthReducer = (
 
 export const signInAC = (value: boolean) => {
   return { type: 'AUTH/SET-IS-LOGGED-IN', value } as const
+}
+export const signOutAC = () => {
+  return { type: 'AUTH/SET-IS-LOGGED-OUT' } as const
 }
 export const signInSetErrorAC = (regError: string) => {
   return { type: 'AUTH/SET-IN-ERROR', regError } as const
@@ -45,6 +52,7 @@ export const singInTC =
       const res = await getInAPI.singIn(data.email, data.password, data.rememberMe)
 
       dispatch(signInAC(true))
+      dispatch(setUserAC(res.data))
     } catch (err) {
       const errors = err as Error | AxiosError<SignUpResType>
 
@@ -55,6 +63,23 @@ export const singInTC =
       }
     }
   }
+export const singOutTC = (): AppThunkType => async dispatch => {
+  try {
+    const res = await getInAPI.signOut()
+
+    dispatch(signOutAC())
+    dispatch(deleteUserInformationAC())
+  } catch (err) {
+    const errors = err as Error | AxiosError<SignUpResType>
+
+    if (axios.isAxiosError(errors)) {
+      dispatch(signInSetErrorAC(errors.response?.data.error))
+    } else {
+      dispatch(signInSetErrorAC('Something went wrong...'))
+    }
+  }
+}
+
 // ================ Types ====================
 type singInParamsType = {
   email: string
@@ -65,3 +90,4 @@ type singInParamsType = {
 export type AuthReducerActionsType =
   | ReturnType<typeof signInAC>
   | ReturnType<typeof signInSetErrorAC>
+  | ReturnType<typeof signOutAC>

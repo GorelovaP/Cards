@@ -75,7 +75,7 @@ export const initializeAppTC = (): AppThunkType => async dispatch => {
     const errors = e as Error | AxiosError<SignUpResType>
 
     if (axios.isAxiosError(errors)) {
-      //наверное обнулить данные в редюсере юзера
+      console.log('Вы не авторизованы')
       //dispatch(signUpSetErrorAC(errors.response?.data.error))
     }
   } finally {

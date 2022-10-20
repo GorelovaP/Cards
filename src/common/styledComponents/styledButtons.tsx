@@ -44,6 +44,9 @@ export const LogOutButton = styled(StyledButton)`
   box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 `
 export const StyledInnerButton = styled(StyledButton)`
+  position: relative;
+  width: 52px;
+  transform: translate(295px, -52px);
   padding: 0 10px;
   border-radius: 2px;
   text-transform: uppercase;
@@ -52,5 +55,5 @@ export const StyledInnerButton = styled(StyledButton)`
   font-weight: 400;
   font-size: 12px;
   line-height: 24px;
-  transform: translate(0px, -5px);
+  z-index: 2;
 `

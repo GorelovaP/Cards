@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -13,7 +13,7 @@ import { theme } from '../../common/styledComponents/theme'
 
 export const CheckEmail = () => {
   const dispatch = useAppDispatch()
-  const email = useAppSelector(state => state.app.passwordRecoveryEmailSent)
+  const email = useAppSelector(state => state.app.passwordRecoveryEmail)
 
   useEffect(() => {
     dispatch(passwordRecoveryEmailSentAC(false))
@@ -24,10 +24,6 @@ export const CheckEmail = () => {
     navigate('/signin')
   }
 
-  if (email) {
-    navigate('/forgotpassword')
-  }
-
   return (
     <StyledSingFormWrapper>
       <StyledSignUpForm>
@@ -35,7 +31,6 @@ export const CheckEmail = () => {
         <div className={'imageContainer'}>
           <img src={emailIcon} alt="EmailIcon" className={'icon'} />
         </div>
-        {/*не забыть сделать емаил нестатичным*/}
         <H4>We’ve sent an Email with instructions to {email}</H4>
         <StyledButton className={'checkEmailBtn'} onClick={goLogin}>
           Back to login

@@ -39,13 +39,13 @@ function App() {
           <Header />
           <Routes>
             {/*вместо карточек вначле нужно показывать профиль */}
+            <Route path={'/profile'} element={<PersonalInformation />} />
             <Route path={'/cards'} element={<MainPage />} />
             <Route path={'/signup'} element={<SignUpPage />} />
             <Route path={'/signin'} element={<SignInPage />} />
             <Route path={'/checkemail'} element={<CheckEmail />} />
             <Route path={'/forgotpassword'} element={<ForgotPasswordPage />} />
             <Route path={'/createnewpassword/*'} element={<CreateNewPassword />} />
-            <Route path={'/profile'} element={<PersonalInformation />} />
             <Route path={'/*'} element={<div>404</div>} />
           </Routes>
         </StyledMainWrapper>
