@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios'
-
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
   withCredentials: true,
@@ -7,7 +6,7 @@ const instance = axios.create({
 
 export const getInAPI = {
   me() {
-    return instance.post<AxiosResponse<SignInResType>>(`auth/me`)
+    return instance.post<null, AxiosResponse<SignInResType>>(`auth/me`)
   },
   singIn(email: string, password: string, rememberMe: boolean) {
     return instance.post<AxiosResponse<SignInResType>>(`auth/login`, {
@@ -31,6 +30,9 @@ export const getInAPI = {
       AxiosResponse<ForgotPassword>
     >(`auth/forgot`, { email, from, message })
   },
+  changeUserName(name: string) {
+    return instance.put<{ name: string }, AxiosResponse<ChangeNameResType>>(`auth/me`, { name })
+  },
 }
 
 // =============== Types ==============
@@ -45,14 +47,23 @@ export type SignInResType = {
   name: string
   avatar?: string
   publicCardPacksCount: number // количество колод
+
   created: Date
   updated: Date
   isAdmin: boolean
   verified: boolean // подтвердил ли почту
   rememberMe: boolean
+
+  token?: ''
+  tokenDeathTime?: number
+  __v?: number
   error?: string
 }
 
 export type ForgotPassword = {
   error: string
+}
+export type ChangeNameResType = {
+  updatedUser: SignInResType
+  error?: string
 }

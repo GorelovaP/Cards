@@ -1,5 +1,7 @@
 import React, { ChangeEvent, memo, useState } from 'react'
 
+import styled from 'styled-components'
+
 import edit from '../../assets/images/edit.svg'
 
 import { StyledInput } from './styledInput'
@@ -10,7 +12,6 @@ type EditableSpanPropsType = {
 }
 
 export const EditableSpan = memo((props: EditableSpanPropsType) => {
-  console.log('EditableSpan')
   let [editMode, setEditMode] = useState(false)
   let [title, setTitle] = useState('')
 
@@ -21,9 +22,15 @@ export const EditableSpan = memo((props: EditableSpanPropsType) => {
     setEditMode(true)
     setTitle(props.title)
   }
-  const activateVievMode = () => {
+  const activateViewMode = () => {
     setEditMode(false)
     props.onChange(title)
+  }
+  const activateViewModeByEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setEditMode(false)
+      props.onChange(title)
+    }
   }
 
   return editMode ? (
@@ -31,13 +38,19 @@ export const EditableSpan = memo((props: EditableSpanPropsType) => {
       text={title}
       autoFocus
       value={title}
-      label={'save'}
-      onBlur={activateVievMode}
+      label={'Nickname'}
+      onKeyPress={e => activateViewModeByEnter(e)}
+      onBlur={activateViewMode}
       onChange={onChangeHandler}
     />
   ) : (
-    <span onDoubleClick={activateEditMode}>
+    <StyledSpan onDoubleClick={activateEditMode}>
       {props.title} <img src={edit} alt="edit" />
-    </span>
+    </StyledSpan>
   )
 })
+export const StyledSpan = styled.span`
+  text-align: center;
+  position: center;
+  margin-bottom: 14px;
+`

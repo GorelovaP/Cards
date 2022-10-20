@@ -33,3 +33,13 @@ export const StyleButtonFormAdjusted = styled(StyledButton)`
 export const StyleButtonForHeader = styled(StyledButton)`
   padding: 0 28px;
 `
+export const LogOutButton = styled(StyledButton)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  width: 127px;
+  height: 36px;
+  background: #fcfcfc;
+  box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+`

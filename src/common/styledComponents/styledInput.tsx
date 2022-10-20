@@ -12,7 +12,7 @@ export const StyledInput: React.FC<PropsType> = ({
 }) => {
   return (
     <StyledInputItem>
-      {label && <label>{label}</label>}
+      {label && <label className={'label'}>{label}</label>}
       <input type={text} {...restProps} />
       <span className={'line'} />
       <span className={'ItemIcon'} onClick={onClickAction}>
@@ -24,6 +24,7 @@ export const StyledInput: React.FC<PropsType> = ({
 
 //styled component
 export const StyledInputItem = styled.div`
+  width: 100%;
   margin-bottom: 24px;
   position: relative;
 
@@ -57,6 +58,9 @@ export const StyledInputItem = styled.div`
   label,
   input::placeholder {
     opacity: 0.5;
+  }
+  .label {
+    font-size: 13px;
   }
 
   .ItemIcon {

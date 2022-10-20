@@ -69,8 +69,6 @@ export const initializeAppTC = (): AppThunkType => async dispatch => {
   try {
     const res = await getInAPI.me()
 
-    console.log(res)
-
     dispatch(setUserAC(res.data))
     dispatch(signInAC(true))
   } catch (e) {
