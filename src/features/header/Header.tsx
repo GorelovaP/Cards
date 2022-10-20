@@ -13,6 +13,7 @@ import { StyledMainWrapper } from '../../common/styledComponents/styledWrappers'
 export const Header = () => {
   const navigate = useNavigate()
   const match = useMatch('/:routeKey/*')
+  const userName = useAppSelector(state => state.user.user.name)
 
   const isLoading = useAppSelector(store => store.app.isLoading)
 
@@ -36,7 +37,7 @@ export const Header = () => {
             <StyleButtonForHeader onClick={GotoSingIn}> Sign in</StyleButtonForHeader>
           ) : (
             <StyleHeaderRightIcons onClick={GotoProfile}>
-              <div className={'personalName'}> Login </div>
+              <div className={'personalName'}> {userName} </div>
               <img className={'personalIcon'} alt={'personalIcon'} src={avatar} />
             </StyleHeaderRightIcons>
           )}
