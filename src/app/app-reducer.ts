@@ -9,6 +9,7 @@ import { setUserAC } from './user-reducer'
 const initialState: AppStateType = {
   isInitialized: false,
   registered: false,
+  appError: '',
   regError: '',
   commonError: '',
   passwordRecoveryEmail: '',
@@ -42,6 +43,9 @@ export const AppReducer = (
     case 'APP/NEW-PASSWORD-CREATED': {
       return { ...state, newPasswordCreated: action.sent }
     }
+    case 'APP/SET-APP-ERROR': {
+      return { ...state, appError: action.text }
+    }
     default:
       return state
   }
@@ -61,6 +65,7 @@ export const passwordRecoveryEmailSentAC = (sent: boolean) =>
   ({ type: 'APP/PASSWORD-RECOVERY-EMAIL-SENT', sent } as const)
 export const newPasswordCreatedAC = (sent: boolean) =>
   ({ type: 'APP/NEW-PASSWORD-CREATED', sent } as const)
+export const setAppErrorAC = (text: string) => ({ type: 'APP/SET-APP-ERROR', text } as const)
 
 // ================ Thunk creators ================
 export const initializeAppTC = (): AppThunkType => async dispatch => {
@@ -73,8 +78,10 @@ export const initializeAppTC = (): AppThunkType => async dispatch => {
     const errors = e as Error | AxiosError<SignUpResType>
 
     if (axios.isAxiosError(errors)) {
-      console.log('Вы не авторизованы')
-      //dispatch(signUpSetErrorAC(errors.response?.data.error))
+      dispatch(setAppErrorAC(errors.response?.data.error))
+      setTimeout(() => {
+        dispatch(setAppErrorAC(''))
+      }, 7000)
     }
   } finally {
     dispatch(setAppInitializedAC(true))
@@ -134,6 +141,7 @@ export const createNewPasswordTC =
 export type AppStateType = {
   isInitialized: boolean
   registered: boolean
+  appError: string
   regError: string
   commonError: string
   passwordRecoveryEmail: string
@@ -151,3 +159,4 @@ export type AppReducerActionsType =
   | ReturnType<typeof setPasswordRecoveryEmailAC>
   | ReturnType<typeof passwordRecoveryEmailSentAC>
   | ReturnType<typeof newPasswordCreatedAC>
+  | ReturnType<typeof setAppErrorAC>

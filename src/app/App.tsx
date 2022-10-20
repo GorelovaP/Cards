@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
 import { Loading } from '../common/components/Loading'
+import { Snackbar } from '../common/components/Snackbar'
 import { GlobalStyles } from '../common/styledComponents/globalStyles'
 import { StyledMainWrapper } from '../common/styledComponents/styledWrappers'
 import { theme } from '../common/styledComponents/theme'
@@ -11,7 +12,6 @@ import { CheckEmail } from '../features/checkEmail/CheckEmail'
 import { CreateNewPassword } from '../features/createNewPassword/CreateNewPassword'
 import { ForgotPasswordPage } from '../features/forgotPasswordPage/ForgotPasswortPage'
 import { Header } from '../features/header/Header'
-import { MainPage } from '../features/mainPage/MainPage'
 import { PersonalInformation } from '../features/personalInformation/PersonalInformation'
 import { SignUpPage } from '../features/signUpPage/SignUpPage'
 import { SignInPage } from '../features/singInPage/SignInPage'
@@ -22,6 +22,7 @@ import { useAppDispatch, useAppSelector } from './hooks'
 function App() {
   const dispatch = useAppDispatch()
   const isInitialized = useAppSelector(state => state.app.isInitialized)
+  const appError = useAppSelector(state => state.app.appError)
 
   useEffect(() => {
     dispatch(initializeAppTC())
@@ -38,7 +39,6 @@ function App() {
         <StyledMainWrapper>
           <Header />
           <Routes>
-            {/*вместо карточек вначле нужно показывать профиль */}
             <Route path={'/profile'} element={<PersonalInformation />} />
             <Route path={'/cards'} element={<PersonalInformation />} />
             {/*/cards to be changed as initial route*/}
@@ -51,6 +51,7 @@ function App() {
             <Route path={'/*'} element={<div>404</div>} />
           </Routes>
         </StyledMainWrapper>
+        {appError && <Snackbar text={appError} color={'rgb(211, 47, 47)'} />}
       </ThemeProvider>
     </div>
   )
