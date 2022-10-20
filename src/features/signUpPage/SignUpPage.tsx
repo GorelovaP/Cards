@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
@@ -15,7 +15,8 @@ import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styl
 import { StyledInput } from '../../common/styledComponents/styledInput'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
-export const SignUpPage = () => {
+export const SignUpPage = memo(() => {
+  console.log('signup')
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
 
@@ -111,7 +112,7 @@ export const SignUpPage = () => {
       </StyledSignUpForm>
     </StyledSingFormWrapper>
   )
-}
+})
 
 // styled component
 export const StyledSignUpForm = styled.div`

@@ -1,21 +1,28 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
-import { signUpTC } from '../../app/app-reducer'
-import { useAppDispatch } from '../../app/hooks'
+import { createNewPasswordTC } from '../../app/app-reducer'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { StyledButton } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
 import { StyledInput } from '../../common/styledComponents/styledInput'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
-export const CreateNewPassword = () => {
+export const CreateNewPassword = memo(() => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
+
+  const commonError = useAppSelector(store => store.app.commonError)
+  const newPasswordCreated = useAppSelector(store => store.app.newPasswordCreated)
+
+  // getting url address
+  const token = window.location.pathname.split('/')[2]
 
   const onClickAction = () => {
     setPasswordIcon(!passwordIcon)
@@ -33,17 +40,26 @@ export const CreateNewPassword = () => {
     },
     onSubmit: (values, { resetForm }) => {
       console.log(JSON.stringify(values))
-      dispatch(signUpTC(values.password, values.password))
+      dispatch(createNewPasswordTC(values.password, token))
       resetForm()
     },
   })
+
+  if (newPasswordCreated) {
+    return <Navigate to={'/signin'} />
+  }
 
   return (
     <StyledSingFormWrapper>
       <StyledCreateNewPassword>
         <H2>Create new password</H2>
-        <form action="">
+        <form onSubmit={formik.handleSubmit}>
           <div className={'inputErrorHandlerForm'}>
+            <div className={'formErrorPlacement'}>
+              {commonError && !formik.touched.password && (
+                <StyledErrorArea>{commonError}</StyledErrorArea>
+              )}
+            </div>
             <StyledInput
               text={passwordShowMode ? 'password' : 'text'}
               placeholder={'Password'}
@@ -58,12 +74,14 @@ export const CreateNewPassword = () => {
             </div>
           </div>
           <H4>Create new password and we will send you further instructions to email</H4>
-          <StyledButton className={'CreateNewPasswordBtn'}>Create new password</StyledButton>
+          <StyledButton className={'CreateNewPasswordBtn'} type="submit">
+            Create new password
+          </StyledButton>
         </form>
       </StyledCreateNewPassword>
     </StyledSingFormWrapper>
   )
-}
+})
 
 const StyledCreateNewPassword = styled.div`
   .CreateNewPasswordBtn {

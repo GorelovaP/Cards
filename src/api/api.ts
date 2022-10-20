@@ -25,13 +25,19 @@ export const getInAPI = {
     )
   },
   forgotPassword(email: string, from: string, message: string) {
-    return instance.post<
-      { email: string; from: string; message: string },
-      AxiosResponse<ForgotPassword>
-    >(`auth/forgot`, { email, from, message })
+    return instance.post<{ email: string; from: string; message: string }, AxiosResponse<AppError>>(
+      `auth/forgot`,
+      { email, from, message }
+    )
   },
   changeUserName(name: string) {
     return instance.put<{ name: string }, AxiosResponse<ChangeNameResType>>(`auth/me`, { name })
+  },
+  createNewPassword(password: string, resetPasswordToken: string) {
+    return instance.post<{ newPassword: string; token: string }, AxiosResponse<AppError>>(
+      `auth/set-new-password`,
+      { password, resetPasswordToken }
+    )
   },
 }
 
@@ -60,7 +66,7 @@ export type SignInResType = {
   error?: string
 }
 
-export type ForgotPassword = {
+export type AppError = {
   error: string
 }
 export type ChangeNameResType = {

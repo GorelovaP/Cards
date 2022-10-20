@@ -22,7 +22,7 @@ import { StyledSignUpForm } from '../signUpPage/SignUpPage'
 export const ForgotPasswordPage = () => {
   const dispatch = useAppDispatch()
   const sent = useAppSelector(store => store.app.passwordRecoveryEmailSent)
-  const sentrecoveryLinkError = useAppSelector(store => store.app.passwordRecoveryError)
+  const sentrecoveryLinkError = useAppSelector(store => store.app.commonError)
 
   const formik = useFormik({
     validationSchema: Yup.object({

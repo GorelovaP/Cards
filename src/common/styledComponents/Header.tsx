@@ -11,7 +11,7 @@ import { StyledMainWrapper } from './styledWrappers'
 
 export const Header = () => {
   const navigate = useNavigate()
-  const match = useMatch('/:routeKey')
+  const match = useMatch('/:routeKey/*')
 
   const GotoSingIn = () => {
     navigate('/signin')
@@ -26,6 +26,7 @@ export const Header = () => {
         <img src={logo} alt="logo" />
         <div>
           {match?.params.routeKey === 'signup' ||
+          match?.params.routeKey === 'createnewpassword' ||
           match?.params.routeKey === 'signin' ||
           match?.params.routeKey === 'checkemail' ||
           match?.params.routeKey === 'forgotpassword' ? (

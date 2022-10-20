@@ -6,7 +6,12 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
-import { signUpAC, signUpSetErrorAC } from '../../app/app-reducer'
+import {
+  newPasswordCreatedAC,
+  setCommonErrorAC,
+  signUpAC,
+  signUpSetErrorAC,
+} from '../../app/app-reducer'
 import { singInTC } from '../../app/auth-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
@@ -28,6 +33,8 @@ export const SignInPage = () => {
   useEffect(() => {
     dispatch(signUpAC(false))
     dispatch(signUpSetErrorAC(''))
+    dispatch(setCommonErrorAC(''))
+    dispatch(newPasswordCreatedAC(false))
   }, [])
 
   useEffect(() => {
