@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios'
 
 import { getInAPI, SignUpResType } from '../api/api'
 
+import { isLoadingAC } from './app-reducer'
 import { AppThunkType } from './store'
 import { deleteUserInformationAC, setUserAC } from './user-reducer'
 
@@ -48,11 +49,13 @@ export const singInTC =
   (data: singInParamsType): AppThunkType =>
   async dispatch => {
     try {
+      dispatch(isLoadingAC(true))
       dispatch(signInSetErrorAC(''))
       const res = await getInAPI.singIn(data.email, data.password, data.rememberMe)
 
       dispatch(signInAC(true))
       dispatch(setUserAC(res.data))
+      dispatch(isLoadingAC(false))
     } catch (err) {
       const errors = err as Error | AxiosError<SignUpResType>
 
@@ -65,10 +68,12 @@ export const singInTC =
   }
 export const singOutTC = (): AppThunkType => async dispatch => {
   try {
+    dispatch(isLoadingAC(true))
     const res = await getInAPI.signOut()
 
     dispatch(signOutAC())
     dispatch(deleteUserInformationAC())
+    dispatch(isLoadingAC(false))
   } catch (err) {
     const errors = err as Error | AxiosError<SignUpResType>
 

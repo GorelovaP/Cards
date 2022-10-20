@@ -15,6 +15,7 @@ const initialState: AppStateType = {
   passwordRecoveryEmail: '',
   passwordRecoveryEmailSent: false,
   newPasswordCreated: false,
+  isLoading: false,
 }
 
 export const AppReducer = (
@@ -46,6 +47,9 @@ export const AppReducer = (
     case 'APP/SET-APP-ERROR': {
       return { ...state, appError: action.text }
     }
+    case 'APP/IS-LOADING': {
+      return { ...state, isLoading: action.isLoading }
+    }
     default:
       return state
   }
@@ -66,6 +70,7 @@ export const passwordRecoveryEmailSentAC = (sent: boolean) =>
 export const newPasswordCreatedAC = (sent: boolean) =>
   ({ type: 'APP/NEW-PASSWORD-CREATED', sent } as const)
 export const setAppErrorAC = (text: string) => ({ type: 'APP/SET-APP-ERROR', text } as const)
+export const isLoadingAC = (isLoading: boolean) => ({ type: 'APP/IS-LOADING', isLoading } as const)
 
 // ================ Thunk creators ================
 export const initializeAppTC = (): AppThunkType => async dispatch => {
@@ -92,10 +97,12 @@ export const signUpTC =
   (email: string, password: string): AppThunkType =>
   async dispatch => {
     try {
+      dispatch(isLoadingAC(true))
       dispatch(signUpSetErrorAC(''))
       const res = await getInAPI.signUp(email, password)
 
       dispatch(signUpAC(true))
+      dispatch(isLoadingAC(false))
     } catch (err) {
       const errors = err as Error | AxiosError<SignUpResType>
 
@@ -111,11 +118,13 @@ export const sendPasswordRecoveryTC =
   (email: string, from: string, message: string): AppThunkType =>
   async dispatch => {
     try {
+      dispatch(isLoadingAC(true))
       dispatch(setCommonErrorAC(''))
       const res = await getInAPI.forgotPassword(email, from, message)
 
       dispatch(setPasswordRecoveryEmailAC(email))
       dispatch(passwordRecoveryEmailSentAC(true))
+      dispatch(isLoadingAC(false))
     } catch (err) {
       const errors = err as Error | AxiosError<AppError>
 
@@ -127,10 +136,12 @@ export const createNewPasswordTC =
   (newPassword: string, token: string): AppThunkType =>
   async dispatch => {
     try {
+      dispatch(isLoadingAC(true))
       dispatch(setCommonErrorAC(''))
       const res = await getInAPI.createNewPassword(newPassword, token)
 
       dispatch(newPasswordCreatedAC(true))
+      dispatch(isLoadingAC(false))
     } catch (err) {
       const errors = err as Error | AxiosError<AppError>
 
@@ -147,6 +158,7 @@ export type AppStateType = {
   passwordRecoveryEmail: string
   passwordRecoveryEmailSent: boolean
   newPasswordCreated: boolean
+  isLoading: boolean
 }
 
 //common type for reducer and to be merged in store
@@ -160,3 +172,4 @@ export type AppReducerActionsType =
   | ReturnType<typeof passwordRecoveryEmailSentAC>
   | ReturnType<typeof newPasswordCreatedAC>
   | ReturnType<typeof setAppErrorAC>
+  | ReturnType<typeof isLoadingAC>
