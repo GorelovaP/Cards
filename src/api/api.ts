@@ -29,7 +29,7 @@ export const getInAPI = {
     )
   },
   signOut() {
-    return instance.delete<null, AxiosResponse<SignUpResType>>(`auth/me`)
+    return instance.delete<null, AxiosResponse<SignOut>>(`auth/me`)
   },
   forgotPassword(email: string, from: string, message: string) {
     return instance.post<
@@ -73,4 +73,9 @@ export type ForgotPassword = {
 export type ChangeNameResType = {
   updatedUser: SignInResType
   error?: string
+}
+
+export type SignOut = {
+  info: string
+  error: string
 }

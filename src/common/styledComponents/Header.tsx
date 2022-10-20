@@ -3,6 +3,7 @@ import React from 'react'
 import { useNavigate, useMatch } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { useAppSelector } from '../../app/hooks'
 import avatar from '../../assets/images/avatar.png'
 import logo from '../../assets/images/logo.svg'
 
@@ -12,6 +13,7 @@ import { StyledMainWrapper } from './styledWrappers'
 export const Header = () => {
   const navigate = useNavigate()
   const match = useMatch('/:routeKey')
+  const userName = useAppSelector(state => state.user.user.name)
 
   const GotoSingIn = () => {
     navigate('/signin')
@@ -32,7 +34,7 @@ export const Header = () => {
             <StyleButtonForHeader onClick={GotoSingIn}> Sign in</StyleButtonForHeader>
           ) : (
             <StyleHeaderRightIcons onClick={GotoProfile}>
-              <div className={'personalName'}> Login </div>
+              <div className={'personalName'}> {userName} </div>
               <img className={'personalIcon'} alt={'personalIcon'} src={avatar} />
             </StyleHeaderRightIcons>
           )}
@@ -59,10 +61,12 @@ export const StyleHeaderSecond = styled(StyledMainWrapper)`
 export const StyleHeaderRightIcons = styled.div`
   display: flex;
   align-items: center;
+
   .personalName {
     border-bottom: 1px dotted #000;
     text-decoration: none;
   }
+
   .personalIcon {
     margin-left: 12px;
     width: 36px;

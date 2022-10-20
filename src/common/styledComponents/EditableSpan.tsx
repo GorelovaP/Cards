@@ -45,7 +45,7 @@ export const EditableSpan = () => {
   // function handleBlur(event: React.FocusEvent<HTMLInputElement>) {
   //   setEditMode(false)
   //   formik.handleBlur
-  //   // formik.values.name = name
+  //   formik.values.name = name
   // }
 
   return editMode ? (
@@ -56,7 +56,7 @@ export const EditableSpan = () => {
         autoFocus
         label={'Nickname'}
         onKeyPress={e => activateViewModeByEnter(e)}
-        //onBlur={event => handleBlur(event)}
+        //onBlur={handleBlur}
         onBlur={formik.handleBlur}
         name="name"
         onChange={formik.handleChange}
