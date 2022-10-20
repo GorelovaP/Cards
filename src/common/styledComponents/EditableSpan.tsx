@@ -39,6 +39,8 @@ export const EditableSpan = memo((props: EditableSpanPropsType) => {
       autoFocus
       value={title}
       label={'Nickname'}
+      innerButton={'Save'}
+      onInnerBtnClick={activateViewMode}
       onKeyPress={e => activateViewModeByEnter(e)}
       onBlur={activateViewMode}
       onChange={onChangeHandler}
