@@ -3,14 +3,18 @@ import React from 'react'
 import { useNavigate, useMatch } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { useAppSelector } from '../../app/hooks'
 import avatar from '../../assets/images/avatar.png'
 import logo from '../../assets/images/logo.svg'
+import { LoadingProcess } from '../../common/components/LoadingProcess'
 import { StyleButtonForHeader } from '../../common/styledComponents/styledButtons'
 import { StyledMainWrapper } from '../../common/styledComponents/styledWrappers'
 
 export const Header = () => {
   const navigate = useNavigate()
   const match = useMatch('/:routeKey/*')
+
+  const isLoading = useAppSelector(store => store.app.isLoading)
 
   const GotoSingIn = () => {
     navigate('/signin')
@@ -38,6 +42,7 @@ export const Header = () => {
           )}
         </div>
       </StyleHeaderSecond>
+      {isLoading && <LoadingProcess />}
     </StyleHeader>
   )
 }
