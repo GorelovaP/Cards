@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios'
 
 import { ChangeNameResType, getInAPI } from '../api/api'
 
+import { isLoadingAC } from './app-reducer'
 import { AppThunkType } from './store'
 
 export type initialStateType = {
@@ -63,6 +64,7 @@ export const changeUserNameTC =
   (name: string): AppThunkType =>
   async dispatch => {
     try {
+      dispatch(isLoadingAC(true))
       const res = await getInAPI.changeUserName(name)
 
       dispatch(changeUserNameAC(res.data.updatedUser.name))
@@ -70,8 +72,10 @@ export const changeUserNameTC =
       const errors = e as Error | AxiosError<ChangeNameResType>
 
       if (axios.isAxiosError(errors)) {
-        console.log(errors)
+        console.log(errors.response?.data.error)
       }
+    } finally {
+      dispatch(isLoadingAC(false))
     }
   }
 // ================ Types ====================

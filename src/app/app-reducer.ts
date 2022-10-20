@@ -102,7 +102,6 @@ export const signUpTC =
       const res = await getInAPI.signUp(email, password)
 
       dispatch(signUpAC(true))
-      dispatch(isLoadingAC(false))
     } catch (err) {
       const errors = err as Error | AxiosError<SignUpResType>
 
@@ -111,6 +110,8 @@ export const signUpTC =
       } else {
         dispatch(signUpSetErrorAC('Something went wrong...'))
       }
+    } finally {
+      dispatch(isLoadingAC(false))
     }
   }
 
@@ -124,11 +125,12 @@ export const sendPasswordRecoveryTC =
 
       dispatch(setPasswordRecoveryEmailAC(email))
       dispatch(passwordRecoveryEmailSentAC(true))
-      dispatch(isLoadingAC(false))
     } catch (err) {
       const errors = err as Error | AxiosError<AppError>
 
       dispatch(setCommonErrorAC('Something went wrong...'))
+    } finally {
+      dispatch(isLoadingAC(false))
     }
   }
 
@@ -141,11 +143,12 @@ export const createNewPasswordTC =
       const res = await getInAPI.createNewPassword(newPassword, token)
 
       dispatch(newPasswordCreatedAC(true))
-      dispatch(isLoadingAC(false))
     } catch (err) {
       const errors = err as Error | AxiosError<AppError>
 
       dispatch(setCommonErrorAC('Something went wrong...'))
+    } finally {
+      dispatch(isLoadingAC(false))
     }
   }
 // ================ Types ====================

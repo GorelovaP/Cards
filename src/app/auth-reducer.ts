@@ -55,7 +55,6 @@ export const singInTC =
 
       dispatch(signInAC(true))
       dispatch(setUserAC(res.data))
-      dispatch(isLoadingAC(false))
     } catch (err) {
       const errors = err as Error | AxiosError<SignUpResType>
 
@@ -64,6 +63,8 @@ export const singInTC =
       } else {
         dispatch(signInSetErrorAC('Something went wrong...'))
       }
+    } finally {
+      dispatch(isLoadingAC(false))
     }
   }
 export const singOutTC = (): AppThunkType => async dispatch => {
@@ -73,7 +74,6 @@ export const singOutTC = (): AppThunkType => async dispatch => {
 
     dispatch(signOutAC())
     dispatch(deleteUserInformationAC())
-    dispatch(isLoadingAC(false))
   } catch (err) {
     const errors = err as Error | AxiosError<SignUpResType>
 
@@ -82,6 +82,8 @@ export const singOutTC = (): AppThunkType => async dispatch => {
     } else {
       dispatch(signInSetErrorAC('Something went wrong...'))
     }
+  } finally {
+    dispatch(isLoadingAC(false))
   }
 }
 
