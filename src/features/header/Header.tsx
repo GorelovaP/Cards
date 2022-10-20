@@ -6,13 +6,12 @@ import styled from 'styled-components'
 import { useAppSelector } from '../../app/hooks'
 import avatar from '../../assets/images/avatar.png'
 import logo from '../../assets/images/logo.svg'
-
-import { StyleButtonForHeader } from './styledButtons'
-import { StyledMainWrapper } from './styledWrappers'
+import { StyleButtonForHeader } from '../../common/styledComponents/styledButtons'
+import { StyledMainWrapper } from '../../common/styledComponents/styledWrappers'
 
 export const Header = () => {
   const navigate = useNavigate()
-  const match = useMatch('/:routeKey')
+  const match = useMatch('/:routeKey/*')
   const userName = useAppSelector(state => state.user.user.name)
 
   const GotoSingIn = () => {
@@ -28,6 +27,7 @@ export const Header = () => {
         <img src={logo} alt="logo" />
         <div>
           {match?.params.routeKey === 'signup' ||
+          match?.params.routeKey === 'createnewpassword' ||
           match?.params.routeKey === 'signin' ||
           match?.params.routeKey === 'checkemail' ||
           match?.params.routeKey === 'forgotpassword' ? (
@@ -61,12 +61,10 @@ export const StyleHeaderSecond = styled(StyledMainWrapper)`
 export const StyleHeaderRightIcons = styled.div`
   display: flex;
   align-items: center;
-
   .personalName {
     border-bottom: 1px dotted #000;
     text-decoration: none;
   }
-
   .personalIcon {
     margin-left: 12px;
     width: 36px;

@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 
 import { sendPasswordRecoveryTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { StyledInput } from '../../common/components/styledInput'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import {
@@ -15,14 +16,13 @@ import {
   H4,
   StyledBottomFormLink,
 } from '../../common/styledComponents/styledHeaders'
-import { StyledInput } from '../../common/styledComponents/styledInput'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 import { StyledSignUpForm } from '../signUpPage/SignUpPage'
 
 export const ForgotPasswordPage = () => {
   const dispatch = useAppDispatch()
   const sent = useAppSelector(store => store.app.passwordRecoveryEmailSent)
-  const sentrecoveryLinkError = useAppSelector(store => store.app.passwordRecoveryError)
+  const sentrecoveryLinkError = useAppSelector(store => store.app.commonError)
 
   const formik = useFormik({
     validationSchema: Yup.object({

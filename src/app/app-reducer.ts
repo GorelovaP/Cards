@@ -1,26 +1,19 @@
 import axios, { AxiosError } from 'axios'
 
-import { getInAPI, SignUpResType } from '../api/api'
+import { AppError, getInAPI, SignUpResType } from '../api/api'
 
 import { signInAC } from './auth-reducer'
 import { AppActionsType, AppThunkType } from './store'
 import { setUserAC } from './user-reducer'
 
-// types variables
-const APP_SET_INITIALIZED = 'APP_SET_INITIALIZED'
-const APP_SIGNUP = 'APP_SIGNUP'
-const APP_SIGNUP_ERROR = 'APP_SIGNUP_ERROR'
-const APP_PASSWORD_RECOVERY_ERROR = 'APP_PASSWORD_RECOVERY_ERROR'
-const APP_PASSWORD_RECOVERY_EMAIL = 'APP_PASSWORD_RECOVERY_EMAIL'
-const APP_PASSWORD_RECOVERY_EMAIL_SENT = 'APP_PASSWORD_RECOVERY_EMAIL_SENT'
-
 const initialState: AppStateType = {
   isInitialized: false,
   registered: false,
   regError: '',
-  passwordRecoveryError: '',
+  commonError: '',
   passwordRecoveryEmail: '',
   passwordRecoveryEmailSent: false,
+  newPasswordCreated: false,
 }
 
 export const AppReducer = (
@@ -28,23 +21,26 @@ export const AppReducer = (
   action: AppActionsType
 ): AppStateType => {
   switch (action.type) {
-    case APP_SET_INITIALIZED: {
+    case 'APP/SET-INITIALIZED': {
       return { ...state, isInitialized: action.initialized }
     }
-    case APP_SIGNUP: {
+    case 'APP/SIGNUP': {
       return { ...state, registered: action.registered }
     }
-    case APP_SIGNUP_ERROR: {
+    case 'APP/SIGNUP-ERROR': {
       return { ...state, regError: action.regError }
     }
-    case APP_PASSWORD_RECOVERY_ERROR: {
-      return { ...state, passwordRecoveryError: action.error }
+    case 'APP/SET-COMMON-ERROR': {
+      return { ...state, commonError: action.error }
     }
-    case APP_PASSWORD_RECOVERY_EMAIL: {
+    case 'APP/PASSWORD-RECOVERY-EMAIL': {
       return { ...state, passwordRecoveryEmail: action.email }
     }
-    case APP_PASSWORD_RECOVERY_EMAIL_SENT: {
+    case 'APP/PASSWORD-RECOVERY-EMAIL-SENT': {
       return { ...state, passwordRecoveryEmailSent: action.sent }
+    }
+    case 'APP/NEW-PASSWORD-CREATED': {
+      return { ...state, newPasswordCreated: action.sent }
     }
     default:
       return state
@@ -53,16 +49,18 @@ export const AppReducer = (
 
 // ==================== Action creators ==================
 export const setAppInitializedAC = (initialized: boolean) =>
-  ({ type: APP_SET_INITIALIZED, initialized } as const)
-export const signUpAC = (registered: boolean) => ({ type: APP_SIGNUP, registered } as const)
+  ({ type: 'APP/SET-INITIALIZED', initialized } as const)
+export const signUpAC = (registered: boolean) => ({ type: 'APP/SIGNUP', registered } as const)
 export const signUpSetErrorAC = (regError: string) =>
-  ({ type: APP_SIGNUP_ERROR, regError } as const)
-export const setPasswordRecoveryErrorAC = (error: string) =>
-  ({ type: APP_PASSWORD_RECOVERY_ERROR, error } as const)
+  ({ type: 'APP/SIGNUP-ERROR', regError } as const)
+export const setCommonErrorAC = (error: string) =>
+  ({ type: 'APP/SET-COMMON-ERROR', error } as const)
 export const setPasswordRecoveryEmailAC = (email: string) =>
-  ({ type: APP_PASSWORD_RECOVERY_EMAIL, email } as const)
+  ({ type: 'APP/PASSWORD-RECOVERY-EMAIL', email } as const)
 export const passwordRecoveryEmailSentAC = (sent: boolean) =>
-  ({ type: APP_PASSWORD_RECOVERY_EMAIL_SENT, sent } as const)
+  ({ type: 'APP/PASSWORD-RECOVERY-EMAIL-SENT', sent } as const)
+export const newPasswordCreatedAC = (sent: boolean) =>
+  ({ type: 'APP/NEW-PASSWORD-CREATED', sent } as const)
 
 // ================ Thunk creators ================
 export const initializeAppTC = (): AppThunkType => async dispatch => {
@@ -106,26 +104,41 @@ export const sendPasswordRecoveryTC =
   (email: string, from: string, message: string): AppThunkType =>
   async dispatch => {
     try {
-      dispatch(setPasswordRecoveryErrorAC(''))
+      dispatch(setCommonErrorAC(''))
       const res = await getInAPI.forgotPassword(email, from, message)
 
       dispatch(setPasswordRecoveryEmailAC(email))
       dispatch(passwordRecoveryEmailSentAC(true))
     } catch (err) {
-      const errors = err as Error | AxiosError<SignUpResType>
+      const errors = err as Error | AxiosError<AppError>
 
-      dispatch(setPasswordRecoveryErrorAC(errors.message))
+      dispatch(setCommonErrorAC('Something went wrong...'))
     }
   }
 
+export const createNewPasswordTC =
+  (newPassword: string, token: string): AppThunkType =>
+  async dispatch => {
+    try {
+      dispatch(setCommonErrorAC(''))
+      const res = await getInAPI.createNewPassword(newPassword, token)
+
+      dispatch(newPasswordCreatedAC(true))
+    } catch (err) {
+      const errors = err as Error | AxiosError<AppError>
+
+      dispatch(setCommonErrorAC('Something went wrong...'))
+    }
+  }
 // ================ Types ====================
 export type AppStateType = {
   isInitialized: boolean
   registered: boolean
   regError: string
-  passwordRecoveryError: string
+  commonError: string
   passwordRecoveryEmail: string
   passwordRecoveryEmailSent: boolean
+  newPasswordCreated: boolean
 }
 
 //common type for reducer and to be merged in store
@@ -134,6 +147,7 @@ export type AppReducerActionsType =
   | ReturnType<typeof signUpSetErrorAC>
   | ReturnType<typeof setAppInitializedAC>
   | ReturnType<typeof setUserAC>
-  | ReturnType<typeof setPasswordRecoveryErrorAC>
+  | ReturnType<typeof setCommonErrorAC>
   | ReturnType<typeof setPasswordRecoveryEmailAC>
   | ReturnType<typeof passwordRecoveryEmailSentAC>
+  | ReturnType<typeof newPasswordCreatedAC>
