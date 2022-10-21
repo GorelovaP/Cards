@@ -2,7 +2,7 @@ import React, { memo, useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
@@ -22,7 +22,9 @@ export const CreateNewPassword = memo(() => {
   const newPasswordCreated = useAppSelector(store => store.app.newPasswordCreated)
 
   // getting url address
-  const token = window.location.pathname.split('/')[2]
+  const { token } = useParams()
+
+  console.log(window.location.pathname)
 
   const onClickAction = () => {
     setPasswordIcon(!passwordIcon)
@@ -40,8 +42,10 @@ export const CreateNewPassword = memo(() => {
     },
     onSubmit: (values, { resetForm }) => {
       console.log(JSON.stringify(values))
-      dispatch(createNewPasswordTC(values.password, token))
-      resetForm()
+      if (token) {
+        dispatch(createNewPasswordTC(values.password, token))
+        resetForm()
+      }
     },
   })
 
@@ -88,9 +92,11 @@ const StyledCreateNewPassword = styled.div`
   .CreateNewPasswordBtn {
     margin: 42px 0 15px;
   }
+
   H2 {
     margin-bottom: 67px;
   }
+
   H4 {
     font-weight: 400;
     text-align: left;
