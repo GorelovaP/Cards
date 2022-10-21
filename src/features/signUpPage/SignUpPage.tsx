@@ -6,7 +6,6 @@ import { NavLink, Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
-// @ts-ignore
 import { signUpTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { StyledInput } from '../../common/components/styledInput'
@@ -16,7 +15,6 @@ import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styl
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
 export const SignUpPage = memo(() => {
-  console.log('signup')
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
 
@@ -26,7 +24,7 @@ export const SignUpPage = memo(() => {
   }
 
   const signUpStatus = useAppSelector(store => store.app.registered)
-  const signUpRegError = useAppSelector(store => store.app.regError)
+  const signUpRegError = useAppSelector(store => store.app.commonError)
   const dispatch = useAppDispatch()
 
   const formik = useFormik({

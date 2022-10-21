@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import { useFormik } from 'formik'
 import { Navigate, NavLink } from 'react-router-dom'
@@ -19,7 +19,7 @@ import {
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 import { StyledSignUpForm } from '../signUpPage/SignUpPage'
 
-export const ForgotPasswordPage = () => {
+export const ForgotPasswordPage = memo(() => {
   const dispatch = useAppDispatch()
   const sent = useAppSelector(store => store.app.passwordRecoveryEmailSent)
   const sentrecoveryLinkError = useAppSelector(store => store.app.commonError)
@@ -84,7 +84,8 @@ Click here to set a new password</a>
       </StyledForgotPasswordPage>
     </StyledSingFormWrapper>
   )
-}
+})
+
 // styled component
 const StyledForgotPasswordPage = styled(StyledSignUpForm)`
   .inputErrorHandlerForm {

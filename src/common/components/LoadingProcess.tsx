@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import styled from 'styled-components'
 
-export const LoadingProcess = () => {
+export const LoadingProcess = memo(() => {
   return (
     <StyledLoadingWrapper>
       <div className="loading">
@@ -15,11 +15,10 @@ export const LoadingProcess = () => {
       </div>
     </StyledLoadingWrapper>
   )
-}
+})
 
+// styled component
 const StyledLoadingWrapper = styled.div`
-  //$duration: 1s;
-
   .loading {
     position: absolute;
     top: 50%;

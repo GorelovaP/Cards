@@ -1,16 +1,15 @@
 import axios, { AxiosError } from 'axios'
 
-import { AppError, getInAPI, SignUpResType } from '../api/api'
+import { AppError, getInAPI, SignInResType, SignOutResType, SignUpResType } from '../api/api'
 
-import { signInAC } from './auth-reducer'
 import { AppActionsType, AppThunkType } from './store'
-import { setUserAC } from './user-reducer'
+import { deleteUserInformationAC, setUserAC } from './user-reducer'
 
 const initialState: AppStateType = {
   isInitialized: false,
   registered: false,
+  isLoggedIn: false,
   appError: '',
-  regError: '',
   commonError: '',
   passwordRecoveryEmail: '',
   passwordRecoveryEmailSent: false,
@@ -28,9 +27,6 @@ export const AppReducer = (
     }
     case 'APP/SIGNUP': {
       return { ...state, registered: action.registered }
-    }
-    case 'APP/SIGNUP-ERROR': {
-      return { ...state, regError: action.regError }
     }
     case 'APP/SET-COMMON-ERROR': {
       return { ...state, commonError: action.error }
@@ -50,6 +46,12 @@ export const AppReducer = (
     case 'APP/IS-LOADING': {
       return { ...state, isLoading: action.isLoading }
     }
+    case 'AUTH/SET-IS-LOGGED-IN': {
+      return { ...state, isLoggedIn: action.value }
+    }
+    case 'AUTH/SET-IS-LOGGED-OUT': {
+      return { ...state, isLoggedIn: false }
+    }
     default:
       return state
   }
@@ -59,8 +61,6 @@ export const AppReducer = (
 export const setAppInitializedAC = (initialized: boolean) =>
   ({ type: 'APP/SET-INITIALIZED', initialized } as const)
 export const signUpAC = (registered: boolean) => ({ type: 'APP/SIGNUP', registered } as const)
-export const signUpSetErrorAC = (regError: string) =>
-  ({ type: 'APP/SIGNUP-ERROR', regError } as const)
 export const setCommonErrorAC = (error: string) =>
   ({ type: 'APP/SET-COMMON-ERROR', error } as const)
 export const setPasswordRecoveryEmailAC = (email: string) =>
@@ -71,6 +71,12 @@ export const newPasswordCreatedAC = (sent: boolean) =>
   ({ type: 'APP/NEW-PASSWORD-CREATED', sent } as const)
 export const setAppErrorAC = (text: string) => ({ type: 'APP/SET-APP-ERROR', text } as const)
 export const isLoadingAC = (isLoading: boolean) => ({ type: 'APP/IS-LOADING', isLoading } as const)
+export const signInAC = (value: boolean) => {
+  return { type: 'AUTH/SET-IS-LOGGED-IN', value } as const
+}
+export const signOutAC = () => {
+  return { type: 'AUTH/SET-IS-LOGGED-OUT' } as const
+}
 
 // ================ Thunk creators ================
 export const initializeAppTC = (): AppThunkType => async dispatch => {
@@ -82,6 +88,7 @@ export const initializeAppTC = (): AppThunkType => async dispatch => {
   } catch (e) {
     const errors = e as Error | AxiosError<SignUpResType>
 
+    console.log(errors)
     if (axios.isAxiosError(errors)) {
       dispatch(setAppErrorAC(errors.response?.data.error))
       setTimeout(() => {
@@ -98,7 +105,7 @@ export const signUpTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-      dispatch(signUpSetErrorAC(''))
+      dispatch(setCommonErrorAC(''))
       const res = await getInAPI.signUp(email, password)
 
       dispatch(signUpAC(true))
@@ -106,9 +113,14 @@ export const signUpTC =
       const errors = err as Error | AxiosError<SignUpResType>
 
       if (axios.isAxiosError(errors)) {
-        dispatch(signUpSetErrorAC(errors.response?.data.error))
-      } else {
-        dispatch(signUpSetErrorAC('Something went wrong...'))
+        if (errors.response?.data.error) {
+          dispatch(setCommonErrorAC(errors.response?.data.error))
+        } else {
+          dispatch(setAppErrorAC('Something went wrong...'))
+          setTimeout(() => {
+            dispatch(setAppErrorAC(''))
+          }, 7000)
+        }
       }
     } finally {
       dispatch(isLoadingAC(false))
@@ -128,7 +140,16 @@ export const sendPasswordRecoveryTC =
     } catch (err) {
       const errors = err as Error | AxiosError<AppError>
 
-      dispatch(setCommonErrorAC('Something went wrong...'))
+      if (axios.isAxiosError(errors)) {
+        if (errors.response?.data.error) {
+          dispatch(setCommonErrorAC(errors.response?.data.error))
+        } else {
+          dispatch(setAppErrorAC('Something went wrong...'))
+          setTimeout(() => {
+            dispatch(setAppErrorAC(''))
+          }, 7000)
+        }
+      }
     } finally {
       dispatch(isLoadingAC(false))
     }
@@ -146,17 +167,80 @@ export const createNewPasswordTC =
     } catch (err) {
       const errors = err as Error | AxiosError<AppError>
 
-      dispatch(setCommonErrorAC('Something went wrong...'))
+      if (axios.isAxiosError(errors)) {
+        if (errors.response?.data.error) {
+          dispatch(setCommonErrorAC(errors.response?.data.error))
+        } else {
+          dispatch(setAppErrorAC('Something went wrong...'))
+          setTimeout(() => {
+            dispatch(setAppErrorAC(''))
+          }, 7000)
+        }
+      }
     } finally {
       dispatch(isLoadingAC(false))
     }
   }
+
+export const singInTC =
+  (data: singInParamsType): AppThunkType =>
+  async dispatch => {
+    try {
+      dispatch(isLoadingAC(true))
+      dispatch(setCommonErrorAC(''))
+      const res = await getInAPI.singIn(data.email, data.password, data.rememberMe)
+
+      dispatch(signInAC(true))
+      dispatch(setUserAC(res.data))
+    } catch (err) {
+      const errors = err as Error | AxiosError<SignInResType>
+
+      if (axios.isAxiosError(errors)) {
+        if (errors.response?.data.error) {
+          dispatch(setCommonErrorAC(errors.response?.data.error))
+        } else {
+          dispatch(setAppErrorAC('Something went wrong...'))
+          setTimeout(() => {
+            dispatch(setAppErrorAC(''))
+          }, 7000)
+        }
+      }
+    } finally {
+      dispatch(isLoadingAC(false))
+    }
+  }
+export const singOutTC = (): AppThunkType => async dispatch => {
+  try {
+    dispatch(isLoadingAC(true))
+    dispatch(setCommonErrorAC(''))
+    const res = await getInAPI.signOut()
+
+    dispatch(signOutAC())
+    dispatch(deleteUserInformationAC())
+  } catch (err) {
+    const errors = err as Error | AxiosError<SignOutResType>
+
+    if (axios.isAxiosError(errors)) {
+      if (errors.response?.data.error) {
+        dispatch(setCommonErrorAC(errors.response?.data.error))
+      } else {
+        dispatch(setAppErrorAC('Something went wrong...'))
+        setTimeout(() => {
+          dispatch(setAppErrorAC(''))
+        }, 7000)
+      }
+    }
+  } finally {
+    dispatch(isLoadingAC(false))
+  }
+}
+
 // ================ Types ====================
 export type AppStateType = {
   isInitialized: boolean
   registered: boolean
+  isLoggedIn: boolean
   appError: string
-  regError: string
   commonError: string
   passwordRecoveryEmail: string
   passwordRecoveryEmailSent: boolean
@@ -164,10 +248,15 @@ export type AppStateType = {
   isLoading: boolean
 }
 
+type singInParamsType = {
+  email: string
+  password: string
+  rememberMe: boolean
+}
+
 //common type for reducer and to be merged in store
 export type AppReducerActionsType =
   | ReturnType<typeof signUpAC>
-  | ReturnType<typeof signUpSetErrorAC>
   | ReturnType<typeof setAppInitializedAC>
   | ReturnType<typeof setUserAC>
   | ReturnType<typeof setCommonErrorAC>
@@ -176,3 +265,5 @@ export type AppReducerActionsType =
   | ReturnType<typeof newPasswordCreatedAC>
   | ReturnType<typeof setAppErrorAC>
   | ReturnType<typeof isLoadingAC>
+  | ReturnType<typeof signInAC>
+  | ReturnType<typeof signOutAC>

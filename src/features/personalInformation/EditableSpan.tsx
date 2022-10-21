@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 
 import { useFormik } from 'formik'
 import styled from 'styled-components'
@@ -11,7 +11,7 @@ import { StyledInput } from '../../common/components/styledInput'
 import { StyledInnerButton } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 
-export const EditableSpan = () => {
+export const EditableSpan = memo(() => {
   let name = useAppSelector(state => state.user.user.name)
   const dispatch = useAppDispatch()
 
@@ -71,8 +71,9 @@ export const EditableSpan = () => {
       {name} <img src={edit} alt="edit" />
     </StyledSpan>
   )
-}
+})
 
+//styled components
 export const StyledSpan = styled.span`
   text-align: center;
   position: center;

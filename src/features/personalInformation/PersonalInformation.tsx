@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { singOutTC } from '../../app/auth-reducer'
+import { singOutTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import avatar from '../../assets/images/avatar.png'
 import logOut from '../../assets/images/logout.svg'
@@ -15,10 +15,10 @@ import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrapp
 
 import { EditableSpan } from './EditableSpan'
 
-export const PersonalInformation = () => {
+export const PersonalInformation = memo(() => {
   const dispatch = useAppDispatch()
 
-  let isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  let isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   let email = useAppSelector(state => state.user.user.email)
 
   const LogOut = () => {
@@ -51,8 +51,9 @@ export const PersonalInformation = () => {
       </StyledSingFormWrapper>
     </>
   )
-}
+})
 
+// styled component
 const StyledPersonalInformation = styled.div`
   display: flex;
   flex-direction: column;

@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 
 import { ChangeNameResType, getInAPI } from '../api/api'
 
-import { isLoadingAC } from './app-reducer'
+import { isLoadingAC, setAppErrorAC, setCommonErrorAC } from './app-reducer'
 import { AppThunkType } from './store'
 
 export type initialStateType = {
@@ -38,11 +38,8 @@ export const UserReducer = (
       return { ...state, user: { ...state.user, name: action.userName } }
     }
     case 'USER/SET-SING-OUT': {
-      debugger
-
       return { ...state, user: { ...initialState.user } }
     }
-
     default:
       return state
   }
@@ -72,7 +69,14 @@ export const changeUserNameTC =
       const errors = e as Error | AxiosError<ChangeNameResType>
 
       if (axios.isAxiosError(errors)) {
-        console.log(errors.response?.data.error)
+        if (errors.response?.data.error) {
+          dispatch(setCommonErrorAC(errors.response?.data.error))
+        } else {
+          dispatch(setAppErrorAC('Something went wrong...'))
+          setTimeout(() => {
+            dispatch(setAppErrorAC(''))
+          }, 7000)
+        }
       }
     } finally {
       dispatch(isLoadingAC(false))

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import { useNavigate, useMatch } from 'react-router-dom'
 import styled from 'styled-components'
@@ -10,7 +10,7 @@ import { LoadingProcess } from '../../common/components/LoadingProcess'
 import { StyleButtonForHeader } from '../../common/styledComponents/styledButtons'
 import { StyledMainWrapper } from '../../common/styledComponents/styledWrappers'
 
-export const Header = () => {
+export const Header = memo(() => {
   const navigate = useNavigate()
   const match = useMatch('/:routeKey/*')
   const userName = useAppSelector(state => state.user.user.name)
@@ -46,8 +46,9 @@ export const Header = () => {
       {isLoading && <LoadingProcess />}
     </StyleHeader>
   )
-}
+})
 
+// styled component
 export const StyleHeader = styled.div`
   position: fixed;
   top: 0;

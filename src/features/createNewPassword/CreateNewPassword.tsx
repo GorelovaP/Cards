@@ -83,6 +83,7 @@ export const CreateNewPassword = memo(() => {
   )
 })
 
+// styled component
 const StyledCreateNewPassword = styled.div`
   .CreateNewPasswordBtn {
     margin: 42px 0 15px;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
@@ -6,13 +6,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
-import {
-  newPasswordCreatedAC,
-  setCommonErrorAC,
-  signUpAC,
-  signUpSetErrorAC,
-} from '../../app/app-reducer'
-import { singInTC } from '../../app/auth-reducer'
+import { newPasswordCreatedAC, setCommonErrorAC, signUpAC, singInTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { StyledCheckbox } from '../../common/components/styledCheckbox'
 import { StyledInput } from '../../common/components/styledInput'
@@ -21,18 +15,17 @@ import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
-export const SignInPage = () => {
+export const SignInPage = memo(() => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-  const signIpRegError = useAppSelector(store => store.auth.signInError)
+  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
+  const signIpRegError = useAppSelector(store => store.app.commonError)
 
   useEffect(() => {
     dispatch(signUpAC(false))
-    dispatch(signUpSetErrorAC(''))
     dispatch(setCommonErrorAC(''))
     dispatch(newPasswordCreatedAC(false))
   }, [])
@@ -110,7 +103,7 @@ export const SignInPage = () => {
       </StyledSignUpForm>
     </StyledSingFormWrapper>
   )
-}
+})
 
 // styled component
 const StyledSignUpForm = styled.div`

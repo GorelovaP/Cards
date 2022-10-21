@@ -1,12 +1,12 @@
-import { useEffect } from 'react'
+import { memo, useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
 import { useAppSelector } from '../../app/hooks'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
-export const MainPage = () => {
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+export const MainPage = memo(() => {
+  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -16,4 +16,4 @@ export const MainPage = () => {
   }, [isLoggedIn])
 
   return <StyledSingFormWrapper>ТАДАААМ, ВЫ НА КАРТОЧКАХ</StyledSingFormWrapper>
-}
+})

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -11,7 +11,7 @@ import { H2, H4 } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 import { theme } from '../../common/styledComponents/theme'
 
-export const CheckEmail = () => {
+export const CheckEmail = memo(() => {
   const dispatch = useAppDispatch()
   const email = useAppSelector(state => state.app.passwordRecoveryEmail)
 
@@ -38,8 +38,9 @@ export const CheckEmail = () => {
       </StyledSignUpForm>
     </StyledSingFormWrapper>
   )
-}
+})
 
+// styled component
 const StyledSignUpForm = styled.div`
   H2 {
     margin-bottom: 29px;

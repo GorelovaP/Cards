@@ -1,26 +1,22 @@
-import React, { createElement, DetailedHTMLProps, InputHTMLAttributes } from 'react'
+import React, { createElement, DetailedHTMLProps, InputHTMLAttributes, memo } from 'react'
 
 import { IconType } from 'react-icons'
 import styled from 'styled-components'
 
-export const StyledInput: React.FC<PropsType> = ({
-  text,
-  label,
-  onClickAction,
-  icon,
-  ...restProps
-}) => {
-  return (
-    <StyledInputItem>
-      {label && <label className={'label'}>{label}</label>}
-      <input type={text} {...restProps} />
-      <span className={'line'} />
-      <span className={'ItemIcon'} onClick={onClickAction}>
-        {icon && createElement(icon)}
-      </span>
-    </StyledInputItem>
-  )
-}
+export const StyledInput: React.FC<PropsType> = memo(
+  ({ text, label, onClickAction, icon, ...restProps }) => {
+    return (
+      <StyledInputItem>
+        {label && <label className={'label'}>{label}</label>}
+        <input type={text} {...restProps} />
+        <span className={'line'} />
+        <span className={'ItemIcon'} onClick={onClickAction}>
+          {icon && createElement(icon)}
+        </span>
+      </StyledInputItem>
+    )
+  }
+)
 
 //styled component
 export const StyledInputItem = styled.div`

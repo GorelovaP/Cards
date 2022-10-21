@@ -1,10 +1,10 @@
-import React, { DetailedHTMLProps, InputHTMLAttributes } from 'react'
+import React, { DetailedHTMLProps, InputHTMLAttributes, memo } from 'react'
 
 import styled from 'styled-components'
 
 import checked from '../../assets/images/Checked.svg'
 
-export const StyledCheckbox: React.FC<PropsType> = ({ type, labelValue, ...restProps }) => {
+export const StyledCheckbox: React.FC<PropsType> = memo(({ type, labelValue, ...restProps }) => {
   return (
     <StyledCheckboxItem>
       <label>
@@ -13,7 +13,7 @@ export const StyledCheckbox: React.FC<PropsType> = ({ type, labelValue, ...restP
       </label>
     </StyledCheckboxItem>
   )
-}
+})
 
 //styled component
 export const StyledCheckboxItem = styled.div`
