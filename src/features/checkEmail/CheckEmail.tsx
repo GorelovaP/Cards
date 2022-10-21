@@ -1,6 +1,6 @@
 import React, { memo, useEffect } from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { passwordRecoveryEmailSentAC } from '../../app/app-reducer'
@@ -22,6 +22,10 @@ export const CheckEmail = memo(() => {
   let navigate = useNavigate()
   const goLogin = () => {
     navigate('/signin')
+  }
+
+  if (!email) {
+    return <Navigate to={'/forgotpassword'} />
   }
 
   return (

@@ -1,12 +1,12 @@
 import React, { memo } from 'react'
 
+import { IoMdLogOut } from 'react-icons/io'
 import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { singOutTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import avatar from '../../assets/images/avatar.png'
-import logOut from '../../assets/images/logout.svg'
 import photo from '../../assets/images/photo.png'
 import { BackToPack } from '../../common/components/BackToPack'
 import { LogOutButton } from '../../common/styledComponents/styledButtons'
@@ -44,7 +44,7 @@ export const PersonalInformation = memo(() => {
           <EditableSpan />
           <H4>{email}</H4>
           <LogOutButton className={'logOutBtn'} onClick={LogOut}>
-            <img src={logOut} alt="logOut" />
+            <IoMdLogOut className={'logOutIcon'} />
             Log out
           </LogOutButton>
         </StyledPersonalInformation>
@@ -62,11 +62,11 @@ const StyledPersonalInformation = styled.div`
     .photo {
       text-align: center;
       position: relative;
+      height: 147px;
     }
 
     .avatar {
       border-radius: 50%;
-      //margin-left: 35px;
       margin-top: 30px;
       height: 96px;
       width: 96px;
@@ -85,6 +85,10 @@ const StyledPersonalInformation = styled.div`
 
     .logOutBtn {
       margin: 29px 0 3px 0;
+    }
+
+    .logOutIcon {
+      margin-right: 7px;
     }
   }
 `

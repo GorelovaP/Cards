@@ -1,12 +1,12 @@
 import React, { memo, useState } from 'react'
 
 import { useFormik } from 'formik'
+import { BiEditAlt } from 'react-icons/bi'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { changeUserNameTC } from '../../app/user-reducer'
-import edit from '../../assets/images/edit.svg'
 import { StyledInput } from '../../common/components/styledInput'
 import { StyledInnerButton } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
@@ -68,16 +68,25 @@ export const EditableSpan = memo(() => {
     </FormSpan>
   ) : (
     <StyledSpan onDoubleClick={activateEditMode}>
-      {name} <img src={edit} alt="edit" />
+      {name} <BiEditAlt className={'spanIcon'} />
     </StyledSpan>
   )
 })
 
 //styled components
 export const StyledSpan = styled.span`
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
   text-align: center;
-  position: center;
+  display: flex;
+  align-items: center;
   margin-bottom: 14px;
+  .spanIcon {
+    margin-left: 10px;
+    height: 20px;
+    width: 20px;
+  }
 `
 export const FormSpan = styled.form`
   width: 100%;

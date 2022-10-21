@@ -61,7 +61,7 @@ export const StyleHeaderSecond = styled(StyledMainWrapper)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 0;
+  height: 60px;
 `
 export const StyleHeaderRightIcons = styled.div`
   display: flex;
