@@ -39,6 +39,7 @@ function App() {
         <StyledMainWrapper>
           <Header />
           <Routes>
+            <Route path={'/'} element={<PersonalInformation />} />
             <Route path={'/profile'} element={<PersonalInformation />} />
             <Route path={'/cards'} element={<PersonalInformation />} />
             {/*/cards to be changed as initial route*/}
