@@ -4,7 +4,7 @@ import { IconType } from 'react-icons'
 
 import { StyledInputItem } from './styledInput'
 
-export const StyledInput: React.FC<PropsType> = memo(
+export const MyInput: React.FC<PropsType> = memo(
   ({ text, label, onClickAction, icon, ...restProps }) => {
     return (
       <StyledInputItem>

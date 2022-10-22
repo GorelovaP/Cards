@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
 import { Loading } from '../common/components/loading/Loading'
-import { Snackbar } from '../common/components/snackBarError/Snackbar'
+import { MySnackbar } from '../common/components/snackBarError/MySnackbar'
 import { GlobalStyles } from '../common/styledComponents/globalStyles'
 import { StyledMainWrapper } from '../common/styledComponents/styledWrappers'
 import { theme } from '../common/styledComponents/theme'
@@ -52,7 +52,7 @@ function App() {
             <Route path={'/*'} element={<div>404</div>} />
           </Routes>
         </StyledMainWrapper>
-        {appError && <Snackbar text={appError} color={'rgb(211, 47, 47)'} />}
+        {appError && <MySnackbar text={appError} color={'rgb(211, 47, 47)'} />}
       </ThemeProvider>
     </div>
   )

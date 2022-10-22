@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../../app/hooks'
 
 import { SnackbarArea } from './styledSnackBar'
 
-export const Snackbar = memo((props: SnackbarPropsType) => {
+export const MySnackbar = memo((props: SnackbarPropsType) => {
   const dispatch = useAppDispatch()
   const onClickAction = () => {
     dispatch(setAppErrorAC(''))

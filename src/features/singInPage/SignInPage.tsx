@@ -7,8 +7,8 @@ import * as Yup from 'yup'
 
 import { newPasswordCreatedAC, setCommonErrorAC, signUpAC, singInTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { CheckBox } from '../../common/components/styledChackBox/CheckBox'
-import { StyledInput } from '../../common/components/styledInput/Input'
+import { MyCheckBox } from '../../common/components/styledChackBox/MyCheckBox'
+import { MyInput } from '../../common/components/styledInput/MyInput'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styledHeaders'
@@ -66,11 +66,11 @@ export const SignInPage = () => {
           {signIpRegError && !formik.touched.email && (
             <StyledErrorArea>{signIpRegError}</StyledErrorArea>
           )}
-          <StyledInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
+          <MyInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
           {formik.errors.email && formik.touched.email ? (
             <StyledErrorArea>{formik.errors.email}</StyledErrorArea>
           ) : null}
-          <StyledInput
+          <MyInput
             text={passwordShowMode ? 'password' : 'text'}
             label={'Password'}
             icon={passwordIcon ? AiFillEye : AiFillEyeInvisible}
@@ -80,7 +80,7 @@ export const SignInPage = () => {
           {formik.errors.password && formik.touched.password ? (
             <StyledErrorArea>{formik.errors.password}</StyledErrorArea>
           ) : null}
-          <CheckBox
+          <MyCheckBox
             labelValue="Remember me"
             {...formik.getFieldProps('rememberMe')}
             checked={formik.values.rememberMe}

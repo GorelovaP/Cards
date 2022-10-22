@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 
 import { createNewPasswordTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { StyledInput } from '../../common/components/styledInput/Input'
+import { MyInput } from '../../common/components/styledInput/MyInput'
 import { StyledButton } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
@@ -63,7 +63,7 @@ export const CreateNewPassword = () => {
                 <StyledErrorArea>{commonError}</StyledErrorArea>
               )}
             </div>
-            <StyledInput
+            <MyInput
               text={passwordShowMode ? 'password' : 'text'}
               placeholder={'Password'}
               icon={passwordIcon ? AiFillEye : AiFillEyeInvisible}

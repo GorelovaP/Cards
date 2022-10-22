@@ -2,7 +2,7 @@ import React, { DetailedHTMLProps, InputHTMLAttributes, memo } from 'react'
 
 import { StyledCheckboxItem } from './styledCheckBox'
 
-export const CheckBox: React.FC<PropsType> = memo(({ type, labelValue, ...restProps }) => {
+export const MyCheckBox: React.FC<PropsType> = memo(({ type, labelValue, ...restProps }) => {
   return (
     <StyledCheckboxItem>
       <label>

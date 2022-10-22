@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 
 import { signUpTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { StyledInput } from '../../common/components/styledInput/Input'
+import { MyInput } from '../../common/components/styledInput/MyInput'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styledHeaders'
@@ -63,7 +63,7 @@ export const SignUpPage = () => {
                 <StyledErrorArea>{signUpRegError}</StyledErrorArea>
               )}
             </div>
-            <StyledInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
+            <MyInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
             <div className={'formErrorPlacement'}>
               {formik.errors.email && formik.touched.email ? (
                 <StyledErrorArea>{formik.errors.email}</StyledErrorArea>
@@ -71,7 +71,7 @@ export const SignUpPage = () => {
             </div>
           </div>
           <div className={'inputErrorHandlerForm'}>
-            <StyledInput
+            <MyInput
               text={passwordShowMode ? 'password' : 'text'}
               label={'Password'}
               icon={passwordIcon ? AiFillEye : AiFillEyeInvisible}
@@ -85,7 +85,7 @@ export const SignUpPage = () => {
             </div>
           </div>
           <div className={'inputErrorHandlerForm'}>
-            <StyledInput
+            <MyInput
               text={passwordShowMode ? 'password' : 'text'}
               label={'Confirm Password'}
               icon={passwordIcon ? AiFillEye : AiFillEyeInvisible}

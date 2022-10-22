@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { changeUserNameTC } from '../../app/user-reducer'
-import { StyledInput } from '../../common/components/styledInput/Input'
+import { MyInput } from '../../common/components/styledInput/MyInput'
 import { StyledInnerButton } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 
@@ -49,7 +49,7 @@ export const EditableSpan = memo(() => {
 
   return editMode ? (
     <FormSpan onSubmit={formik.handleSubmit}>
-      <StyledInput
+      <MyInput
         text={'text'}
         className={'InputSpan'}
         autoFocus

@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 
 import { sendPasswordRecoveryTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { StyledInput } from '../../common/components/styledInput/Input'
+import { MyInput } from '../../common/components/styledInput/MyInput'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import {
@@ -61,7 +61,7 @@ Click here to set a new password</a>
                 <StyledErrorArea>{sentRecoveryLinkError}</StyledErrorArea>
               )}
             </div>
-            <StyledInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
+            <MyInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
             <div className={'formErrorPlacement'}>
               {formik.errors.email && formik.touched.email ? (
                 <StyledErrorArea>{formik.errors.email}</StyledErrorArea>
