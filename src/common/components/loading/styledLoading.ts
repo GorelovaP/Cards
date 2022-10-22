@@ -1,23 +1,8 @@
-import React, { memo } from 'react'
-
 import styled from 'styled-components'
 
-import { theme } from '../styledComponents/theme'
+import { theme } from '../../styledComponents/theme'
 
-export const Loading = memo(() => {
-  return (
-    <StyledLoading>
-      <div className={'loader'}>
-        <div className={'innerOne'}> </div>
-        <div className={'innerTwo'}> </div>
-        <div className={'innerThree'}> </div>
-      </div>
-    </StyledLoading>
-  )
-})
-
-// styled component
-const StyledLoading = styled.div`
+export const StyledLoading = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;

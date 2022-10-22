@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { changeUserNameTC } from '../../app/user-reducer'
-import { StyledInput } from '../../common/components/styledInput'
+import { StyledInput } from '../../common/components/styledInput/Input'
 import { StyledInnerButton } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 

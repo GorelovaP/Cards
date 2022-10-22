@@ -1,21 +1,22 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { NavLink, useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
 import * as Yup from 'yup'
 
 import { newPasswordCreatedAC, setCommonErrorAC, signUpAC, singInTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { StyledCheckbox } from '../../common/components/styledCheckbox'
-import { StyledInput } from '../../common/components/styledInput'
+import { CheckBox } from '../../common/components/styledChackBox/CheckBox'
+import { StyledInput } from '../../common/components/styledInput/Input'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
-export const SignInPage = memo(() => {
+import { StyledSignInForm } from './styledSignIn'
+
+export const SignInPage = () => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
 
@@ -59,7 +60,7 @@ export const SignInPage = memo(() => {
 
   return (
     <StyledSingFormWrapper>
-      <StyledSignUpForm>
+      <StyledSignInForm>
         <H2>Sing In</H2>
         <form onSubmit={formik.handleSubmit}>
           {signIpRegError && !formik.touched.email && (
@@ -79,7 +80,7 @@ export const SignInPage = memo(() => {
           {formik.errors.password && formik.touched.password ? (
             <StyledErrorArea>{formik.errors.password}</StyledErrorArea>
           ) : null}
-          <StyledCheckbox
+          <CheckBox
             labelValue="Remember me"
             {...formik.getFieldProps('rememberMe')}
             checked={formik.values.rememberMe}
@@ -100,36 +101,7 @@ export const SignInPage = memo(() => {
             </NavLink>
           </StyledBottomFormLink>
         </div>
-      </StyledSignUpForm>
+      </StyledSignInForm>
     </StyledSingFormWrapper>
   )
-})
-
-// styled component
-const StyledSignUpForm = styled.div`
-  H2 {
-    margin-bottom: 41px;
-  }
-
-  H4 {
-    margin-bottom: 11px;
-  }
-
-  .navLink {
-    color: #000000;
-    display: block;
-    text-align: end;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-  }
-
-  .formButton {
-    margin-top: 9px;
-  }
-
-  .styledBottomFormLink {
-    text-align: center;
-    margin-bottom: 11px;
-  }
-`
+}

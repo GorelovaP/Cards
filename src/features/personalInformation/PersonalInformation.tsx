@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 
 import { IoMdLogOut } from 'react-icons/io'
 import { Navigate } from 'react-router-dom'
@@ -8,14 +8,14 @@ import { singOutTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import avatar from '../../assets/images/avatar.png'
 import photo from '../../assets/images/photo.png'
-import { BackToPack } from '../../common/components/BackToPack'
+import { BackToPack } from '../../common/components/backToPack/BackToPack'
 import { LogOutButton } from '../../common/styledComponents/styledButtons'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
 import { EditableSpan } from './EditableSpan'
 
-export const PersonalInformation = memo(() => {
+export const PersonalInformation = () => {
   const dispatch = useAppDispatch()
 
   let isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
@@ -51,7 +51,7 @@ export const PersonalInformation = memo(() => {
       </StyledSingFormWrapper>
     </>
   )
-})
+}
 
 // styled component
 const StyledPersonalInformation = styled.div`

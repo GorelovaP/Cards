@@ -1,20 +1,21 @@
-import React, { memo, useState } from 'react'
+import React, { useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { NavLink, Navigate } from 'react-router-dom'
-import styled from 'styled-components'
 import * as Yup from 'yup'
 
 import { signUpTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { StyledInput } from '../../common/components/styledInput'
+import { StyledInput } from '../../common/components/styledInput/Input'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
-export const SignUpPage = memo(() => {
+import { StyledSignUpForm } from './styledSignUp'
+
+export const SignUpPage = () => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
 
@@ -110,28 +111,4 @@ export const SignUpPage = memo(() => {
       </StyledSignUpForm>
     </StyledSingFormWrapper>
   )
-})
-
-// styled component
-export const StyledSignUpForm = styled.div`
-  H2 {
-    margin-bottom: 41px;
-  }
-
-  H4 {
-    margin-bottom: 11px;
-  }
-
-  .styledBottomFormLink {
-    text-align: center;
-  }
-
-  .inputErrorHandlerForm {
-    position: relative;
-
-    .formErrorPlacement {
-      top: 70px;
-      left: 0;
-    }
-  }
-`
+}

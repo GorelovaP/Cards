@@ -1,13 +1,12 @@
-import React, { memo } from 'react'
+import React from 'react'
 
 import { useFormik } from 'formik'
 import { Navigate, NavLink } from 'react-router-dom'
-import styled from 'styled-components'
 import * as Yup from 'yup'
 
 import { sendPasswordRecoveryTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { StyledInput } from '../../common/components/styledInput'
+import { StyledInput } from '../../common/components/styledInput/Input'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import {
@@ -17,12 +16,13 @@ import {
   StyledBottomFormLink,
 } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
-import { StyledSignUpForm } from '../signUpPage/SignUpPage'
 
-export const ForgotPasswordPage = memo(() => {
+import { StyledForgotPasswordPage } from './styledForgotPassword'
+
+export const ForgotPasswordPage = () => {
   const dispatch = useAppDispatch()
   const sent = useAppSelector(store => store.app.passwordRecoveryEmailSent)
-  const sentrecoveryLinkError = useAppSelector(store => store.app.commonError)
+  const sentRecoveryLinkError = useAppSelector(store => store.app.commonError)
 
   const formik = useFormik({
     validationSchema: Yup.object({
@@ -57,8 +57,8 @@ Click here to set a new password</a>
         <form onSubmit={formik.handleSubmit}>
           <div className={'inputErrorHandlerForm'}>
             <div className={'formErrorPlacement'}>
-              {sentrecoveryLinkError && !formik.touched.email && (
-                <StyledErrorArea>{sentrecoveryLinkError}</StyledErrorArea>
+              {sentRecoveryLinkError && !formik.touched.email && (
+                <StyledErrorArea>{sentRecoveryLinkError}</StyledErrorArea>
               )}
             </div>
             <StyledInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
@@ -84,15 +84,4 @@ Click here to set a new password</a>
       </StyledForgotPasswordPage>
     </StyledSingFormWrapper>
   )
-})
-
-// styled component
-const StyledForgotPasswordPage = styled(StyledSignUpForm)`
-  .inputErrorHandlerForm {
-    position: relative;
-    .formErrorPlacement {
-      top: 70px;
-      left: 0;
-    }
-  }
-`
+}

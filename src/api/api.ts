@@ -7,7 +7,7 @@ const instance = axios.create({
 
 export const getInAPI = {
   me() {
-    return instance.post<null, AxiosResponse<SignInResType>>(`auth/me`)
+    return instance.post<SignInResType>(`auth/me`)
   },
   singIn(email: string, password: string, rememberMe: boolean) {
     return instance.post<
@@ -29,7 +29,7 @@ export const getInAPI = {
     )
   },
   signOut() {
-    return instance.delete<null, AxiosResponse<SignOutResType>>(`auth/me`)
+    return instance.delete<SignOutResType>(`auth/me`)
   },
   forgotPassword(email: string, from: string, message: string) {
     return instance.post<{ email: string; from: string; message: string }, AxiosResponse<AppError>>(
