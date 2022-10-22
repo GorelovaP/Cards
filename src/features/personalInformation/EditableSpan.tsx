@@ -68,7 +68,7 @@ export const EditableSpan = memo(() => {
     </FormSpan>
   ) : (
     <StyledSpan onDoubleClick={activateEditMode}>
-      {name} <BiEditAlt className={'spanIcon'} />
+      {name} <BiEditAlt onClick={activateEditMode} className={'spanIcon'} />
     </StyledSpan>
   )
 })
@@ -82,6 +82,8 @@ export const StyledSpan = styled.span`
   display: flex;
   align-items: center;
   margin-bottom: 14px;
+  cursor: pointer;
+
   .spanIcon {
     margin-left: 10px;
     height: 20px;
