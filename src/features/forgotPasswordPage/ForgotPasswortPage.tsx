@@ -23,6 +23,7 @@ export const ForgotPasswordPage = memo(() => {
   const dispatch = useAppDispatch()
   const sent = useAppSelector(store => store.app.passwordRecoveryEmailSent)
   const sentrecoveryLinkError = useAppSelector(store => store.app.commonError)
+  let location = window.location.origin
 
   const formik = useFormik({
     validationSchema: Yup.object({
@@ -36,7 +37,7 @@ export const ForgotPasswordPage = memo(() => {
       const from = `test-front-admin <ai73a@yandex.by>`
       const message = `<div style="background-color: lime; padding: 15px">
 <b>password recovery link: </b>
-<a href='http://localhost:3000/createnewpassword/$token$'>
+<a href='${location}/createnewpassword/$token$'>
 Click here to set a new password</a>
 </div>`
 
@@ -90,6 +91,7 @@ Click here to set a new password</a>
 const StyledForgotPasswordPage = styled(StyledSignUpForm)`
   .inputErrorHandlerForm {
     position: relative;
+
     .formErrorPlacement {
       top: 70px;
       left: 0;

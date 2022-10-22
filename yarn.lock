@@ -10342,6 +10342,11 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-use-origin-location@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-use-origin-location/-/react-use-origin-location-1.0.4.tgz#53db3906b85137f72be80e1ee4717bab229b00d5"
+  integrity sha512-hojN0n7XoOvhWmqqobuHZFYJ+PTuYQrY4pggDrEiVP+Out0QPzxI+eDuxJiu3TK0wMhO6xpjImLqZNZuwruU6g==
+
 react-yup@^1.24.1:
   version "1.24.1"
   resolved "https://registry.yarnpkg.com/react-yup/-/react-yup-1.24.1.tgz#96c08bfe66b714892a100a1504bc5953efeb233e"
