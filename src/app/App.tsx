@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 
-import { Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
 import { Loading } from '../common/components/loading/Loading'
@@ -8,13 +7,8 @@ import { MySnackbar } from '../common/components/snackBarError/MySnackbar'
 import { GlobalStyles } from '../common/styledComponents/globalStyles'
 import { StyledMainWrapper } from '../common/styledComponents/styledWrappers'
 import { theme } from '../common/styledComponents/theme'
-import { CheckEmail } from '../features/checkEmail/CheckEmail'
-import { CreateNewPassword } from '../features/createNewPassword/CreateNewPassword'
-import { ForgotPasswordPage } from '../features/forgotPasswordPage/ForgotPasswortPage'
 import { Header } from '../features/header/Header'
-import { PersonalInformation } from '../features/personalInformation/PersonalInformation'
-import { SignUpPage } from '../features/signUpPage/SignUpPage'
-import { SignInPage } from '../features/singInPage/SignInPage'
+import { PagesRoutes } from '../features/routes/PagesRoutes'
 
 import { initializeAppTC } from './app-reducer'
 import { useAppDispatch, useAppSelector } from './hooks'
@@ -38,19 +32,7 @@ function App() {
         <GlobalStyles />
         <StyledMainWrapper>
           <Header />
-          <Routes>
-            <Route path={'/'} element={<PersonalInformation />} />
-            <Route path={'/profile'} element={<PersonalInformation />} />
-            <Route path={'/cards'} element={<PersonalInformation />} />
-            {/*/cards to be changed as initial route*/}
-            {/*<Route path={'/cards'} element={<MainPage />} />*/}
-            <Route path={'/signup'} element={<SignUpPage />} />
-            <Route path={'/signin'} element={<SignInPage />} />
-            <Route path={'/checkemail'} element={<CheckEmail />} />
-            <Route path={'/forgotpassword'} element={<ForgotPasswordPage />} />
-            <Route path={'/createnewpassword/:token'} element={<CreateNewPassword />} />
-            <Route path={'/*'} element={<div>404</div>} />
-          </Routes>
+          <PagesRoutes />
         </StyledMainWrapper>
         {appError && <MySnackbar text={appError} color={'rgb(211, 47, 47)'} />}
       </ThemeProvider>

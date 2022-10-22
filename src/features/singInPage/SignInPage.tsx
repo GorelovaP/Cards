@@ -13,6 +13,7 @@ import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledBut
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
+import { PATH } from '../routes/PagesRoutes'
 
 import { StyledSignInForm } from './styledSignIn'
 
@@ -36,7 +37,7 @@ export const SignInPage = () => {
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(setAppErrorAC(''))
-      navigate('/profile')
+      navigate(PATH.PROFILE)
     }
   }, [isLoggedIn])
 
@@ -85,7 +86,7 @@ export const SignInPage = () => {
             checked={formik.values.rememberMe}
           />
 
-          <NavLink to={'/forgotpassword'} className={'navLink'}>
+          <NavLink to={PATH.FORGOT_PASSWORD} className={'navLink'}>
             Forgot password?
           </NavLink>
           <div className={'formButton'}>
@@ -95,7 +96,7 @@ export const SignInPage = () => {
         <H4>Already have an account?</H4>
         <div className={'styledBottomFormLink'}>
           <StyledBottomFormLink>
-            <NavLink to={'/signup'} className={'bottomFormLink'} onClick={clearError}>
+            <NavLink to={PATH.REGISTRATION} className={'bottomFormLink'} onClick={clearError}>
               Sign Up
             </NavLink>
           </StyledBottomFormLink>

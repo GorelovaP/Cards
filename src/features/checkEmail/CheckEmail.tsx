@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { passwordRecoveryEmailSentAC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
@@ -8,6 +8,7 @@ import emailIcon from '../../assets/images/Email.svg'
 import { StyledButton } from '../../common/styledComponents/styledButtons'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
+import { PATH } from '../routes/PagesRoutes'
 
 import { StyledSignUpForm } from './styledCheckEmail'
 
@@ -21,11 +22,11 @@ export const CheckEmail = () => {
 
   let navigate = useNavigate()
   const goLogin = () => {
-    navigate('/signin')
+    navigate(PATH.LOGIN)
   }
 
   if (!email) {
-    return <Navigate to={'/forgotpassword'} />
+    navigate(PATH.FORGOT_PASSWORD)
   }
 
   return (

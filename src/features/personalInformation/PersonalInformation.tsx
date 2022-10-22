@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { IoMdLogOut } from 'react-icons/io'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { singOutTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
@@ -11,12 +11,15 @@ import { BackToPack } from '../../common/components/backToPack/BackToPack'
 import { LogOutButton } from '../../common/styledComponents/styledButtons'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
+import { PATH } from '../routes/PagesRoutes'
 
 import { EditableSpan } from './EditableSpan'
 import { StyledPersonalInformation } from './styledPersonalInformation'
 
 export const PersonalInformation = () => {
   const dispatch = useAppDispatch()
+
+  const navigate = useNavigate()
 
   let isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   let email = useAppSelector(state => state.user.user.email)
@@ -26,7 +29,7 @@ export const PersonalInformation = () => {
   }
 
   if (!isLoggedIn) {
-    return <Navigate to={'/signin'} />
+    navigate(PATH.LOGIN)
   }
 
   return (

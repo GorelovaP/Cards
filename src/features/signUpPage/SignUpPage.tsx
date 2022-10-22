@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { NavLink, Navigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { setAppErrorAC, signUpTC } from '../../app/app-reducer'
@@ -12,12 +12,15 @@ import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledBut
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4, StyledBottomFormLink } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
+import { PATH } from '../routes/PagesRoutes'
 
 import { StyledSignUpForm } from './styledSignUp'
 
 export const SignUpPage = () => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
+
+  const navigate = useNavigate()
 
   const onClickAction = () => {
     setPasswordIcon(!passwordIcon)
@@ -53,7 +56,7 @@ export const SignUpPage = () => {
   if (signUpStatus) {
     dispatch(setAppErrorAC(''))
 
-    return <Navigate to={'/signin'} />
+    navigate(PATH.LOGIN)
   }
 
   return (
@@ -102,7 +105,7 @@ export const SignUpPage = () => {
         <H4>Already have an account</H4>
         <div className={'styledBottomFormLink'}>
           <StyledBottomFormLink>
-            <NavLink to={'/signin'} className={'bottomFormLink'} onClick={clearError}>
+            <NavLink to={PATH.LOGIN} className={'bottomFormLink'} onClick={clearError}>
               Sign In
             </NavLink>
           </StyledBottomFormLink>

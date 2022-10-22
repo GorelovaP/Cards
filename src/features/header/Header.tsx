@@ -7,6 +7,7 @@ import avatar from '../../assets/images/avatar.png'
 import logo from '../../assets/images/logo.svg'
 import { LoadingProcess } from '../../common/components/loadingProgress/LoadingProcess'
 import { StyleButtonForHeader } from '../../common/styledComponents/styledButtons'
+import { PATH } from '../routes/PagesRoutes'
 
 import { StyleHeader, StyleHeaderRightIcons, StyleHeaderSecond } from './styledHeader'
 
@@ -18,10 +19,10 @@ export const Header = () => {
   const isLoading = useAppSelector(store => store.app.isLoading)
 
   const gotoSingIn = () => {
-    navigate('/signin')
+    navigate(PATH.LOGIN)
   }
   const gotoProfile = () => {
-    navigate('/profile')
+    navigate(PATH.PROFILE)
   }
 
   return (
@@ -29,11 +30,11 @@ export const Header = () => {
       <StyleHeaderSecond>
         <img src={logo} alt="logo" />
         <div>
-          {match?.params.routeKey === 'signup' ||
-          match?.params.routeKey === 'createnewpassword' ||
-          match?.params.routeKey === 'signin' ||
-          match?.params.routeKey === 'checkemail' ||
-          match?.params.routeKey === 'forgotpassword' ? (
+          {match?.params.routeKey === PATH.REGISTRATION ||
+          match?.params.routeKey === PATH.CREATE_NEW_PASSWORD ||
+          match?.params.routeKey === PATH.LOGIN ||
+          match?.params.routeKey === PATH.CHECK_EMAIL ||
+          match?.params.routeKey === PATH.FORGOT_PASSWORD ? (
             <StyleButtonForHeader onClick={gotoSingIn}> Sign in</StyleButtonForHeader>
           ) : (
             <StyleHeaderRightIcons onClick={gotoProfile}>

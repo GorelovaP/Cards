@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { Navigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { createNewPasswordTC } from '../../app/app-reducer'
@@ -12,6 +12,7 @@ import { StyledButton } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
+import { PATH } from '../routes/PagesRoutes'
 
 import { StyledCreateNewPassword } from './styledCreateNewPassword'
 
@@ -19,7 +20,8 @@ export const CreateNewPassword = () => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
 
-  const commonError = useAppSelector(store => store.app.appError)
+  const navigate = useNavigate()
+
   const newPasswordCreated = useAppSelector(store => store.app.newPasswordCreated)
 
   // getting url address
@@ -48,7 +50,7 @@ export const CreateNewPassword = () => {
   })
 
   if (newPasswordCreated) {
-    return <Navigate to={'/signin'} />
+    navigate(PATH.LOGIN)
   }
 
   return (
@@ -57,11 +59,6 @@ export const CreateNewPassword = () => {
         <H2>Create new password</H2>
         <form onSubmit={formik.handleSubmit}>
           <div className={'inputErrorHandlerForm'}>
-            <div className={'formErrorPlacement'}>
-              {commonError && !formik.touched.password && (
-                <StyledErrorArea>{commonError}</StyledErrorArea>
-              )}
-            </div>
             <MyInput
               text={passwordShowMode ? 'password' : 'text'}
               placeholder={'Password'}
