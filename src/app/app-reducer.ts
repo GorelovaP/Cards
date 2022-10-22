@@ -10,7 +10,6 @@ const initialState = {
   registered: false,
   isLoggedIn: false,
   appError: '',
-  commonError: '',
   passwordRecoveryEmail: '',
   passwordRecoveryEmailSent: false,
   newPasswordCreated: false,
@@ -27,9 +26,6 @@ export const AppReducer = (
     }
     case 'APP/SIGNUP': {
       return { ...state, registered: action.registered }
-    }
-    case 'APP/SET-COMMON-ERROR': {
-      return { ...state, commonError: action.error }
     }
     case 'APP/PASSWORD-RECOVERY-EMAIL': {
       return { ...state, passwordRecoveryEmail: action.email }
@@ -61,8 +57,6 @@ export const AppReducer = (
 export const setAppInitializedAC = (initialized: boolean) =>
   ({ type: 'APP/SET-INITIALIZED', initialized } as const)
 export const signUpAC = (registered: boolean) => ({ type: 'APP/SIGNUP', registered } as const)
-export const setCommonErrorAC = (error: string) =>
-  ({ type: 'APP/SET-COMMON-ERROR', error } as const)
 export const setPasswordRecoveryEmailAC = (email: string) =>
   ({ type: 'APP/PASSWORD-RECOVERY-EMAIL', email } as const)
 export const passwordRecoveryEmailSentAC = (sent: boolean) =>
@@ -88,12 +82,8 @@ export const initializeAppTC = (): AppThunkType => async dispatch => {
   } catch (e) {
     const errors = e as Error | AxiosError<SignUpResType>
 
-    console.log(errors)
     if (axios.isAxiosError(errors)) {
       dispatch(setAppErrorAC(errors.response?.data.error))
-      setTimeout(() => {
-        dispatch(setAppErrorAC(''))
-      }, 7000)
     }
   } finally {
     dispatch(setAppInitializedAC(true))
@@ -105,7 +95,7 @@ export const signUpTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-      dispatch(setCommonErrorAC(''))
+      dispatch(setAppErrorAC(''))
       const res = await getInAPI.signUp(email, password)
 
       dispatch(signUpAC(true))
@@ -114,12 +104,9 @@ export const signUpTC =
 
       if (axios.isAxiosError(errors)) {
         if (errors.response?.data.error) {
-          dispatch(setCommonErrorAC(errors.response?.data.error))
+          dispatch(setAppErrorAC(errors.response?.data.error))
         } else {
           dispatch(setAppErrorAC('Something went wrong...'))
-          setTimeout(() => {
-            dispatch(setAppErrorAC(''))
-          }, 7000)
         }
       }
     } finally {
@@ -132,7 +119,7 @@ export const sendPasswordRecoveryTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-      dispatch(setCommonErrorAC(''))
+      dispatch(setAppErrorAC(''))
       const res = await getInAPI.forgotPassword(email, from, message)
 
       dispatch(setPasswordRecoveryEmailAC(email))
@@ -142,12 +129,9 @@ export const sendPasswordRecoveryTC =
 
       if (axios.isAxiosError(errors)) {
         if (errors.response?.data.error) {
-          dispatch(setCommonErrorAC(errors.response?.data.error))
+          dispatch(setAppErrorAC(errors.response?.data.error))
         } else {
           dispatch(setAppErrorAC('Something went wrong...'))
-          setTimeout(() => {
-            dispatch(setAppErrorAC(''))
-          }, 7000)
         }
       }
     } finally {
@@ -160,7 +144,7 @@ export const createNewPasswordTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-      dispatch(setCommonErrorAC(''))
+      dispatch(setAppErrorAC(''))
       const res = await getInAPI.createNewPassword(newPassword, token)
 
       dispatch(newPasswordCreatedAC(true))
@@ -169,12 +153,9 @@ export const createNewPasswordTC =
 
       if (axios.isAxiosError(errors)) {
         if (errors.response?.data.error) {
-          dispatch(setCommonErrorAC(errors.response?.data.error))
+          dispatch(setAppErrorAC(errors.response?.data.error))
         } else {
           dispatch(setAppErrorAC('Something went wrong...'))
-          setTimeout(() => {
-            dispatch(setAppErrorAC(''))
-          }, 7000)
         }
       }
     } finally {
@@ -187,7 +168,7 @@ export const singInTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-      dispatch(setCommonErrorAC(''))
+      dispatch(setAppErrorAC(''))
       const res = await getInAPI.singIn(data.email, data.password, data.rememberMe)
 
       dispatch(signInAC(true))
@@ -197,22 +178,22 @@ export const singInTC =
 
       if (axios.isAxiosError(errors)) {
         if (errors.response?.data.error) {
-          dispatch(setCommonErrorAC(errors.response?.data.error))
+          dispatch(setAppErrorAC(errors.response?.data.error))
         } else {
           dispatch(setAppErrorAC('Something went wrong...'))
-          setTimeout(() => {
-            dispatch(setAppErrorAC(''))
-          }, 7000)
         }
       }
     } finally {
       dispatch(isLoadingAC(false))
+      setTimeout(() => {
+        dispatch(setAppErrorAC(''))
+      }, 7000)
     }
   }
 export const singOutTC = (): AppThunkType => async dispatch => {
   try {
     dispatch(isLoadingAC(true))
-    dispatch(setCommonErrorAC(''))
+    dispatch(setAppErrorAC(''))
     const res = await getInAPI.signOut()
 
     dispatch(signOutAC())
@@ -222,12 +203,9 @@ export const singOutTC = (): AppThunkType => async dispatch => {
 
     if (axios.isAxiosError(errors)) {
       if (errors.response?.data.error) {
-        dispatch(setCommonErrorAC(errors.response?.data.error))
+        dispatch(setAppErrorAC(errors.response?.data.error))
       } else {
         dispatch(setAppErrorAC('Something went wrong...'))
-        setTimeout(() => {
-          dispatch(setAppErrorAC(''))
-        }, 7000)
       }
     }
   } finally {
@@ -249,7 +227,6 @@ export type AppReducerActionsType =
   | ReturnType<typeof signUpAC>
   | ReturnType<typeof setAppInitializedAC>
   | ReturnType<typeof setUserAC>
-  | ReturnType<typeof setCommonErrorAC>
   | ReturnType<typeof setPasswordRecoveryEmailAC>
   | ReturnType<typeof passwordRecoveryEmailSentAC>
   | ReturnType<typeof newPasswordCreatedAC>

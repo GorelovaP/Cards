@@ -26,3 +26,7 @@ type SnackbarPropsType = {
   text: string
   color: string
 }
+
+/*setTimeout(() => {
+           dispatch(setAppErrorAC(''))
+         }, 7000)*/

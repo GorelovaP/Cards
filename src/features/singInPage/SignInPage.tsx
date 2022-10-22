@@ -5,7 +5,7 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { NavLink, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import { newPasswordCreatedAC, setCommonErrorAC, signUpAC, singInTC } from '../../app/app-reducer'
+import { newPasswordCreatedAC, setAppErrorAC, signUpAC, singInTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { MyCheckBox } from '../../common/components/styledChackBox/MyCheckBox'
 import { MyInput } from '../../common/components/styledInput/MyInput'
@@ -23,16 +23,19 @@ export const SignInPage = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
-  const signIpRegError = useAppSelector(store => store.app.commonError)
+
+  const clearError = () => {
+    dispatch(setAppErrorAC(''))
+  }
 
   useEffect(() => {
     dispatch(signUpAC(false))
-    dispatch(setCommonErrorAC(''))
     dispatch(newPasswordCreatedAC(false))
   }, [])
 
   useEffect(() => {
     if (isLoggedIn) {
+      dispatch(setAppErrorAC(''))
       navigate('/profile')
     }
   }, [isLoggedIn])
@@ -62,9 +65,6 @@ export const SignInPage = () => {
       <StyledSignInForm>
         <H2>Sing In</H2>
         <form onSubmit={formik.handleSubmit}>
-          {signIpRegError && !formik.touched.email && (
-            <StyledErrorArea>{signIpRegError}</StyledErrorArea>
-          )}
           <MyInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
           {formik.errors.email && formik.touched.email ? (
             <StyledErrorArea>{formik.errors.email}</StyledErrorArea>
@@ -95,7 +95,7 @@ export const SignInPage = () => {
         <H4>Already have an account?</H4>
         <div className={'styledBottomFormLink'}>
           <StyledBottomFormLink>
-            <NavLink to={'/signup'} className={'bottomFormLink'}>
+            <NavLink to={'/signup'} className={'bottomFormLink'} onClick={clearError}>
               Sign Up
             </NavLink>
           </StyledBottomFormLink>

@@ -2,7 +2,6 @@ import React from 'react'
 
 import { IoMdLogOut } from 'react-icons/io'
 import { Navigate } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { singOutTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
@@ -14,6 +13,7 @@ import { H2, H4 } from '../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 
 import { EditableSpan } from './EditableSpan'
+import { StyledPersonalInformation } from './styledPersonalInformation'
 
 export const PersonalInformation = () => {
   const dispatch = useAppDispatch()
@@ -52,43 +52,3 @@ export const PersonalInformation = () => {
     </>
   )
 }
-
-// styled component
-const StyledPersonalInformation = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-   {
-    .photo {
-      text-align: center;
-      position: relative;
-      height: 147px;
-    }
-
-    .avatar {
-      border-radius: 50%;
-      margin-top: 30px;
-      height: 96px;
-      width: 96px;
-      margin-bottom: 17px;
-    }
-
-    .buttonForPhoto {
-      height: 32px;
-      width: 32px;
-      border-radius: 50%;
-      position: absolute;
-      top: 95px;
-      left: 65px;
-      border: 2px solid white;
-    }
-
-    .logOutBtn {
-      margin: 29px 0 3px 0;
-    }
-
-    .logOutIcon {
-      margin-right: 7px;
-    }
-  }
-`

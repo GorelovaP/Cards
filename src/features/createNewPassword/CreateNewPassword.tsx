@@ -19,7 +19,7 @@ export const CreateNewPassword = () => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
 
-  const commonError = useAppSelector(store => store.app.commonError)
+  const commonError = useAppSelector(store => store.app.appError)
   const newPasswordCreated = useAppSelector(store => store.app.newPasswordCreated)
 
   // getting url address

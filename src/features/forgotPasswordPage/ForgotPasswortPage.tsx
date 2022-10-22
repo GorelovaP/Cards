@@ -23,7 +23,7 @@ export const ForgotPasswordPage = () => {
   const dispatch = useAppDispatch()
   const sent = useAppSelector(store => store.app.passwordRecoveryEmailSent)
   let location = window.location.origin
-  const sentRecoveryLinkError = useAppSelector(store => store.app.commonError)
+  const sentRecoveryLinkError = useAppSelector(store => store.app.appError)
 
   const formik = useFormik({
     validationSchema: Yup.object({

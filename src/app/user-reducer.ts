@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 
 import { ChangeNameResType, getInAPI } from '../api/api'
 
-import { isLoadingAC, setAppErrorAC, setCommonErrorAC } from './app-reducer'
+import { isLoadingAC, setAppErrorAC } from './app-reducer'
 import { AppThunkType } from './store'
 
 export type initialStateType = {
@@ -70,12 +70,9 @@ export const changeUserNameTC =
 
       if (axios.isAxiosError(errors)) {
         if (errors.response?.data.error) {
-          dispatch(setCommonErrorAC(errors.response?.data.error))
+          dispatch(setAppErrorAC(errors.response?.data.error))
         } else {
           dispatch(setAppErrorAC('Something went wrong...'))
-          setTimeout(() => {
-            dispatch(setAppErrorAC(''))
-          }, 7000)
         }
       }
     } finally {

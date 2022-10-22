@@ -5,7 +5,7 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { NavLink, Navigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import { signUpTC } from '../../app/app-reducer'
+import { setAppErrorAC, signUpTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { MyInput } from '../../common/components/styledInput/MyInput'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'
@@ -24,8 +24,11 @@ export const SignUpPage = () => {
     setPasswordShowMode(!passwordShowMode)
   }
 
+  const clearError = () => {
+    dispatch(setAppErrorAC(''))
+  }
+
   const signUpStatus = useAppSelector(store => store.app.registered)
-  const signUpRegError = useAppSelector(store => store.app.commonError)
   const dispatch = useAppDispatch()
 
   const formik = useFormik({
@@ -48,6 +51,8 @@ export const SignUpPage = () => {
   })
 
   if (signUpStatus) {
+    dispatch(setAppErrorAC(''))
+
     return <Navigate to={'/signin'} />
   }
 
@@ -57,11 +62,6 @@ export const SignUpPage = () => {
         <H2>Sing Up</H2>
         <form onSubmit={formik.handleSubmit}>
           <div className={'inputErrorHandlerForm'}>
-            <div className={'formErrorPlacement'}>
-              {signUpRegError && !formik.touched.email && (
-                <StyledErrorArea>{signUpRegError}</StyledErrorArea>
-              )}
-            </div>
             <MyInput text={'email'} label={'Email'} {...formik.getFieldProps('email')} />
             <div className={'formErrorPlacement'}>
               {formik.errors.email && formik.touched.email ? (
@@ -102,7 +102,7 @@ export const SignUpPage = () => {
         <H4>Already have an account</H4>
         <div className={'styledBottomFormLink'}>
           <StyledBottomFormLink>
-            <NavLink to={'/signin'} className={'bottomFormLink'}>
+            <NavLink to={'/signin'} className={'bottomFormLink'} onClick={clearError}>
               Sign In
             </NavLink>
           </StyledBottomFormLink>
