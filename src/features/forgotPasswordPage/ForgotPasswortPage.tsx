@@ -22,6 +22,7 @@ import { StyledForgotPasswordPage } from './styledForgotPassword'
 export const ForgotPasswordPage = () => {
   const dispatch = useAppDispatch()
   const sent = useAppSelector(store => store.app.passwordRecoveryEmailSent)
+  let location = window.location.origin
   const sentRecoveryLinkError = useAppSelector(store => store.app.commonError)
 
   const formik = useFormik({
@@ -31,18 +32,16 @@ export const ForgotPasswordPage = () => {
     initialValues: {
       email: '',
     },
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: values => {
       console.log(JSON.stringify(values))
       const from = `test-front-admin <ai73a@yandex.by>`
       const message = `<div style="background-color: lime; padding: 15px">
 <b>password recovery link: </b>
-<a href='http://localhost:3000/createnewpassword/$token$'>
+<a href='${location}/createnewpassword/$token$'>
 Click here to set a new password</a>
 </div>`
 
       dispatch(sendPasswordRecoveryTC(values.email, from, message))
-
-      resetForm()
     },
   })
 

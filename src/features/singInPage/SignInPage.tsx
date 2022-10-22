@@ -52,9 +52,8 @@ export const SignInPage = () => {
       password: '',
       rememberMe: true,
     },
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: values => {
       dispatch(singInTC(values))
-      resetForm()
     },
   })
 

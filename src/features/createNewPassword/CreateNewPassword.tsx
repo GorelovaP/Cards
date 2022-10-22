@@ -39,11 +39,10 @@ export const CreateNewPassword = () => {
     initialValues: {
       password: '',
     },
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: values => {
       console.log(JSON.stringify(values))
       if (token) {
         dispatch(createNewPasswordTC(values.password, token))
-        resetForm()
       }
     },
   })

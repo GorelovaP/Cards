@@ -7,12 +7,12 @@ import { BackToPackArea } from './styledBackToPack'
 
 export const BackToPack = () => {
   const navigate = useNavigate()
-  const GoToCards = () => {
+  const goToCards = () => {
     navigate('/cards')
   }
 
   return (
-    <BackToPackArea onClick={GoToCards}>
+    <BackToPackArea onClick={goToCards}>
       <BiArrowBack className={'icon'} />
       <span>Back to Packs List</span>
     </BackToPackArea>

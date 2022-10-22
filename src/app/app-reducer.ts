@@ -5,7 +5,7 @@ import { AppError, getInAPI, SignInResType, SignOutResType, SignUpResType } from
 import { AppActionsType, AppThunkType } from './store'
 import { deleteUserInformationAC, setUserAC } from './user-reducer'
 
-const initialState: AppStateType = {
+const initialState = {
   isInitialized: false,
   registered: false,
   isLoggedIn: false,
@@ -183,7 +183,7 @@ export const createNewPasswordTC =
   }
 
 export const singInTC =
-  (data: singInParamsType): AppThunkType =>
+  (data: SingInParamsType): AppThunkType =>
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
@@ -236,19 +236,9 @@ export const singOutTC = (): AppThunkType => async dispatch => {
 }
 
 // ================ Types ====================
-export type AppStateType = {
-  isInitialized: boolean
-  registered: boolean
-  isLoggedIn: boolean
-  appError: string
-  commonError: string
-  passwordRecoveryEmail: string
-  passwordRecoveryEmailSent: boolean
-  newPasswordCreated: boolean
-  isLoading: boolean
-}
+export type AppStateType = typeof initialState
 
-type singInParamsType = {
+type SingInParamsType = {
   email: string
   password: string
   rememberMe: boolean
