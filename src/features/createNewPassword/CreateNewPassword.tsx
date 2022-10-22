@@ -24,8 +24,6 @@ export const CreateNewPassword = memo(() => {
   // getting url address
   const { token } = useParams()
 
-  console.log(window.location.pathname)
-
   const onClickAction = () => {
     setPasswordIcon(!passwordIcon)
     setPasswordShowMode(!passwordShowMode)
@@ -40,11 +38,10 @@ export const CreateNewPassword = memo(() => {
     initialValues: {
       password: '',
     },
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: values => {
       console.log(JSON.stringify(values))
       if (token) {
         dispatch(createNewPasswordTC(values.password, token))
-        resetForm()
       }
     },
   })

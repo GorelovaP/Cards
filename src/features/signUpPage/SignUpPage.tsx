@@ -41,9 +41,8 @@ export const SignUpPage = memo(() => {
       password: '',
       confirmPassword: '',
     },
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: values => {
       dispatch(signUpTC(values.email, values.password))
-      resetForm()
     },
   })
 

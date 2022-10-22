@@ -17,10 +17,10 @@ export const Header = memo(() => {
 
   const isLoading = useAppSelector(store => store.app.isLoading)
 
-  const GotoSingIn = () => {
+  const gotoSingIn = () => {
     navigate('/signin')
   }
-  const GotoProfile = () => {
+  const gotoProfile = () => {
     navigate('/profile')
   }
 
@@ -34,9 +34,9 @@ export const Header = memo(() => {
           match?.params.routeKey === 'signin' ||
           match?.params.routeKey === 'checkemail' ||
           match?.params.routeKey === 'forgotpassword' ? (
-            <StyleButtonForHeader onClick={GotoSingIn}> Sign in</StyleButtonForHeader>
+            <StyleButtonForHeader onClick={gotoSingIn}> Sign in</StyleButtonForHeader>
           ) : (
-            <StyleHeaderRightIcons onClick={GotoProfile}>
+            <StyleHeaderRightIcons onClick={gotoProfile}>
               <div className={'personalName'}> {userName} </div>
               <img className={'personalIcon'} alt={'personalIcon'} src={avatar} />
             </StyleHeaderRightIcons>

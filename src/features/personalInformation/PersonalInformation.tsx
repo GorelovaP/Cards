@@ -21,7 +21,7 @@ export const PersonalInformation = memo(() => {
   let isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   let email = useAppSelector(state => state.user.user.email)
 
-  const LogOut = () => {
+  const logOut = () => {
     dispatch(singOutTC())
   }
 
@@ -43,7 +43,7 @@ export const PersonalInformation = memo(() => {
           </div>
           <EditableSpan />
           <H4>{email}</H4>
-          <LogOutButton className={'logOutBtn'} onClick={LogOut}>
+          <LogOutButton className={'logOutBtn'} onClick={logOut}>
             <IoMdLogOut className={'logOutIcon'} />
             Log out
           </LogOutButton>
