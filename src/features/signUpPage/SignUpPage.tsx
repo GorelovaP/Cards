@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Navigate, NavLink } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { setAppErrorAC, signUpTC } from '../../app/app-reducer'
@@ -19,8 +19,6 @@ import { StyledSignUpForm } from './styledSignUp'
 export const SignUpPage = () => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
-
-  const navigate = useNavigate()
 
   const onClickAction = () => {
     setPasswordIcon(!passwordIcon)
@@ -56,7 +54,7 @@ export const SignUpPage = () => {
   if (signUpStatus) {
     dispatch(setAppErrorAC(''))
 
-    navigate(PATH.LOGIN)
+    return <Navigate to={PATH.LOGIN} />
   }
 
   return (

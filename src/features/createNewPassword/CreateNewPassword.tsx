@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { createNewPasswordTC } from '../../app/app-reducer'
@@ -19,8 +19,6 @@ import { StyledCreateNewPassword } from './styledCreateNewPassword'
 export const CreateNewPassword = () => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
-
-  const navigate = useNavigate()
 
   const newPasswordCreated = useAppSelector(store => store.app.newPasswordCreated)
 
@@ -50,7 +48,7 @@ export const CreateNewPassword = () => {
   })
 
   if (newPasswordCreated) {
-    navigate(PATH.LOGIN)
+    return <Navigate to={PATH.LOGIN} />
   }
 
   return (

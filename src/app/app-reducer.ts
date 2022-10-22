@@ -185,9 +185,6 @@ export const singInTC =
       }
     } finally {
       dispatch(isLoadingAC(false))
-      setTimeout(() => {
-        dispatch(setAppErrorAC(''))
-      }, 7000)
     }
   }
 export const singOutTC = (): AppThunkType => async dispatch => {

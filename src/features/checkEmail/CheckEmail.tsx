@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import { passwordRecoveryEmailSentAC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
@@ -26,7 +26,7 @@ export const CheckEmail = () => {
   }
 
   if (!email) {
-    navigate(PATH.FORGOT_PASSWORD)
+    return <Navigate to={PATH.FORGOT_PASSWORD} />
   }
 
   return (

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useFormik } from 'formik'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Navigate, NavLink } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { sendPasswordRecoveryTC } from '../../app/app-reducer'
@@ -24,7 +24,6 @@ export const ForgotPasswordPage = () => {
   const dispatch = useAppDispatch()
   const sent = useAppSelector(store => store.app.passwordRecoveryEmailSent)
   let location = window.location.origin
-  const navigate = useNavigate()
 
   const formik = useFormik({
     validationSchema: Yup.object({
@@ -47,7 +46,7 @@ Click here to set a new password</a>
   })
 
   if (sent) {
-    navigate(PATH.CHECK_EMAIL)
+    return <Navigate to={PATH.CHECK_EMAIL} />
   }
 
   return (

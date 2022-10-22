@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { IoMdLogOut } from 'react-icons/io'
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 import { singOutTC } from '../../app/app-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
@@ -19,8 +19,6 @@ import { StyledPersonalInformation } from './styledPersonalInformation'
 export const PersonalInformation = () => {
   const dispatch = useAppDispatch()
 
-  const navigate = useNavigate()
-
   let isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   let email = useAppSelector(state => state.user.user.email)
 
@@ -29,7 +27,7 @@ export const PersonalInformation = () => {
   }
 
   if (!isLoggedIn) {
-    navigate(PATH.LOGIN)
+    return <Navigate to={PATH.LOGIN} />
   }
 
   return (
