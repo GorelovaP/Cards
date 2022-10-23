@@ -1,19 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 import { useAppSelector } from '../../app/hooks'
 import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
+import { PATH } from '../routes/PagesRoutes'
 
 export const MainPage = () => {
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
-  const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate('/signin')
-    }
-  }, [isLoggedIn])
+  if (!isLoggedIn) {
+    return <Navigate to={PATH.LOGIN} />
+  }
 
   return <StyledSingFormWrapper>ТАДАААМ, ВЫ НА КАРТОЧКАХ</StyledSingFormWrapper>
 }

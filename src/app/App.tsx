@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 
+import { useMatch } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
 import { Loading } from '../common/components/loading/Loading'
@@ -17,6 +18,7 @@ function App() {
   const dispatch = useAppDispatch()
   const isInitialized = useAppSelector(state => state.app.isInitialized)
   const appError = useAppSelector(state => state.app.appError)
+  const match = useMatch('/:routeKey')
 
   useEffect(() => {
     dispatch(initializeAppTC())
@@ -31,7 +33,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <StyledMainWrapper>
-          <Header />
+          {match?.params.routeKey !== '404' && <Header />}
           <PagesRoutes />
         </StyledMainWrapper>
         {appError && <MySnackbar text={appError} color={'rgb(211, 47, 47)'} />}
