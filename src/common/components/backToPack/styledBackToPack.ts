@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 
 export const BackToPackArea = styled.div`
-  position: absolute;
+  position: relative;
+
   display: flex;
   align-items: center;
-  top: 84px;
+  margin-top: 84px;
   line-height: 24px;
 
   span {

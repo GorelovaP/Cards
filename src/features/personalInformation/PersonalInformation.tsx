@@ -10,11 +10,10 @@ import photo from '../../assets/images/photo.png'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'
 import { LogOutButton } from '../../common/styledComponents/styledButtons'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'
-import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
 import { PATH } from '../routes/PagesRoutes'
 
 import { EditableSpan } from './EditableSpan'
-import { StyledPersonalInformation } from './styledPersonalInformation'
+import { StyledPersonalFormWrapper, StyledPersonalInformation } from './styledPersonalInformation'
 
 export const PersonalInformation = () => {
   const dispatch = useAppDispatch()
@@ -33,7 +32,7 @@ export const PersonalInformation = () => {
   return (
     <>
       <BackToPack />
-      <StyledSingFormWrapper>
+      <StyledPersonalFormWrapper>
         <StyledPersonalInformation>
           <H2>Personal Information</H2>
           <div className={'photo'}>
@@ -49,7 +48,7 @@ export const PersonalInformation = () => {
             Log out
           </LogOutButton>
         </StyledPersonalInformation>
-      </StyledSingFormWrapper>
+      </StyledPersonalFormWrapper>
     </>
   )
 }

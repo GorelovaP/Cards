@@ -14,3 +14,18 @@ export const StyledMainWrapper = styled.div`
   width: 1008px;
   margin: 0 auto;
 `
+
+export const StyledMainPageWrapper = styled.div`
+  margin-top: 27px;
+  max-height: 432px;
+`
+
+export const StyledPageHeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`
+export const StyledFeaturesWrapper = styled.div`
+  width: 100%;
+  margin-top: 27px;
+`

@@ -31,6 +31,10 @@ export const StyleButtonFormAdjusted = styled(StyledButton)`
 export const StyleButtonForHeader = styled(StyledButton)`
   padding: 0 28px;
 `
+export const StyleButtonForMainPageHeader = styled(StyledButton)`
+  width: 184px;
+`
+
 export const LogOutButton = styled(StyledButton)`
   display: flex;
   align-items: center;

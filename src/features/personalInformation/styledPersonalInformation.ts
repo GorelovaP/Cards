@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { StyledSingFormWrapper } from '../../common/styledComponents/styledWrappers'
+
 export const StyledPersonalInformation = styled.div`
   display: flex;
   flex-direction: column;
@@ -37,4 +39,7 @@ export const StyledPersonalInformation = styled.div`
       margin-right: 7px;
     }
   }
+`
+export const StyledPersonalFormWrapper = styled(StyledSingFormWrapper)`
+  margin-top: 12px;
 `

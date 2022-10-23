@@ -5,7 +5,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { CheckEmail } from '../checkEmail/CheckEmail'
 import { CreateNewPassword } from '../createNewPassword/CreateNewPassword'
 import { ForgotPasswordPage } from '../forgotPasswordPage/ForgotPasswortPage'
-import { MainPage } from '../mainPage/MainPage'
+import { PacksList } from '../packsList/PacksList'
 import { Page404 } from '../page404/Page404'
 import { PersonalInformation } from '../personalInformation/PersonalInformation'
 import { SignUpPage } from '../signUpPage/SignUpPage'
@@ -33,7 +33,7 @@ export const PagesRoutes = () => {
         <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
         <Route path={PATH.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
         <Route path={PATH.CREATE_NEW_PASSWORD} element={<CreateNewPassword />} />
-        <Route path={PATH.HOME_PAGE} element={<MainPage />} />
+        <Route path={PATH.HOME_PAGE} element={<PacksList />} />
 
         <Route path={PATH.PAGE_404} element={<Page404 />} />
         <Route path={'/*'} element={<Navigate to={PATH.PAGE_404} />} />
