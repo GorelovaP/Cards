@@ -10,12 +10,16 @@ export const StyledSearch = styled.div`
     width: 100%;
     border: 1px solid #d9d9d9;
     border-radius: 2px;
+    &::placeholder {
+      font-weight: 400;
+      line-height: 24px;
+      opacity: 0.5;
+    }
+    &:focus {
+      border: 1px solid #366eff;
+    }
   }
-  input::placeholder {
-    font-weight: 400;
-    line-height: 24px;
-    opacity: 0.5;
-  }
+
   .searchIcon {
     color: #d9d9d9;
     position: absolute;

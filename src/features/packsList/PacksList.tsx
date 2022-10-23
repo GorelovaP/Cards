@@ -1,9 +1,12 @@
 import React from 'react'
 
+import { GrFilter } from 'react-icons/gr'
 import { Navigate } from 'react-router-dom'
 
 import { useAppSelector } from '../../app/hooks'
+import { DoubleRange } from '../../common/components/doubleRange/DoubleRange'
 import { Search } from '../../common/components/search/Search'
+import { ToggleSwitch } from '../../common/components/toggleSwitch/ToggleSwitch'
 import { StyleButtonForMainPageHeader } from '../../common/styledComponents/styledButtons'
 import { H1 } from '../../common/styledComponents/styledHeaders'
 import {
@@ -11,7 +14,6 @@ import {
   StyledMainPageWrapper,
   StyledPageHeaderWrapper,
 } from '../../common/styledComponents/styledWrappers'
-import { ToggleSwitch } from '../../common/styledComponents/ToggleSwitch'
 import { PATH } from '../routes/PagesRoutes'
 
 import { StyledPacksList } from './styledPacksList'
@@ -33,6 +35,10 @@ export const PacksList = () => {
         <StyledFeaturesWrapper>
           <Search className="mainPageSearch" />
           <ToggleSwitch />
+          <DoubleRange />
+          <button className="filterBtn">
+            <GrFilter />
+          </button>
         </StyledFeaturesWrapper>
       </StyledMainPageWrapper>
     </StyledPacksList>

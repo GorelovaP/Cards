@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import { ToggleBtn } from './styledButtons'
-import { StyledLabel } from './styledLabel'
+import { ToggleBtn } from '../../styledComponents/styledButtons'
+import { StyledLabel } from '../../styledComponents/styledLabel'
 
 export const ToggleSwitch = () => {
   let [disabled, setDisabled] = useState(true)
