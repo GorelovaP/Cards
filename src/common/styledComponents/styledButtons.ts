@@ -59,3 +59,19 @@ export const StyledInnerButton = styled(StyledButton)`
   line-height: 24px;
   z-index: 2;
 `
+type PropsBtnType = {
+  position: 'left' | 'right'
+}
+export const ToggleBtn = styled.button<PropsBtnType>`
+  width: 98px;
+  height: 35px;
+  border-radius: ${props => (props.position ? '2px 0px 0x 2px;' : '0px 2px 2px 0px;')};
+  display: inline;
+  text-align: center;
+  color: black;
+
+  &:disabled {
+    background: ${({ theme }) => theme.colors.buttonPrimaryBg};
+    color: white;
+  }
+`

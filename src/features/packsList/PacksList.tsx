@@ -11,6 +11,7 @@ import {
   StyledMainPageWrapper,
   StyledPageHeaderWrapper,
 } from '../../common/styledComponents/styledWrappers'
+import { ToggleSwitch } from '../../common/styledComponents/ToggleSwitch'
 import { PATH } from '../routes/PagesRoutes'
 
 import { StyledPacksList } from './styledPacksList'
@@ -30,7 +31,8 @@ export const PacksList = () => {
           <StyleButtonForMainPageHeader>Add new pack</StyleButtonForMainPageHeader>
         </StyledPageHeaderWrapper>
         <StyledFeaturesWrapper>
-          <Search />
+          <Search className="mainPageSearch" />
+          <ToggleSwitch />
         </StyledFeaturesWrapper>
       </StyledMainPageWrapper>
     </StyledPacksList>

@@ -26,6 +26,8 @@ export const StyledPageHeaderWrapper = styled.div`
   width: 100%;
 `
 export const StyledFeaturesWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
   width: 100%;
   margin-top: 27px;
 `
