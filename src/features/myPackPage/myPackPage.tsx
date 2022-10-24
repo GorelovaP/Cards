@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom'
 import { useAppSelector } from '../../app/hooks'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'
 import { Search } from '../../common/components/search/Search'
+import { CardsTable } from '../../common/components/tableWithCards/CardsTable'
 import { StyleButtonForMainPageHeader } from '../../common/styledComponents/styledButtons'
 import { H1 } from '../../common/styledComponents/styledHeaders'
 import {
@@ -13,6 +14,7 @@ import {
 } from '../../common/styledComponents/styledWrappers'
 import { PATH } from '../routes/PagesRoutes'
 
+import popUp from './../../assets/images/popUp.svg'
 import { StyledMyPackPage } from './styledMyPackPage'
 
 export const MyPackPage = () => {
@@ -27,12 +29,16 @@ export const MyPackPage = () => {
       <BackToPack />
       <StyledMyPackPage>
         <StyledPageHeaderWrapper>
-          <H1>My Pack</H1>
+          <div>
+            <H1>My Pack</H1>
+            <img src={popUp} alt="" />
+          </div>
           <StyleButtonForMainPageHeader>Add new card</StyleButtonForMainPageHeader>
         </StyledPageHeaderWrapper>
         <StyledFeaturesWrapper>
           <Search className="mainPageSearch" />
         </StyledFeaturesWrapper>
+        <CardsTable />
       </StyledMyPackPage>
     </>
   )

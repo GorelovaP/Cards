@@ -17,7 +17,6 @@ export const StyledMainWrapper = styled.div`
 
 export const StyledMainPageWrapper = styled.div`
   margin-top: 27px;
-  max-height: 432px;
 `
 
 export const StyledPageHeaderWrapper = styled.div`
