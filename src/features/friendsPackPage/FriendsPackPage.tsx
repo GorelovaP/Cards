@@ -13,11 +13,10 @@ import {
 } from '../../common/styledComponents/styledWrappers'
 import { PATH } from '../routes/PagesRoutes'
 
-import popUp from './../../assets/images/popUp.svg'
-import { CardsTable } from './myPackPageTable/CardsTable'
-import { StyledMyPackPage } from './styledMyPackPage'
+import { FriendsCardsTable } from './FriendsCardsTable/FriendsCardsTable'
+import { StyledFriendsPackPage } from './styledFriendsPackPage'
 
-export const MyPackPage = () => {
+export const FriendsPackPage = () => {
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
 
   if (!isLoggedIn) {
@@ -27,19 +26,18 @@ export const MyPackPage = () => {
   return (
     <>
       <BackToPack />
-      <StyledMyPackPage>
+      <StyledFriendsPackPage>
         <StyledPageHeaderWrapper>
           <div>
-            <H1>My Pack</H1>
-            <img src={popUp} alt="" />
+            <H1>Friend&apos;s Pack</H1>
           </div>
           <StyleButtonForMainPageHeader>Add new card</StyleButtonForMainPageHeader>
         </StyledPageHeaderWrapper>
         <StyledFeaturesWrapper>
           <Search className="mainPageSearch" />
         </StyledFeaturesWrapper>
-        <CardsTable />
-      </StyledMyPackPage>
+        <FriendsCardsTable />
+      </StyledFriendsPackPage>
     </>
   )
 }

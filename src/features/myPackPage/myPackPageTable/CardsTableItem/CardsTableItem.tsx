@@ -1,5 +1,6 @@
-import Delete from './../../../../assets/images/table/Delete.svg'
-import Edit from './../../../../assets/images/table/Edit.svg'
+import Delete from '../../../../assets/images/table/Delete.svg'
+import Edit from '../../../../assets/images/table/Edit.svg'
+
 import { ItemGradeStars } from './ItemGradeStars/ItemGradeStars'
 import { StyledCardsTableItem } from './styledCardsTableItem'
 

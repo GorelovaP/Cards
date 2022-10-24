@@ -1,6 +1,7 @@
-import star1 from './../../../../../assets/images/table/Star 1.svg'
-import star4 from './../../../../../assets/images/table/Star 4.svg'
-import star5 from './../../../../../assets/images/table/Star 5.svg'
+import star1 from '../../../../../assets/images/table/Star 1.svg'
+import star4 from '../../../../../assets/images/table/Star 4.svg'
+import star5 from '../../../../../assets/images/table/Star 5.svg'
+
 import { StyledItemGradeStars } from './styledItemGradeStars'
 
 export const ItemGradeStars = () => {
