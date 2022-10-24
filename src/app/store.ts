@@ -1,4 +1,10 @@
-import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux'
+import {
+  applyMiddleware,
+  compose,
+  combineReducers,
+  legacy_createStore as createStore,
+  Store,
+} from 'redux'
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk'
 
 import { AppReducer, AppReducerActionsType } from './app-reducer'
@@ -6,7 +12,18 @@ import { UserReducer, UserReducerActionsType } from './user-reducer'
 
 let rootReducer = combineReducers({ app: AppReducer, user: UserReducer })
 
-export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+// for extension Redux dev tools
+//@ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+export const store: Store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunkMiddleware))
+)
+// end of using the extension
+
+// store for the production
+//export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
 // all action types must be here
 export type AppActionsType = AppReducerActionsType | UserReducerActionsType

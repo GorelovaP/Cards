@@ -14,6 +14,14 @@ export const H2 = styled.h2`
   text-align: center;
 `
 
+export const H3 = styled.h3`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  opacity: 0.5;
+`
+
 export const H4 = styled.h4`
   font-style: normal;
   font-weight: 500;

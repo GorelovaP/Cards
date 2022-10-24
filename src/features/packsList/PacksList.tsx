@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { GrFilter } from 'react-icons/gr'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import { useAppSelector } from '../../app/hooks'
 import { DoubleRange } from '../../common/components/doubleRange/DoubleRange'
@@ -21,6 +21,11 @@ import { StyledPacksList } from './styledPacksList'
 export const PacksList = () => {
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
 
+  const navigate = useNavigate()
+  const onClickHandler = () => {
+    navigate(PATH.NEW_EMPTY_PACK)
+  }
+
   if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN} />
   }
@@ -30,7 +35,9 @@ export const PacksList = () => {
       <StyledMainPageWrapper className={'mainPageWrapper'}>
         <StyledPageHeaderWrapper>
           <H1>Packs list</H1>
-          <StyleButtonForMainPageHeader>Add new pack</StyleButtonForMainPageHeader>
+          <StyleButtonForMainPageHeader onClick={onClickHandler}>
+            Add new pack
+          </StyleButtonForMainPageHeader>
         </StyledPageHeaderWrapper>
         <StyledFeaturesWrapper>
           <Search className="mainPageSearch" />
