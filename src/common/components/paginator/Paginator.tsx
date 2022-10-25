@@ -17,9 +17,10 @@ type PaginatorPropsType = {
 export const Paginator = (props: PaginatorPropsType) => {
   let options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-  console.log(props.pageCount)
+  let [currentPage, setCurrentPage] = useState(props.currentItem)
 
   let pagesCount = Math.ceil(props.totalItemsCount / props.pageCount)
+
   let pages = []
 
   for (let i = 1; i <= pagesCount; i++) {
@@ -53,13 +54,12 @@ export const Paginator = (props: PaginatorPropsType) => {
     } else {
       setPortionNumber(portionNumber + 1)
       setLeftDisable(false)
-      console.log(portionNumber + 'portionNumber')
-      console.log(portionCount)
     }
   }
 
   const chooseCurrentPage = (page: number) => {
     props.setCurrentItem(page)
+    setCurrentPage(page)
   }
 
   return (
@@ -75,14 +75,14 @@ export const Paginator = (props: PaginatorPropsType) => {
             <span
               key={p}
               onClick={() => chooseCurrentPage(p)}
-              className={`page ${props.currentItem === p ? 'selectedPage' : ''}`}
+              className={`page ${currentPage === p ? 'selectedPage' : ''}`}
             >
               {p}
             </span>
           )
         })}
       <span className={'page'}>...</span>
-      <span className={'page'}>{portionCount}</span>
+      <span className={'page'}>{pagesCount}</span>
       <button disabled={rightDisable} onClick={doRightBtnDisable} className={'paginatorBtn'}>
         {rightDisable ? <AiOutlineRight color={'#EFEFEF'} /> : <AiOutlineRight color={'#000000'} />}
       </button>

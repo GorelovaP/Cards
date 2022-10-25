@@ -4,7 +4,7 @@ import { GrFilter } from 'react-icons/gr'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { getPackTC } from '../../app/pack-reducer'
+import { getPackTC, setCurrentPageAC } from '../../app/pack-reducer'
 import { DoubleRange } from '../../common/components/doubleRange/DoubleRange'
 import { Paginator } from '../../common/components/paginator/Paginator'
 import { Search } from '../../common/components/search/Search'
@@ -38,7 +38,9 @@ export const PacksList = () => {
       return
     }
     if (meOrAll === 'all') {
-      dispatch(getPackTC())
+      dispatch(
+        getPackTC(undefined, undefined, undefined, undefined, currentItem, pageCount, undefined)
+      )
     } else {
       dispatch(
         getPackTC(
@@ -46,7 +48,7 @@ export const PacksList = () => {
           undefined,
           undefined,
           undefined,
-          undefined,
+          currentItem,
           pageCount,
           userid,
           undefined
@@ -57,13 +59,48 @@ export const PacksList = () => {
 
   const setCurrentItem = (item: number) => {
     console.log(`Теперь текущей страницей была бы страница ${item}`)
-    getPackTC(undefined, undefined, undefined, undefined, item, undefined, undefined, undefined)
+
+    if (meOrAll === 'me') {
+      dispatch(
+        getPackTC(undefined, undefined, undefined, undefined, item, pageCount, userid, undefined)
+      )
+    } else {
+      debugger
+      dispatch(
+        getPackTC(undefined, undefined, undefined, undefined, item, pageCount, undefined, undefined)
+      )
+    }
+    dispatch(setCurrentPageAC(item))
   }
   const ChangeFieldsNumber = (choice: number) => {
     console.log(`сейчас поменяли количество элементов на странице ${choice}`)
-    dispatch(
-      getPackTC(undefined, undefined, undefined, undefined, undefined, choice, undefined, undefined)
-    )
+    if (meOrAll === 'me') {
+      dispatch(
+        getPackTC(
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          currentItem,
+          choice,
+          userid,
+          undefined
+        )
+      )
+    } else {
+      dispatch(
+        getPackTC(
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          currentItem,
+          choice,
+          undefined,
+          undefined
+        )
+      )
+    }
   }
 
   const onClickHandler = () => {

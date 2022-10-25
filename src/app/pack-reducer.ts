@@ -10,7 +10,7 @@ const initialState: PackStateType = {
   cardPacksTotalCount: 0, // количество колод
   maxCardsCount: 0,
   minCardsCount: 0,
-  page: 0, // выбранная страница
+  page: 1, // выбранная страница
   pageCount: 0,
   meOrAll: 'all',
 }
@@ -36,6 +36,13 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
         pageCount: action.count,
       }
     }
+    case 'PACK/SET-CURRENT-PAGE': {
+      return {
+        ...state,
+        page: action.item,
+      }
+    }
+
     default:
       return state
   }
@@ -49,6 +56,9 @@ export const changeToggleAC = (toggle: meOrAllType) => {
 }
 export const setPageCountAC = (count: number) => {
   return { type: 'PACK/SET-PAGE-COUNT', count } as const
+}
+export const setCurrentPageAC = (item: number) => {
+  return { type: 'PACK/SET-CURRENT-PAGE', item } as const
 }
 
 // ================ Thunk creators ================
@@ -67,7 +77,7 @@ export const getPackTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-
+      debugger
       const res = await packsAPI.getPack(
         packName,
         min,
@@ -101,6 +111,7 @@ export type PackActionsType =
   | ReturnType<typeof setPackAC>
   | ReturnType<typeof changeToggleAC>
   | ReturnType<typeof setPageCountAC>
+  | ReturnType<typeof setCurrentPageAC>
 
 type PackStateType = {
   cardPacks: CardType[]
