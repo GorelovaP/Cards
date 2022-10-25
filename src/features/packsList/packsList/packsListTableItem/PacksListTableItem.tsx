@@ -4,13 +4,23 @@ import Learn from '../../../../assets/images/table/teacher.svg'
 
 import { StyledPacksListTableItem } from './styledPacksListTableItem'
 
-export const PacksListTableItem = () => {
+type PacksListTableItemPropsType = {
+  _id?: string
+  name: string
+  cards: number
+  lastUpdated: Date
+  userName: string
+}
+export const PacksListTableItem = (props: PacksListTableItemPropsType) => {
+  console.log(props.lastUpdated)
+  let date = props.lastUpdated.toString().substring(0, 10).split('-').reverse().join('.')
+
   return (
     <StyledPacksListTableItem>
-      <div className={'name'}>Pack name</div>
-      <div className={'cards'}>4</div>
-      <div className={'lastUpdated'}>18.03.2021</div>
-      <div className={'createdBy'}>Ivan Petrov</div>
+      <div className={'name'}>{props.name}</div>
+      <div className={'cards'}>{props.cards}</div>
+      <div className={'lastUpdated'}>{date}</div>
+      <div className={'createdBy'}>{props.userName}</div>
       <div className={'actions'}>
         <img src={Learn} alt="" className={'learn'} />
         <img src={Edit} alt="" className={'edit'} />

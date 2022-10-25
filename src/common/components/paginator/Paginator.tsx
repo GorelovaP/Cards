@@ -2,20 +2,21 @@ import React, { useState } from 'react'
 
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 
-import { PadinatorSelect } from './select/PaginatorSelect'
+import { PaginatorSelect } from './select/PaginatorSelect'
 import { StyledPaginator } from './styledPaginator'
 
 type PaginatorPropsType = {
   totalItemsCount: number
-  pageSize: number
+  pageCount: number
   paginatorPortion: number
   setCurrentItem: (item: number) => void
   currentItem: number
+  ChangeFieldsNumber: (choice: number) => void
 }
 
 export const Paginator = (props: PaginatorPropsType) => {
-  let options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-  let pagesCount = Math.ceil(props.totalItemsCount / props.pageSize)
+  let options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  let pagesCount = Math.ceil(props.totalItemsCount / props.pageCount)
   let pages = []
 
   for (let i = 1; i <= pagesCount; i++) {
@@ -57,9 +58,6 @@ export const Paginator = (props: PaginatorPropsType) => {
   const chooseCurrentPage = (page: number) => {
     props.setCurrentItem(page)
   }
-  const ChangeFieldsNumber = (choice: string) => {
-    console.log(`сейчас поменяли количество жлементоы на странице ${choice}`)
-  }
 
   return (
     <StyledPaginator>
@@ -86,7 +84,11 @@ export const Paginator = (props: PaginatorPropsType) => {
         {rightDisable ? <AiOutlineRight color={'#EFEFEF'} /> : <AiOutlineRight color={'#000000'} />}
       </button>
       <span className={'beforeSelect'}>Show</span>
-      <PadinatorSelect options={options} onChangeOption={ChangeFieldsNumber} />
+      <PaginatorSelect
+        selected={props.pageCount}
+        options={options}
+        onChangeOption={props.ChangeFieldsNumber}
+      />
       <span>Cards per page</span>
     </StyledPaginator>
   )

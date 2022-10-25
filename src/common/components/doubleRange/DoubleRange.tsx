@@ -7,7 +7,7 @@ import { StyledDoubleRange, StyledSlider } from './styledDoubleRange'
 const minDistance = 1
 
 export const DoubleRange = () => {
-  const [value1, setValue1] = useState<number[]>([1, 100])
+  const [value1, setValue1] = useState<number[]>([0, 100])
 
   const handleChange1 = (event: Event, newValue: number | number[], activeThumb: number) => {
     if (!Array.isArray(newValue)) {

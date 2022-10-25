@@ -47,8 +47,7 @@ export const getInAPI = {
     )
   },
 }
-
-// =============== Types ==============
+// =============== Types for getInAPI ==============
 export type SignUpResType = {
   error: string
   email: string
@@ -84,4 +83,49 @@ export type ChangeNameResType = {
 export type SignOutResType = {
   info: string
   error: string
+}
+
+export const packsAPI = {
+  getPack(
+    packName?: string,
+    min?: number,
+    max?: number,
+    sortPacks?: string,
+    page?: number,
+    pageCount?: number,
+    user_id?: string,
+    block?: boolean
+  ) {
+    const params = {
+      packName,
+      min,
+      max,
+      sortPacks,
+      page,
+      pageCount,
+      user_id,
+      block,
+    }
+
+    return instance.get<PackType>(`cards/pack`, { params })
+  },
+}
+
+// =============== Types for packsAPI ==============
+export type PackType = {
+  cardPacks: CardType[]
+  cardPacksTotalCount: number // количество колод
+  maxCardsCount: number
+  minCardsCount: number
+  page: number // выбранная страница
+  pageCount: number // количество элементов на странице
+}
+export type CardType = {
+  _id: string
+  user_id: string
+  name: string
+  cardsCount: number
+  created: Date
+  updated: Date
+  user_name: string
 }

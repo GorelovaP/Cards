@@ -10,26 +10,28 @@ type DefaultSelectPropsType = DetailedHTMLProps<
 >
 
 type SuperSelectPropsType = DefaultSelectPropsType & {
-  options?: string[]
-  onChangeOption: (option: string) => void
+  options?: number[]
+  onChangeOption: (option: number) => void
+  selected: number
 }
 
-export const PadinatorSelect: React.FC<SuperSelectPropsType> = ({
+export const PaginatorSelect: React.FC<SuperSelectPropsType> = ({
   options,
   onChangeOption,
   onChange,
+  selected,
   ...restProps
 }) => {
   const mappedOptions: JSX.Element[] | undefined = options?.map((el, key) => {
     return (
-      <option key={key} value={el}>
+      <option key={key} selected={el === selected} value={el}>
         {el}
       </option>
     )
   })
 
   const onChangeCallback = (e: ChangeEvent<HTMLSelectElement>) => {
-    let choice = e.currentTarget.value
+    let choice = +e.currentTarget.value
 
     if (choice) {
       onChangeOption(choice)
