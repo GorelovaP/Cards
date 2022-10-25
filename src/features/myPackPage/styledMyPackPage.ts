@@ -1,12 +1,16 @@
 import styled from 'styled-components'
 
+import { StyledMenuItemContainer } from '../../common/components/menuItem/styledMenuItem'
 import { StyledMainPageWrapper } from '../../common/styledComponents/styledWrappers'
 
 export const StyledMyPackPage = styled(StyledMainPageWrapper)`
   H1 {
     display: inline-block;
   }
-  img {
+  .menuPosition {
+    position: relative;
+  }
+  .menuIcon {
     position: relative;
     top: 5px;
     left: 6px;
@@ -14,4 +18,10 @@ export const StyledMyPackPage = styled(StyledMainPageWrapper)`
       cursor: pointer;
     }
   }
+`
+
+export const StyledMenuItemMyPackContainer = styled(StyledMenuItemContainer)`
+  top: 35px;
+  left: 8px;
+  padding-bottom: 5px;
 `

@@ -14,9 +14,9 @@ export const BackToPack = () => {
   }
 
   return (
-    <BackToPackArea onClick={goToCards}>
+    <BackToPackArea>
       <BiArrowBack className={'icon'} />
-      <span>Back to Packs List</span>
+      <span onClick={goToCards}>Back to Packs List</span>
     </BackToPackArea>
   )
 }

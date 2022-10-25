@@ -19,6 +19,7 @@ export const StyleHeaderSecond = styled(StyledMainWrapper)`
 export const StyleHeaderRightIcons = styled.div`
   display: flex;
   align-items: center;
+  position: relative;
   .personalName {
     border-bottom: 1px dotted #000;
     text-decoration: none;
@@ -28,5 +29,8 @@ export const StyleHeaderRightIcons = styled.div`
     width: 36px;
     height: 36px;
     border-radius: 50%;
+    &:hover {
+      cursor: pointer;
+    }
   }
 `
