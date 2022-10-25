@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+//import { useAppSelector } from '../../../app/hooks'
 import { StyledLabel } from '../../styledComponents/styledLabel'
 
 import { StyledDoubleRange, StyledSlider } from './styledDoubleRange'
@@ -7,7 +8,10 @@ import { StyledDoubleRange, StyledSlider } from './styledDoubleRange'
 const minDistance = 1
 
 export const DoubleRange = () => {
-  const [value1, setValue1] = useState<number[]>([0, 100])
+  // let min = useAppSelector(state => state.packs.minCardsCount)
+  // let max = useAppSelector(state => state.packs.maxCardsCount)
+
+  const [value1, setValue1] = useState<number[]>([0, 110])
 
   const handleChange1 = (event: Event, newValue: number | number[], activeThumb: number) => {
     if (!Array.isArray(newValue)) {
@@ -27,7 +31,6 @@ export const DoubleRange = () => {
       <div className={'rangeBlock'}>
         <div className={'numberBlock'}>{value1[0]}</div>
         <StyledSlider
-          //defaultValue={[15, 40]}
           value={value1}
           onChange={handleChange1}
           disableSwap

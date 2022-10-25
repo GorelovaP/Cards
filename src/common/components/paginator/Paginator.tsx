@@ -16,6 +16,9 @@ type PaginatorPropsType = {
 
 export const Paginator = (props: PaginatorPropsType) => {
   let options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+  console.log(props.pageCount)
+
   let pagesCount = Math.ceil(props.totalItemsCount / props.pageCount)
   let pages = []
 

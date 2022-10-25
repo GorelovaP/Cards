@@ -24,10 +24,12 @@ import { StyledPacksList } from './styledPacksList'
 export const PacksList = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
+  let userid = useAppSelector(state => state.user.user._id)
   let totalItemsCount = useAppSelector(state => state.packs.cardPacksTotalCount) //количество колод
   let pageCount = useAppSelector(state => state.packs.pageCount) //сколько вмещает страница
   let paginatorPortion = 5 //кол-во страниц отображающееся в пагинаторе
   let currentItem = useAppSelector(state => state.packs.page) // выбранная страница
+  let meOrAll = useAppSelector(state => state.packs.meOrAll)
 
   const navigate = useNavigate()
 
@@ -35,12 +37,27 @@ export const PacksList = () => {
     if (!isLoggedIn) {
       return
     }
-    dispatch(getPackTC())
+    if (meOrAll === 'all') {
+      dispatch(getPackTC())
+    } else {
+      dispatch(
+        getPackTC(
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          pageCount,
+          userid,
+          undefined
+        )
+      )
+    }
   }, [])
 
   const setCurrentItem = (item: number) => {
     console.log(`Теперь текущей страницей была бы страница ${item}`)
-    //ререндер на тойй страницы, кот  выбрали
+    getPackTC(undefined, undefined, undefined, undefined, item, undefined, undefined, undefined)
   }
   const ChangeFieldsNumber = (choice: number) => {
     console.log(`сейчас поменяли количество элементов на странице ${choice}`)
@@ -75,14 +92,16 @@ export const PacksList = () => {
           </button>
         </StyledFeaturesWrapper>
         <PacksListTable />
-        <Paginator
-          totalItemsCount={totalItemsCount}
-          pageCount={pageCount}
-          paginatorPortion={paginatorPortion}
-          currentItem={currentItem}
-          setCurrentItem={setCurrentItem}
-          ChangeFieldsNumber={ChangeFieldsNumber}
-        />
+        {totalItemsCount !== 0 && (
+          <Paginator
+            totalItemsCount={totalItemsCount}
+            pageCount={pageCount}
+            paginatorPortion={paginatorPortion}
+            currentItem={currentItem}
+            setCurrentItem={setCurrentItem}
+            ChangeFieldsNumber={ChangeFieldsNumber}
+          />
+        )}
       </StyledMainPageWrapper>
     </StyledPacksList>
   )

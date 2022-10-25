@@ -12,7 +12,6 @@ type PacksListTableItemPropsType = {
   userName: string
 }
 export const PacksListTableItem = (props: PacksListTableItemPropsType) => {
-  console.log(props.lastUpdated)
   let date = props.lastUpdated.toString().substring(0, 10).split('-').reverse().join('.')
 
   return (
