@@ -10,15 +10,29 @@ export const StyledPacksListTableItem = styled.div`
   border-bottom: 1px solid #d9d9d9;
   .name {
     width: 262px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 20px;
   }
   .cards {
     width: 231px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
   .lastUpdated {
     width: 216px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
   .createdBy {
     width: 155px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 20px;
   }
   .actions {
     width: 44px;

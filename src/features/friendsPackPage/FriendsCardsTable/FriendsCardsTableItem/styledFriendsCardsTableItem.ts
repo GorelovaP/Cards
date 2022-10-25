@@ -10,9 +10,17 @@ export const StyledFriendsCardsTableItem = styled.div`
   border-bottom: 1px solid #d9d9d9;
   .question {
     width: 344px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 20px;
   }
   .answer {
     width: 384px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 20px;
   }
   .lastUpdated {
     width: 136px;

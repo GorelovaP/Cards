@@ -10,12 +10,23 @@ export const StyledCardsTableItem = styled.div`
   border-bottom: 1px solid #d9d9d9;
   .question {
     width: 344px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 20px;
   }
   .answer {
     width: 316px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 20px;
   }
   .lastUpdated {
     width: 136px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
   .grade {
     width: 132px;
