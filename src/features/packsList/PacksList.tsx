@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 
 import { useAppSelector } from '../../app/hooks'
 import { DoubleRange } from '../../common/components/doubleRange/DoubleRange'
+import { Paginator } from '../../common/components/paginator/Paginator'
 import { Search } from '../../common/components/search/Search'
 import { ToggleSwitch } from '../../common/components/toggleSwitch/ToggleSwitch'
 import { StyleButtonForMainPageHeader } from '../../common/styledComponents/styledButtons'
@@ -16,10 +17,20 @@ import {
 } from '../../common/styledComponents/styledWrappers'
 import { PATH } from '../routes/PagesRoutes'
 
+import { PacksListTable } from './packsList/PacksListTable'
 import { StyledPacksList } from './styledPacksList'
 
 export const PacksList = () => {
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
+  let totalItemsCount = 74 //всего колод
+  let pageSize = 8 //сколько вмещает страница
+  let paginatorPortion = 5 //кол-во страниц отображающееся в пагинаторе
+  let currentItem = 4 // выбранная страница
+
+  const setCurrentItem = (item: number) => {
+    console.log(`Теперь текущей страницей была бы страница ${item}`)
+    //ререндер на тойй страницы, кот  выбрали
+  }
 
   const navigate = useNavigate()
   const onClickHandler = () => {
@@ -47,6 +58,14 @@ export const PacksList = () => {
             <GrFilter />
           </button>
         </StyledFeaturesWrapper>
+        <PacksListTable />
+        <Paginator
+          totalItemsCount={totalItemsCount}
+          pageSize={pageSize}
+          paginatorPortion={paginatorPortion}
+          currentItem={currentItem}
+          setCurrentItem={setCurrentItem}
+        />
       </StyledMainPageWrapper>
     </StyledPacksList>
   )
