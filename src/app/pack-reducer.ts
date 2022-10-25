@@ -42,6 +42,9 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
         page: action.item,
       }
     }
+    case 'PACK/SET-MIN-MAX': {
+      return { ...state, minCardsCount: action.min, maxCardsCount: action.max }
+    }
 
     default:
       return state
@@ -59,6 +62,9 @@ export const setPageCountAC = (count: number) => {
 }
 export const setCurrentPageAC = (item: number) => {
   return { type: 'PACK/SET-CURRENT-PAGE', item } as const
+}
+export const setMinMaxAC = (max: number, min: number) => {
+  return { type: 'PACK/SET-MIN-MAX', max, min } as const
 }
 
 // ================ Thunk creators ================
@@ -112,6 +118,7 @@ export type PackActionsType =
   | ReturnType<typeof changeToggleAC>
   | ReturnType<typeof setPageCountAC>
   | ReturnType<typeof setCurrentPageAC>
+  | ReturnType<typeof setMinMaxAC>
 
 type PackStateType = {
   cardPacks: CardType[]

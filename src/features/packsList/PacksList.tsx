@@ -30,6 +30,8 @@ export const PacksList = () => {
   let paginatorPortion = 5 //кол-во страниц отображающееся в пагинаторе
   let currentItem = useAppSelector(state => state.packs.page) // выбранная страница
   let meOrAll = useAppSelector(state => state.packs.meOrAll)
+  let maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
+  let minCardsCount = useAppSelector(state => state.packs.minCardsCount)
 
   const navigate = useNavigate()
 
@@ -39,7 +41,15 @@ export const PacksList = () => {
     }
     if (meOrAll === 'all') {
       dispatch(
-        getPackTC(undefined, undefined, undefined, undefined, currentItem, pageCount, undefined)
+        getPackTC(
+          undefined,
+          minCardsCount,
+          maxCardsCount,
+          undefined,
+          currentItem,
+          pageCount,
+          undefined
+        )
       )
     } else {
       dispatch(
@@ -62,12 +72,30 @@ export const PacksList = () => {
 
     if (meOrAll === 'me') {
       dispatch(
-        getPackTC(undefined, undefined, undefined, undefined, item, pageCount, userid, undefined)
+        getPackTC(
+          undefined,
+          minCardsCount,
+          maxCardsCount,
+          undefined,
+          item,
+          pageCount,
+          userid,
+          undefined
+        )
       )
     } else {
       debugger
       dispatch(
-        getPackTC(undefined, undefined, undefined, undefined, item, pageCount, undefined, undefined)
+        getPackTC(
+          undefined,
+          minCardsCount,
+          maxCardsCount,
+          undefined,
+          item,
+          pageCount,
+          undefined,
+          undefined
+        )
       )
     }
     dispatch(setCurrentPageAC(item))
@@ -78,8 +106,8 @@ export const PacksList = () => {
       dispatch(
         getPackTC(
           undefined,
-          undefined,
-          undefined,
+          minCardsCount,
+          maxCardsCount,
           undefined,
           currentItem,
           choice,
@@ -91,8 +119,8 @@ export const PacksList = () => {
       dispatch(
         getPackTC(
           undefined,
-          undefined,
-          undefined,
+          minCardsCount,
+          maxCardsCount,
           undefined,
           currentItem,
           choice,
