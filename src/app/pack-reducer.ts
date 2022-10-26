@@ -13,6 +13,7 @@ const initialState: PackStateType = {
   page: 1, // выбранная страница
   pageCount: 0,
   meOrAll: 'all',
+  chosenPack: '',
 }
 
 export const PackReducer = (state = initialState, action: PackActionsType) => {
@@ -48,7 +49,12 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
     case 'PACK/ADD-NEW-PACK': {
       return { ...state, cardPacks: [action.newPack, ...state.cardPacks] }
     }
-
+    case 'PACK/CHOSEN-PACK': {
+      return { ...state, chosenPack: action.chosenPack }
+    }
+    case 'PACK/DELETE-PACK': {
+      return { ...state, cardPacks: state.cardPacks.filter(i => i._id !== action.packId) }
+    }
     default:
       return state
   }
@@ -71,6 +77,12 @@ export const setMinMaxAC = (min: number, max: number) => {
 }
 export const addNewPackAC = (newPack: PackType) => {
   return { type: 'PACK/ADD-NEW-PACK', newPack } as const
+}
+export const chosenPackAC = (chosenPack: string) => {
+  return { type: 'PACK/CHOSEN-PACK', chosenPack } as const
+}
+export const deletePackAC = (packId: string) => {
+  return { type: 'PACK/DELETE-PACK', packId } as const
 }
 
 // ================ Thunk creators ================
@@ -144,6 +156,28 @@ export const addNewPackTC =
     }
   }
 
+export const deletePackTC =
+  (packId: string): AppThunkType =>
+  async dispatch => {
+    try {
+      dispatch(isLoadingAC(true))
+      const res = await packsAPI.deletePack(packId)
+
+      dispatch(deletePackAC(packId))
+    } catch (e) {
+      const errors = e as Error | AxiosError<ChangeNameResType>
+
+      if (axios.isAxiosError(errors)) {
+        if (errors.response?.data.error) {
+          dispatch(setAppErrorAC(errors.response?.data.error))
+        } else {
+          dispatch(setAppErrorAC('Something went wrong...'))
+        }
+      }
+    } finally {
+      dispatch(isLoadingAC(false))
+    }
+  }
 // ================ Types ====================
 
 //common type for reducer and to be merged in store
@@ -154,6 +188,8 @@ export type PackActionsType =
   | ReturnType<typeof setCurrentPageAC>
   | ReturnType<typeof setMinMaxAC>
   | ReturnType<typeof addNewPackAC>
+  | ReturnType<typeof chosenPackAC>
+  | ReturnType<typeof deletePackAC>
 
 type PackStateType = {
   cardPacks: PackType[]
@@ -163,5 +199,6 @@ type PackStateType = {
   page: number // выбранная страница
   pageCount: number // количество элементов на странице
   meOrAll: meOrAllType
+  chosenPack: string
 }
 type meOrAllType = 'me' | 'all'

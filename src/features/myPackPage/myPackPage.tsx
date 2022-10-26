@@ -24,6 +24,7 @@ import { StyledMenuItemMyPackContainer, StyledMyPackPage } from './styledMyPackP
 
 export const MyPackPage = () => {
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
+  const packsId = useAppSelector(state => state.packs.chosenPack)
   const [show, setShow] = useState(false)
   const popUpHandler = () => {
     setShow(!show)

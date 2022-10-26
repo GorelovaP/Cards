@@ -14,6 +14,9 @@ export const StyledPacksListTableItem = styled.div`
     white-space: nowrap;
     overflow: hidden;
     padding-right: 20px;
+    &:hover {
+      cursor: pointer;
+    }
   }
   .cards {
     width: 231px;
@@ -51,6 +54,13 @@ export const StyledPacksListTableItem = styled.div`
       position: absolute;
       top: 15px;
       left: 60px;
+      &:hover {
+        cursor: pointer;
+      }
+      &:active {
+        top: 16px;
+        left: 61px;
+      }
     }
   }
 `

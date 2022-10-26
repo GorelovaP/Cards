@@ -113,6 +113,9 @@ export const packsAPI = {
   addPack(cardsPack: { name?: string }) {
     return instance.post<NewCardsPackType>(`cards/pack`, { cardsPack })
   },
+  deletePack(packId: string) {
+    return instance.delete<DeletePackType>(`cards/pack?id=${packId}`)
+  },
 }
 
 // =============== Types for packsAPI ==============
@@ -135,4 +138,7 @@ export type PackType = {
 }
 export type NewCardsPackType = {
   newCardsPack: PackType
+}
+export type DeletePackType = {
+  deletedCardsPack: PackType
 }

@@ -8,10 +8,13 @@ import { StyledPacksListTableItem } from './styledPacksListTableItem'
 type PacksListTableItemPropsType = {
   _id?: string
   userId: string
+  cardsPack_id: string
   name: string
   cards: number
   lastUpdated: Date
   userName: string
+  onClickHandler: () => void
+  deleteMyPack: () => void
 }
 export const PacksListTableItem = (props: PacksListTableItemPropsType) => {
   let loginUserId = useAppSelector(state => state.user.user._id)
@@ -20,7 +23,9 @@ export const PacksListTableItem = (props: PacksListTableItemPropsType) => {
 
   return (
     <StyledPacksListTableItem>
-      <div className={'name'}>{props.name}</div>
+      <div className={'name'} onClick={props.onClickHandler}>
+        {props.name}
+      </div>
       <div className={'cards'}>{props.cards}</div>
       <div className={'lastUpdated'}>{date}</div>
       <div className={'createdBy'}>{props.userName}</div>
@@ -29,7 +34,7 @@ export const PacksListTableItem = (props: PacksListTableItemPropsType) => {
         {props.userId === loginUserId && (
           <>
             <img src={Edit} alt="" className={'edit'} />
-            <img src={Delete} alt="" className={'delete'} />
+            <img src={Delete} alt="" className={'delete'} onClick={props.deleteMyPack} />
           </>
         )}
       </div>
