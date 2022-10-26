@@ -55,6 +55,14 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
     case 'PACK/DELETE-PACK': {
       return { ...state, cardPacks: state.cardPacks.filter(i => i._id !== action.packId) }
     }
+    case 'PACK/UPDATE-PACK-NAME': {
+      return {
+        ...state,
+        cardPacks: state.cardPacks.map(i =>
+          i._id === action.packId ? { ...i, name: action.newName } : i
+        ),
+      }
+    }
     default:
       return state
   }
@@ -83,6 +91,9 @@ export const chosenPackAC = (chosenPack: string) => {
 }
 export const deletePackAC = (packId: string) => {
   return { type: 'PACK/DELETE-PACK', packId } as const
+}
+export const updatePackNameAC = (packId: string, newName: string) => {
+  return { type: 'PACK/UPDATE-PACK-NAME', packId, newName } as const
 }
 
 // ================ Thunk creators ================
@@ -181,6 +192,31 @@ export const deletePackTC =
       dispatch(isLoadingAC(false))
     }
   }
+
+export const updatePackNameTC =
+  (cardsPack: { _id: string; name?: string }): AppThunkType =>
+  async dispatch => {
+    try {
+      dispatch(isLoadingAC(true))
+      const res = await packsAPI.updatePackName(cardsPack)
+      const newPackName = res.data.updatedCardsPack
+      const { _id, name } = newPackName
+
+      dispatch(updatePackNameAC(_id, name))
+    } catch (e) {
+      const errors = e as Error | AxiosError<ChangeNameResType>
+
+      if (axios.isAxiosError(errors)) {
+        if (errors.response?.data.error) {
+          dispatch(setAppErrorAC(errors.response?.data.error))
+        } else {
+          dispatch(setAppErrorAC('Something went wrong...'))
+        }
+      }
+    } finally {
+      dispatch(isLoadingAC(false))
+    }
+  }
 // ================ Types ====================
 
 //common type for reducer and to be merged in store
@@ -193,6 +229,7 @@ export type PackActionsType =
   | ReturnType<typeof addNewPackAC>
   | ReturnType<typeof chosenPackAC>
   | ReturnType<typeof deletePackAC>
+  | ReturnType<typeof updatePackNameAC>
 
 type PackStateType = {
   cardPacks: PackType[]

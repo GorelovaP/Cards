@@ -49,6 +49,13 @@ export const StyledPacksListTableItem = styled.div`
       position: absolute;
       top: 15px;
       left: 30px;
+      &:hover {
+        cursor: pointer;
+      }
+      &:active {
+        top: 16px;
+        left: 31px;
+      }
     }
     .delete {
       position: absolute;
