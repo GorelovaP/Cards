@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { chosenPackAC, deletePackTC } from '../../../app/pack-reducer'
+import { chosenPackAC, deletePackTC, updatePackNameTC } from '../../../app/pack-reducer'
 import { PATH } from '../../routes/PagesRoutes'
 
 import { PacksListTableHeader } from './packsListTableHeader/PacksListTableHeader'
@@ -27,6 +27,10 @@ export const PacksListTable = () => {
     dispatch(deletePackTC(packId))
   }
 
+  const updatePackName = (packId: string) => {
+    dispatch(updatePackNameTC({ _id: packId, name: 'new pack title' }))
+  }
+
   return (
     <StyledPacksListTable>
       <PacksListTableHeader />
@@ -41,6 +45,7 @@ export const PacksListTable = () => {
           userName={item.user_name}
           onClickHandler={() => onClickHandler(item._id, item.user_id)}
           deleteMyPack={() => deleteMyPack(item._id)}
+          updatePackName={() => updatePackName(item._id)}
         />
       ))}
     </StyledPacksListTable>

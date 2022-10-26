@@ -15,6 +15,7 @@ type PacksListTableItemPropsType = {
   userName: string
   onClickHandler: () => void
   deleteMyPack: () => void
+  updatePackName: () => void
 }
 export const PacksListTableItem = (props: PacksListTableItemPropsType) => {
   let loginUserId = useAppSelector(state => state.user.user._id)
@@ -32,7 +33,7 @@ export const PacksListTableItem = (props: PacksListTableItemPropsType) => {
         <img src={Learn} alt="" className={'learn'} />
         {props.userId === loginUserId && (
           <>
-            <img src={Edit} alt="" className={'edit'} />
+            <img src={Edit} alt="" className={'edit'} onClick={props.updatePackName} />
             <img src={Delete} alt="" className={'delete'} onClick={props.deleteMyPack} />
           </>
         )}
