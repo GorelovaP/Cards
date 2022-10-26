@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { ClickAwayListener } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 
-import { addNewCardTC } from '../../app/cards-reducer'
+import { addNewCardTC, getCardsTC, setCurrentFriendsPageAC } from '../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import deleteIcon from '../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../assets/images/menu/myPackMenu/Edit.svg'
 import learn from '../../assets/images/menu/myPackMenu/teacher.svg'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'
 import { MenuItem } from '../../common/components/menuItem/MenuItem'
+import { Paginator } from '../../common/components/paginator/Paginator'
 import { Search } from '../../common/components/search/Search'
 import { StyleButtonForMainPageHeader } from '../../common/styledComponents/styledButtons'
 import { H1 } from '../../common/styledComponents/styledHeaders'
@@ -25,10 +26,18 @@ import { StyledMenuItemMyPackContainer, StyledMyPackPage } from './styledMyPackP
 
 export const MyPackPage = () => {
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
-  const packsId = useAppSelector(state => state.packs.chosenPack)
-  const chosenPack = useAppSelector(state => state.packs.chosenPack)
-  const [show, setShow] = useState(false)
   const dispatch = useAppDispatch()
+  const chosenPack = useAppSelector(state => state.packs.chosenPack)
+  const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
+  const pageCount = useAppSelector(state => state.cards.pageCount)
+  const paginatorPortion = 5
+  const currentItem = useAppSelector(state => state.cards.page)
+
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    dispatch(getCardsTC(undefined, undefined, chosenPack))
+  }, [])
 
   const popUpHandler = () => {
     setShow(!show)
@@ -39,6 +48,25 @@ export const MyPackPage = () => {
 
   const addNewCard = () => {
     dispatch(addNewCardTC({ cardsPack_id: chosenPack, question: 'question1', answer: 'answer1' }))
+  }
+
+  const setCurrentItem = (item: number) => {
+    dispatch(
+      getCardsTC(undefined, undefined, chosenPack, undefined, undefined, undefined, item, pageCount)
+    )
+    dispatch(setCurrentFriendsPageAC(item))
+  }
+  const ChangeFieldsNumber = (choice: number) => {
+    getCardsTC(
+      undefined,
+      undefined,
+      chosenPack,
+      undefined,
+      undefined,
+      undefined,
+      currentItem,
+      choice
+    )
   }
 
   if (!isLoggedIn) {
@@ -71,6 +99,16 @@ export const MyPackPage = () => {
           <Search className="mainPageSearch" />
         </StyledFeaturesWrapper>
         <CardsTable />
+        {cardsTotalCount !== 0 && (
+          <Paginator
+            totalItemsCount={cardsTotalCount}
+            pageCount={pageCount}
+            paginatorPortion={paginatorPortion}
+            setCurrentItem={setCurrentItem}
+            currentItem={currentItem}
+            ChangeFieldsNumber={ChangeFieldsNumber}
+          />
+        )}
       </StyledMyPackPage>
     </>
   )

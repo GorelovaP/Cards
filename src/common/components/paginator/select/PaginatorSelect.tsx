@@ -1,7 +1,5 @@
 import { ChangeEvent, DetailedHTMLProps, SelectHTMLAttributes } from 'react'
 
-import { AiOutlineDown } from 'react-icons/ai'
-
 import { StyledPaginatorSelect } from './styledPaginatorSelector'
 
 type DefaultSelectPropsType = DetailedHTMLProps<
@@ -43,7 +41,6 @@ export const PaginatorSelect: React.FC<SuperSelectPropsType> = ({
     <StyledPaginatorSelect>
       <select onChange={onChangeCallback} {...restProps} className={'select'}>
         {mappedOptions}
-        <AiOutlineDown />
       </select>
     </StyledPaginatorSelect>
   )

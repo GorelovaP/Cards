@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 
@@ -25,13 +25,33 @@ export const Paginator = (props: PaginatorPropsType) => {
     pages.push(i)
   }
 
+  useEffect(() => {
+    if (props.paginatorPortion * portionNumber >= pagesCount) {
+      setRightDisable(true)
+    } else {
+      setRightDisable(false)
+    }
+    setPortionNumber(1)
+  }, [props.pageCount, props.totalItemsCount])
+
+  const d = () => {
+    return rightPortionPageNumber * portionNumber >= pagesCount
+  }
+
+  console.log('totalItemsCount' + props.totalItemsCount)
+
+  console.log('paginatorPortion' + props.paginatorPortion)
+
   let portionCount = Math.ceil(props.totalItemsCount / props.paginatorPortion)
+
+  console.log('portionCount' + portionCount)
+
   let [portionNumber, setPortionNumber] = useState<number>(1)
   let leftPortionPageNumber = (portionNumber - 1) * props.paginatorPortion + 1
   let rightPortionPageNumber = portionNumber * props.paginatorPortion
 
   let [leftDisable, setLeftDisable] = useState<boolean>(true)
-  let [rightDisable, setRightDisable] = useState<boolean>(false)
+  let [rightDisable, setRightDisable] = useState<boolean>(d)
 
   const doLeftBtnDisable = () => {
     if (portionNumber === 2) {
@@ -40,6 +60,7 @@ export const Paginator = (props: PaginatorPropsType) => {
     }
     if (portionNumber > 1) {
       setPortionNumber(portionNumber - 1)
+      setRightDisable(false)
     } else {
       setLeftDisable(true)
       setRightDisable(false)
@@ -50,7 +71,7 @@ export const Paginator = (props: PaginatorPropsType) => {
     console.log('текущая порция' + portionNumber)
     console.log(portionCount)
 
-    if (portionNumber == portionCount - 2) {
+    if (props.paginatorPortion * portionNumber >= pagesCount) {
       setRightDisable(true)
     } else {
       setPortionNumber(portionNumber + 1)
