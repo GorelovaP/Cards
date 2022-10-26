@@ -108,20 +108,23 @@ export const packsAPI = {
       block,
     }
 
-    return instance.get<PackType>(`cards/pack`, { params })
+    return instance.get<CommonPackType>(`cards/pack`, { params })
+  },
+  addPack(cardsPack: { name?: string }) {
+    return instance.post<NewCardsPackType>(`cards/pack`, { cardsPack })
   },
 }
 
 // =============== Types for packsAPI ==============
-export type PackType = {
-  cardPacks: CardType[]
+export type CommonPackType = {
+  cardPacks: PackType[]
   cardPacksTotalCount: number // количество колод
   maxCardsCount: number
   minCardsCount: number
   page: number // выбранная страница
   pageCount: number // количество элементов на странице
 }
-export type CardType = {
+export type PackType = {
   _id: string
   user_id: string
   name: string
@@ -129,4 +132,7 @@ export type CardType = {
   created: Date
   updated: Date
   user_name: string
+}
+export type NewCardsPackType = {
+  newCardsPack: PackType
 }

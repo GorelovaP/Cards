@@ -14,6 +14,9 @@ export const StyledPaginatorSelect = styled.div`
     font-size: 12px;
     line-height: 15px;
     text-align: center;
+    &:hover {
+      cursor: pointer;
+    }
   }
   .select option:checked {
     background: ${({ theme }) => theme.colors.buttonPrimaryBg};

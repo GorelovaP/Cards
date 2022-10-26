@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 
-import { CardType, ChangeNameResType, packsAPI, PackType } from '../api/api'
+import { PackType, ChangeNameResType, packsAPI, CommonPackType } from '../api/api'
 
 import { isLoadingAC, setAppErrorAC } from './app-reducer'
 import { AppThunkType } from './store'
@@ -45,13 +45,16 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
     case 'PACK/SET-MIN-MAX': {
       return { ...state, minCardsCount: action.min, maxCardsCount: action.max }
     }
+    case 'PACK/ADD-NEW-PACK': {
+      return { ...state, cardPacks: [action.newPack, ...state.cardPacks] }
+    }
 
     default:
       return state
   }
 }
 
-export const setPackAC = (packData: PackType) => {
+export const setPackAC = (packData: CommonPackType) => {
   return { type: 'PACK/SET-PACK-INFORMATION', packData } as const
 }
 export const changeToggleAC = (toggle: meOrAllType) => {
@@ -65,6 +68,9 @@ export const setCurrentPageAC = (item: number) => {
 }
 export const setMinMaxAC = (max: number, min: number) => {
   return { type: 'PACK/SET-MIN-MAX', max, min } as const
+}
+export const addNewPackAC = (newPack: PackType) => {
+  return { type: 'PACK/ADD-NEW-PACK', newPack } as const
 }
 
 // ================ Thunk creators ================
@@ -83,7 +89,6 @@ export const getPackTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-      debugger
       const res = await packsAPI.getPack(
         packName,
         min,
@@ -110,6 +115,32 @@ export const getPackTC =
       dispatch(isLoadingAC(false))
     }
   }
+
+export const addNewPackTC =
+  (cardsPack: { name: string }): AppThunkType =>
+  async dispatch => {
+    try {
+      dispatch(isLoadingAC(true))
+      const res = await packsAPI.addPack(cardsPack)
+
+      const newPack = res.data.newCardsPack
+
+      dispatch(addNewPackAC(newPack))
+    } catch (e) {
+      const errors = e as Error | AxiosError<ChangeNameResType>
+
+      if (axios.isAxiosError(errors)) {
+        if (errors.response?.data.error) {
+          dispatch(setAppErrorAC(errors.response?.data.error))
+        } else {
+          dispatch(setAppErrorAC('Something went wrong...'))
+        }
+      }
+    } finally {
+      dispatch(isLoadingAC(false))
+    }
+  }
+
 // ================ Types ====================
 
 //common type for reducer and to be merged in store
@@ -119,9 +150,10 @@ export type PackActionsType =
   | ReturnType<typeof setPageCountAC>
   | ReturnType<typeof setCurrentPageAC>
   | ReturnType<typeof setMinMaxAC>
+  | ReturnType<typeof addNewPackAC>
 
 type PackStateType = {
-  cardPacks: CardType[]
+  cardPacks: PackType[]
   cardPacksTotalCount: number // количество колод
   maxCardsCount: number
   minCardsCount: number

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 
 import { GrFilter } from 'react-icons/gr'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { getPackTC, setCurrentPageAC } from '../../app/pack-reducer'
+import { addNewPackTC, getPackTC, setCurrentPageAC } from '../../app/pack-reducer'
 import { DoubleRange } from '../../common/components/doubleRange/DoubleRange'
 import { Paginator } from '../../common/components/paginator/Paginator'
 import { Search } from '../../common/components/search/Search'
@@ -33,7 +33,9 @@ export const PacksList = () => {
   let maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
   let minCardsCount = useAppSelector(state => state.packs.minCardsCount)
 
-  const navigate = useNavigate()
+  const onClickHandler = () => {
+    dispatch(addNewPackTC({ name: 'the last test I hope...' }))
+  }
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -84,7 +86,6 @@ export const PacksList = () => {
         )
       )
     } else {
-      debugger
       dispatch(
         getPackTC(
           undefined,
@@ -129,10 +130,6 @@ export const PacksList = () => {
         )
       )
     }
-  }
-
-  const onClickHandler = () => {
-    navigate(PATH.NEW_EMPTY_PACK)
   }
 
   if (!isLoggedIn) {

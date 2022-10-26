@@ -14,6 +14,9 @@ export const StyledPaginator = styled.div`
     justify-content: center;
     background: transparent;
     margin: 0 12px;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .selectedPage {
