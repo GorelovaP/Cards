@@ -10,15 +10,17 @@ export const FriendsCardsTable = () => {
   return (
     <StyledFriendsCardsTable>
       <FriendsCardsTableHeader />
-      {cards.map(item => (
-        <FriendsCardsTableItem
-          key={item._id}
-          question={item.question}
-          answer={item.answer}
-          lastUpdated={item.updated}
-          grade={item.grade}
-        />
-      ))}
+      {cards.map(item => {
+        return (
+          <FriendsCardsTableItem
+            key={item._id}
+            question={item.question}
+            answer={item.answer}
+            lastUpdated={item.updated}
+            grade={item.grade}
+          />
+        )
+      })}
     </StyledFriendsCardsTable>
   )
 }

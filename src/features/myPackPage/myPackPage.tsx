@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 import { ClickAwayListener } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 
-import { useAppSelector } from '../../app/hooks'
+import { addNewCardTC } from '../../app/cards-reducer'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import deleteIcon from '../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../assets/images/menu/myPackMenu/Edit.svg'
 import learn from '../../assets/images/menu/myPackMenu/teacher.svg'
@@ -25,12 +26,19 @@ import { StyledMenuItemMyPackContainer, StyledMyPackPage } from './styledMyPackP
 export const MyPackPage = () => {
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   const packsId = useAppSelector(state => state.packs.chosenPack)
+  const chosenPack = useAppSelector(state => state.packs.chosenPack)
   const [show, setShow] = useState(false)
+  const dispatch = useAppDispatch()
+
   const popUpHandler = () => {
     setShow(!show)
   }
   const handleClickAway = () => {
     setShow(false)
+  }
+
+  const addNewCard = () => {
+    dispatch(addNewCardTC({ cardsPack_id: chosenPack, question: 'question1', answer: 'answer1' }))
   }
 
   if (!isLoggedIn) {
@@ -55,7 +63,9 @@ export const MyPackPage = () => {
               </ClickAwayListener>
             )}
           </div>
-          <StyleButtonForMainPageHeader>Add new card</StyleButtonForMainPageHeader>
+          <StyleButtonForMainPageHeader onClick={addNewCard}>
+            Add new card
+          </StyleButtonForMainPageHeader>
         </StyledPageHeaderWrapper>
         <StyledFeaturesWrapper>
           <Search className="mainPageSearch" />

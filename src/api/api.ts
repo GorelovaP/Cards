@@ -165,6 +165,19 @@ export const cardsAPI = {
 
     return instance.get<getCardsResponseType>(`cards/card`, { params })
   },
+  addNewCard(card: {
+    cardsPack_id: string
+    question?: string
+    answer?: string
+    grade?: 0
+    shots?: 0
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
+  }) {
+    return instance.post<CardsType>(`cards/card`, { card })
+  },
 }
 
 export type getCardsResponseType = {

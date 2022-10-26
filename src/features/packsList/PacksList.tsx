@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 
-import { GrFilter } from 'react-icons/gr'
 import { Navigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { addNewPackTC, getPackTC } from '../../app/pack-reducer'
+import removeFilter from '../../assets/images/Filter-Remove.png'
 import { DoubleRange } from '../../common/components/doubleRange/DoubleRange'
 import { Paginator } from '../../common/components/paginator/Paginator'
 import { Search } from '../../common/components/search/Search'
@@ -35,6 +35,9 @@ export const PacksList = () => {
 
   const onClickHandler = () => {
     dispatch(addNewPackTC({ name: 'the last test I hope...' }))
+  }
+  const resetFilter = () => {
+    dispatch(getPackTC())
   }
 
   useEffect(() => {
@@ -145,8 +148,8 @@ export const PacksList = () => {
           <Search className="mainPageSearch" />
           <ToggleSwitch />
           <DoubleRange />
-          <button className="filterBtn">
-            <GrFilter />
+          <button onClick={resetFilter} className="filterBtn">
+            <img src={removeFilter} alt={'removeFilter'} />
           </button>
         </StyledFeaturesWrapper>
         <PacksListTable />
