@@ -44,7 +44,7 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
       }
     }
     case 'PACK/SET-MIN-MAX': {
-      return { ...state, minCardsCount: action.min, maxCardsCount: action.max }
+      return { ...state, minCardsCount: action.min, maxCardsCount: action.max, page: 1 }
     }
     case 'PACK/ADD-NEW-PACK': {
       return { ...state, cardPacks: [action.newPack, ...state.cardPacks] }
@@ -115,6 +115,9 @@ export const getPackTC =
       dispatch(setPackAC(res.data))
       if (min && max) {
         dispatch(setMinMaxAC(min, max))
+      }
+      if (page) {
+        dispatch(setCurrentPageAC(page))
       }
     } catch (e) {
       const errors = e as Error | AxiosError<ChangeNameResType>

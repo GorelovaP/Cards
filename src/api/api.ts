@@ -139,6 +139,54 @@ export type PackType = {
 export type NewCardsPackType = {
   newCardsPack: PackType
 }
+
+// ============= Pack API ==================
+export const cardsAPI = {
+  getCards(
+    cardAnswer?: string,
+    cardQuestion?: string,
+    cardsPack_id?: string,
+    min?: number,
+    max?: number,
+    sortCards?: string,
+    page?: number,
+    pageCount?: number
+  ) {
+    const params = {
+      cardAnswer,
+      cardQuestion,
+      cardsPack_id,
+      min,
+      max,
+      sortCards,
+      page,
+      pageCount,
+    }
+
+    return instance.get<getCardsResponseType>(`cards/card`, { params })
+  },
+}
+
+export type getCardsResponseType = {
+  cards: CardsType[]
+  cardsTotalCount: number
+  maxGrade: number
+  minGrade: number
+  page: number
+  pageCount: number
+  packUserId: string
+}
+export type CardsType = {
+  answer: string
+  question: string
+  cardsPack_id: string
+  grade: number
+  shots: number
+  user_id: string
+  created: Date
+  updated: Date
+  _id: string
+}
 export type DeletePackType = {
   deletedCardsPack: PackType
 }

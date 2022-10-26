@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { getPackTC, setMinMaxAC } from '../../../app/pack-reducer'
+import { getPackTC } from '../../../app/pack-reducer'
 import { StyledLabel } from '../../styledComponents/styledLabel'
 
 import { StyledDoubleRange, StyledSlider } from './styledDoubleRange'
@@ -17,7 +17,6 @@ export const DoubleRange = () => {
   let dispatch = useAppDispatch()
 
   useEffect(() => {
-    console.log(min, max)
     setValue1([min, max])
   }, [min, max])
 
@@ -38,7 +37,6 @@ export const DoubleRange = () => {
     if (meOrAll === 'me') {
       dispatch(getPackTC(undefined, value[0], value[1], undefined, 1, pageCount, userid))
     } else dispatch(getPackTC(undefined, value[0], value[1], undefined, 1, pageCount, undefined))
-    dispatch(setMinMaxAC(value[0], value[1]))
   }
 
   return (

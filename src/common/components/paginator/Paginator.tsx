@@ -17,8 +17,6 @@ type PaginatorPropsType = {
 export const Paginator = (props: PaginatorPropsType) => {
   let options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-  let [currentPage, setCurrentPage] = useState(props.currentItem)
-
   let pagesCount = Math.ceil(props.totalItemsCount / props.pageCount)
 
   let pages = []
@@ -62,7 +60,6 @@ export const Paginator = (props: PaginatorPropsType) => {
 
   const chooseCurrentPage = (page: number) => {
     props.setCurrentItem(page)
-    setCurrentPage(page)
   }
 
   return (
@@ -78,7 +75,7 @@ export const Paginator = (props: PaginatorPropsType) => {
             <span
               key={p}
               onClick={() => chooseCurrentPage(p)}
-              className={`page ${currentPage === p ? 'selectedPage' : ''}`}
+              className={`page ${props.currentItem === p ? 'selectedPage' : ''}`}
             >
               {p}
             </span>

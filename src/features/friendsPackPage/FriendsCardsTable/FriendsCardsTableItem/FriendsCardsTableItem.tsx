@@ -1,18 +1,23 @@
 import { FriendsItemGoldenStars } from './FriendsItemGoldenStars/FriendsItemGoldenStars'
 import { StyledFriendsCardsTableItem } from './styledFriendsCardsTableItem'
 
-export const FriendsCardsTableItem = () => {
+type FriendsCardsTableItemPropsType = {
+  question: string
+  answer: string
+  lastUpdated: Date
+  grade: number
+}
+
+export const FriendsCardsTableItem = (props: FriendsCardsTableItemPropsType) => {
+  let date = props.lastUpdated.toString().substring(0, 10).split('-').reverse().join('.')
+
   return (
     <StyledFriendsCardsTableItem>
-      <div className={'question'}>
-        How &quot;This&quot; works in JavaScript? a lot of text to test the cell
-      </div>
-      <div className={'answer'}>
-        This is how This works in JavaScript a lot of text to test the cell
-      </div>
-      <div className={'lastUpdated'}>19.03.2022</div>
+      <div className={'question'}>{props.question}</div>
+      <div className={'answer'}>{props.answer}</div>
+      <div className={'lastUpdated'}>{date}</div>
       <div className={'grade'}>
-        <FriendsItemGoldenStars />
+        <FriendsItemGoldenStars grade={props.grade} />
       </div>
     </StyledFriendsCardsTableItem>
   )

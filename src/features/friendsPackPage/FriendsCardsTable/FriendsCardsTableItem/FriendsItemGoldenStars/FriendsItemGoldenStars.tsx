@@ -4,14 +4,17 @@ import star5 from '../../../../../assets/images/table/Star 5.svg'
 
 import { StyledFriendsItemGoldenStars } from './styledFriendsItemGoldenStars'
 
-export const FriendsItemGoldenStars = () => {
+type FriendsItemGoldenStarsPropsType = {
+  grade: number
+}
+export const FriendsItemGoldenStars = (props: FriendsItemGoldenStarsPropsType) => {
   return (
     <StyledFriendsItemGoldenStars>
-      <img src={star1} alt="" />
-      <img src={star1} alt="" />
-      <img src={star1} alt="" />
-      <img src={star4} alt="" />
-      <img src={star5} alt="" />
+      <img src={star1} alt="star" />
+      <img src={star1} alt="star" />
+      <img src={star1} alt="star" />
+      <img src={star4} alt="star" />
+      <img src={star5} alt="star" />
     </StyledFriendsItemGoldenStars>
   )
 }

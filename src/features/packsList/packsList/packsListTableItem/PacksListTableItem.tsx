@@ -18,7 +18,6 @@ type PacksListTableItemPropsType = {
 }
 export const PacksListTableItem = (props: PacksListTableItemPropsType) => {
   let loginUserId = useAppSelector(state => state.user.user._id)
-
   let date = props.lastUpdated.toString().substring(0, 10).split('-').reverse().join('.')
 
   return (

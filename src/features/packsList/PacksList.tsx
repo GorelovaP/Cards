@@ -4,7 +4,7 @@ import { GrFilter } from 'react-icons/gr'
 import { Navigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { addNewPackTC, getPackTC, setCurrentPageAC } from '../../app/pack-reducer'
+import { addNewPackTC, getPackTC } from '../../app/pack-reducer'
 import { DoubleRange } from '../../common/components/doubleRange/DoubleRange'
 import { Paginator } from '../../common/components/paginator/Paginator'
 import { Search } from '../../common/components/search/Search'
@@ -70,8 +70,6 @@ export const PacksList = () => {
   }, [])
 
   const setCurrentItem = (item: number) => {
-    console.log(`Теперь текущей страницей была бы страница ${item}`)
-
     if (meOrAll === 'me') {
       dispatch(
         getPackTC(
@@ -99,10 +97,8 @@ export const PacksList = () => {
         )
       )
     }
-    dispatch(setCurrentPageAC(item))
   }
   const ChangeFieldsNumber = (choice: number) => {
-    console.log(`сейчас поменяли количество элементов на странице ${choice}`)
     if (meOrAll === 'me') {
       dispatch(
         getPackTC(
