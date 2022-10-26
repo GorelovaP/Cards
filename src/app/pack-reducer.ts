@@ -66,8 +66,8 @@ export const setPageCountAC = (count: number) => {
 export const setCurrentPageAC = (item: number) => {
   return { type: 'PACK/SET-CURRENT-PAGE', item } as const
 }
-export const setMinMaxAC = (max: number, min: number) => {
-  return { type: 'PACK/SET-MIN-MAX', max, min } as const
+export const setMinMaxAC = (min: number, max: number) => {
+  return { type: 'PACK/SET-MIN-MAX', min, max } as const
 }
 export const addNewPackAC = (newPack: PackType) => {
   return { type: 'PACK/ADD-NEW-PACK', newPack } as const
@@ -101,6 +101,9 @@ export const getPackTC =
       )
 
       dispatch(setPackAC(res.data))
+      if (min && max) {
+        dispatch(setMinMaxAC(min, max))
+      }
     } catch (e) {
       const errors = e as Error | AxiosError<ChangeNameResType>
 

@@ -49,7 +49,10 @@ export const Paginator = (props: PaginatorPropsType) => {
   }
 
   const doRightBtnDisable = () => {
-    if (portionNumber == portionCount - 1) {
+    console.log('текущая порция' + portionNumber)
+    console.log(portionCount)
+
+    if (portionNumber == portionCount - 2) {
       setRightDisable(true)
     } else {
       setPortionNumber(portionNumber + 1)

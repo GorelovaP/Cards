@@ -13,6 +13,7 @@ export const PacksListTable = () => {
       {packs.map(item => (
         <PacksListTableItem
           key={item._id}
+          userId={item.user_id}
           name={item.name}
           cards={item.cardsCount}
           lastUpdated={item.updated}
