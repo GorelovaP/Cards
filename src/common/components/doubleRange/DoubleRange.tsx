@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { getPackTC, setMinMaxAC } from '../../../app/pack-reducer'
@@ -11,11 +11,15 @@ const minDistance = 1
 export const DoubleRange = () => {
   let min = useAppSelector(state => state.packs.minCardsCount)
   let max = useAppSelector(state => state.packs.maxCardsCount)
-  let currentItem = useAppSelector(state => state.packs.page)
   let pageCount = useAppSelector(state => state.packs.pageCount)
   let meOrAll = useAppSelector(state => state.packs.meOrAll)
   let userid = useAppSelector(state => state.user.user._id)
   let dispatch = useAppDispatch()
+
+  useEffect(() => {
+    console.log(min, max)
+    setValue1([min, max])
+  }, [min, max])
 
   const [value, setValue1] = useState<number[]>([min, max])
 
@@ -31,13 +35,10 @@ export const DoubleRange = () => {
     }
   }
   const setMinMax = () => {
-    dispatch(setMinMaxAC(value[0], value[1]))
     if (meOrAll === 'me') {
-      dispatch(getPackTC(undefined, value[0], value[1], undefined, currentItem, pageCount, userid))
-    } else
-      dispatch(
-        getPackTC(undefined, value[0], value[1], undefined, currentItem, pageCount, undefined)
-      )
+      dispatch(getPackTC(undefined, value[0], value[1], undefined, 1, pageCount, userid))
+    } else dispatch(getPackTC(undefined, value[0], value[1], undefined, 1, pageCount, undefined))
+    dispatch(setMinMaxAC(value[0], value[1]))
   }
 
   return (
