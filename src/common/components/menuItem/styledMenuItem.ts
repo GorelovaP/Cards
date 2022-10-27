@@ -4,12 +4,16 @@ export const StyledMenuItem = styled.div`
   line-height: 36px;
   display: flex;
   flex-direction: row;
+  position: relative;
   img {
     margin: 0 12px 0 14px;
   }
   span {
     &:hover {
       cursor: pointer;
+    }
+    &:active {
+      padding-left: 1px;
     }
   }
 `
