@@ -6,7 +6,7 @@ import { useMatch } from 'react-router-dom'
 import { getCardsTC } from '../../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks/hooks'
 import { useDebounce } from '../../../app/hooks/useDeboubce/useDebounce'
-import { getPackTC, setSearchDataAC } from '../../../app/pack-reducer'
+import { getPackTC, resetFilterAC, setSearchDataAC } from '../../../app/pack-reducer'
 import { PATH } from '../../../features/routes/PagesRoutes'
 import { StyledLabel } from '../../styledComponents/styledLabel'
 
@@ -22,8 +22,14 @@ export const Search = memo((props: propsType) => {
   let max = useAppSelector(state => state.packs.maxCardsCount)
   const chosenPack = useAppSelector(state => state.packs.chosenPack)
   let pageCount = useAppSelector(state => state.packs.pageCount)
+  let resetFiler = useAppSelector(state => state.packs.resetFilter)
   const dispatch = useAppDispatch()
   const match = useMatch('/:routeKey/*')
+
+  if (resetFiler) {
+    setValue(undefined)
+    dispatch(resetFilterAC(false))
+  }
 
   useEffect(() => {
     if (debouncedValue !== undefined && '/' + match?.params.routeKey === PATH.HOME_PAGE) {

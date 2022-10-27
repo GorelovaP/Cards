@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
-import { addNewPackTC, getPackTC, setSearchDataAC } from '../../app/pack-reducer'
+import { addNewPackTC, getPackTC, resetFilterAC } from '../../app/pack-reducer'
 import removeFilter from '../../assets/images/Filter-Remove.png'
 import { DoubleRange } from '../../common/components/doubleRange/DoubleRange'
 import { Paginator } from '../../common/components/paginator/Paginator'
@@ -40,6 +40,7 @@ export const PacksList = () => {
   }
   const resetFilter = () => {
     dispatch(getPackTC())
+    dispatch(resetFilterAC(true))
   }
 
   useEffect(() => {

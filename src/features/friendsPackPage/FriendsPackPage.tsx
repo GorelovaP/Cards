@@ -26,6 +26,7 @@ export const FriendsPackPage = () => {
   const pageCount = useAppSelector(state => state.cards.pageCount)
   const paginatorPortion = 5
   const currentItem = useAppSelector(state => state.cards.page)
+  const searchData = useAppSelector(state => state.packs.searchData)
 
   useEffect(() => {
     dispatch(getCardsTC(undefined, undefined, chosenPack))
@@ -33,7 +34,16 @@ export const FriendsPackPage = () => {
 
   const setCurrentItem = (item: number) => {
     dispatch(
-      getCardsTC(undefined, undefined, chosenPack, undefined, undefined, undefined, item, pageCount)
+      getCardsTC(
+        undefined,
+        searchData,
+        chosenPack,
+        undefined,
+        undefined,
+        undefined,
+        item,
+        pageCount
+      )
     )
     dispatch(setCurrentFriendsPageAC(item))
   }

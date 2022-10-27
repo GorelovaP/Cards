@@ -5,8 +5,12 @@ import { Navigate } from 'react-router-dom'
 
 import { addNewCardTC, getCardsTC, setCurrentFriendsPageAC } from '../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
-import { deletePackTC, sortUpdatedAC, updatePackNameTC } from '../../app/pack-reducer'
-import { changeToggleAC } from '../../app/pack-reducer'
+import {
+  deletePackTC,
+  sortUpdatedAC,
+  updatePackNameTC,
+  changeToggleAC,
+} from '../../app/pack-reducer'
 import deleteIcon from '../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../assets/images/menu/myPackMenu/Edit.svg'
 import learn from '../../assets/images/menu/myPackMenu/teacher.svg'
@@ -35,6 +39,7 @@ export const MyPackPage = () => {
   const pageCount = useAppSelector(state => state.cards.pageCount)
   const paginatorPortion = 5
   const currentItem = useAppSelector(state => state.cards.page)
+  const searchData = useAppSelector(state => state.packs.searchData)
 
   const [show, setShow] = useState(false)
 
@@ -67,7 +72,16 @@ export const MyPackPage = () => {
 
   const setCurrentItem = (item: number) => {
     dispatch(
-      getCardsTC(undefined, undefined, chosenPack, undefined, undefined, undefined, item, pageCount)
+      getCardsTC(
+        undefined,
+        searchData,
+        chosenPack,
+        undefined,
+        undefined,
+        undefined,
+        item,
+        pageCount
+      )
     )
     dispatch(setCurrentFriendsPageAC(item))
   }
@@ -108,32 +122,25 @@ export const MyPackPage = () => {
               </ClickAwayListener>
             )}
           </div>
-
-          {cardsTotalCount !== 0 && (
-            <StyleButtonForMainPageHeader onClick={addNewCard}>
-              Add new card
-            </StyleButtonForMainPageHeader>
-          )}
+          <StyleButtonForMainPageHeader onClick={addNewCard}>
+            Add new card
+          </StyleButtonForMainPageHeader>
         </StyledPageHeaderWrapper>
-
-        {cardsTotalCount !== 0 ? (
-          <>
-            <StyledFeaturesWrapper>
-              <Search className="mainPageSearch" />
-            </StyledFeaturesWrapper>
-            <CardsTable />
-            <Paginator
-              totalItemsCount={cardsTotalCount}
-              pageCount={pageCount}
-              paginatorPortion={paginatorPortion}
-              setCurrentItem={setCurrentItem}
-              currentItem={currentItem}
-              ChangeFieldsNumber={ChangeFieldsNumber}
-            />
-          </>
-        ) : (
-          <EmptyArea addNewCard={addNewCard} />
-        )}
+        <>
+          <StyledFeaturesWrapper>
+            <Search className="mainPageSearch" />
+          </StyledFeaturesWrapper>
+          <CardsTable />
+          <Paginator
+            totalItemsCount={cardsTotalCount}
+            pageCount={pageCount}
+            paginatorPortion={paginatorPortion}
+            setCurrentItem={setCurrentItem}
+            currentItem={currentItem}
+            ChangeFieldsNumber={ChangeFieldsNumber}
+          />
+        </>
+        {/*<EmptyArea addNewCard={addNewCard} />*/}
       </StyledMyPackPage>
     </>
   )

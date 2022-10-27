@@ -121,7 +121,7 @@ export const packsAPI = {
   },
 }
 
-// =============== Types for packsAPI ==============
+// =============== Types for Packs API ==============
 export type CommonPackType = {
   cardPacks: PackType[]
   cardPacksTotalCount: number // количество колод
@@ -142,8 +142,15 @@ export type PackType = {
 export type NewCardsPackType = {
   newCardsPack: PackType
 }
+export type DeletePackType = {
+  deletedCardsPack: PackType
+}
 
-// ============= Pack API ==================
+export type UpdatePackNameType = {
+  updatedCardsPack: PackType
+}
+
+// ============= Cards API ==================
 export const cardsAPI = {
   getCards(
     cardAnswer?: string,
@@ -189,6 +196,7 @@ export const cardsAPI = {
   },
 }
 
+// =============== Types for Cards API ==============
 export type getCardsResponseType = {
   cards: CardsType[]
   cardsTotalCount: number
@@ -209,13 +217,7 @@ export type CardsType = {
   updated: Date
   _id: string
 }
-export type DeletePackType = {
-  deletedCardsPack: PackType
-}
 
-export type UpdatePackNameType = {
-  updatedCardsPack: PackType
-}
 export type NewCardsType = {
   newCard: CardsType
 }

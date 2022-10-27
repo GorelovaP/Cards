@@ -16,6 +16,7 @@ const initialState: PackStateType = {
   chosenPack: '',
   searchData: undefined,
   sort: '0updated',
+  resetFilter: false,
 }
 
 export const PackReducer = (state = initialState, action: PackActionsType) => {
@@ -74,6 +75,9 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
     case 'PACK/SET-SEARCH-DATA': {
       return { ...state, searchData: action.value }
     }
+    case 'PACK/RESET-FILTER': {
+      return { ...state, resetFilter: action.reset }
+    }
     default:
       return state
   }
@@ -111,6 +115,9 @@ export const setSearchDataAC = (value: string | undefined) => {
 }
 export const sortUpdatedAC = (sort: sortType) => {
   return { type: 'PACK/SORT-UPDATED', sort } as const
+}
+export const resetFilterAC = (reset: boolean) => {
+  return { type: 'PACK/RESET-FILTER', reset } as const
 }
 
 // ================ Thunk creators ================
@@ -249,6 +256,7 @@ export type PackActionsType =
   | ReturnType<typeof updatePackNameAC>
   | ReturnType<typeof setSearchDataAC>
   | ReturnType<typeof sortUpdatedAC>
+  | ReturnType<typeof resetFilterAC>
 
 type PackStateType = {
   cardPacks: PackType[]
@@ -261,6 +269,7 @@ type PackStateType = {
   chosenPack: string
   searchData: string | undefined
   sort: sortType
+  resetFilter: boolean
 }
 type meOrAllType = 'me' | 'all'
 export type sortType = '0updated' | '1updated'
