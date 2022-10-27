@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const BackToPackArea = styled.div`
+  width: 200px;
   position: relative;
   display: flex;
   align-items: center;

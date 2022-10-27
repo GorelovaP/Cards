@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom'
 
 import { addNewCardTC, getCardsTC, setCurrentFriendsPageAC } from '../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
+import { deletePackTC, updatePackNameTC } from '../../app/pack-reducer'
 import deleteIcon from '../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../assets/images/menu/myPackMenu/Edit.svg'
 import learn from '../../assets/images/menu/myPackMenu/teacher.svg'
@@ -50,6 +51,16 @@ export const MyPackPage = () => {
     dispatch(addNewCardTC({ cardsPack_id: chosenPack, question: 'question1', answer: 'answer1' }))
   }
 
+  const deleteMyPack = () => {
+    dispatch(deletePackTC(chosenPack))
+    setShow(false)
+  }
+
+  const updatePackName = () => {
+    dispatch(updatePackNameTC({ _id: chosenPack, name: 'new pack title menu' }))
+    setShow(false)
+  }
+
   const setCurrentItem = (item: number) => {
     dispatch(
       getCardsTC(undefined, undefined, chosenPack, undefined, undefined, undefined, item, pageCount)
@@ -84,8 +95,8 @@ export const MyPackPage = () => {
             {show && (
               <ClickAwayListener onClickAway={handleClickAway}>
                 <StyledMenuItemMyPackContainer>
-                  <MenuItem text={'Edit'} icon={edit} onClickHandler={() => {}} />
-                  <MenuItem text={'Delete'} icon={deleteIcon} onClickHandler={() => {}} />
+                  <MenuItem text={'Edit'} icon={edit} onClickHandler={updatePackName} />
+                  <MenuItem text={'Delete'} icon={deleteIcon} onClickHandler={deleteMyPack} />
                   <MenuItem text={'Learn'} icon={learn} onClickHandler={() => {}} />
                 </StyledMenuItemMyPackContainer>
               </ClickAwayListener>
