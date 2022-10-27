@@ -38,13 +38,13 @@ export const Paginator = (props: PaginatorPropsType) => {
     return rightPortionPageNumber * portionNumber >= pagesCount
   }
 
-  console.log('totalItemsCount' + props.totalItemsCount)
-
-  console.log('paginatorPortion' + props.paginatorPortion)
+  // console.log('totalItemsCount' + props.totalItemsCount)
+  //
+  // console.log('paginatorPortion' + props.paginatorPortion)
 
   let portionCount = Math.ceil(props.totalItemsCount / props.paginatorPortion)
 
-  console.log('portionCount' + portionCount)
+  // console.log('portionCount' + portionCount)
 
   let [portionNumber, setPortionNumber] = useState<number>(1)
   let leftPortionPageNumber = (portionNumber - 1) * props.paginatorPortion + 1
@@ -68,8 +68,8 @@ export const Paginator = (props: PaginatorPropsType) => {
   }
 
   const doRightBtnDisable = () => {
-    console.log('текущая порция' + portionNumber)
-    console.log(portionCount)
+    // console.log('текущая порция' + portionNumber)
+    // console.log(portionCount)
 
     if (props.paginatorPortion * portionNumber >= pagesCount) {
       setRightDisable(true)

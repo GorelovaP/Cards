@@ -19,6 +19,7 @@ import {
   StyledFeaturesWrapper,
   StyledPageHeaderWrapper,
 } from '../../common/styledComponents/styledWrappers'
+import { EmptyArea } from '../newEmptyPacKPage/EmptyArea'
 import { PATH } from '../routes/PagesRoutes'
 
 import popUp from './../../assets/images/popUp.svg'
@@ -102,23 +103,31 @@ export const MyPackPage = () => {
               </ClickAwayListener>
             )}
           </div>
-          <StyleButtonForMainPageHeader onClick={addNewCard}>
-            Add new card
-          </StyleButtonForMainPageHeader>
+
+          {cardsTotalCount !== 0 && (
+            <StyleButtonForMainPageHeader onClick={addNewCard}>
+              Add new card
+            </StyleButtonForMainPageHeader>
+          )}
         </StyledPageHeaderWrapper>
-        <StyledFeaturesWrapper>
-          <Search className="mainPageSearch" />
-        </StyledFeaturesWrapper>
-        <CardsTable />
-        {cardsTotalCount !== 0 && (
-          <Paginator
-            totalItemsCount={cardsTotalCount}
-            pageCount={pageCount}
-            paginatorPortion={paginatorPortion}
-            setCurrentItem={setCurrentItem}
-            currentItem={currentItem}
-            ChangeFieldsNumber={ChangeFieldsNumber}
-          />
+
+        {cardsTotalCount !== 0 ? (
+          <>
+            <StyledFeaturesWrapper>
+              <Search className="mainPageSearch" />
+            </StyledFeaturesWrapper>
+            <CardsTable />
+            <Paginator
+              totalItemsCount={cardsTotalCount}
+              pageCount={pageCount}
+              paginatorPortion={paginatorPortion}
+              setCurrentItem={setCurrentItem}
+              currentItem={currentItem}
+              ChangeFieldsNumber={ChangeFieldsNumber}
+            />
+          </>
+        ) : (
+          <EmptyArea addNewCard={addNewCard} />
         )}
       </StyledMyPackPage>
     </>
