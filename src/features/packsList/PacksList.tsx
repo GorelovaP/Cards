@@ -25,6 +25,7 @@ export const PacksList = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   let userid = useAppSelector(state => state.user.user._id)
+  let sortSettings = useAppSelector(state => state.packs.sort)
   let totalItemsCount = useAppSelector(state => state.packs.cardPacksTotalCount) //количество колод
   let pageCount = useAppSelector(state => state.packs.pageCount) //сколько вмещает страница
   let paginatorPortion = 5 //кол-во страниц отображающееся в пагинаторе
@@ -54,7 +55,7 @@ export const PacksList = () => {
           undefined,
           minCardsCount,
           maxCardsCount,
-          undefined,
+          sortSettings,
           item,
           pageCount,
           userid,
@@ -67,7 +68,7 @@ export const PacksList = () => {
           undefined,
           minCardsCount,
           maxCardsCount,
-          undefined,
+          sortSettings,
           item,
           pageCount,
           undefined,
@@ -83,7 +84,7 @@ export const PacksList = () => {
           undefined,
           minCardsCount,
           maxCardsCount,
-          undefined,
+          sortSettings,
           currentItem,
           choice,
           userid,
@@ -96,7 +97,7 @@ export const PacksList = () => {
           undefined,
           minCardsCount,
           maxCardsCount,
-          undefined,
+          sortSettings,
           currentItem,
           choice,
           undefined,

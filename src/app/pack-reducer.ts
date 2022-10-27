@@ -14,6 +14,7 @@ const initialState: PackStateType = {
   pageCount: 0,
   meOrAll: 'all',
   chosenPack: '',
+  sort: '0updated',
 }
 
 export const PackReducer = (state = initialState, action: PackActionsType) => {
@@ -63,6 +64,12 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
         ),
       }
     }
+    case 'PACK/SORT-UPDATED': {
+      return {
+        ...state,
+        sort: action.sort,
+      }
+    }
     default:
       return state
   }
@@ -94,6 +101,9 @@ export const deletePackAC = (packId: string) => {
 }
 export const updatePackNameAC = (packId: string, newName: string) => {
   return { type: 'PACK/UPDATE-PACK-NAME', packId, newName } as const
+}
+export const sortUpdatedAC = (sort: sortType) => {
+  return { type: 'PACK/SORT-UPDATED', sort } as const
 }
 
 // ================ Thunk creators ================
@@ -230,6 +240,7 @@ export type PackActionsType =
   | ReturnType<typeof chosenPackAC>
   | ReturnType<typeof deletePackAC>
   | ReturnType<typeof updatePackNameAC>
+  | ReturnType<typeof sortUpdatedAC>
 
 type PackStateType = {
   cardPacks: PackType[]
@@ -240,5 +251,7 @@ type PackStateType = {
   pageCount: number // количество элементов на странице
   meOrAll: meOrAllType
   chosenPack: string
+  sort: sortType
 }
 type meOrAllType = 'me' | 'all'
+type sortType = '0updated' | '1updated'

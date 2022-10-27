@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom'
 
 import { addNewCardTC, getCardsTC, setCurrentFriendsPageAC } from '../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
+import { changeToggleAC } from '../../app/pack-reducer'
 import deleteIcon from '../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../assets/images/menu/myPackMenu/Edit.svg'
 import learn from '../../assets/images/menu/myPackMenu/teacher.svg'
@@ -37,6 +38,7 @@ export const MyPackPage = () => {
   const [show, setShow] = useState(false)
 
   useEffect(() => {
+    dispatch(changeToggleAC('all'))
     dispatch(getCardsTC(undefined, undefined, chosenPack))
   }, [])
 
@@ -58,15 +60,17 @@ export const MyPackPage = () => {
     dispatch(setCurrentFriendsPageAC(item))
   }
   const ChangeFieldsNumber = (choice: number) => {
-    getCardsTC(
-      undefined,
-      undefined,
-      chosenPack,
-      undefined,
-      undefined,
-      undefined,
-      currentItem,
-      choice
+    dispatch(
+      getCardsTC(
+        undefined,
+        undefined,
+        chosenPack,
+        undefined,
+        undefined,
+        undefined,
+        currentItem,
+        choice
+      )
     )
   }
 
