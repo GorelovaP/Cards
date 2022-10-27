@@ -13,7 +13,7 @@ export const CardsTable = () => {
     dispatch(deleteCardTC(cardId))
   }
   const updateCardInfo = (_id: string) => {
-    dispatch(updateCardInfoTC({ _id, question: 'updated question', answer: 'updated answer' }))
+    dispatch(updateCardInfoTC({ _id, question: 'updated', answer: 'updated' }))
   }
 
   return (

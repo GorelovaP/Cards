@@ -14,6 +14,7 @@ const initialState: PackStateType = {
   pageCount: 0,
   meOrAll: 'all',
   chosenPack: '',
+  searchData: undefined,
   sort: '0updated',
 }
 
@@ -70,6 +71,9 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
         sort: action.sort,
       }
     }
+    case 'PACK/SET-SEARCH-DATA': {
+      return { ...state, searchData: action.value }
+    }
     default:
       return state
   }
@@ -101,6 +105,9 @@ export const deletePackAC = (packId: string) => {
 }
 export const updatePackNameAC = (packId: string, newName: string) => {
   return { type: 'PACK/UPDATE-PACK-NAME', packId, newName } as const
+}
+export const setSearchDataAC = (value: string | undefined) => {
+  return { type: 'PACK/SET-SEARCH-DATA', value } as const
 }
 export const sortUpdatedAC = (sort: sortType) => {
   return { type: 'PACK/SORT-UPDATED', sort } as const
@@ -240,6 +247,7 @@ export type PackActionsType =
   | ReturnType<typeof chosenPackAC>
   | ReturnType<typeof deletePackAC>
   | ReturnType<typeof updatePackNameAC>
+  | ReturnType<typeof setSearchDataAC>
   | ReturnType<typeof sortUpdatedAC>
 
 type PackStateType = {
@@ -251,6 +259,7 @@ type PackStateType = {
   pageCount: number // количество элементов на странице
   meOrAll: meOrAllType
   chosenPack: string
+  searchData: string | undefined
   sort: sortType
 }
 type meOrAllType = 'me' | 'all'

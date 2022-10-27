@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
-import { addNewPackTC, getPackTC } from '../../app/pack-reducer'
+import { addNewPackTC, getPackTC, setSearchDataAC } from '../../app/pack-reducer'
 import removeFilter from '../../assets/images/Filter-Remove.png'
 import { DoubleRange } from '../../common/components/doubleRange/DoubleRange'
 import { Paginator } from '../../common/components/paginator/Paginator'
@@ -33,6 +33,7 @@ export const PacksList = () => {
   let meOrAll = useAppSelector(state => state.packs.meOrAll)
   let maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
   let minCardsCount = useAppSelector(state => state.packs.minCardsCount)
+  let searchData = useAppSelector(state => state.packs.searchData)
 
   const onClickHandler = () => {
     dispatch(addNewPackTC({ name: 'the last test I hope...' }))
@@ -65,7 +66,7 @@ export const PacksList = () => {
     } else {
       dispatch(
         getPackTC(
-          undefined,
+          searchData,
           minCardsCount,
           maxCardsCount,
           sortSettings,
