@@ -254,4 +254,4 @@ type PackStateType = {
   sort: sortType
 }
 type meOrAllType = 'me' | 'all'
-type sortType = '0updated' | '1updated'
+export type sortType = '0updated' | '1updated'

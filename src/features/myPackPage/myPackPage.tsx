@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom'
 
 import { addNewCardTC, getCardsTC, setCurrentFriendsPageAC } from '../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
-import { deletePackTC, updatePackNameTC } from '../../app/pack-reducer'
+import { deletePackTC, sortUpdatedAC, updatePackNameTC } from '../../app/pack-reducer'
 import { changeToggleAC } from '../../app/pack-reducer'
 import deleteIcon from '../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../assets/images/menu/myPackMenu/Edit.svg'
@@ -40,6 +40,7 @@ export const MyPackPage = () => {
 
   useEffect(() => {
     dispatch(changeToggleAC('all'))
+    dispatch(sortUpdatedAC('0updated'))
     dispatch(getCardsTC(undefined, undefined, chosenPack))
   }, [])
 
