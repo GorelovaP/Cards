@@ -3,6 +3,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { BiSearch } from 'react-icons/bi'
 import { useMatch } from 'react-router-dom'
 
+import { getCardsTC } from '../../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks/hooks'
 import { useDebounce } from '../../../app/hooks/useDeboubce/useDebounce'
 import { getPackTC } from '../../../app/pack-reducer'
@@ -19,6 +20,7 @@ export const Search = (props: propsType) => {
   const debouncedValue = useDebounce<string>(value, 500)
   let min = useAppSelector(state => state.packs.minCardsCount)
   let max = useAppSelector(state => state.packs.maxCardsCount)
+  const chosenPack = useAppSelector(state => state.packs.chosenPack)
   let pageCount = useAppSelector(state => state.packs.pageCount)
   const dispatch = useAppDispatch()
   const match = useMatch('/:routeKey/*')
@@ -28,11 +30,10 @@ export const Search = (props: propsType) => {
       dispatch(getPackTC(value, min, max, undefined, undefined, pageCount, undefined, undefined))
     }
     if (
-      '/' + match?.params.routeKey === PATH.MY_PACK ||
-      '/' + match?.params.routeKey === PATH.FRIENDS_PACK
+      (debouncedValue !== '' && '/' + match?.params.routeKey === PATH.MY_PACK) ||
+      (debouncedValue !== '' && '/' + match?.params.routeKey === PATH.FRIENDS_PACK)
     ) {
-      // here should be other dispatch
-      //dispatch(getPackTC(value, min, max, undefined, undefined, pageCount, undefined, undefined))
+      dispatch(getCardsTC(undefined, value, chosenPack, min, max, undefined, undefined, pageCount))
     }
   }, [debouncedValue])
 
