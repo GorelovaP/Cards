@@ -38,11 +38,25 @@ export const StyledCardsTableItem = styled.div`
       position: absolute;
       top: 15px;
       left: 0;
+      &:hover {
+        cursor: pointer;
+      }
+      &:active {
+        top: 16px;
+        left: 1px;
+      }
     }
     .delete {
       position: absolute;
       top: 15px;
       left: 30px;
+      &:hover {
+        cursor: pointer;
+      }
+      &:active {
+        top: 16px;
+        left: 31px;
+      }
     }
   }
 `

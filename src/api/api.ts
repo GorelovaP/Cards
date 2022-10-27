@@ -181,6 +181,12 @@ export const cardsAPI = {
   }) {
     return instance.post<NewCardsType>(`cards/card`, { card })
   },
+  deleteCard(id: string) {
+    return instance.delete<DeletedCardType>(`cards/card?id=${id}`)
+  },
+  updateCardInfo(card: { _id: string; question: string; answer: string }) {
+    return instance.put<UpdateCardInfoType>(`cards/card`, { card })
+  },
 }
 
 export type getCardsResponseType = {
@@ -212,4 +218,10 @@ export type UpdatePackNameType = {
 }
 export type NewCardsType = {
   newCard: CardsType
+}
+export type DeletedCardType = {
+  deletedCard: CardsType
+}
+export type UpdateCardInfoType = {
+  updatedCard: CardsType
 }

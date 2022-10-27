@@ -9,6 +9,8 @@ type CardsTableItemType = {
   answer: string
   lastUpdated: Date
   grade: number
+  updateCardInfo: () => void
+  deleteCard: () => void
 }
 export const CardsTableItem = (props: CardsTableItemType) => {
   let date = props.lastUpdated.toString().substring(0, 10).split('-').reverse().join('.')
@@ -22,8 +24,8 @@ export const CardsTableItem = (props: CardsTableItemType) => {
         <ItemGradeStars grade={props.grade} />
       </div>
       <div className={'options'}>
-        <img src={Edit} alt="" className={'edit'} />{' '}
-        <img src={Delete} alt="" className={'delete'} />
+        <img src={Edit} alt="" className={'edit'} onClick={props.updateCardInfo} />{' '}
+        <img src={Delete} alt="" className={'delete'} onClick={props.deleteCard} />
       </div>
     </StyledCardsTableItem>
   )

@@ -33,6 +33,17 @@ export const CardsReducer = (state = initialState, action: CardsActionsType) => 
     case 'CARDS/ADD-NEW-CARD': {
       return { ...state, cards: [action.card, ...state.cards] }
     }
+    case 'CARDS/DELETE-CARD': {
+      return { ...state, cards: state.cards.filter(i => i._id !== action.id) }
+    }
+    case 'CARDS/UPDATE-CARD-INFO': {
+      return {
+        ...state,
+        cards: state.cards.map(i =>
+          i._id === action.id ? { ...i, question: action.question, answer: action.answer } : i
+        ),
+      }
+    }
     default:
       return state
   }
@@ -46,6 +57,12 @@ export const setCurrentFriendsPageAC = (item: number) => {
 }
 export const addNewCardAC = (card: CardsType) => {
   return { type: 'CARDS/ADD-NEW-CARD', card } as const
+}
+export const deleteCardAC = (id: string) => {
+  return { type: 'CARDS/DELETE-CARD', id } as const
+}
+export const updateCardInfoAC = (id: string, question: string, answer: string) => {
+  return { type: 'CARDS/UPDATE-CARD-INFO', id, question, answer } as const
 }
 
 export const getCardsTC =
@@ -115,11 +132,59 @@ export const addNewCardTC =
       dispatch(isLoadingAC(false))
     }
   }
+export const deleteCardTC =
+  (id: string): AppThunkType =>
+  async dispatch => {
+    try {
+      dispatch(isLoadingAC(true))
+      const res = await cardsAPI.deleteCard(id)
+
+      dispatch(deleteCardAC(id))
+    } catch (e) {
+      const errors = e as Error | AxiosError<ChangeNameResType>
+
+      if (axios.isAxiosError(errors)) {
+        if (errors.response?.data.error) {
+          dispatch(setAppErrorAC(errors.response?.data.error))
+        } else {
+          dispatch(setAppErrorAC('Something went wrong...'))
+        }
+      }
+    } finally {
+      dispatch(isLoadingAC(false))
+    }
+  }
+export const updateCardInfoTC =
+  (card: { _id: string; question: string; answer: string }): AppThunkType =>
+  async dispatch => {
+    try {
+      dispatch(isLoadingAC(true))
+      const res = await cardsAPI.updateCardInfo(card)
+      const updatedCard = res.data.updatedCard
+      const { _id, question, answer } = updatedCard
+
+      dispatch(updateCardInfoAC(_id, question, answer))
+    } catch (e) {
+      const errors = e as Error | AxiosError<ChangeNameResType>
+
+      if (axios.isAxiosError(errors)) {
+        if (errors.response?.data.error) {
+          dispatch(setAppErrorAC(errors.response?.data.error))
+        } else {
+          dispatch(setAppErrorAC('Something went wrong...'))
+        }
+      }
+    } finally {
+      dispatch(isLoadingAC(false))
+    }
+  }
 
 export type CardsActionsType =
   | ReturnType<typeof getCardsAC>
   | ReturnType<typeof setCurrentFriendsPageAC>
   | ReturnType<typeof addNewCardAC>
+  | ReturnType<typeof deleteCardAC>
+  | ReturnType<typeof updateCardInfoAC>
 
 type CardStateType = {
   cards: CardsType[]
