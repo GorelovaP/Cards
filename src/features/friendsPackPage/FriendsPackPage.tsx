@@ -8,7 +8,7 @@ import { BackToPack } from '../../common/components/backToPack/BackToPack'
 import { Paginator } from '../../common/components/paginator/Paginator'
 import { Search } from '../../common/components/search/Search'
 import { StyleButtonForMainPageHeader } from '../../common/styledComponents/styledButtons'
-import { H1 } from '../../common/styledComponents/styledHeaders'
+import { H1, H3 } from '../../common/styledComponents/styledHeaders'
 import {
   StyledFeaturesWrapper,
   StyledPageHeaderWrapper,
@@ -65,21 +65,27 @@ export const FriendsPackPage = () => {
           <div>
             <H1>Friend&apos;s Pack</H1>
           </div>
-          <StyleButtonForMainPageHeader>Learn this pack</StyleButtonForMainPageHeader>
+          {cardsTotalCount !== 0 && (
+            <StyleButtonForMainPageHeader>Learn this pack</StyleButtonForMainPageHeader>
+          )}
         </StyledPageHeaderWrapper>
-        <StyledFeaturesWrapper>
-          <Search className="mainPageSearch" />
-        </StyledFeaturesWrapper>
-        <FriendsCardsTable />
-        {cardsTotalCount !== 0 && (
-          <Paginator
-            totalItemsCount={cardsTotalCount}
-            pageCount={pageCount}
-            paginatorPortion={paginatorPortion}
-            setCurrentItem={setCurrentItem}
-            currentItem={currentItem}
-            ChangeFieldsNumber={ChangeFieldsNumber}
-          />
+        {cardsTotalCount !== 0 ? (
+          <>
+            <StyledFeaturesWrapper>
+              <Search className="mainPageSearch" />
+            </StyledFeaturesWrapper>
+            <FriendsCardsTable />
+            <Paginator
+              totalItemsCount={cardsTotalCount}
+              pageCount={pageCount}
+              paginatorPortion={paginatorPortion}
+              setCurrentItem={setCurrentItem}
+              currentItem={currentItem}
+              ChangeFieldsNumber={ChangeFieldsNumber}
+            />
+          </>
+        ) : (
+          <H3 className="emptyHeader">This pack is empty.</H3>
         )}
       </StyledFriendsPackPage>
     </>
