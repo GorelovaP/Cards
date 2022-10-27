@@ -5,7 +5,7 @@ import { BiEditAlt } from 'react-icons/bi'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
 import { changeUserNameTC } from '../../app/user-reducer'
 import { MyInput } from '../../common/components/styledInput/MyInput'
 import { StyledInnerButton } from '../../common/styledComponents/styledButtons'

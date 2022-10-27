@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../../app/hooks'
+import { useAppSelector } from '../../../app/hooks/hooks'
 
 import { CardsTableHeader } from './CardsTableHeader/CardsTableHeader'
 import { CardsTableItem } from './CardsTableItem/CardsTableItem'

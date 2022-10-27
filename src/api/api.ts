@@ -179,7 +179,7 @@ export const cardsAPI = {
     questionVideo?: string
     answerVideo?: string
   }) {
-    return instance.post<CardsType>(`cards/card`, { card })
+    return instance.post<NewCardsType>(`cards/card`, { card })
   },
 }
 
@@ -209,4 +209,7 @@ export type DeletePackType = {
 
 export type UpdatePackNameType = {
   updatedCardsPack: PackType
+}
+export type NewCardsType = {
+  newCard: CardsType
 }

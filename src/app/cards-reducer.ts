@@ -98,7 +98,7 @@ export const addNewCardTC =
       dispatch(isLoadingAC(true))
       const res = await cardsAPI.addNewCard(card)
 
-      const newCard = res.data
+      const newCard = res.data.newCard
 
       dispatch(addNewCardAC(newCard))
     } catch (e) {

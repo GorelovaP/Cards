@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 import { passwordRecoveryEmailSentAC } from '../../app/app-reducer'
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
 import emailIcon from '../../assets/images/Email.svg'
 import { StyledButton } from '../../common/styledComponents/styledButtons'
 import { H2, H4 } from '../../common/styledComponents/styledHeaders'

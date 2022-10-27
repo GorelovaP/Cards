@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useMatch } from 'react-router-dom'
 
 import { singOutTC } from '../../app/app-reducer'
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
 import avatar from '../../assets/images/avatar.png'
 import logo from '../../assets/images/logo.svg'
 import { LoadingProcess } from '../../common/components/loadingProgress/LoadingProcess'

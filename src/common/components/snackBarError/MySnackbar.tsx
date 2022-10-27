@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 import { VscChromeClose } from 'react-icons/vsc'
 
 import { setAppErrorAC } from '../../../app/app-reducer'
-import { useAppDispatch } from '../../../app/hooks'
+import { useAppDispatch } from '../../../app/hooks/hooks'
 
 import { SnackbarArea } from './styledSnackBar'
 

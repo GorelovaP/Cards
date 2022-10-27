@@ -10,7 +10,7 @@ const initialState: PackStateType = {
   cardPacksTotalCount: 0, // количество колод
   maxCardsCount: 0,
   minCardsCount: 0,
-  page: 1, // выбранная страница
+  page: 0, // выбранная страница
   pageCount: 0,
   meOrAll: 'all',
   chosenPack: '',

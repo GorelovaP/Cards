@@ -6,7 +6,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { newPasswordCreatedAC, setAppErrorAC, signUpAC, singInTC } from '../../app/app-reducer'
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
 import { MyCheckBox } from '../../common/components/styledChackBox/MyCheckBox'
 import { MyInput } from '../../common/components/styledInput/MyInput'
 import { StyleButtonFormAdjusted } from '../../common/styledComponents/styledButtons'

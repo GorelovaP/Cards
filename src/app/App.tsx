@@ -12,7 +12,7 @@ import { Header } from '../features/header/Header'
 import { PagesRoutes } from '../features/routes/PagesRoutes'
 
 import { initializeAppTC } from './app-reducer'
-import { useAppDispatch, useAppSelector } from './hooks'
+import { useAppDispatch, useAppSelector } from './hooks/hooks'
 
 function App() {
   const dispatch = useAppDispatch()

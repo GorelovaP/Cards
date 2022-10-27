@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { getCardsTC, setCurrentFriendsPageAC } from '../../app/cards-reducer'
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'
 import { Paginator } from '../../common/components/paginator/Paginator'
 import { Search } from '../../common/components/search/Search'
@@ -65,7 +65,7 @@ export const FriendsPackPage = () => {
           <div>
             <H1>Friend&apos;s Pack</H1>
           </div>
-          <StyleButtonForMainPageHeader>Add new card</StyleButtonForMainPageHeader>
+          <StyleButtonForMainPageHeader>Learn this pack</StyleButtonForMainPageHeader>
         </StyledPageHeaderWrapper>
         <StyledFeaturesWrapper>
           <Search className="mainPageSearch" />

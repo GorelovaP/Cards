@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
 import { addNewPackTC, getPackTC } from '../../app/pack-reducer'
 import removeFilter from '../../assets/images/Filter-Remove.png'
 import { DoubleRange } from '../../common/components/doubleRange/DoubleRange'
@@ -44,32 +44,7 @@ export const PacksList = () => {
     if (!isLoggedIn) {
       return
     }
-    if (meOrAll === 'all') {
-      dispatch(
-        getPackTC(
-          undefined,
-          minCardsCount,
-          maxCardsCount,
-          undefined,
-          currentItem,
-          pageCount,
-          undefined
-        )
-      )
-    } else {
-      dispatch(
-        getPackTC(
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          currentItem,
-          pageCount,
-          userid,
-          undefined
-        )
-      )
-    }
+    dispatch(getPackTC())
   }, [])
 
   const setCurrentItem = (item: number) => {

@@ -4,7 +4,7 @@ import { IoMdLogOut } from 'react-icons/io'
 import { Navigate } from 'react-router-dom'
 
 import { singOutTC } from '../../app/app-reducer'
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
 import avatar from '../../assets/images/avatar.png'
 import photo from '../../assets/images/photo.png'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'

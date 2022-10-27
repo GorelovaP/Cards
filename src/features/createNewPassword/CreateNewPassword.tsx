@@ -6,7 +6,7 @@ import { Navigate, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { createNewPasswordTC } from '../../app/app-reducer'
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
 import { MyInput } from '../../common/components/styledInput/MyInput'
 import { StyledButton } from '../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../common/styledComponents/styledErrorArea'

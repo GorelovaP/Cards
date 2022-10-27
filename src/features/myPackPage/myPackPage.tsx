@@ -4,7 +4,7 @@ import { ClickAwayListener } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 
 import { addNewCardTC, getCardsTC, setCurrentFriendsPageAC } from '../../app/cards-reducer'
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
 import deleteIcon from '../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../assets/images/menu/myPackMenu/Edit.svg'
 import learn from '../../assets/images/menu/myPackMenu/teacher.svg'

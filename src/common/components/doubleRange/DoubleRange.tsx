@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { useAppDispatch, useAppSelector } from '../../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks/hooks'
 import { getPackTC } from '../../../app/pack-reducer'
 import { StyledLabel } from '../../styledComponents/styledLabel'
 

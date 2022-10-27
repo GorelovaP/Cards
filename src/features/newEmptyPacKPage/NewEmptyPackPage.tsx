@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Navigate } from 'react-router-dom'
 
-import { useAppSelector } from '../../app/hooks'
+import { useAppSelector } from '../../app/hooks/hooks'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'
 import { StyleButtonForMainPageHeader } from '../../common/styledComponents/styledButtons'
 import { H1, H3 } from '../../common/styledComponents/styledHeaders'

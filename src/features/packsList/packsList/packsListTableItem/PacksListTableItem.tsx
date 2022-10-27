@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../../../app/hooks'
+import { useAppSelector } from '../../../../app/hooks/hooks'
 import Delete from '../../../../assets/images/table/Delete.svg'
 import Edit from '../../../../assets/images/table/Edit.svg'
 import Learn from '../../../../assets/images/table/teacher.svg'
