@@ -40,6 +40,7 @@ export const MyPackPage = () => {
   const paginatorPortion = 5
   const currentItem = useAppSelector(state => state.cards.page)
   const searchData = useAppSelector(state => state.packs.searchData)
+  const chosenPackName = useAppSelector(state => state.cards.packName)
 
   const [show, setShow] = useState(false)
 
@@ -110,7 +111,7 @@ export const MyPackPage = () => {
       <StyledMyPackPage>
         <StyledPageHeaderWrapper>
           <div className={'menuPosition'}>
-            <H1>My Pack</H1>
+            <H1>{chosenPackName}</H1>
             <img src={popUp} alt="" className={'menuIcon'} onClick={popUpHandler} />
             {show && (
               <ClickAwayListener onClickAway={handleClickAway}>

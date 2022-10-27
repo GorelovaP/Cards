@@ -13,6 +13,7 @@ const initialState: CardStateType = {
   page: 1,
   pageCount: 0,
   packUserId: '',
+  packName: '',
 }
 
 export const CardsReducer = (state = initialState, action: CardsActionsType) => {
@@ -194,4 +195,5 @@ type CardStateType = {
   page: number
   pageCount: number
   packUserId: string
+  packName: string
 }

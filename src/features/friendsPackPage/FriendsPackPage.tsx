@@ -27,6 +27,7 @@ export const FriendsPackPage = () => {
   const paginatorPortion = 5
   const currentItem = useAppSelector(state => state.cards.page)
   const searchData = useAppSelector(state => state.packs.searchData)
+  const chosenPackName = useAppSelector(state => state.cards.packName)
 
   useEffect(() => {
     dispatch(getCardsTC(undefined, undefined, chosenPack))
@@ -73,7 +74,7 @@ export const FriendsPackPage = () => {
       <StyledFriendsPackPage>
         <StyledPageHeaderWrapper>
           <div>
-            <H1>Friend&apos;s Pack</H1>
+            <H1>{chosenPackName}</H1>
           </div>
           {cardsTotalCount !== 0 && (
             <StyleButtonForMainPageHeader>Learn this pack</StyleButtonForMainPageHeader>
