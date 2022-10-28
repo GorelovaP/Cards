@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 
-import { useAppSelector } from '../../../app/hooks/hooks'
+import { useAppSelector } from '../../hooks/appHooks'
 
 import { PaginatorSelect } from './select/PaginatorSelect'
 import { StyledPaginator } from './styledPaginator'
