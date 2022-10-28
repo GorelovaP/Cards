@@ -51,6 +51,9 @@ export const CardsReducer = (state = initialState, action: CardsActionsType) => 
         pageCount: action.pageCount,
       }
     }
+    case 'CARDS/UPDATE-INSIDE-PACK-NAME': {
+      return { ...state, packName: action.name }
+    }
     default:
       return state
   }
@@ -73,6 +76,9 @@ export const updateCardInfoAC = (id: string, question: string, answer: string) =
 }
 export const setPageCountCardsAC = (pageCount: number) => {
   return { type: 'CARDS/SET-PAGE-COUNT', pageCount } as const
+}
+export const updateInsidePackNameAC = (name: string) => {
+  return { type: 'CARDS/UPDATE-INSIDE-PACK-NAME', name } as const
 }
 
 export const getCardsTC =
@@ -196,6 +202,7 @@ export type CardsActionsType =
   | ReturnType<typeof deleteCardAC>
   | ReturnType<typeof updateCardInfoAC>
   | ReturnType<typeof setPageCountCardsAC>
+  | ReturnType<typeof updateInsidePackNameAC>
 
 type CardStateType = {
   cards: CardsType[]

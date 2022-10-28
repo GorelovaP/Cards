@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios'
 import { PackType, ChangeNameResType, packsAPI, CommonPackType } from '../api/api'
 
 import { isLoadingAC, setAppErrorAC } from './app-reducer'
+import { updateInsidePackNameAC } from './cards-reducer'
 import { AppThunkType } from './store'
 
 const initialState: PackStateType = {
@@ -82,6 +83,9 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
     case 'PACK/RESET-FILTER': {
       return { ...state, resetFilter: action.reset }
     }
+    case 'PACK/RESET-CHOSEN-PACK': {
+      return { ...state, chosenPack: '' }
+    }
     default:
       return state
   }
@@ -110,6 +114,9 @@ export const chosenPackAC = (chosenPack: string) => {
 }
 export const deletePackAC = (packId: string) => {
   return { type: 'PACK/DELETE-PACK', packId } as const
+}
+export const resetChosenPackAC = () => {
+  return { type: 'PACK/RESET-CHOSEN-PACK' } as const
 }
 export const updatePackNameAC = (_id: string, name: string) => {
   return { type: 'PACK/UPDATE-PACK-NAME', _id, name } as const
@@ -207,6 +214,7 @@ export const deletePackTC =
       const res = await packsAPI.deletePack(packId)
 
       dispatch(deletePackAC(packId))
+      dispatch(resetChosenPackAC())
     } catch (e) {
       const errors = e as Error | AxiosError<ChangeNameResType>
 
@@ -223,7 +231,7 @@ export const deletePackTC =
   }
 
 export const updatePackNameTC =
-  (cardsPack: { _id: string; name?: string }): AppThunkType =>
+  (cardsPack: { _id: string; name?: string }, menu?: boolean): AppThunkType =>
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
@@ -231,7 +239,11 @@ export const updatePackNameTC =
       const newPackName = res.data.updatedCardsPack
       const { _id, name } = newPackName
 
-      dispatch(updatePackNameAC(_id, name))
+      if (!menu) {
+        dispatch(updatePackNameAC(_id, name))
+      } else {
+        dispatch(updateInsidePackNameAC(name))
+      }
     } catch (e) {
       const errors = e as Error | AxiosError<ChangeNameResType>
 
@@ -262,6 +274,7 @@ export type PackActionsType =
   | ReturnType<typeof setSearchDataAC>
   | ReturnType<typeof sortUpdatedAC>
   | ReturnType<typeof resetFilterAC>
+  | ReturnType<typeof resetChosenPackAC>
 
 type PackStateType = {
   cardPacks: PackType[]

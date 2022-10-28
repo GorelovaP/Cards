@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
 import { ClickAwayListener } from '@mui/material'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import { addNewCardTC, getCardsTC, setCurrentCardsPageAC } from '../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
-import { sortUpdatedAC, updatePackNameTC, changeToggleAC } from '../../app/pack-reducer'
+import {
+  sortUpdatedAC,
+  updatePackNameTC,
+  changeToggleAC,
+  deletePackTC,
+} from '../../app/pack-reducer'
 import deleteIcon from '../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../assets/images/menu/myPackMenu/Edit.svg'
 import learn from '../../assets/images/menu/myPackMenu/teacher.svg'
@@ -39,7 +44,9 @@ export const MyPackPage = () => {
   const chosenPackName = useAppSelector(state => state.cards.packName)
   let sortSettings = useAppSelector(state => state.packs.sort)
   let isLoading = useAppSelector(state => state.app.isLoading)
+  const navigate = useNavigate()
 
+  console.log(chosenPackName)
   const [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -47,6 +54,10 @@ export const MyPackPage = () => {
     dispatch(sortUpdatedAC('0updated'))
     dispatch(getCardsTC(undefined, undefined, chosenPack))
   }, [])
+
+  if (chosenPack === '') {
+    navigate(PATH.HOME_PAGE)
+  }
 
   const popUpHandler = () => {
     setShow(!show)
@@ -74,11 +85,12 @@ export const MyPackPage = () => {
   }
 
   const deleteMyPack = () => {
+    dispatch(deletePackTC(chosenPack))
     setShow(false)
   }
 
   const updatePackName = () => {
-    dispatch(updatePackNameTC({ _id: chosenPack, name: 'updated pack title' }))
+    dispatch(updatePackNameTC({ _id: chosenPack, name: 'updated pack title' }, true))
     setShow(false)
   }
 
