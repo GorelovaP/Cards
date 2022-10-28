@@ -14,6 +14,7 @@ const initialState = {
   passwordRecoveryEmailSent: false,
   newPasswordCreated: false,
   isLoading: false,
+  isLoadingLocally: false,
 }
 
 export const AppReducer = (
@@ -48,6 +49,9 @@ export const AppReducer = (
     case 'AUTH/SET-IS-LOGGED-OUT': {
       return { ...state, isLoggedIn: false }
     }
+    case 'AUTH/IS-LOADING-LOCALLY': {
+      return { ...state, isLoadingLocally: action.isLoadingLocally }
+    }
     default:
       return state
   }
@@ -70,6 +74,9 @@ export const signInAC = (value: boolean) => {
 }
 export const signOutAC = () => {
   return { type: 'AUTH/SET-IS-LOGGED-OUT' } as const
+}
+export const isLoadingLocallyAC = (isLoadingLocally: boolean) => {
+  return { type: 'AUTH/IS-LOADING-LOCALLY', isLoadingLocally } as const
 }
 
 // ================ Thunk creators ================
@@ -231,3 +238,4 @@ export type AppReducerActionsType =
   | ReturnType<typeof isLoadingAC>
   | ReturnType<typeof signInAC>
   | ReturnType<typeof signOutAC>
+  | ReturnType<typeof isLoadingLocallyAC>

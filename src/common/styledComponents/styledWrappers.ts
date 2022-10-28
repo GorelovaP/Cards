@@ -23,6 +23,10 @@ export const StyledPageHeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  .menuPositionWrapper {
+    display: inline-block;
+    position: relative;
+  }
 `
 export const StyledFeaturesWrapper = styled.div`
   display: flex;

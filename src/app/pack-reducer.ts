@@ -66,7 +66,7 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
       return {
         ...state,
         cardPacks: state.cardPacks.map(i =>
-          i._id === action.packId ? { ...i, name: action.newName } : i
+          i._id === action._id ? { ...i, name: action.name } : i
         ),
       }
     }
@@ -111,8 +111,8 @@ export const chosenPackAC = (chosenPack: string) => {
 export const deletePackAC = (packId: string) => {
   return { type: 'PACK/DELETE-PACK', packId } as const
 }
-export const updatePackNameAC = (packId: string, newName: string) => {
-  return { type: 'PACK/UPDATE-PACK-NAME', packId, newName } as const
+export const updatePackNameAC = (_id: string, name: string) => {
+  return { type: 'PACK/UPDATE-PACK-NAME', _id, name } as const
 }
 export const setSearchDataAC = (value: string | undefined) => {
   return { type: 'PACK/SET-SEARCH-DATA', value } as const
@@ -140,6 +140,7 @@ export const getPackTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
+
       const res = await packsAPI.getPack(
         packName,
         min,

@@ -22,6 +22,6 @@ export const StyledMyPackPage = styled(StyledMainPageWrapper)`
 
 export const StyledMenuItemMyPackContainer = styled(StyledMenuItemContainer)`
   top: 35px;
-  left: 8px;
+  left: -88px;
   padding-bottom: 5px;
 `

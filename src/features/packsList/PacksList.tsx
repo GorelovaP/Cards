@@ -36,7 +36,7 @@ export const PacksList = () => {
   let searchData = useAppSelector(state => state.packs.searchData)
 
   const onClickHandler = async () => {
-    await dispatch(addNewPackTC({ name: 'the last test I hope...' }))
+    await dispatch(addNewPackTC({ name: 'some pack...' }))
 
     if (meOrAll === 'all') {
       dispatch(
