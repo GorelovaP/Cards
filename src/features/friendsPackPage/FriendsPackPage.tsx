@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom'
 
 import { getCardsTC, setCurrentFriendsPageAC } from '../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
+import { sortUpdatedAC } from '../../app/pack-reducer'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'
 import { Paginator } from '../../common/components/paginator/Paginator'
 import { Search } from '../../common/components/search/Search'
@@ -31,6 +32,7 @@ export const FriendsPackPage = () => {
 
   useEffect(() => {
     dispatch(getCardsTC(undefined, undefined, chosenPack))
+    dispatch(sortUpdatedAC('0updated'))
   }, [])
 
   const setCurrentItem = (item: number) => {
