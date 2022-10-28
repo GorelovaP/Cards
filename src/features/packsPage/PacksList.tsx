@@ -24,6 +24,7 @@ import { StyledPacksList } from './styledPacksList'
 export const PacksList = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
+  const isLoading = useAppSelector(state => state.app.isLoading)
   let userid = useAppSelector(state => state.user.user._id)
   let sortSettings = useAppSelector(state => state.packs.sort)
   let totalItemsCount = useAppSelector(state => state.packs.cardPacksTotalCount) //количество колод
@@ -147,7 +148,7 @@ export const PacksList = () => {
       <StyledMainPageWrapper className={'mainPageWrapper'}>
         <StyledPageHeaderWrapper>
           <H1>Packs list</H1>
-          <StyleButtonForMainPageHeader onClick={onClickHandler}>
+          <StyleButtonForMainPageHeader onClick={onClickHandler} disabled={isLoading}>
             Add new pack
           </StyleButtonForMainPageHeader>
         </StyledPageHeaderWrapper>
@@ -155,7 +156,7 @@ export const PacksList = () => {
           <Search className="mainPageSearch" />
           <ToggleSwitch />
           <DoubleRange />
-          <button onClick={resetFilter} className="filterBtn">
+          <button onClick={resetFilter} className="filterBtn" disabled={isLoading}>
             <img src={removeFilter} alt={'removeFilter'} />
           </button>
         </StyledFeaturesWrapper>

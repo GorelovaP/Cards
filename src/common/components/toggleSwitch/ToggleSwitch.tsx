@@ -5,9 +5,12 @@ import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import { ToggleBtn } from '../../styledComponents/styledButtons'
 import { StyledLabel } from '../../styledComponents/styledLabel'
 
+import { StyledToggleSwitch } from './styledToggleSwitch'
+
 export const ToggleSwitch = () => {
   const dispatch = useAppDispatch()
   let userid = useAppSelector(state => state.user.user._id)
+  const isLoading = useAppSelector(state => state.app.isLoading)
   let pageCount = useAppSelector(state => state.packs.pageCount)
   let meOrAll = useAppSelector(state => state.packs.meOrAll)
 
@@ -38,14 +41,22 @@ export const ToggleSwitch = () => {
   return (
     <div>
       <StyledLabel>Show packs cards</StyledLabel>
-      <div>
-        <ToggleBtn disabled={meOrAll !== 'all'} position={'left'} onClick={onClickMe}>
+      <StyledToggleSwitch>
+        <ToggleBtn
+          disabled={meOrAll !== 'all' || isLoading}
+          className={`left ${meOrAll !== 'all' ? 'blue' : ''}`}
+          onClick={onClickMe}
+        >
           My
         </ToggleBtn>
-        <ToggleBtn position={'right'} disabled={meOrAll !== 'me'} onClick={onClickAll}>
+        <ToggleBtn
+          disabled={meOrAll !== 'me' || isLoading}
+          className={`right ${meOrAll !== 'me' ? 'blue' : ''}`}
+          onClick={onClickAll}
+        >
           All
         </ToggleBtn>
-      </div>
+      </StyledToggleSwitch>
     </div>
   )
 }

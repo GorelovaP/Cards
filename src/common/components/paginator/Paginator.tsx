@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 
+import { useAppSelector } from '../../../app/hooks/hooks'
+
 import { PaginatorSelect } from './select/PaginatorSelect'
 import { StyledPaginator } from './styledPaginator'
 
@@ -15,9 +17,14 @@ type PaginatorPropsType = {
 }
 
 export const Paginator = (props: PaginatorPropsType) => {
+  const isLoading = useAppSelector(state => state.app.isLoading)
   let options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   let pagesCount = Math.ceil(props.totalItemsCount / props.pageCount)
+
+  if (Number.isNaN(pagesCount)) {
+    pagesCount = 0
+  }
 
   let pages = []
 
@@ -80,6 +87,11 @@ export const Paginator = (props: PaginatorPropsType) => {
   }
 
   const chooseCurrentPage = (page: number) => {
+    if (isLoading) {
+      debugger
+
+      return
+    }
     props.setCurrentItem(page)
   }
 

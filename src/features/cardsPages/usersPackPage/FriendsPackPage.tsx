@@ -56,7 +56,7 @@ export const FriendsPackPage = () => {
     dispatch(
       getCardsTC(
         undefined,
-        undefined,
+        searchData,
         chosenPack,
         undefined,
         undefined,

@@ -59,25 +59,16 @@ export const StyledInnerButton = styled(StyledButton)`
   line-height: 24px;
   z-index: 2;
 `
-type PropsBtnType = {
-  position: 'left' | 'right'
-}
-export const ToggleBtn = styled.button<PropsBtnType>`
+
+export const ToggleBtn = styled.button`
   width: 98px;
   height: 35px;
-  //не понимаю, почему левой кнопке не задается бордер радиус??
-  border-radius: ${props => (props.position === 'left' ? '2px 0px 0x 2px' : '0px 2px 2px 0px')};
   display: inline;
   text-align: center;
   background: white;
   color: black;
   border: 1px solid #d9d9d9;
 
-  &:disabled {
-    background: ${({ theme }) => theme.colors.buttonPrimaryBg};
-    color: white;
-    border: 1px solid ${({ theme }) => theme.colors.buttonPrimaryBg};
-  }
   &:hover {
     border: 1px solid #366eff;
   }
