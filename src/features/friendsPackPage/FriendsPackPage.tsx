@@ -6,6 +6,7 @@ import { getCardsTC, setCurrentCardsPageAC } from '../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
 import { sortUpdatedAC } from '../../app/pack-reducer'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'
+import { LoadingProcess } from '../../common/components/loadingProgress/LoadingProcess'
 import { Paginator } from '../../common/components/paginator/Paginator'
 import { Search } from '../../common/components/search/Search'
 import { StyleButtonForMainPageHeader } from '../../common/styledComponents/styledButtons'
@@ -29,6 +30,7 @@ export const FriendsPackPage = () => {
   const currentItem = useAppSelector(state => state.cards.page)
   const searchData = useAppSelector(state => state.packs.searchData)
   const chosenPackName = useAppSelector(state => state.cards.packName)
+  let isLoading = useAppSelector(state => state.app.isLoading)
 
   useEffect(() => {
     dispatch(getCardsTC(undefined, undefined, chosenPack))
@@ -72,37 +74,41 @@ export const FriendsPackPage = () => {
     return <Navigate to={PATH.HOME_PAGE} />
   }
 
-  return (
-    <>
-      <BackToPack />
-      <StyledFriendsPackPage>
-        <StyledPageHeaderWrapper>
-          <div>
-            <H1>{chosenPackName}</H1>
-          </div>
-          {cardsTotalCount !== 0 && (
-            <StyleButtonForMainPageHeader>Learn this pack</StyleButtonForMainPageHeader>
+  if (isLoading) {
+    return <LoadingProcess />
+  } else {
+    return (
+      <>
+        <BackToPack />
+        <StyledFriendsPackPage>
+          <StyledPageHeaderWrapper>
+            <div>
+              <H1>{chosenPackName}</H1>
+            </div>
+            {cardsTotalCount !== 0 && (
+              <StyleButtonForMainPageHeader>Learn this pack</StyleButtonForMainPageHeader>
+            )}
+          </StyledPageHeaderWrapper>
+          {cardsTotalCount !== 0 ? (
+            <>
+              <StyledFeaturesWrapper>
+                <Search className="mainPageSearch" />
+              </StyledFeaturesWrapper>
+              <FriendsCardsTable />
+              <Paginator
+                totalItemsCount={cardsTotalCount}
+                pageCount={pageCount}
+                paginatorPortion={paginatorPortion}
+                setCurrentItem={setCurrentItem}
+                currentItem={currentItem}
+                ChangeFieldsNumber={ChangeFieldsNumber}
+              />
+            </>
+          ) : (
+            <H3 className="emptyHeader">This pack is empty.</H3>
           )}
-        </StyledPageHeaderWrapper>
-        {cardsTotalCount !== 0 ? (
-          <>
-            <StyledFeaturesWrapper>
-              <Search className="mainPageSearch" />
-            </StyledFeaturesWrapper>
-            <FriendsCardsTable />
-            <Paginator
-              totalItemsCount={cardsTotalCount}
-              pageCount={pageCount}
-              paginatorPortion={paginatorPortion}
-              setCurrentItem={setCurrentItem}
-              currentItem={currentItem}
-              ChangeFieldsNumber={ChangeFieldsNumber}
-            />
-          </>
-        ) : (
-          <H3 className="emptyHeader">This pack is empty.</H3>
-        )}
-      </StyledFriendsPackPage>
-    </>
-  )
+        </StyledFriendsPackPage>
+      </>
+    )
+  }
 }
