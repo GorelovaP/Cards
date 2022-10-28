@@ -160,8 +160,8 @@ export const getPackTC =
       )
 
       dispatch(setPackAC(res.data))
-      if (min && max) {
-        dispatch(setMinMaxAC(min, max))
+      if (min || max) {
+        dispatch(setMinMaxAC(min!, max!))
       }
       if (page) {
         dispatch(setCurrentPageAC(page))

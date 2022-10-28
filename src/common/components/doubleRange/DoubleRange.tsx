@@ -9,6 +9,7 @@ import { StyledDoubleRange, StyledSlider } from './styledDoubleRange'
 const minDistance = 1
 
 export const DoubleRange = () => {
+  const isLoading = useAppSelector(state => state.app.isLoading)
   let min = useAppSelector(state => state.packs.minCardsCount)
   let max = useAppSelector(state => state.packs.maxCardsCount)
   let staticMin = useAppSelector(state => state.packs.staticMin)
@@ -40,6 +41,7 @@ export const DoubleRange = () => {
     }
   }
   const setMinMax = () => {
+    debugger
     if (meOrAll === 'me') {
       dispatch(getPackTC(undefined, value[0], value[1], undefined, 1, pageCount, userid))
     } else dispatch(getPackTC(undefined, value[0], value[1], undefined, 1, pageCount, undefined))
@@ -51,6 +53,7 @@ export const DoubleRange = () => {
       <div className={'rangeBlock'}>
         <div className={'numberBlock'}>{value[0]}</div>
         <StyledSlider
+          disabled={isLoading}
           value={value}
           min={staticMin}
           max={staticMax}

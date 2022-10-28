@@ -12,6 +12,7 @@ export const FriendsCardsTableHeader = () => {
   const chosenPack = useAppSelector(state => state.packs.chosenPack)
   const currentItem = useAppSelector(state => state.cards.page)
   const pageCount = useAppSelector(state => state.cards.pageCount)
+  const searchData = useAppSelector(state => state.packs.searchData)
 
   const [sort, setSort] = useState(sortSettings)
   const dispatch = useAppDispatch()
@@ -26,7 +27,7 @@ export const FriendsCardsTableHeader = () => {
       dispatch(
         getCardsTC(
           undefined,
-          undefined,
+          searchData,
           chosenPack,
           undefined,
           undefined,
@@ -40,7 +41,7 @@ export const FriendsCardsTableHeader = () => {
       dispatch(
         getCardsTC(
           undefined,
-          undefined,
+          searchData,
           chosenPack,
           undefined,
           undefined,
