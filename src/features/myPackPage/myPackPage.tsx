@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { ClickAwayListener } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 
-import { addNewCardTC, getCardsTC, setCurrentFriendsPageAC } from '../../app/cards-reducer'
+import { addNewCardTC, getCardsTC, setCurrentCardsPageAC } from '../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
 import { sortUpdatedAC, updatePackNameTC, changeToggleAC } from '../../app/pack-reducer'
 import deleteIcon from '../../assets/images/menu/myPackMenu/Delete.svg'
@@ -35,6 +35,7 @@ export const MyPackPage = () => {
   const currentItem = useAppSelector(state => state.cards.page)
   const searchData = useAppSelector(state => state.packs.searchData)
   const chosenPackName = useAppSelector(state => state.cards.packName)
+  let sortSettings = useAppSelector(state => state.packs.sort)
 
   const [show, setShow] = useState(false)
 
@@ -51,8 +52,22 @@ export const MyPackPage = () => {
     setShow(false)
   }
 
-  const addNewCard = () => {
-    dispatch(addNewCardTC({ cardsPack_id: chosenPack, question: 'question1', answer: 'answer1' }))
+  const addNewCard = async () => {
+    await dispatch(
+      addNewCardTC({ cardsPack_id: chosenPack, question: 'question1', answer: 'answer1' })
+    )
+    dispatch(
+      getCardsTC(
+        undefined,
+        undefined,
+        chosenPack,
+        undefined,
+        undefined,
+        sortSettings,
+        currentItem,
+        pageCount
+      )
+    )
   }
 
   const deleteMyPack = () => {
@@ -72,12 +87,12 @@ export const MyPackPage = () => {
         chosenPack,
         undefined,
         undefined,
-        undefined,
+        sortSettings,
         item,
         pageCount
       )
     )
-    dispatch(setCurrentFriendsPageAC(item))
+    dispatch(setCurrentCardsPageAC(item))
   }
   const ChangeFieldsNumber = (choice: number) => {
     dispatch(
@@ -87,7 +102,7 @@ export const MyPackPage = () => {
         chosenPack,
         undefined,
         undefined,
-        undefined,
+        sortSettings,
         currentItem,
         choice
       )

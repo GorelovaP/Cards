@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
-import { getCardsTC, setCurrentFriendsPageAC } from '../../app/cards-reducer'
+import { getCardsTC, setCurrentCardsPageAC } from '../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
 import { sortUpdatedAC } from '../../app/pack-reducer'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'
@@ -48,7 +48,7 @@ export const FriendsPackPage = () => {
         pageCount
       )
     )
-    dispatch(setCurrentFriendsPageAC(item))
+    dispatch(setCurrentCardsPageAC(item))
   }
   const ChangeFieldsNumber = (choice: number) => {
     dispatch(

@@ -35,9 +35,38 @@ export const PacksList = () => {
   let minCardsCount = useAppSelector(state => state.packs.minCardsCount)
   let searchData = useAppSelector(state => state.packs.searchData)
 
-  const onClickHandler = () => {
-    dispatch(addNewPackTC({ name: 'the last test I hope...' }))
+  const onClickHandler = async () => {
+    await dispatch(addNewPackTC({ name: 'the last test I hope...' }))
+
+    if (meOrAll === 'all') {
+      dispatch(
+        getPackTC(
+          undefined,
+          minCardsCount,
+          maxCardsCount,
+          sortSettings,
+          currentItem,
+          pageCount,
+          undefined,
+          undefined
+        )
+      )
+    } else {
+      dispatch(
+        getPackTC(
+          undefined,
+          minCardsCount,
+          maxCardsCount,
+          sortSettings,
+          currentItem,
+          pageCount,
+          userid,
+          undefined
+        )
+      )
+    }
   }
+
   const resetFilter = () => {
     dispatch(getPackTC())
     dispatch(resetFilterAC(true))

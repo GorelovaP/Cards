@@ -11,11 +11,12 @@ export const CardsTable = () => {
   const currentItem = useAppSelector(state => state.cards.page)
   const pageCount = useAppSelector(state => state.cards.pageCount)
   const searchData = useAppSelector(state => state.packs.searchData)
+  const sortSettings = useAppSelector(state => state.packs.sort)
 
   const dispatch = useAppDispatch()
 
   const deleteCard = async (cardId: string) => {
-    let res = await dispatch(deleteCardTC(cardId))
+    await dispatch(deleteCardTC(cardId))
 
     dispatch(
       getCardsTC(
@@ -24,7 +25,7 @@ export const CardsTable = () => {
         chosenPack,
         undefined,
         undefined,
-        undefined,
+        sortSettings,
         currentItem,
         pageCount
       )

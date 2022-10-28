@@ -45,6 +45,12 @@ export const CardsReducer = (state = initialState, action: CardsActionsType) => 
         ),
       }
     }
+    case 'CARDS/SET-PAGE-COUNT': {
+      return {
+        ...state,
+        pageCount: action.pageCount,
+      }
+    }
     default:
       return state
   }
@@ -53,7 +59,7 @@ export const CardsReducer = (state = initialState, action: CardsActionsType) => 
 export const getCardsAC = (cardsData: getCardsResponseType) => {
   return { type: 'CARDS/GET-CARDS', cardsData } as const
 }
-export const setCurrentFriendsPageAC = (item: number) => {
+export const setCurrentCardsPageAC = (item: number) => {
   return { type: 'CARDS/SET-CURRENT-PAGE', item } as const
 }
 export const addNewCardAC = (card: CardsType) => {
@@ -64,6 +70,9 @@ export const deleteCardAC = (id: string) => {
 }
 export const updateCardInfoAC = (id: string, question: string, answer: string) => {
   return { type: 'CARDS/UPDATE-CARD-INFO', id, question, answer } as const
+}
+export const setPageCountCardsAC = (pageCount: number) => {
+  return { type: 'CARDS/SET-PAGE-COUNT', pageCount } as const
 }
 
 export const getCardsTC =
@@ -182,10 +191,11 @@ export const updateCardInfoTC =
 
 export type CardsActionsType =
   | ReturnType<typeof getCardsAC>
-  | ReturnType<typeof setCurrentFriendsPageAC>
+  | ReturnType<typeof setCurrentCardsPageAC>
   | ReturnType<typeof addNewCardAC>
   | ReturnType<typeof deleteCardAC>
   | ReturnType<typeof updateCardInfoAC>
+  | ReturnType<typeof setPageCountCardsAC>
 
 type CardStateType = {
   cards: CardsType[]
