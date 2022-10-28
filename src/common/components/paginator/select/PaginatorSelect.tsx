@@ -22,7 +22,7 @@ export const PaginatorSelect: React.FC<SuperSelectPropsType> = ({
 }) => {
   const mappedOptions: JSX.Element[] | undefined = options?.map((el, key) => {
     return (
-      <option key={key} selected={el === selected} value={el}>
+      <option key={key} value={el}>
         {el}
       </option>
     )
@@ -39,7 +39,12 @@ export const PaginatorSelect: React.FC<SuperSelectPropsType> = ({
 
   return (
     <StyledPaginatorSelect>
-      <select onChange={onChangeCallback} {...restProps} className={'select'}>
+      <select
+        onChange={onChangeCallback}
+        defaultValue={selected}
+        {...restProps}
+        className={'select'}
+      >
         {mappedOptions}
       </select>
     </StyledPaginatorSelect>

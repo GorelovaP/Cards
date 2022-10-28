@@ -46,7 +46,6 @@ export const DoubleRange = () => {
         <div className={'numberBlock'}>{value[0]}</div>
         <StyledSlider
           value={value}
-          max={110}
           onChange={handleChange1}
           onMouseUp={setMinMax}
           disableSwap

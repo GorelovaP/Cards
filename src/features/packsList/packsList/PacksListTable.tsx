@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../../app/hooks/hooks'
-import { chosenPackAC, deletePackTC, updatePackNameTC } from '../../../app/pack-reducer'
+import { chosenPackAC, deletePackTC, getPackTC, updatePackNameTC } from '../../../app/pack-reducer'
 import { PATH } from '../../routes/PagesRoutes'
 
 import { PacksListTableHeader } from './packsListTableHeader/PacksListTableHeader'
@@ -11,6 +11,12 @@ import { StyledPacksListTable } from './styledPacksListTable'
 export const PacksListTable = () => {
   const packs = useAppSelector(state => state.packs.cardPacks)
   const myId = useAppSelector(state => state.user.user._id)
+  const meOrAll = useAppSelector(state => state.packs.meOrAll)
+  const sortSettings = useAppSelector(state => state.packs.sort)
+  const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
+  const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
+  const currentItem = useAppSelector(state => state.cards.page)
+  const pageCount = useAppSelector(state => state.cards.pageCount)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
@@ -23,8 +29,36 @@ export const PacksListTable = () => {
     }
   }
 
-  const deleteMyPack = (packId: string) => {
-    dispatch(deletePackTC(packId))
+  const deleteMyPack = async (packId: string) => {
+    const responce = await dispatch(deletePackTC(packId))
+
+    if (meOrAll === 'all') {
+      dispatch(
+        getPackTC(
+          undefined,
+          minCardsCount,
+          maxCardsCount,
+          sortSettings,
+          currentItem,
+          pageCount,
+          undefined,
+          undefined
+        )
+      )
+    } else {
+      dispatch(
+        getPackTC(
+          undefined,
+          minCardsCount,
+          maxCardsCount,
+          sortSettings,
+          currentItem,
+          pageCount,
+          myId,
+          undefined
+        )
+      )
+    }
   }
 
   const updatePackName = (packId: string) => {

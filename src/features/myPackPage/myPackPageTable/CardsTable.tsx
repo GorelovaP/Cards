@@ -1,4 +1,4 @@
-import { deleteCardTC, updateCardInfoTC } from '../../../app/cards-reducer'
+import { deleteCardTC, getCardsTC, updateCardInfoTC } from '../../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks/hooks'
 
 import { CardsTableHeader } from './CardsTableHeader/CardsTableHeader'
@@ -7,10 +7,28 @@ import { StyledCardsTable } from './styledCardsTable'
 
 export const CardsTable = () => {
   let cards = useAppSelector(state => state.cards.cards)
+  const chosenPack = useAppSelector(state => state.packs.chosenPack)
+  const currentItem = useAppSelector(state => state.cards.page)
+  const pageCount = useAppSelector(state => state.cards.pageCount)
+  const searchData = useAppSelector(state => state.packs.searchData)
+
   const dispatch = useAppDispatch()
 
-  const deleteCard = (cardId: string) => {
-    dispatch(deleteCardTC(cardId))
+  const deleteCard = async (cardId: string) => {
+    let res = await dispatch(deleteCardTC(cardId))
+
+    dispatch(
+      getCardsTC(
+        undefined,
+        searchData,
+        chosenPack,
+        undefined,
+        undefined,
+        undefined,
+        currentItem,
+        pageCount
+      )
+    )
   }
   const updateCardInfo = (_id: string) => {
     dispatch(updateCardInfoTC({ _id, question: 'updated', answer: 'updated' }))

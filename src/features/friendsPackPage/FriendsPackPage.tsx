@@ -49,15 +49,17 @@ export const FriendsPackPage = () => {
     dispatch(setCurrentFriendsPageAC(item))
   }
   const ChangeFieldsNumber = (choice: number) => {
-    getCardsTC(
-      undefined,
-      undefined,
-      chosenPack,
-      undefined,
-      undefined,
-      undefined,
-      currentItem,
-      choice
+    dispatch(
+      getCardsTC(
+        undefined,
+        undefined,
+        chosenPack,
+        undefined,
+        undefined,
+        undefined,
+        currentItem,
+        choice
+      )
     )
   }
 

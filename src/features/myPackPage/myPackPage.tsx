@@ -5,12 +5,7 @@ import { Navigate } from 'react-router-dom'
 
 import { addNewCardTC, getCardsTC, setCurrentFriendsPageAC } from '../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks'
-import {
-  deletePackTC,
-  sortUpdatedAC,
-  updatePackNameTC,
-  changeToggleAC,
-} from '../../app/pack-reducer'
+import { sortUpdatedAC, updatePackNameTC, changeToggleAC } from '../../app/pack-reducer'
 import deleteIcon from '../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../assets/images/menu/myPackMenu/Edit.svg'
 import learn from '../../assets/images/menu/myPackMenu/teacher.svg'
@@ -24,7 +19,6 @@ import {
   StyledFeaturesWrapper,
   StyledPageHeaderWrapper,
 } from '../../common/styledComponents/styledWrappers'
-import { EmptyArea } from '../newEmptyPacKPage/EmptyArea'
 import { PATH } from '../routes/PagesRoutes'
 
 import popUp from './../../assets/images/popUp.svg'
@@ -62,7 +56,6 @@ export const MyPackPage = () => {
   }
 
   const deleteMyPack = () => {
-    dispatch(deletePackTC(chosenPack))
     setShow(false)
   }
 
