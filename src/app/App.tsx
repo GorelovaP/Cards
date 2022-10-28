@@ -3,16 +3,16 @@ import React, { useEffect } from 'react'
 import { useMatch } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
+import { Header } from '../common/components/header/Header'
 import { Loading } from '../common/components/loading/Loading'
 import { MySnackbar } from '../common/components/snackBarError/MySnackbar'
+import { useAppDispatch, useAppSelector } from '../common/hooks/appHooks'
 import { GlobalStyles } from '../common/styledComponents/globalStyles'
 import { StyledMainWrapper } from '../common/styledComponents/styledWrappers'
 import { theme } from '../common/styledComponents/theme'
-import { Header } from '../features/header/Header'
-import { PagesRoutes } from '../features/routes/PagesRoutes'
 
 import { initializeAppTC } from './app-reducer'
-import { useAppDispatch, useAppSelector } from './hooks/hooks'
+import { PagesRoutes } from './routes/PagesRoutes'
 
 function App() {
   const dispatch = useAppDispatch()

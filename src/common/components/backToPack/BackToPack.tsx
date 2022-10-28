@@ -3,7 +3,7 @@ import React from 'react'
 import { BiArrowBack } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 
-import { PATH } from '../../../features/routes/PagesRoutes'
+import { PATH } from '../../../app/routes/PagesRoutes'
 
 import { BackToPackArea } from './styledBackToPack'
 

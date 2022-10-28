@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios'
 
-import { PackType, ChangeNameResType, packsAPI, CommonPackType } from '../api/api'
+import { ChangeNameResType } from '../api/appApi'
+import { PackType, packsAPI, CommonPackType } from '../api/packsApi'
 
 import { isLoadingAC, setAppErrorAC } from './app-reducer'
 import { updateInsidePackNameAC } from './cards-reducer'
@@ -8,10 +9,10 @@ import { AppThunkType } from './store'
 
 const initialState: PackStateType = {
   cardPacks: [],
-  cardPacksTotalCount: 0, // количество колод
+  cardPacksTotalCount: 0,
   maxCardsCount: 0,
   minCardsCount: 0,
-  page: 0, // выбранная страница
+  page: 0,
   pageCount: 0,
   meOrAll: 'all',
   chosenPack: '',

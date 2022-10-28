@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios'
 
-import { cardsAPI, CardsType, ChangeNameResType, getCardsResponseType } from '../api/api'
+import { ChangeNameResType } from '../api/appApi'
+import { cardsAPI, CardsType, getCardsResponseType } from '../api/cardsApi'
 
 import { isLoadingAC, setAppErrorAC } from './app-reducer'
 import { AppThunkType } from './store'

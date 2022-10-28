@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 
-import { AppError, getInAPI, SignInResType, SignOutResType, SignUpResType } from '../api/api'
+import { AppError, appAPI, SignInResType, SignOutResType, SignUpResType } from '../api/appApi'
 
 import { AppActionsType, AppThunkType } from './store'
 import { deleteUserInformationAC, setUserAC } from './user-reducer'
@@ -82,7 +82,7 @@ export const isLoadingLocallyAC = (isLoadingLocally: boolean) => {
 // ================ Thunk creators ================
 export const initializeAppTC = (): AppThunkType => async dispatch => {
   try {
-    const res = await getInAPI.me()
+    const res = await appAPI.me()
 
     dispatch(setUserAC(res.data))
     dispatch(signInAC(true))
@@ -103,7 +103,7 @@ export const signUpTC =
     try {
       dispatch(isLoadingAC(true))
       dispatch(setAppErrorAC(''))
-      const res = await getInAPI.signUp(email, password)
+      const res = await appAPI.signUp(email, password)
 
       dispatch(signUpAC(true))
     } catch (err) {
@@ -127,7 +127,7 @@ export const sendPasswordRecoveryTC =
     try {
       dispatch(isLoadingAC(true))
       dispatch(setAppErrorAC(''))
-      const res = await getInAPI.forgotPassword(email, from, message)
+      const res = await appAPI.forgotPassword(email, from, message)
 
       dispatch(setPasswordRecoveryEmailAC(email))
       dispatch(passwordRecoveryEmailSentAC(true))
@@ -152,7 +152,7 @@ export const createNewPasswordTC =
     try {
       dispatch(isLoadingAC(true))
       dispatch(setAppErrorAC(''))
-      const res = await getInAPI.createNewPassword(newPassword, token)
+      const res = await appAPI.createNewPassword(newPassword, token)
 
       dispatch(newPasswordCreatedAC(true))
     } catch (err) {
@@ -176,7 +176,7 @@ export const singInTC =
     try {
       dispatch(isLoadingAC(true))
       dispatch(setAppErrorAC(''))
-      const res = await getInAPI.singIn(data.email, data.password, data.rememberMe)
+      const res = await appAPI.singIn(data.email, data.password, data.rememberMe)
 
       dispatch(signInAC(true))
       dispatch(setUserAC(res.data))
@@ -198,7 +198,7 @@ export const singOutTC = (): AppThunkType => async dispatch => {
   try {
     dispatch(isLoadingAC(true))
     dispatch(setAppErrorAC(''))
-    const res = await getInAPI.signOut()
+    const res = await appAPI.signOut()
 
     dispatch(signOutAC())
     dispatch(deleteUserInformationAC())

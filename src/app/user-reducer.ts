@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 
-import { ChangeNameResType, getInAPI } from '../api/api'
+import { ChangeNameResType, appAPI } from '../api/appApi'
 
 import { isLoadingAC, setAppErrorAC } from './app-reducer'
 import { AppThunkType } from './store'
@@ -62,7 +62,7 @@ export const changeUserNameTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-      const res = await getInAPI.changeUserName(name)
+      const res = await appAPI.changeUserName(name)
 
       dispatch(changeUserNameAC(res.data.updatedUser.name))
     } catch (e) {

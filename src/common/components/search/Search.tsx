@@ -4,10 +4,10 @@ import { BiSearch } from 'react-icons/bi'
 import { useMatch } from 'react-router-dom'
 
 import { getCardsTC } from '../../../app/cards-reducer'
-import { useAppDispatch, useAppSelector } from '../../../app/hooks/hooks'
-import { useDebounce } from '../../../app/hooks/useDeboubce/useDebounce'
 import { getPackTC, resetFilterAC, setSearchDataAC } from '../../../app/pack-reducer'
-import { PATH } from '../../../features/routes/PagesRoutes'
+import { PATH } from '../../../app/routes/PagesRoutes'
+import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
+import { useDebounce } from '../../hooks/commonHooks/useDebounce'
 import { StyledLabel } from '../../styledComponents/styledLabel'
 
 import { StyledSearch } from './styledSearch'

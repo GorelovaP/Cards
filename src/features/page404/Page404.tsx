@@ -2,9 +2,9 @@ import React from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
+import { PATH } from '../../app/routes/PagesRoutes'
 import error from '../../assets/images/404.svg'
 import { StyledButton } from '../../common/styledComponents/styledButtons'
-import { PATH } from '../routes/PagesRoutes'
 
 import { StyledPage404 } from './styledPage404'
 

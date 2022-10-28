@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { useAppDispatch, useAppSelector } from '../../../app/hooks/hooks'
 import { changeToggleAC, getPackTC, sortUpdatedAC } from '../../../app/pack-reducer'
+import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import { ToggleBtn } from '../../styledComponents/styledButtons'
 import { StyledLabel } from '../../styledComponents/styledLabel'
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-import { useAppDispatch, useAppSelector } from '../../../app/hooks/hooks'
 import { getPackTC } from '../../../app/pack-reducer'
+import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import { StyledLabel } from '../../styledComponents/styledLabel'
 
 import { StyledDoubleRange, StyledSlider } from './styledDoubleRange'
