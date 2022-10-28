@@ -39,10 +39,10 @@ export const ToggleSwitch = () => {
     <div>
       <StyledLabel>Show packs cards</StyledLabel>
       <div>
-        <ToggleBtn disabled={meOrAll !== 'all'} position="left" onClick={onClickMe}>
+        <ToggleBtn disabled={meOrAll !== 'all'} position={'left'} onClick={onClickMe}>
           My
         </ToggleBtn>
-        <ToggleBtn position="right" disabled={meOrAll !== 'me'} onClick={onClickAll}>
+        <ToggleBtn position={'right'} disabled={meOrAll !== 'me'} onClick={onClickAll}>
           All
         </ToggleBtn>
       </div>

@@ -66,7 +66,7 @@ export const ToggleBtn = styled.button<PropsBtnType>`
   width: 98px;
   height: 35px;
   //не понимаю, почему левой кнопке не задается бордер радиус??
-  border-radius: ${props => (props.position == 'left' ? '2px 0px 0x 2px' : '0px 2px 2px 0px')};
+  border-radius: ${props => (props.position === 'left' ? '2px 0px 0x 2px' : '0px 2px 2px 0px')};
   display: inline;
   text-align: center;
   background: white;

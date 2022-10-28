@@ -35,12 +35,22 @@ export const Search = memo((props: propsType) => {
     if (debouncedValue !== undefined && '/' + match?.params.routeKey === PATH.HOME_PAGE) {
       dispatch(getPackTC(value, min, max, undefined, undefined, pageCount, undefined, undefined))
       dispatch(setSearchDataAC(value))
-    }
-    if (
+    } else if (
       (debouncedValue !== undefined && '/' + match?.params.routeKey === PATH.MY_PACK) ||
       (debouncedValue !== undefined && '/' + match?.params.routeKey === PATH.FRIENDS_PACK)
     ) {
-      dispatch(getCardsTC(undefined, value, chosenPack, min, max, undefined, undefined, pageCount))
+      dispatch(
+        getCardsTC(
+          undefined,
+          value,
+          chosenPack,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          pageCount
+        )
+      )
       dispatch(setSearchDataAC(value))
     }
   }, [debouncedValue])
