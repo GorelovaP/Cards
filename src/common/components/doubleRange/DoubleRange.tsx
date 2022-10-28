@@ -11,6 +11,8 @@ const minDistance = 1
 export const DoubleRange = () => {
   let min = useAppSelector(state => state.packs.minCardsCount)
   let max = useAppSelector(state => state.packs.maxCardsCount)
+  let staticMin = useAppSelector(state => state.packs.staticMin)
+  let staticMax = useAppSelector(state => state.packs.staticMax)
   let pageCount = useAppSelector(state => state.packs.pageCount)
   let meOrAll = useAppSelector(state => state.packs.meOrAll)
   let userid = useAppSelector(state => state.user.user._id)
@@ -19,6 +21,10 @@ export const DoubleRange = () => {
   useEffect(() => {
     setValue1([min, max])
   }, [min, max])
+
+  useEffect(() => {
+    setValue1([staticMin!, staticMax!])
+  }, [staticMin, staticMax])
 
   const [value, setValue1] = useState<number[]>([min, max])
 
@@ -46,6 +52,8 @@ export const DoubleRange = () => {
         <div className={'numberBlock'}>{value[0]}</div>
         <StyledSlider
           value={value}
+          min={staticMin}
+          max={staticMax}
           onChange={handleChange1}
           onMouseUp={setMinMax}
           disableSwap

@@ -17,6 +17,8 @@ const initialState: PackStateType = {
   searchData: undefined,
   sort: '0updated',
   resetFilter: false,
+  staticMin: undefined,
+  staticMax: undefined,
 }
 
 export const PackReducer = (state = initialState, action: PackActionsType) => {
@@ -25,6 +27,8 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
       return {
         ...state,
         ...action.packData,
+        staticMin: action.packData.minCardsCount,
+        staticMax: action.packData.maxCardsCount,
         cardPacks: action.packData.cardPacks.map(tl => ({ ...tl })),
       }
     }
@@ -270,6 +274,8 @@ type PackStateType = {
   searchData: string | undefined
   sort: sortType
   resetFilter: boolean
+  staticMin: number | undefined
+  staticMax: number | undefined
 }
 type meOrAllType = 'me' | 'all'
 export type sortType = '0updated' | '1updated'
