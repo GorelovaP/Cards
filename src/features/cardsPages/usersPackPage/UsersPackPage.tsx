@@ -52,7 +52,7 @@ export const UsersPackPage = () => {
     )
     dispatch(setCurrentCardsPageAC(item))
   }
-  const ChangeFieldsNumber = (choice: number) => {
+  const changeFieldsNumber = (choice: number) => {
     dispatch(
       getCardsTC(
         undefined,
@@ -101,7 +101,7 @@ export const UsersPackPage = () => {
                 paginatorPortion={paginatorPortion}
                 setCurrentItem={setCurrentItem}
                 currentItem={currentItem}
-                ChangeFieldsNumber={ChangeFieldsNumber}
+                ChangeFieldsNumber={changeFieldsNumber}
               />
             </>
           ) : (

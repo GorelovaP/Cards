@@ -46,7 +46,6 @@ export const MyPackPage = () => {
   let isLoading = useAppSelector(state => state.app.isLoading)
   const navigate = useNavigate()
 
-  console.log(chosenPackName)
   const [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -109,7 +108,7 @@ export const MyPackPage = () => {
     )
     dispatch(setCurrentCardsPageAC(item))
   }
-  const ChangeFieldsNumber = (choice: number) => {
+  const changeFieldsNumber = (choice: number) => {
     dispatch(
       getCardsTC(
         undefined,
@@ -169,7 +168,7 @@ export const MyPackPage = () => {
                 paginatorPortion={paginatorPortion}
                 setCurrentItem={setCurrentItem}
                 currentItem={currentItem}
-                ChangeFieldsNumber={ChangeFieldsNumber}
+                ChangeFieldsNumber={changeFieldsNumber}
               />
             </>
           </StyledMyPackPage>

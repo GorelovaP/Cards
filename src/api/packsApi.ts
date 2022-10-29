@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios'
+
 import { instance } from './appApi'
 
 export const packsAPI = {
@@ -22,16 +24,24 @@ export const packsAPI = {
       block,
     }
 
-    return instance.get<CommonPackType>(`cards/pack`, { params })
+    return instance.get<ParamsType, AxiosResponse<CommonPackType>>(`cards/pack`, { params })
   },
   addPack(cardsPack: { name?: string }) {
-    return instance.post<NewCardsPackType>(`cards/pack`, { cardsPack })
+    return instance.post<{ cardsPack: { name?: string } }, AxiosResponse<NewCardsPackType>>(
+      `cards/pack`,
+      { cardsPack }
+    )
   },
   deletePack(packId: string) {
-    return instance.delete<DeletePackType>(`cards/pack?id=${packId}`)
+    return instance.delete<{ packId: string }, AxiosResponse<DeletePackType>>(
+      `cards/pack?id=${packId}`
+    )
   },
   updatePackName(cardsPack: { _id: string; name?: string }) {
-    return instance.put<UpdatePackNameType>(`cards/pack`, { cardsPack })
+    return instance.put<
+      { cardsPack: { _id: string; name?: string } },
+      AxiosResponse<UpdatePackNameType>
+    >(`cards/pack`, { cardsPack })
   },
 }
 
@@ -43,15 +53,25 @@ export type CommonPackType = {
   minCardsCount: number
   page: number
   pageCount: number
+  token: string
+  tokenDeathTime: number
 }
 export type PackType = {
-  _id: string
-  user_id: string
-  name: string
   cardsCount: number
-  created: Date
+  created: string
+  grade: number
+  more_id: string
+  name: string
+  path: string
+  private: boolean
+  rating: number
+  shots: number
+  type: string
   updated: Date
+  user_id: string
   user_name: string
+  __v: number
+  _id: string
 }
 export type NewCardsPackType = {
   newCardsPack: PackType
@@ -62,4 +82,15 @@ export type DeletePackType = {
 
 export type UpdatePackNameType = {
   updatedCardsPack: PackType
+}
+
+type ParamsType = {
+  packName?: string
+  min?: number
+  max?: number
+  sortPacks?: string
+  page?: number
+  pageCount?: number
+  user_id?: string
+  block?: boolean
 }

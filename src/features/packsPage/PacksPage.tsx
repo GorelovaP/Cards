@@ -109,7 +109,7 @@ export const PacksPage = () => {
       )
     }
   }
-  const ChangeFieldsNumber = (choice: number) => {
+  const changeFieldsNumber = (choice: number) => {
     if (meOrAll === 'me') {
       dispatch(
         getPackTC(
@@ -168,7 +168,7 @@ export const PacksPage = () => {
             paginatorPortion={paginatorPortion}
             currentItem={currentItem}
             setCurrentItem={setCurrentItem}
-            ChangeFieldsNumber={ChangeFieldsNumber}
+            ChangeFieldsNumber={changeFieldsNumber}
           />
         )}
       </StyledMainPageWrapper>
