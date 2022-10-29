@@ -14,7 +14,7 @@ import { StyledErrorArea } from '../../../common/styledComponents/styledErrorAre
 import { H2, H4, StyledBottomFormLink } from '../../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../../common/styledComponents/styledWrappers'
 
-import { StyledSignUpForm } from './styledSignUp'
+import { StyledSignUpForm } from './styledSignUpPage'
 
 export const SignUpPage = () => {
   const [passwordIcon, setPasswordIcon] = useState(true)

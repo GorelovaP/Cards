@@ -18,7 +18,7 @@ import {
 } from '../../../common/styledComponents/styledHeaders'
 import { StyledSingFormWrapper } from '../../../common/styledComponents/styledWrappers'
 
-import { StyledForgotPasswordPage } from './styledForgotPassword'
+import { StyledForgotPasswordPage } from './styledForgotPasswordPage'
 
 export const ForgotPasswordPage = () => {
   const dispatch = useAppDispatch()
