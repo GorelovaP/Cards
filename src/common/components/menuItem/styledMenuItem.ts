@@ -1,13 +1,10 @@
 import styled from 'styled-components'
 
-export const StyledMenuItem = styled.div`
+export const StyledMenuItem = styled.div<{ bg: string }>`
   line-height: 36px;
-  display: flex;
-  flex-direction: row;
+  background: url(${props => props.bg}) no-repeat 14% 50%;
   position: relative;
-  img {
-    margin: 0 12px 0 14px;
-  }
+  padding-left: 40px;
   span {
     &:hover {
       cursor: pointer;
