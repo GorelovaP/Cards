@@ -196,7 +196,7 @@ export const deletePackTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-      const res = await packsAPI.deletePack(packId)
+      await packsAPI.deletePack(packId)
 
       dispatch(deletePackAC(packId))
       dispatch(resetChosenPackAC())

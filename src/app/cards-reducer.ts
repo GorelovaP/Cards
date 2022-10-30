@@ -150,7 +150,7 @@ export const deleteCardTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-      const res = await cardsAPI.deleteCard(id)
+      await cardsAPI.deleteCard(id)
 
       dispatch(deleteCardAC(id))
     } catch (err) {

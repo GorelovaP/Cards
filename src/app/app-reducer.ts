@@ -91,7 +91,7 @@ export const signUpTC =
     try {
       dispatch(isLoadingAC(true))
       dispatch(setAppErrorAC(''))
-      const res = await appAPI.signUp(email, password)
+      await appAPI.signUp(email, password)
 
       dispatch(signUpAC(true))
     } catch (err) {
@@ -109,7 +109,7 @@ export const sendPasswordRecoveryTC =
     try {
       dispatch(isLoadingAC(true))
       dispatch(setAppErrorAC(''))
-      const res = await appAPI.forgotPassword(email, from, message)
+      await appAPI.forgotPassword(email, from, message)
 
       dispatch(setPasswordRecoveryEmailAC(email))
       dispatch(passwordRecoveryEmailSentAC(true))
@@ -128,7 +128,7 @@ export const createNewPasswordTC =
     try {
       dispatch(isLoadingAC(true))
       dispatch(setAppErrorAC(''))
-      const res = await appAPI.createNewPassword(newPassword, token)
+      await appAPI.createNewPassword(newPassword, token)
 
       dispatch(newPasswordCreatedAC(true))
     } catch (err: AxiosError<AppError> | any) {
@@ -162,7 +162,7 @@ export const singOutTC = (): AppThunkType => async dispatch => {
   try {
     dispatch(isLoadingAC(true))
     dispatch(setAppErrorAC(''))
-    const res = await appAPI.signOut()
+    await appAPI.signOut()
 
     dispatch(signOutAC())
     dispatch(deleteUserInformationAC())

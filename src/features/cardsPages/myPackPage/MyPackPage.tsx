@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { ClickAwayListener } from '@mui/material'
+import ClickAwayListener from '@mui/material/ClickAwayListener'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 import { addNewCardTC, getCardsTC, setCurrentCardsPageAC } from '../../../app/cards-reducer'

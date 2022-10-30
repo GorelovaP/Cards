@@ -26,5 +26,8 @@ export const StyledMenuItemMyPackContainer = styled(StyledMenuItemContainer)`
   padding-bottom: 5px;
   span {
     padding-left: 10px;
+    &:active {
+      padding-left: 9px;
+    }
   }
 `

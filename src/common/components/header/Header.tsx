@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 
+import ClickAwayListener from '@mui/material/ClickAwayListener'
 import { useNavigate, useMatch } from 'react-router-dom'
 
 import { singOutTC } from '../../../app/app-reducer'
@@ -25,21 +26,9 @@ export const Header = () => {
 
   const isLoading = useAppSelector(store => store.app.isLoading)
 
-  const menuRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const closeDropdown = (e: any) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setShow(false)
-      }
-    }
-
-    document.addEventListener('click', closeDropdown)
-
-    return () => {
-      document.removeEventListener('click', closeDropdown)
-    }
-  }, [menuRef])
+  const handleClickAway = () => {
+    setShow(false)
+  }
 
   const logOut = () => {
     dispatch(singOutTC())
@@ -69,7 +58,7 @@ export const Header = () => {
           '/' + match?.params.routeKey === PATH.FORGOT_PASSWORD ? (
             <StyleButtonForHeader onClick={gotoSingIn}> Sign in</StyleButtonForHeader>
           ) : (
-            <StyleHeaderRightIcons ref={menuRef}>
+            <StyleHeaderRightIcons>
               <div className={'personalName'}> {userName} </div>
               <img
                 className={'personalIcon'}
@@ -78,10 +67,12 @@ export const Header = () => {
                 onClick={popUpHandler}
               />
               {show && (
-                <StyledMenuItemContainer>
-                  <MenuItem text={'Profile'} icon={user} onClickHandler={gotoProfile} />
-                  <MenuItem text={'Log out'} icon={logout} onClickHandler={logOut} />
-                </StyledMenuItemContainer>
+                <ClickAwayListener onClickAway={handleClickAway}>
+                  <StyledMenuItemContainer>
+                    <MenuItem text={'Profile'} icon={user} onClickHandler={gotoProfile} />
+                    <MenuItem text={'Log out'} icon={logout} onClickHandler={logOut} />
+                  </StyledMenuItemContainer>
+                </ClickAwayListener>
               )}
             </StyleHeaderRightIcons>
           )}
