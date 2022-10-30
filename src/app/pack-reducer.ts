@@ -17,21 +17,21 @@ const initialState: PackStateType = {
   pageCount: 0,
   meOrAll: 'all',
   chosenPack: '',
-  searchData: undefined,
+  searchData: '',
   sort: '0updated',
   resetFilter: false,
   staticMin: undefined,
   staticMax: undefined,
 }
 
-export const PackReducer = (state = initialState, action: PackActionsType) => {
+export const PackReducer = (state = initialState, action: PackActionsType): PackStateType => {
   switch (action.type) {
+    case 'PACK/SET-SEARCH-DATA':
     case 'PACK/SET-TOGGLE':
     case 'PACK/SET-PAGE-COUNT':
     case 'PACK/SET-CURRENT-PAGE':
     case 'PACK/CHOSEN-PACK':
     case 'PACK/SORT-UPDATED':
-    case 'PACK/SET-SEARCH-DATA':
     case 'PACK/RESET-FILTER':
       return {
         ...state,
@@ -117,7 +117,7 @@ export const updatePackNameAC = (_id: string, name: string) => {
   return { type: 'PACK/UPDATE-PACK-NAME', payload: { _id, name } } as const
 }
 
-export const setSearchDataAC = (searchData: string | undefined) => {
+export const setSearchDataAC = (searchData: string) => {
   return { type: 'PACK/SET-SEARCH-DATA', payload: { searchData } } as const
 }
 
@@ -251,14 +251,14 @@ export type PackActionsType =
 
 type PackStateType = {
   cardPacks: PackType[]
-  cardPacksTotalCount: number // количество колод
+  cardPacksTotalCount: number
   maxCardsCount: number
   minCardsCount: number
-  page: number // выбранная страница
-  pageCount: number // количество элементов на странице
+  page: number
+  pageCount: number
   meOrAll: meOrAllType
   chosenPack: string
-  searchData: string | undefined
+  searchData: string
   sort: sortType
   resetFilter: boolean
   staticMin: number | undefined

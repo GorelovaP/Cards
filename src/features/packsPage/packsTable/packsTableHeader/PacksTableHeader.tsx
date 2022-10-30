@@ -11,8 +11,8 @@ export const PacksTableHeader = () => {
 
   let sortSettings = useAppSelector(state => state.packs.sort)
   let userid = useAppSelector(state => state.user.user._id)
-  let pageCount = useAppSelector(state => state.packs.pageCount) //сколько вмещает страница
-  let currentItem = useAppSelector(state => state.packs.page) // выбранная страница
+  let pageCount = useAppSelector(state => state.packs.pageCount)
+  let currentItem = useAppSelector(state => state.packs.page)
   let meOrAll = useAppSelector(state => state.packs.meOrAll)
   let maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
   let minCardsCount = useAppSelector(state => state.packs.minCardsCount)

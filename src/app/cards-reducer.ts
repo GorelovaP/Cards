@@ -18,7 +18,7 @@ const initialState: CardStateType = {
   packName: '',
 }
 
-export const CardsReducer = (state = initialState, action: CardsActionsType) => {
+export const CardsReducer = (state = initialState, action: CardsActionsType): CardStateType => {
   switch (action.type) {
     case 'CARDS/SET-CURRENT-PAGE':
     case 'CARDS/SET-PAGE-COUNT':

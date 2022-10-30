@@ -27,10 +27,10 @@ export const PacksPage = () => {
   const isLoading = useAppSelector(state => state.app.isLoading)
   const userid = useAppSelector(state => state.user.user._id)
   const sortSettings = useAppSelector(state => state.packs.sort)
-  const totalItemsCount = useAppSelector(state => state.packs.cardPacksTotalCount) //количество колод
-  const pageCount = useAppSelector(state => state.packs.pageCount) //сколько вмещает страница
-  const paginatorPortion = 5 //кол-во страниц отображающееся в пагинаторе
-  const currentItem = useAppSelector(state => state.packs.page) // выбранная страница
+  const totalItemsCount = useAppSelector(state => state.packs.cardPacksTotalCount)
+  const pageCount = useAppSelector(state => state.packs.pageCount)
+  const paginatorPortion = 5
+  const currentItem = useAppSelector(state => state.packs.page)
   const meOrAll = useAppSelector(state => state.packs.meOrAll)
   const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
   const minCardsCount = useAppSelector(state => state.packs.minCardsCount)

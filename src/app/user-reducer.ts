@@ -6,10 +6,10 @@ import { errorHandler } from '../common/helpers/errorHandler'
 import { isLoadingAC } from './app-reducer'
 import { AppThunkType } from './store'
 
-export type initialStateType = {
+export type UserReducerStateType = {
   user: UserType
 }
-const initialState: initialStateType = {
+const initialState: UserReducerStateType = {
   user: {
     _id: '',
     email: '',
@@ -28,9 +28,9 @@ const initialState: initialStateType = {
 }
 
 export const UserReducer = (
-  state: initialStateType = initialState,
+  state: UserReducerStateType = initialState,
   action: UserReducerActionsType
-) => {
+): UserReducerStateType => {
   switch (action.type) {
     case 'USER/SET-USER': {
       return { ...state, user: { ...action.userData } }

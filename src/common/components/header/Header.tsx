@@ -33,6 +33,7 @@ export const Header = () => {
   const logOut = () => {
     dispatch(singOutTC())
   }
+
   const popUpHandler = () => {
     setShow(!show)
   }
@@ -41,6 +42,7 @@ export const Header = () => {
     setShow(false)
     navigate(PATH.LOGIN)
   }
+
   const gotoProfile = () => {
     setShow(false)
     navigate(PATH.PROFILE)

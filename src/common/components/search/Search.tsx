@@ -16,8 +16,8 @@ type propsType = {
   className?: string
 }
 export const Search = memo((props: propsType) => {
-  const [value, setValue] = useState<string | undefined>(undefined)
-  const debouncedValue = useDebounce<string | undefined>(value, 500)
+  const [value, setValue] = useState<string>('')
+  const debouncedValue = useDebounce<string>(value, 700)
   let min = useAppSelector(state => state.packs.minCardsCount)
   let max = useAppSelector(state => state.packs.maxCardsCount)
   const chosenPack = useAppSelector(state => state.packs.chosenPack)
@@ -27,17 +27,17 @@ export const Search = memo((props: propsType) => {
   const match = useMatch('/:routeKey/*')
 
   if (resetFiler) {
-    setValue(undefined)
+    setValue('')
     dispatch(resetFilterAC(false))
   }
 
   useEffect(() => {
-    if (debouncedValue !== undefined && '/' + match?.params.routeKey === PATH.HOME_PAGE) {
+    if ('/' + match?.params.routeKey === PATH.HOME_PAGE) {
       dispatch(getPackTC(value, min, max, undefined, undefined, pageCount, undefined, undefined))
       dispatch(setSearchDataAC(value))
     } else if (
-      (debouncedValue !== undefined && '/' + match?.params.routeKey === PATH.MY_PACK) ||
-      (debouncedValue !== undefined && '/' + match?.params.routeKey === PATH.FRIENDS_PACK)
+      '/' + match?.params.routeKey === PATH.MY_PACK ||
+      '/' + match?.params.routeKey === PATH.FRIENDS_PACK
     ) {
       dispatch(
         getCardsTC(
