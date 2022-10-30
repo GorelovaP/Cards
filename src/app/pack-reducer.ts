@@ -25,64 +25,47 @@ const initialState: PackStateType = {
 
 export const PackReducer = (state = initialState, action: PackActionsType) => {
   switch (action.type) {
+    case 'PACK/SET-TOGGLE':
+    case 'PACK/SET-PAGE-COUNT':
+    case 'PACK/SET-CURRENT-PAGE':
+    case 'PACK/CHOSEN-PACK':
+    case 'PACK/SORT-UPDATED':
+    case 'PACK/SET-SEARCH-DATA':
+    case 'PACK/RESET-FILTER':
+      return {
+        ...state,
+        ...action.payload,
+      }
     case 'PACK/SET-PACK-INFORMATION': {
       return {
         ...state,
-        ...action.packData,
-        staticMin: action.packData.minCardsCount,
-        staticMax: action.packData.maxCardsCount,
-        cardPacks: action.packData.cardPacks.map(tl => ({ ...tl })),
-      }
-    }
-    case 'PACK/SET-TOGGLE': {
-      return {
-        ...state,
-        meOrAll: action.toggle,
-      }
-    }
-    case 'PACK/SET-PAGE-COUNT': {
-      return {
-        ...state,
-        pageCount: action.count,
-      }
-    }
-    case 'PACK/SET-CURRENT-PAGE': {
-      return {
-        ...state,
-        page: action.item,
+        ...action.payload.packData,
+        staticMin: action.payload.packData.minCardsCount,
+        staticMax: action.payload.packData.maxCardsCount,
+        cardPacks: action.payload.packData.cardPacks.map(tl => ({ ...tl })),
       }
     }
     case 'PACK/SET-MIN-MAX': {
-      return { ...state, minCardsCount: action.min, maxCardsCount: action.max, page: 1 }
+      return {
+        ...state,
+        minCardsCount: action.payload.minCardsCount,
+        maxCardsCount: action.payload.maxCardsCount,
+        page: 1,
+      }
     }
     case 'PACK/ADD-NEW-PACK': {
-      return { ...state, cardPacks: [action.newPack, ...state.cardPacks] }
-    }
-    case 'PACK/CHOSEN-PACK': {
-      return { ...state, chosenPack: action.chosenPack }
+      return { ...state, cardPacks: [action.payload.newPack, ...state.cardPacks] }
     }
     case 'PACK/DELETE-PACK': {
-      return { ...state, cardPacks: state.cardPacks.filter(i => i._id !== action.packId) }
+      return { ...state, cardPacks: state.cardPacks.filter(i => i._id !== action.payload.packId) }
     }
     case 'PACK/UPDATE-PACK-NAME': {
       return {
         ...state,
         cardPacks: state.cardPacks.map(i =>
-          i._id === action._id ? { ...i, name: action.name } : i
+          i._id === action.payload._id ? { ...i, name: action.payload.name } : i
         ),
       }
-    }
-    case 'PACK/SORT-UPDATED': {
-      return {
-        ...state,
-        sort: action.sort,
-      }
-    }
-    case 'PACK/SET-SEARCH-DATA': {
-      return { ...state, searchData: action.value }
-    }
-    case 'PACK/RESET-FILTER': {
-      return { ...state, resetFilter: action.reset }
     }
     case 'PACK/RESET-CHOSEN-PACK': {
       return { ...state, chosenPack: '' }
@@ -92,48 +75,60 @@ export const PackReducer = (state = initialState, action: PackActionsType) => {
   }
 }
 
+// ==================== Action creators ==================
 export const setPackAC = (packData: CommonPackType) => {
-  return { type: 'PACK/SET-PACK-INFORMATION', packData } as const
+  return { type: 'PACK/SET-PACK-INFORMATION', payload: { packData } } as const
 }
-export const changeToggleAC = (toggle: meOrAllType) => {
-  return { type: 'PACK/SET-TOGGLE', toggle } as const
+
+export const changeToggleAC = (meOrAll: meOrAllType) => {
+  return { type: 'PACK/SET-TOGGLE', payload: { meOrAll } } as const
 }
-export const setPageCountAC = (count: number) => {
-  return { type: 'PACK/SET-PAGE-COUNT', count } as const
+
+export const setPageCountAC = (pageCount: number) => {
+  return { type: 'PACK/SET-PAGE-COUNT', payload: { pageCount } } as const
 }
-export const setCurrentPageAC = (item: number) => {
-  return { type: 'PACK/SET-CURRENT-PAGE', item } as const
+
+export const setCurrentPageAC = (page: number) => {
+  return { type: 'PACK/SET-CURRENT-PAGE', payload: { page } } as const
 }
-export const setMinMaxAC = (min: number, max: number) => {
-  return { type: 'PACK/SET-MIN-MAX', min, max } as const
+
+export const setMinMaxAC = (minCardsCount: number, maxCardsCount: number) => {
+  return { type: 'PACK/SET-MIN-MAX', payload: { minCardsCount, maxCardsCount } } as const
 }
+
 export const addNewPackAC = (newPack: PackType) => {
-  return { type: 'PACK/ADD-NEW-PACK', newPack } as const
+  return { type: 'PACK/ADD-NEW-PACK', payload: { newPack } } as const
 }
+
 export const chosenPackAC = (chosenPack: string) => {
-  return { type: 'PACK/CHOSEN-PACK', chosenPack } as const
+  return { type: 'PACK/CHOSEN-PACK', payload: { chosenPack } } as const
 }
+
 export const deletePackAC = (packId: string) => {
-  return { type: 'PACK/DELETE-PACK', packId } as const
+  return { type: 'PACK/DELETE-PACK', payload: { packId } } as const
 }
+
 export const resetChosenPackAC = () => {
   return { type: 'PACK/RESET-CHOSEN-PACK' } as const
 }
+
 export const updatePackNameAC = (_id: string, name: string) => {
-  return { type: 'PACK/UPDATE-PACK-NAME', _id, name } as const
+  return { type: 'PACK/UPDATE-PACK-NAME', payload: { _id, name } } as const
 }
-export const setSearchDataAC = (value: string | undefined) => {
-  return { type: 'PACK/SET-SEARCH-DATA', value } as const
+
+export const setSearchDataAC = (searchData: string | undefined) => {
+  return { type: 'PACK/SET-SEARCH-DATA', payload: { searchData } } as const
 }
+
 export const sortUpdatedAC = (sort: sortType) => {
-  return { type: 'PACK/SORT-UPDATED', sort } as const
+  return { type: 'PACK/SORT-UPDATED', payload: { sort } } as const
 }
-export const resetFilterAC = (reset: boolean) => {
-  return { type: 'PACK/RESET-FILTER', reset } as const
+
+export const resetFilterAC = (resetFilter: boolean) => {
+  return { type: 'PACK/RESET-FILTER', payload: { resetFilter } } as const
 }
 
 // ================ Thunk creators ================
-
 export const getPackTC =
   (
     packName?: string,

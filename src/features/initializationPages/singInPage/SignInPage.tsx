@@ -24,6 +24,7 @@ export const SignInPage = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
+  const isLoading = useAppSelector(state => state.app.isLoading)
 
   const clearError = () => {
     dispatch(setAppErrorAC(''))
@@ -90,7 +91,10 @@ export const SignInPage = () => {
             Forgot password?
           </NavLink>
           <div className={'formButton'}>
-            <StyleButtonFormAdjusted type="submit"> Sing In </StyleButtonFormAdjusted>
+            <StyleButtonFormAdjusted type="submit" disabled={isLoading}>
+              {' '}
+              Sing In{' '}
+            </StyleButtonFormAdjusted>
           </div>
         </form>
         <H4>Already have an account?</H4>

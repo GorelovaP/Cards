@@ -25,16 +25,16 @@ export const PacksPage = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   const isLoading = useAppSelector(state => state.app.isLoading)
-  let userid = useAppSelector(state => state.user.user._id)
-  let sortSettings = useAppSelector(state => state.packs.sort)
-  let totalItemsCount = useAppSelector(state => state.packs.cardPacksTotalCount) //количество колод
-  let pageCount = useAppSelector(state => state.packs.pageCount) //сколько вмещает страница
-  let paginatorPortion = 5 //кол-во страниц отображающееся в пагинаторе
-  let currentItem = useAppSelector(state => state.packs.page) // выбранная страница
-  let meOrAll = useAppSelector(state => state.packs.meOrAll)
-  let maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
-  let minCardsCount = useAppSelector(state => state.packs.minCardsCount)
-  let searchData = useAppSelector(state => state.packs.searchData)
+  const userid = useAppSelector(state => state.user.user._id)
+  const sortSettings = useAppSelector(state => state.packs.sort)
+  const totalItemsCount = useAppSelector(state => state.packs.cardPacksTotalCount) //количество колод
+  const pageCount = useAppSelector(state => state.packs.pageCount) //сколько вмещает страница
+  const paginatorPortion = 5 //кол-во страниц отображающееся в пагинаторе
+  const currentItem = useAppSelector(state => state.packs.page) // выбранная страница
+  const meOrAll = useAppSelector(state => state.packs.meOrAll)
+  const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
+  const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
+  const searchData = useAppSelector(state => state.packs.searchData)
 
   const onClickHandler = async () => {
     await dispatch(addNewPackTC({ name: 'some pack...' }))

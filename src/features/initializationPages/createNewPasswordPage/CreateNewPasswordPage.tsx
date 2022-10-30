@@ -21,6 +21,7 @@ export const CreateNewPasswordPage = () => {
   const [passwordShowMode, setPasswordShowMode] = useState(true)
 
   const newPasswordCreated = useAppSelector(store => store.app.newPasswordCreated)
+  const isLoading = useAppSelector(state => state.app.isLoading)
 
   // getting url address
   const { token } = useParams()
@@ -71,7 +72,7 @@ export const CreateNewPasswordPage = () => {
             </div>
           </div>
           <H4>Create new password and we will send you further instructions to email</H4>
-          <StyledButton className={'CreateNewPasswordBtn'} type="submit">
+          <StyledButton className={'CreateNewPasswordBtn'} type="submit" disabled={isLoading}>
             Create new password
           </StyledButton>
         </form>

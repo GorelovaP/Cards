@@ -14,7 +14,6 @@ const initialState = {
   passwordRecoveryEmailSent: false,
   newPasswordCreated: false,
   isLoading: false,
-  isLoadingLocally: false,
 }
 
 export const AppReducer = (
@@ -22,35 +21,17 @@ export const AppReducer = (
   action: AppActionsType
 ): AppStateType => {
   switch (action.type) {
-    case 'APP/SET-INITIALIZED': {
-      return { ...state, isInitialized: action.initialized }
-    }
-    case 'APP/SIGNUP': {
-      return { ...state, registered: action.registered }
-    }
-    case 'APP/PASSWORD-RECOVERY-EMAIL': {
-      return { ...state, passwordRecoveryEmail: action.email }
-    }
-    case 'APP/PASSWORD-RECOVERY-EMAIL-SENT': {
-      return { ...state, passwordRecoveryEmailSent: action.sent }
-    }
-    case 'APP/NEW-PASSWORD-CREATED': {
-      return { ...state, newPasswordCreated: action.sent }
-    }
-    case 'APP/SET-APP-ERROR': {
-      return { ...state, appError: action.text }
-    }
-    case 'APP/IS-LOADING': {
-      return { ...state, isLoading: action.isLoading }
-    }
-    case 'AUTH/SET-IS-LOGGED-IN': {
-      return { ...state, isLoggedIn: action.value }
-    }
+    case 'APP/SET-INITIALIZED':
+    case 'APP/SIGNUP':
+    case 'APP/PASSWORD-RECOVERY-EMAIL':
+    case 'APP/PASSWORD-RECOVERY-EMAIL-SENT':
+    case 'APP/NEW-PASSWORD-CREATED':
+    case 'APP/SET-APP-ERROR':
+    case 'APP/IS-LOADING':
+    case 'AUTH/SET-IS-LOGGED-IN':
+      return { ...state, ...action.payload }
     case 'AUTH/SET-IS-LOGGED-OUT': {
       return { ...state, isLoggedIn: false }
-    }
-    case 'AUTH/IS-LOADING-LOCALLY': {
-      return { ...state, isLoadingLocally: action.isLoadingLocally }
     }
     default:
       return state
@@ -58,25 +39,33 @@ export const AppReducer = (
 }
 
 // ==================== Action creators ==================
-export const setAppInitializedAC = (initialized: boolean) =>
-  ({ type: 'APP/SET-INITIALIZED', initialized } as const)
-export const signUpAC = (registered: boolean) => ({ type: 'APP/SIGNUP', registered } as const)
-export const setPasswordRecoveryEmailAC = (email: string) =>
-  ({ type: 'APP/PASSWORD-RECOVERY-EMAIL', email } as const)
-export const passwordRecoveryEmailSentAC = (sent: boolean) =>
-  ({ type: 'APP/PASSWORD-RECOVERY-EMAIL-SENT', sent } as const)
-export const newPasswordCreatedAC = (sent: boolean) =>
-  ({ type: 'APP/NEW-PASSWORD-CREATED', sent } as const)
-export const setAppErrorAC = (text: string) => ({ type: 'APP/SET-APP-ERROR', text } as const)
-export const isLoadingAC = (isLoading: boolean) => ({ type: 'APP/IS-LOADING', isLoading } as const)
-export const signInAC = (value: boolean) => {
-  return { type: 'AUTH/SET-IS-LOGGED-IN', value } as const
+export const setAppInitializedAC = (isInitialized: boolean) =>
+  ({ type: 'APP/SET-INITIALIZED', payload: { isInitialized } } as const)
+
+export const signUpAC = (registered: boolean) =>
+  ({ type: 'APP/SIGNUP', payload: { registered } } as const)
+
+export const setPasswordRecoveryEmailAC = (passwordRecoveryEmail: string) =>
+  ({ type: 'APP/PASSWORD-RECOVERY-EMAIL', payload: { passwordRecoveryEmail } } as const)
+
+export const passwordRecoveryEmailSentAC = (passwordRecoveryEmailSent: boolean) =>
+  ({ type: 'APP/PASSWORD-RECOVERY-EMAIL-SENT', payload: { passwordRecoveryEmailSent } } as const)
+
+export const newPasswordCreatedAC = (newPasswordCreated: boolean) =>
+  ({ type: 'APP/NEW-PASSWORD-CREATED', payload: { newPasswordCreated } } as const)
+
+export const setAppErrorAC = (appError: string) =>
+  ({ type: 'APP/SET-APP-ERROR', payload: { appError } } as const)
+
+export const isLoadingAC = (isLoading: boolean) =>
+  ({ type: 'APP/IS-LOADING', payload: { isLoading } } as const)
+
+export const signInAC = (isLoggedIn: boolean) => {
+  return { type: 'AUTH/SET-IS-LOGGED-IN', payload: { isLoggedIn } } as const
 }
+
 export const signOutAC = () => {
   return { type: 'AUTH/SET-IS-LOGGED-OUT' } as const
-}
-export const isLoadingLocallyAC = (isLoadingLocally: boolean) => {
-  return { type: 'AUTH/IS-LOADING-LOCALLY', isLoadingLocally } as const
 }
 
 // ================ Thunk creators ================
@@ -238,4 +227,3 @@ export type AppReducerActionsType =
   | ReturnType<typeof isLoadingAC>
   | ReturnType<typeof signInAC>
   | ReturnType<typeof signOutAC>
-  | ReturnType<typeof isLoadingLocallyAC>

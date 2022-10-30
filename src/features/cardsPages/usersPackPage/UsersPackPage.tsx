@@ -86,7 +86,9 @@ export const UsersPackPage = () => {
               <H1>{chosenPackName}</H1>
             </div>
             {cardsTotalCount !== 0 && (
-              <StyleButtonForMainPageHeader>Learn this pack</StyleButtonForMainPageHeader>
+              <StyleButtonForMainPageHeader disabled={isLoading}>
+                Learn this pack
+              </StyleButtonForMainPageHeader>
             )}
           </StyledPageHeaderWrapper>
           {cardsTotalCount !== 0 ? (

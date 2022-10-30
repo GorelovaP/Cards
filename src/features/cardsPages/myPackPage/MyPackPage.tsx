@@ -42,8 +42,8 @@ export const MyPackPage = () => {
   const currentItem = useAppSelector(state => state.cards.page)
   const searchData = useAppSelector(state => state.packs.searchData)
   const chosenPackName = useAppSelector(state => state.cards.packName)
-  let sortSettings = useAppSelector(state => state.packs.sort)
-  let isLoading = useAppSelector(state => state.app.isLoading)
+  const sortSettings = useAppSelector(state => state.packs.sort)
+  const isLoading = useAppSelector(state => state.app.isLoading)
   const navigate = useNavigate()
 
   const [show, setShow] = useState(false)
@@ -129,51 +129,51 @@ export const MyPackPage = () => {
 
   if (isLoading) {
     return <LoadingProcess />
+  }
+
+  if (cardsTotalCount === 0) {
+    return <EmptyPackPage chosenPackName={chosenPackName} addNewCard={addNewCard} />
   } else {
-    if (cardsTotalCount === 0) {
-      return <EmptyPackPage chosenPackName={chosenPackName} addNewCard={addNewCard} />
-    } else {
-      return (
-        <>
-          <BackToPack />
-          <StyledMyPackPage>
-            <StyledPageHeaderWrapper>
-              <div className={'menuPosition'}>
-                <H1>{chosenPackName}</H1>
-                <div className={'menuPositionWrapper'}>
-                  <img src={popUp} alt="" className={'menuIcon'} onClick={popUpHandler} />
-                  {show && (
-                    <ClickAwayListener onClickAway={handleClickAway}>
-                      <StyledMenuItemMyPackContainer>
-                        <MenuItem text={'Edit'} icon={edit} onClickHandler={updatePackName} />
-                        <MenuItem text={'Delete'} icon={deleteIcon} onClickHandler={deleteMyPack} />
-                        <MenuItem text={'Learn'} icon={learn} onClickHandler={() => {}} />
-                      </StyledMenuItemMyPackContainer>
-                    </ClickAwayListener>
-                  )}
-                </div>
+    return (
+      <>
+        <BackToPack />
+        <StyledMyPackPage>
+          <StyledPageHeaderWrapper>
+            <div className={'menuPosition'}>
+              <H1>{chosenPackName}</H1>
+              <div className={'menuPositionWrapper'}>
+                <img src={popUp} alt="" className={'menuIcon'} onClick={popUpHandler} />
+                {show && (
+                  <ClickAwayListener onClickAway={handleClickAway}>
+                    <StyledMenuItemMyPackContainer>
+                      <MenuItem text={'Edit'} icon={edit} onClickHandler={updatePackName} />
+                      <MenuItem text={'Delete'} icon={deleteIcon} onClickHandler={deleteMyPack} />
+                      <MenuItem text={'Learn'} icon={learn} onClickHandler={() => {}} />
+                    </StyledMenuItemMyPackContainer>
+                  </ClickAwayListener>
+                )}
               </div>
-              <StyleButtonForMainPageHeader onClick={addNewCard}>
-                Add new card
-              </StyleButtonForMainPageHeader>
-            </StyledPageHeaderWrapper>
-            <>
-              <StyledFeaturesWrapper>
-                <Search className="mainPageSearch" />
-              </StyledFeaturesWrapper>
-              <MyCardsTable />
-              <Paginator
-                totalItemsCount={cardsTotalCount}
-                pageCount={pageCount}
-                paginatorPortion={paginatorPortion}
-                setCurrentItem={setCurrentItem}
-                currentItem={currentItem}
-                ChangeFieldsNumber={changeFieldsNumber}
-              />
-            </>
-          </StyledMyPackPage>
-        </>
-      )
-    }
+            </div>
+            <StyleButtonForMainPageHeader onClick={addNewCard} disabled={isLoading}>
+              Add new card
+            </StyleButtonForMainPageHeader>
+          </StyledPageHeaderWrapper>
+          <>
+            <StyledFeaturesWrapper>
+              <Search className="mainPageSearch" />
+            </StyledFeaturesWrapper>
+            <MyCardsTable />
+            <Paginator
+              totalItemsCount={cardsTotalCount}
+              pageCount={pageCount}
+              paginatorPortion={paginatorPortion}
+              setCurrentItem={setCurrentItem}
+              currentItem={currentItem}
+              ChangeFieldsNumber={changeFieldsNumber}
+            />
+          </>
+        </StyledMyPackPage>
+      </>
+    )
   }
 }

@@ -19,69 +19,68 @@ const initialState: CardStateType = {
 
 export const CardsReducer = (state = initialState, action: CardsActionsType) => {
   switch (action.type) {
+    case 'CARDS/SET-CURRENT-PAGE':
+    case 'CARDS/SET-PAGE-COUNT':
+    case 'CARDS/UPDATE-INSIDE-PACK-NAME':
+      return { ...state, ...action.payload }
     case 'CARDS/GET-CARDS': {
       return {
         ...state,
-        ...action.cardsData,
-        cards: action.cardsData.cards.map(tl => ({ ...tl })),
-      }
-    }
-    case 'CARDS/SET-CURRENT-PAGE': {
-      return {
-        ...state,
-        page: action.item,
+        ...action.payload.cardsData,
+        cards: action.payload.cardsData.cards.map(tl => ({ ...tl })),
       }
     }
     case 'CARDS/ADD-NEW-CARD': {
-      return { ...state, cards: [action.card, ...state.cards] }
+      return { ...state, cards: [action.payload.card, ...state.cards] }
     }
     case 'CARDS/DELETE-CARD': {
-      return { ...state, cards: state.cards.filter(i => i._id !== action.id) }
+      return { ...state, cards: state.cards.filter(i => i._id !== action.payload.id) }
     }
     case 'CARDS/UPDATE-CARD-INFO': {
       return {
         ...state,
         cards: state.cards.map(i =>
-          i._id === action.id ? { ...i, question: action.question, answer: action.answer } : i
+          i._id === action.payload.id
+            ? { ...i, question: action.payload.question, answer: action.payload.answer }
+            : i
         ),
       }
-    }
-    case 'CARDS/SET-PAGE-COUNT': {
-      return {
-        ...state,
-        pageCount: action.pageCount,
-      }
-    }
-    case 'CARDS/UPDATE-INSIDE-PACK-NAME': {
-      return { ...state, packName: action.name }
     }
     default:
       return state
   }
 }
 
+// ==================== Action creators ==================
 export const getCardsAC = (cardsData: getCardsResponseType) => {
-  return { type: 'CARDS/GET-CARDS', cardsData } as const
-}
-export const setCurrentCardsPageAC = (item: number) => {
-  return { type: 'CARDS/SET-CURRENT-PAGE', item } as const
-}
-export const addNewCardAC = (card: CardsType) => {
-  return { type: 'CARDS/ADD-NEW-CARD', card } as const
-}
-export const deleteCardAC = (id: string) => {
-  return { type: 'CARDS/DELETE-CARD', id } as const
-}
-export const updateCardInfoAC = (id: string, question: string, answer: string) => {
-  return { type: 'CARDS/UPDATE-CARD-INFO', id, question, answer } as const
-}
-export const setPageCountCardsAC = (pageCount: number) => {
-  return { type: 'CARDS/SET-PAGE-COUNT', pageCount } as const
-}
-export const updateInsidePackNameAC = (name: string) => {
-  return { type: 'CARDS/UPDATE-INSIDE-PACK-NAME', name } as const
+  return { type: 'CARDS/GET-CARDS', payload: { cardsData } } as const
 }
 
+export const setCurrentCardsPageAC = (page: number) => {
+  return { type: 'CARDS/SET-CURRENT-PAGE', payload: { page } } as const
+}
+
+export const addNewCardAC = (card: CardsType) => {
+  return { type: 'CARDS/ADD-NEW-CARD', payload: { card } } as const
+}
+
+export const deleteCardAC = (id: string) => {
+  return { type: 'CARDS/DELETE-CARD', payload: { id } } as const
+}
+
+export const updateCardInfoAC = (id: string, question: string, answer: string) => {
+  return { type: 'CARDS/UPDATE-CARD-INFO', payload: { id, question, answer } } as const
+}
+
+export const setPageCountCardsAC = (pageCount: number) => {
+  return { type: 'CARDS/SET-PAGE-COUNT', payload: { pageCount } } as const
+}
+
+export const updateInsidePackNameAC = (packName: string) => {
+  return { type: 'CARDS/UPDATE-INSIDE-PACK-NAME', payload: { packName } } as const
+}
+
+// ================ Thunk creators ================
 export const getCardsTC =
   (
     cardAnswer?: string,

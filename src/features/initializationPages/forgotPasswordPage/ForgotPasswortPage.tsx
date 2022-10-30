@@ -24,6 +24,7 @@ export const ForgotPasswordPage = () => {
   const dispatch = useAppDispatch()
   const sent = useAppSelector(store => store.app.passwordRecoveryEmailSent)
   let location = window.location.origin
+  const isLoading = useAppSelector(state => state.app.isLoading)
 
   const formik = useFormik({
     validationSchema: Yup.object({
@@ -65,7 +66,9 @@ Click here to set a new password</a>
           <FormInfoText>
             Enter your email address and we will send you further instructions
           </FormInfoText>
-          <StyleButtonFormAdjusted type="submit">{'Send instructions'}</StyleButtonFormAdjusted>
+          <StyleButtonFormAdjusted type="submit" disabled={isLoading}>
+            {'Send instructions'}
+          </StyleButtonFormAdjusted>
         </form>
         <H4>Did you remember your password?</H4>
         <div className={'styledBottomFormLink'}>

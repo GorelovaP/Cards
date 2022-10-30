@@ -23,6 +23,7 @@ export const PersonalInformationPage = () => {
 
   let isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   let email = useAppSelector(state => state.user.user.email)
+  const isLoading = useAppSelector(state => state.app.isLoading)
 
   const logOut = () => {
     dispatch(singOutTC())
@@ -46,7 +47,7 @@ export const PersonalInformationPage = () => {
           </div>
           <EditableSpan />
           <H4>{email}</H4>
-          <LogOutButton className={'logOutBtn'} onClick={logOut}>
+          <LogOutButton className={'logOutBtn'} onClick={logOut} disabled={isLoading}>
             <IoMdLogOut className={'logOutIcon'} />
             Log out
           </LogOutButton>

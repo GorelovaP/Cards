@@ -13,6 +13,7 @@ import { StyledEmptyPackPage } from './styledEmptyPackPage'
 
 export const EmptyPackPage = (props: PropsType) => {
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
+  const isLoading = useAppSelector(state => state.app.isLoading)
 
   if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN} />
@@ -27,7 +28,7 @@ export const EmptyPackPage = (props: PropsType) => {
         </StyledPageHeaderWrapper>
         <div className={'centerContainer'}>
           <H3>This pack is empty. Click &lsquo;Add new card&lsquo; to fill this pack.</H3>
-          <StyleButtonForMainPageHeader onClick={props.addNewCard}>
+          <StyleButtonForMainPageHeader onClick={props.addNewCard} disabled={isLoading}>
             Add new pack
           </StyleButtonForMainPageHeader>
         </div>

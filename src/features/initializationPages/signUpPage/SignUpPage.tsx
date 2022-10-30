@@ -19,6 +19,7 @@ import { StyledSignUpForm } from './styledSignUpPage'
 export const SignUpPage = () => {
   const [passwordIcon, setPasswordIcon] = useState(true)
   const [passwordShowMode, setPasswordShowMode] = useState(true)
+  const isLoading = useAppSelector(state => state.app.isLoading)
 
   const onClickAction = () => {
     setPasswordIcon(!passwordIcon)
@@ -98,7 +99,9 @@ export const SignUpPage = () => {
               ) : null}
             </div>
           </div>
-          <StyleButtonFormAdjusted type="submit">{'Sign Up'}</StyleButtonFormAdjusted>
+          <StyleButtonFormAdjusted type="submit" disabled={isLoading}>
+            Sign Up
+          </StyleButtonFormAdjusted>
         </form>
         <H4>Already have an account</H4>
         <div className={'styledBottomFormLink'}>
