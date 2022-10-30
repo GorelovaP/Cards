@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const StyledPaginator = styled.div`
   margin-top: 36px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -29,8 +30,17 @@ export const StyledPaginator = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
   .beforeSelect {
     margin: 0 5px 0 30px;
   }
+`
+export const List = styled.ul`
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `

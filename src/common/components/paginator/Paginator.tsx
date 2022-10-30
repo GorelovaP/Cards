@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
+import usePagination from '@mui/material/usePagination'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 
 import { useAppSelector } from '../../hooks/appHooks'
 
 import { PaginatorSelect } from './select/PaginatorSelect'
-import { StyledPaginator } from './styledPaginator'
+import { StyledPaginator, List } from './styledPaginator'
 
 type PaginatorPropsType = {
   totalItemsCount: number
@@ -18,107 +19,84 @@ type PaginatorPropsType = {
 
 export const Paginator = (props: PaginatorPropsType) => {
   const isLoading = useAppSelector(state => state.app.isLoading)
-  let options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
+  let options = [4, 6, 8, 10, 15, 20]
   let pagesCount = Math.ceil(props.totalItemsCount / props.pageCount)
 
   if (Number.isNaN(pagesCount)) {
     pagesCount = 0
   }
 
-  let pages = []
+  const { items } = usePagination({
+    count: pagesCount,
+  })
 
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i)
-  }
-
-  useEffect(() => {
-    if (props.paginatorPortion * portionNumber >= pagesCount) {
-      setRightDisable(true)
-    } else {
-      setRightDisable(false)
-    }
-    setPortionNumber(1)
-  }, [props.pageCount, props.totalItemsCount])
-
-  const d = () => {
-    return rightPortionPageNumber * portionNumber >= pagesCount
-  }
-
-  // console.log('totalItemsCount' + props.totalItemsCount)
-  //
-  // console.log('paginatorPortion' + props.paginatorPortion)
-
-  let portionCount = Math.ceil(props.totalItemsCount / props.paginatorPortion)
-
-  // console.log('portionCount' + portionCount)
-
-  let [portionNumber, setPortionNumber] = useState<number>(1)
-  let leftPortionPageNumber = (portionNumber - 1) * props.paginatorPortion + 1
-  let rightPortionPageNumber = portionNumber * props.paginatorPortion
-
-  let [leftDisable, setLeftDisable] = useState<boolean>(true)
-  let [rightDisable, setRightDisable] = useState<boolean>(d)
-
-  const doLeftBtnDisable = () => {
-    if (portionNumber === 2) {
-      setPortionNumber(portionNumber - 1)
-      setLeftDisable(true)
-    }
-    if (portionNumber > 1) {
-      setPortionNumber(portionNumber - 1)
-      setRightDisable(false)
-    } else {
-      setLeftDisable(true)
-      setRightDisable(false)
-    }
-  }
-
-  const doRightBtnDisable = () => {
-    // console.log('текущая порция' + portionNumber)
-    // console.log(portionCount)
-
-    if (props.paginatorPortion * portionNumber >= pagesCount) {
-      setRightDisable(true)
-    } else {
-      setPortionNumber(portionNumber + 1)
-      setLeftDisable(false)
-    }
-  }
-
-  const chooseCurrentPage = (page: number) => {
+  const chooseCurrentPage = (page: number | null) => {
     if (isLoading) {
       debugger
 
       return
     }
-    props.setCurrentItem(page)
+    props.setCurrentItem(page!)
   }
 
   return (
     <StyledPaginator>
-      <button disabled={leftDisable} onClick={doLeftBtnDisable} className={'paginatorBtn'}>
-        {leftDisable ? <AiOutlineLeft color={'#EFEFEF'} /> : <AiOutlineLeft color={'#000000'} />}
-      </button>
+      <List>
+        {items.map(({ page, type, selected, ...item }, index) => {
+          let children = null
 
-      {pages
-        .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-        .map(p => {
+          if (type === 'start-ellipsis' || type === 'end-ellipsis') {
+            children = '…'
+          } else if (type === 'page') {
+            children = (
+              <button
+                type="button"
+                className={`page ${props.currentItem === page ? 'selectedPage' : ''}`}
+                {...item}
+              >
+                {page}
+              </button>
+            )
+          } else if (type === 'previous') {
+            children = (
+              <button type="button" {...item} className={'paginatorBtn'}>
+                {item.disabled ? (
+                  <AiOutlineLeft color={'#EFEFEF'} {...item} />
+                ) : (
+                  <AiOutlineLeft color={'#000000'} {...item} />
+                )}
+              </button>
+            )
+          } else if (type === 'next') {
+            children = (
+              <button type="button" {...item} className={'paginatorBtn'}>
+                {item.disabled ? (
+                  <AiOutlineRight color={'#EFEFEF'} />
+                ) : (
+                  <AiOutlineRight color={'#000000'} />
+                )}
+              </button>
+            )
+          } else {
+            children = (
+              <button type="button" {...item}>
+                {type}
+              </button>
+            )
+          }
+
           return (
-            <span
-              key={p}
-              onClick={() => chooseCurrentPage(p)}
-              className={`page ${props.currentItem === p ? 'selectedPage' : ''}`}
+            <li
+              onClick={() => {
+                chooseCurrentPage(page)
+              }}
+              key={index}
             >
-              {p}
-            </span>
+              {children}
+            </li>
           )
         })}
-      <span className={'page'}>...</span>
-      <span className={'page'}>{pagesCount}</span>
-      <button disabled={rightDisable} onClick={doRightBtnDisable} className={'paginatorBtn'}>
-        {rightDisable ? <AiOutlineRight color={'#EFEFEF'} /> : <AiOutlineRight color={'#000000'} />}
-      </button>
+      </List>
       <span className={'beforeSelect'}>Show</span>
       <PaginatorSelect
         selected={props.pageCount}
