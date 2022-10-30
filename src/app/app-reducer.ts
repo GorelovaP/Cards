@@ -1,6 +1,7 @@
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 
-import { AppError, appAPI, SignInResType, SignOutResType, SignUpResType } from '../api/appApi'
+import { AppError, appAPI } from '../api/appApi'
+import { errorHandler } from '../common/helpers/errorHandler'
 
 import { AppActionsType, AppThunkType } from './store'
 import { deleteUserInformationAC, setUserAC } from './user-reducer'
@@ -75,12 +76,10 @@ export const initializeAppTC = (): AppThunkType => async dispatch => {
 
     dispatch(setUserAC(res.data))
     dispatch(signInAC(true))
-  } catch (e) {
-    const errors = e as Error | AxiosError<SignUpResType>
+  } catch (err) {
+    const error = err as Error | AxiosError<AppError>
 
-    if (axios.isAxiosError(errors)) {
-      dispatch(setAppErrorAC(errors.response?.data.error))
-    }
+    errorHandler({ error, dispatch })
   } finally {
     dispatch(setAppInitializedAC(true))
   }
@@ -96,15 +95,9 @@ export const signUpTC =
 
       dispatch(signUpAC(true))
     } catch (err) {
-      const errors = err as Error | AxiosError<SignUpResType>
+      const error = err as Error | AxiosError<AppError>
 
-      if (axios.isAxiosError(errors)) {
-        if (errors.response?.data.error) {
-          dispatch(setAppErrorAC(errors.response?.data.error))
-        } else {
-          dispatch(setAppErrorAC('Something went wrong...'))
-        }
-      }
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }
@@ -121,15 +114,9 @@ export const sendPasswordRecoveryTC =
       dispatch(setPasswordRecoveryEmailAC(email))
       dispatch(passwordRecoveryEmailSentAC(true))
     } catch (err) {
-      const errors = err as Error | AxiosError<AppError>
+      const error = err as Error | AxiosError<AppError>
 
-      if (axios.isAxiosError(errors)) {
-        if (errors.response?.data.error) {
-          dispatch(setAppErrorAC(errors.response?.data.error))
-        } else {
-          dispatch(setAppErrorAC('Something went wrong...'))
-        }
-      }
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }
@@ -144,16 +131,10 @@ export const createNewPasswordTC =
       const res = await appAPI.createNewPassword(newPassword, token)
 
       dispatch(newPasswordCreatedAC(true))
-    } catch (err) {
-      const errors = err as Error | AxiosError<AppError>
+    } catch (err: AxiosError<AppError> | any) {
+      const error = err as Error | AxiosError<AppError>
 
-      if (axios.isAxiosError(errors)) {
-        if (errors.response?.data.error) {
-          dispatch(setAppErrorAC(errors.response?.data.error))
-        } else {
-          dispatch(setAppErrorAC('Something went wrong...'))
-        }
-      }
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }
@@ -170,15 +151,9 @@ export const singInTC =
       dispatch(signInAC(true))
       dispatch(setUserAC(res.data))
     } catch (err) {
-      const errors = err as Error | AxiosError<SignInResType>
+      const error = err as Error | AxiosError<AppError>
 
-      if (axios.isAxiosError(errors)) {
-        if (errors.response?.data.error) {
-          dispatch(setAppErrorAC(errors.response?.data.error))
-        } else {
-          dispatch(setAppErrorAC('Something went wrong...'))
-        }
-      }
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }
@@ -192,15 +167,9 @@ export const singOutTC = (): AppThunkType => async dispatch => {
     dispatch(signOutAC())
     dispatch(deleteUserInformationAC())
   } catch (err) {
-    const errors = err as Error | AxiosError<SignOutResType>
+    const error = err as Error | AxiosError<AppError>
 
-    if (axios.isAxiosError(errors)) {
-      if (errors.response?.data.error) {
-        dispatch(setAppErrorAC(errors.response?.data.error))
-      } else {
-        dispatch(setAppErrorAC('Something went wrong...'))
-      }
-    }
+    errorHandler({ error, dispatch })
   } finally {
     dispatch(isLoadingAC(false))
   }

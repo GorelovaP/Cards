@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 
 import { VscChromeClose } from 'react-icons/vsc'
 
@@ -12,6 +12,14 @@ export const MySnackbar = memo((props: SnackbarPropsType) => {
   const onClickAction = () => {
     dispatch(setAppErrorAC(''))
   }
+
+  useEffect(() => {
+    let showError = setTimeout(() => {
+      dispatch(setAppErrorAC(''))
+    }, 7000)
+
+    return () => clearTimeout(showError)
+  }, [])
 
   return (
     <SnackbarArea color={props.color}>

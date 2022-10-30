@@ -1,9 +1,10 @@
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 
-import { ChangeNameResType } from '../api/appApi'
+import { AppError } from '../api/appApi'
 import { PackType, packsAPI, CommonPackType } from '../api/packsApi'
+import { errorHandler } from '../common/helpers/errorHandler'
 
-import { isLoadingAC, setAppErrorAC } from './app-reducer'
+import { isLoadingAC } from './app-reducer'
 import { updateInsidePackNameAC } from './cards-reducer'
 import { AppThunkType } from './store'
 
@@ -162,16 +163,10 @@ export const getPackTC =
       if (page) {
         dispatch(setCurrentPageAC(page))
       }
-    } catch (e) {
-      const errors = e as Error | AxiosError<ChangeNameResType>
+    } catch (err) {
+      const error = err as Error | AxiosError<AppError>
 
-      if (axios.isAxiosError(errors)) {
-        if (errors.response?.data.error) {
-          dispatch(setAppErrorAC(errors.response?.data.error))
-        } else {
-          dispatch(setAppErrorAC('Something went wrong...'))
-        }
-      }
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }
@@ -187,16 +182,10 @@ export const addNewPackTC =
       const newPack = res.data.newCardsPack
 
       dispatch(addNewPackAC(newPack))
-    } catch (e) {
-      const errors = e as Error | AxiosError<ChangeNameResType>
+    } catch (err) {
+      const error = err as Error | AxiosError<AppError>
 
-      if (axios.isAxiosError(errors)) {
-        if (errors.response?.data.error) {
-          dispatch(setAppErrorAC(errors.response?.data.error))
-        } else {
-          dispatch(setAppErrorAC('Something went wrong...'))
-        }
-      }
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }
@@ -211,16 +200,10 @@ export const deletePackTC =
 
       dispatch(deletePackAC(packId))
       dispatch(resetChosenPackAC())
-    } catch (e) {
-      const errors = e as Error | AxiosError<ChangeNameResType>
+    } catch (err) {
+      const error = err as Error | AxiosError<AppError>
 
-      if (axios.isAxiosError(errors)) {
-        if (errors.response?.data.error) {
-          dispatch(setAppErrorAC(errors.response?.data.error))
-        } else {
-          dispatch(setAppErrorAC('Something went wrong...'))
-        }
-      }
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }
@@ -240,16 +223,10 @@ export const updatePackNameTC =
       } else {
         dispatch(updateInsidePackNameAC(name))
       }
-    } catch (e) {
-      const errors = e as Error | AxiosError<ChangeNameResType>
+    } catch (err) {
+      const error = err as Error | AxiosError<AppError>
 
-      if (axios.isAxiosError(errors)) {
-        if (errors.response?.data.error) {
-          dispatch(setAppErrorAC(errors.response?.data.error))
-        } else {
-          dispatch(setAppErrorAC('Something went wrong...'))
-        }
-      }
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }

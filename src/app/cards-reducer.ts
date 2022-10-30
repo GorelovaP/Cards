@@ -1,9 +1,10 @@
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 
-import { ChangeNameResType } from '../api/appApi'
+import { AppError } from '../api/appApi'
 import { cardsAPI, CardsType, getCardsResponseType } from '../api/cardsApi'
+import { errorHandler } from '../common/helpers/errorHandler'
 
-import { isLoadingAC, setAppErrorAC } from './app-reducer'
+import { isLoadingAC } from './app-reducer'
 import { AppThunkType } from './store'
 
 const initialState: CardStateType = {
@@ -107,8 +108,10 @@ export const getCardsTC =
       )
 
       dispatch(getCardsAC(res.data))
-    } catch (e) {
-      console.log(e)
+    } catch (err) {
+      const error = err as Error | AxiosError<AppError>
+
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }
@@ -134,16 +137,10 @@ export const addNewCardTC =
       const newCard = res.data.newCard
 
       dispatch(addNewCardAC(newCard))
-    } catch (e) {
-      const errors = e as Error | AxiosError<ChangeNameResType>
+    } catch (err) {
+      const error = err as Error | AxiosError<AppError>
 
-      if (axios.isAxiosError(errors)) {
-        if (errors.response?.data.error) {
-          dispatch(setAppErrorAC(errors.response?.data.error))
-        } else {
-          dispatch(setAppErrorAC('Something went wrong...'))
-        }
-      }
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }
@@ -156,16 +153,10 @@ export const deleteCardTC =
       const res = await cardsAPI.deleteCard(id)
 
       dispatch(deleteCardAC(id))
-    } catch (e) {
-      const errors = e as Error | AxiosError<ChangeNameResType>
+    } catch (err) {
+      const error = err as Error | AxiosError<AppError>
 
-      if (axios.isAxiosError(errors)) {
-        if (errors.response?.data.error) {
-          dispatch(setAppErrorAC(errors.response?.data.error))
-        } else {
-          dispatch(setAppErrorAC('Something went wrong...'))
-        }
-      }
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }
@@ -180,16 +171,10 @@ export const updateCardInfoTC =
       const { _id, question, answer } = updatedCard
 
       dispatch(updateCardInfoAC(_id, question, answer))
-    } catch (e) {
-      const errors = e as Error | AxiosError<ChangeNameResType>
+    } catch (err) {
+      const error = err as Error | AxiosError<AppError>
 
-      if (axios.isAxiosError(errors)) {
-        if (errors.response?.data.error) {
-          dispatch(setAppErrorAC(errors.response?.data.error))
-        } else {
-          dispatch(setAppErrorAC('Something went wrong...'))
-        }
-      }
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }

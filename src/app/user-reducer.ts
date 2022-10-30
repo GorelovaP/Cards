@@ -1,8 +1,9 @@
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 
-import { ChangeNameResType, appAPI } from '../api/appApi'
+import { appAPI, AppError } from '../api/appApi'
+import { errorHandler } from '../common/helpers/errorHandler'
 
-import { isLoadingAC, setAppErrorAC } from './app-reducer'
+import { isLoadingAC } from './app-reducer'
 import { AppThunkType } from './store'
 
 export type initialStateType = {
@@ -65,16 +66,10 @@ export const changeUserNameTC =
       const res = await appAPI.changeUserName(name)
 
       dispatch(changeUserNameAC(res.data.updatedUser.name))
-    } catch (e) {
-      const errors = e as Error | AxiosError<ChangeNameResType>
+    } catch (err) {
+      const error = err as Error | AxiosError<AppError>
 
-      if (axios.isAxiosError(errors)) {
-        if (errors.response?.data.error) {
-          dispatch(setAppErrorAC(errors.response?.data.error))
-        } else {
-          dispatch(setAppErrorAC('Something went wrong...'))
-        }
-      }
+      errorHandler({ error, dispatch })
     } finally {
       dispatch(isLoadingAC(false))
     }
