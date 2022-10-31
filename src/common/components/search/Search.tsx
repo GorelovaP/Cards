@@ -3,8 +3,8 @@ import React, { ChangeEvent, memo, useEffect, useState } from 'react'
 import { BiSearch } from 'react-icons/bi'
 import { useMatch } from 'react-router-dom'
 
-import { getCardsTC } from '../../../app/cards-reducer'
-import { getPackTC, resetFilterAC, setSearchDataAC } from '../../../app/pack-reducer'
+import {  setSearchDataCardsAC } from '../../../app/cards-reducer'
+import {  resetFilterAC, setSearchDataAC } from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import { useDebounce } from '../../hooks/commonHooks/useDebounce'
@@ -18,10 +18,6 @@ type propsType = {
 export const Search = memo((props: propsType) => {
   const [value, setValue] = useState<string>('')
   const debouncedValue = useDebounce<string>(value, 700)
-  let min = useAppSelector(state => state.packs.minCardsCount)
-  let max = useAppSelector(state => state.packs.maxCardsCount)
-  const chosenPack = useAppSelector(state => state.packs.chosenPack)
-  let pageCount = useAppSelector(state => state.packs.pageCount)
   let resetFiler = useAppSelector(state => state.packs.resetFilter)
   const dispatch = useAppDispatch()
   const match = useMatch('/:routeKey/*')
@@ -33,25 +29,12 @@ export const Search = memo((props: propsType) => {
 
   useEffect(() => {
     if ('/' + match?.params.routeKey === PATH.HOME_PAGE) {
-      dispatch(getPackTC(value, min, max, undefined, undefined, pageCount, undefined, undefined))
       dispatch(setSearchDataAC(value))
     } else if (
       '/' + match?.params.routeKey === PATH.MY_PACK ||
       '/' + match?.params.routeKey === PATH.FRIENDS_PACK
     ) {
-      dispatch(
-        getCardsTC(
-          undefined,
-          value,
-          chosenPack,
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          pageCount
-        )
-      )
-      dispatch(setSearchDataAC(value))
+      dispatch(setSearchDataCardsAC(value))
     }
   }, [debouncedValue])
 

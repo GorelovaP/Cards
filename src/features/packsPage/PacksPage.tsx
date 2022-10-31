@@ -2,7 +2,16 @@ import React, { useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
-import { addNewPackTC, getPackTC, resetFilterAC } from '../../app/pack-reducer'
+import {
+  addNewPackTC,
+  changeToggleAC,
+  getPackTC,
+  resetFilterAC,
+  setCurrentPageAC,
+  setMinMaxAC,
+  setPageCountAC,
+  sortUpdatedAC,
+} from '../../app/pack-reducer'
 import { PATH } from '../../app/routes/PagesRoutes'
 import removeFilter from '../../assets/images/Filter-Remove.png'
 import { DoubleRange } from '../../common/components/doubleRange/DoubleRange'
@@ -25,118 +34,44 @@ export const PacksPage = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   const isLoading = useAppSelector(state => state.app.isLoading)
-  const userid = useAppSelector(state => state.user.user._id)
   const sortSettings = useAppSelector(state => state.packs.sort)
   const totalItemsCount = useAppSelector(state => state.packs.cardPacksTotalCount)
   const pageCount = useAppSelector(state => state.packs.pageCount)
-  const paginatorPortion = 5
-  const currentItem = useAppSelector(state => state.packs.page)
+  const currentPage = useAppSelector(state => state.packs.page)
   const meOrAll = useAppSelector(state => state.packs.meOrAll)
   const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
   const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
+  const staticMax = useAppSelector(state => state.packs.staticMax)
+  const staticMin = useAppSelector(state => state.packs.staticMin)
   const searchData = useAppSelector(state => state.packs.searchData)
+
+  useEffect(() => {
+    debugger
+    dispatch(getPackTC())
+  }, [searchData, minCardsCount, maxCardsCount, sortSettings, currentPage, pageCount, meOrAll])
+
+  const setCurrentItem = (item: number) => {
+    dispatch(setCurrentPageAC(item))
+  }
+
+  const changeFieldsNumber = (fieldsNumber: number) => {
+    dispatch(setPageCountAC(fieldsNumber))
+    dispatch(setCurrentPageAC(1))
+  }
 
   const onClickHandler = async () => {
     await dispatch(addNewPackTC({ name: 'some pack...' }))
-
-    if (meOrAll === 'all') {
-      dispatch(
-        getPackTC(
-          undefined,
-          minCardsCount,
-          maxCardsCount,
-          sortSettings,
-          currentItem,
-          pageCount,
-          undefined,
-          undefined
-        )
-      )
-    } else {
-      dispatch(
-        getPackTC(
-          undefined,
-          minCardsCount,
-          maxCardsCount,
-          sortSettings,
-          currentItem,
-          pageCount,
-          userid,
-          undefined
-        )
-      )
-    }
+    dispatch(getPackTC())
   }
 
   const resetFilter = () => {
-    dispatch(getPackTC())
     dispatch(resetFilterAC(true))
-  }
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      return
-    }
-    dispatch(getPackTC())
-  }, [])
-
-  const setCurrentItem = (item: number) => {
-    if (meOrAll === 'me') {
-      dispatch(
-        getPackTC(
-          undefined,
-          minCardsCount,
-          maxCardsCount,
-          sortSettings,
-          item,
-          pageCount,
-          userid,
-          undefined
-        )
-      )
-    } else {
-      dispatch(
-        getPackTC(
-          searchData,
-          minCardsCount,
-          maxCardsCount,
-          sortSettings,
-          item,
-          pageCount,
-          undefined,
-          undefined
-        )
-      )
-    }
-  }
-  const changeFieldsNumber = (choice: number) => {
-    if (meOrAll === 'me') {
-      dispatch(
-        getPackTC(
-          undefined,
-          minCardsCount,
-          maxCardsCount,
-          sortSettings,
-          currentItem,
-          choice,
-          userid,
-          undefined
-        )
-      )
-    } else {
-      dispatch(
-        getPackTC(
-          undefined,
-          minCardsCount,
-          maxCardsCount,
-          sortSettings,
-          currentItem,
-          choice,
-          undefined,
-          undefined
-        )
-      )
-    }
+    dispatch(setPageCountAC(4))
+    dispatch(setCurrentPageAC(1))
+    dispatch(changeToggleAC('all'))
+    dispatch(sortUpdatedAC('0updated'))
+    dispatch(setMinMaxAC(staticMin!, staticMax!))
+    dispatch(sortUpdatedAC('0updated'))
   }
 
   if (!isLoggedIn) {
@@ -165,8 +100,7 @@ export const PacksPage = () => {
           <Paginator
             totalItemsCount={totalItemsCount}
             pageCount={pageCount}
-            paginatorPortion={paginatorPortion}
-            currentItem={currentItem}
+            currentItem={currentPage}
             setCurrentItem={setCurrentItem}
             ChangeFieldsNumber={changeFieldsNumber}
           />

@@ -11,7 +11,6 @@ import { StyledPaginator, List } from './styledPaginator'
 type PaginatorPropsType = {
   totalItemsCount: number
   pageCount: number
-  paginatorPortion: number
   setCurrentItem: (item: number) => void
   currentItem: number
   ChangeFieldsNumber: (choice: number) => void

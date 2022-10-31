@@ -20,8 +20,6 @@ const initialState: PackStateType = {
   searchData: '',
   sort: '0updated',
   resetFilter: false,
-  staticMin: undefined,
-  staticMax: undefined,
 }
 
 export const PackReducer = (state = initialState, action: PackActionsType): PackStateType => {
@@ -37,7 +35,7 @@ export const PackReducer = (state = initialState, action: PackActionsType): Pack
         ...state,
         ...action.payload,
       }
-    case 'PACK/SET-PACK-INFORMATION': {
+    case 'PACK/GET-PACKS': {
       return {
         ...state,
         ...action.payload.packData,
@@ -47,6 +45,8 @@ export const PackReducer = (state = initialState, action: PackActionsType): Pack
       }
     }
     case 'PACK/SET-MIN-MAX': {
+      debugger
+
       return {
         ...state,
         minCardsCount: action.payload.minCardsCount,
@@ -77,8 +77,8 @@ export const PackReducer = (state = initialState, action: PackActionsType): Pack
 }
 
 // ==================== Action creators ==================
-export const setPackAC = (packData: CommonPackType) => {
-  return { type: 'PACK/SET-PACK-INFORMATION', payload: { packData } } as const
+export const getPacksAC = (packData: CommonPackType) => {
+  return { type: 'PACK/GET-PACKS', payload: { packData } } as const
 }
 
 export const changeToggleAC = (meOrAll: meOrAllType) => {
@@ -130,47 +130,33 @@ export const resetFilterAC = (resetFilter: boolean) => {
 }
 
 // ================ Thunk creators ================
-export const getPackTC =
-  (
-    packName?: string,
-    min?: number,
-    max?: number,
-    sortPacks?: string,
-    page?: number,
-    pageCount?: number,
-    user_id?: string,
-    block?: boolean
-  ): AppThunkType =>
-  async dispatch => {
-    try {
-      dispatch(isLoadingAC(true))
+export const getPackTC = (): AppThunkType => async (dispatch, getState) => {
+  dispatch(isLoadingAC(true))
 
-      const res = await packsAPI.getPack(
-        packName,
-        min,
-        max,
-        sortPacks,
-        page,
-        pageCount,
-        user_id,
-        block
-      )
+  try {
+    const userId = getState().user.user._id
+    const { searchData, maxCardsCount, minCardsCount, sort, page, pageCount, meOrAll } =
+      getState().packs
+    const user_id = meOrAll === 'me' ? userId : ''
+    const res = await packsAPI.getPack(
+      searchData,
+      minCardsCount,
+      maxCardsCount,
+      sort,
+      page,
+      pageCount,
+      user_id
+    )
 
-      dispatch(setPackAC(res.data))
-      if (min || max) {
-        dispatch(setMinMaxAC(min!, max!))
-      }
-      if (page) {
-        dispatch(setCurrentPageAC(page))
-      }
-    } catch (err) {
-      const error = err as Error | AxiosError<AppError>
+    dispatch(getPacksAC(res.data))
+  } catch (err) {
+    const error = err as Error | AxiosError<AppError>
 
-      errorHandler({ error, dispatch })
-    } finally {
-      dispatch(isLoadingAC(false))
-    }
+    errorHandler({ error, dispatch })
+  } finally {
+    dispatch(isLoadingAC(false))
   }
+}
 
 export const addNewPackTC =
   (cardsPack: { name: string }): AppThunkType =>
@@ -235,7 +221,7 @@ export const updatePackNameTC =
 
 //common type for reducer and to be merged in store
 export type PackActionsType =
-  | ReturnType<typeof setPackAC>
+  | ReturnType<typeof getPacksAC>
   | ReturnType<typeof changeToggleAC>
   | ReturnType<typeof setPageCountAC>
   | ReturnType<typeof setCurrentPageAC>
@@ -261,8 +247,8 @@ type PackStateType = {
   searchData: string
   sort: sortType
   resetFilter: boolean
-  staticMin: number | undefined
-  staticMax: number | undefined
+  staticMin?: number
+  staticMax?: number
 }
 type meOrAllType = 'me' | 'all'
 export type sortType = '0updated' | '1updated'

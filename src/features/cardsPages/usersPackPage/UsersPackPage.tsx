@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
-import { getCardsTC, setCurrentCardsPageAC } from '../../../app/cards-reducer'
+import { getCardsTC, setCurrentCardsPageAC, setPageCountCardsAC } from '../../../app/cards-reducer'
 import { sortUpdatedAC } from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
@@ -22,49 +22,32 @@ import { UsersCardsTable } from './usersCardsTable/UsersCardsTable'
 
 export const UsersPackPage = () => {
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
-  const dispatch = useAppDispatch()
   const chosenPack = useAppSelector(state => state.packs.chosenPack)
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const pageCount = useAppSelector(state => state.cards.pageCount)
-  const paginatorPortion = 5
-  const currentItem = useAppSelector(state => state.cards.page)
-  const searchData = useAppSelector(state => state.packs.searchData)
+  const currentPage = useAppSelector(state => state.cards.page)
+  const sortSettings = useAppSelector(state => state.cards.sortSettings)
   const chosenPackName = useAppSelector(state => state.cards.packName)
   let isLoading = useAppSelector(state => state.app.isLoading)
 
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
-    dispatch(getCardsTC(undefined, undefined, chosenPack))
-    dispatch(sortUpdatedAC('0updated'))
-  }, [])
+    dispatch(getCardsTC())
+  }, [sortSettings, currentPage, pageCount, chosenPack])
 
   const setCurrentItem = (item: number) => {
-    dispatch(
-      getCardsTC(
-        undefined,
-        searchData,
-        chosenPack,
-        undefined,
-        undefined,
-        undefined,
-        item,
-        pageCount
-      )
-    )
     dispatch(setCurrentCardsPageAC(item))
   }
   const changeFieldsNumber = (choice: number) => {
-    dispatch(
-      getCardsTC(
-        undefined,
-        searchData,
-        chosenPack,
-        undefined,
-        undefined,
-        undefined,
-        currentItem,
-        choice
-      )
-    )
+    dispatch(setPageCountCardsAC(choice))
+    dispatch(setCurrentCardsPageAC(1))
+  }
+
+  const onExit = () => {
+    dispatch(sortUpdatedAC('0updated'))
+    dispatch(setPageCountCardsAC(4))
+    dispatch(setCurrentCardsPageAC(1))
   }
 
   if (!isLoggedIn) {
@@ -79,7 +62,7 @@ export const UsersPackPage = () => {
   } else {
     return (
       <>
-        <BackToPack />
+        <BackToPack callback={onExit} />
         <StyledUsersPackPage>
           <StyledPageHeaderWrapper>
             <div>
@@ -100,9 +83,8 @@ export const UsersPackPage = () => {
               <Paginator
                 totalItemsCount={cardsTotalCount}
                 pageCount={pageCount}
-                paginatorPortion={paginatorPortion}
                 setCurrentItem={setCurrentItem}
-                currentItem={currentItem}
+                currentItem={currentPage}
                 ChangeFieldsNumber={changeFieldsNumber}
               />
             </>

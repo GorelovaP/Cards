@@ -5,6 +5,7 @@ import { cardsAPI, CardsType, getCardsResponseType } from '../api/cardsApi'
 import { errorHandler } from '../common/helpers/errorHandler'
 
 import { isLoadingAC } from './app-reducer'
+import { sortType } from './pack-reducer'
 import { AppThunkType } from './store'
 
 const initialState: CardStateType = {
@@ -12,15 +13,19 @@ const initialState: CardStateType = {
   cardsTotalCount: 0,
   maxGrade: 0,
   minGrade: 0,
-  page: 1,
+  page: 0,
   pageCount: 0,
   packUserId: '',
   packName: '',
+  sortSettings: '0updated',
+  searchData: '',
 }
 
 export const CardsReducer = (state = initialState, action: CardsActionsType): CardStateType => {
   switch (action.type) {
     case 'CARDS/SET-CURRENT-PAGE':
+    case 'CARDS/SET-SEARCH-DATA':
+    case 'CARDS/SET-SORT-SETTINGS':
     case 'CARDS/SET-PAGE-COUNT':
     case 'CARDS/UPDATE-INSIDE-PACK-NAME':
       return { ...state, ...action.payload }
@@ -81,41 +86,43 @@ export const updateInsidePackNameAC = (packName: string) => {
   return { type: 'CARDS/UPDATE-INSIDE-PACK-NAME', payload: { packName } } as const
 }
 
+export const setSortSettingsAC = (sortSettings: sortType) => {
+  return { type: 'CARDS/SET-SORT-SETTINGS', payload: { sortSettings } } as const
+}
+
+export const setSearchDataCardsAC = (searchData: string) => {
+  return { type: 'CARDS/SET-SEARCH-DATA', payload: { searchData } } as const
+}
+
 // ================ Thunk creators ================
-export const getCardsTC =
-  (
-    cardAnswer?: string,
-    cardQuestion?: string,
-    cardsPack_id?: string,
-    min?: number,
-    max?: number,
-    sortCards?: string,
-    page?: number,
-    pageCount?: number
-  ): AppThunkType =>
-  async dispatch => {
-    try {
-      dispatch(isLoadingAC(true))
-      const res = await cardsAPI.getCards(
-        cardAnswer,
-        cardQuestion,
-        cardsPack_id,
-        min,
-        max,
-        sortCards,
-        page,
-        pageCount
-      )
+export const getCardsTC = (): AppThunkType => async (dispatch, getState) => {
+  try {
+    dispatch(isLoadingAC(true))
 
-      dispatch(getCardsAC(res.data))
-    } catch (err) {
-      const error = err as Error | AxiosError<AppError>
+    const { page, pageCount, sortSettings, minGrade, maxGrade, searchData } = getState().cards
 
-      errorHandler({ error, dispatch })
-    } finally {
-      dispatch(isLoadingAC(false))
-    }
+    const { chosenPack } = getState().packs
+
+    const res = await cardsAPI.getCards(
+      undefined,
+      searchData,
+      chosenPack,
+      minGrade,
+      maxGrade,
+      sortSettings,
+      page,
+      pageCount
+    )
+
+    dispatch(getCardsAC(res.data))
+  } catch (err) {
+    const error = err as Error | AxiosError<AppError>
+
+    errorHandler({ error, dispatch })
+  } finally {
+    dispatch(isLoadingAC(false))
   }
+}
 
 export const addNewCardTC =
   (card: {
@@ -188,6 +195,8 @@ export type CardsActionsType =
   | ReturnType<typeof updateCardInfoAC>
   | ReturnType<typeof setPageCountCardsAC>
   | ReturnType<typeof updateInsidePackNameAC>
+  | ReturnType<typeof setSortSettingsAC>
+  | ReturnType<typeof setSearchDataCardsAC>
 
 type CardStateType = {
   cards: CardsType[]
@@ -198,4 +207,6 @@ type CardStateType = {
   pageCount: number
   packUserId: string
   packName: string
+  sortSettings: sortType
+  searchData: string
 }

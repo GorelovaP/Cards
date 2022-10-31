@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { getPackTC, sortType, sortUpdatedAC } from '../../../../app/pack-reducer'
+import { sortType, sortUpdatedAC } from '../../../../app/pack-reducer'
 import arrow from '../../../../assets/images/table/Polygon 2.svg'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHooks'
 
@@ -10,12 +10,6 @@ export const PacksTableHeader = () => {
   const dispatch = useAppDispatch()
 
   let sortSettings = useAppSelector(state => state.packs.sort)
-  let userid = useAppSelector(state => state.user.user._id)
-  let pageCount = useAppSelector(state => state.packs.pageCount)
-  let currentItem = useAppSelector(state => state.packs.page)
-  let meOrAll = useAppSelector(state => state.packs.meOrAll)
-  let maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
-  let minCardsCount = useAppSelector(state => state.packs.minCardsCount)
 
   const [sort, setSort] = useState<sortType>(sortSettings)
 
@@ -24,41 +18,7 @@ export const PacksTableHeader = () => {
   }, [sortSettings])
 
   const rotate = () => {
-    if (sort === '1updated') {
-      dispatch(sortUpdatedAC('0updated'))
-      meOrAll === 'me'
-        ? dispatch(
-            getPackTC(
-              undefined,
-              minCardsCount,
-              maxCardsCount,
-              '0updated',
-              currentItem,
-              pageCount,
-              userid
-            )
-          )
-        : dispatch(
-            getPackTC(undefined, minCardsCount, maxCardsCount, '0updated', currentItem, pageCount)
-          )
-    } else {
-      dispatch(sortUpdatedAC('1updated'))
-      meOrAll === 'me'
-        ? dispatch(
-            getPackTC(
-              undefined,
-              minCardsCount,
-              maxCardsCount,
-              '1updated',
-              currentItem,
-              pageCount,
-              userid
-            )
-          )
-        : dispatch(
-            getPackTC(undefined, minCardsCount, maxCardsCount, '1updated', currentItem, pageCount)
-          )
-    }
+    sort === '1updated' ? dispatch(sortUpdatedAC('0updated')) : dispatch(sortUpdatedAC('1updated'))
   }
 
   return (

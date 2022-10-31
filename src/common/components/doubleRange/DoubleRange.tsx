@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { getPackTC } from '../../../app/pack-reducer'
+import { setMinMaxAC } from '../../../app/pack-reducer'
 import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import { StyledLabel } from '../../styledComponents/styledLabel'
 
@@ -14,9 +14,7 @@ export const DoubleRange = () => {
   let max = useAppSelector(state => state.packs.maxCardsCount)
   let staticMin = useAppSelector(state => state.packs.staticMin)
   let staticMax = useAppSelector(state => state.packs.staticMax)
-  let pageCount = useAppSelector(state => state.packs.pageCount)
-  let meOrAll = useAppSelector(state => state.packs.meOrAll)
-  let userid = useAppSelector(state => state.user.user._id)
+
   let dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -41,10 +39,7 @@ export const DoubleRange = () => {
     }
   }
   const setMinMax = () => {
-    debugger
-    if (meOrAll === 'me') {
-      dispatch(getPackTC(undefined, value[0], value[1], undefined, 1, pageCount, userid))
-    } else dispatch(getPackTC(undefined, value[0], value[1], undefined, 1, pageCount, undefined))
+    dispatch(setMinMaxAC(value[0], value[1]))
   }
 
   return (

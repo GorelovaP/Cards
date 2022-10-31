@@ -7,30 +7,14 @@ import { StyledMyCardsTable } from './styledMyCardsTable'
 
 export const MyCardsTable = () => {
   let cards = useAppSelector(state => state.cards.cards)
-  const chosenPack = useAppSelector(state => state.packs.chosenPack)
-  const currentItem = useAppSelector(state => state.cards.page)
-  const pageCount = useAppSelector(state => state.cards.pageCount)
-  const searchData = useAppSelector(state => state.packs.searchData)
-  const sortSettings = useAppSelector(state => state.packs.sort)
 
   const dispatch = useAppDispatch()
 
   const deleteCard = async (cardId: string) => {
     await dispatch(deleteCardTC(cardId))
-
-    dispatch(
-      getCardsTC(
-        undefined,
-        searchData,
-        chosenPack,
-        undefined,
-        undefined,
-        sortSettings,
-        currentItem,
-        pageCount
-      )
-    )
+    dispatch(getCardsTC())
   }
+
   const updateCardInfo = (_id: string) => {
     dispatch(updateCardInfoTC({ _id, question: 'updated', answer: 'updated' }))
   }

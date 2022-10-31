@@ -1,56 +1,18 @@
-import { useEffect, useState } from 'react'
-
-import { getCardsTC } from '../../../../../app/cards-reducer'
-import { sortUpdatedAC } from '../../../../../app/pack-reducer'
+import { setSortSettingsAC } from '../../../../../app/cards-reducer'
 import arrow from '../../../../../assets/images/table/Polygon 2.svg'
 import { useAppDispatch, useAppSelector } from '../../../../../common/hooks/appHooks'
 
 import { StyledMyCardsTableHeader } from './styledMyCardsTableHeader'
 
 export const MyCardsTableHeader = () => {
-  let sortSettings = useAppSelector(state => state.packs.sort)
-  const chosenPack = useAppSelector(state => state.packs.chosenPack)
-  const currentItem = useAppSelector(state => state.cards.page)
-  const pageCount = useAppSelector(state => state.cards.pageCount)
-
-  const [sort, setSort] = useState(sortSettings)
+  let sortSettings = useAppSelector(state => state.cards.sortSettings)
 
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    setSort(sortSettings)
-  }, [sortSettings])
-
   const getSortCards = () => {
-    if (sort === '1updated') {
-      dispatch(sortUpdatedAC('0updated'))
-      dispatch(
-        getCardsTC(
-          undefined,
-          undefined,
-          chosenPack,
-          undefined,
-          undefined,
-          '0updated',
-          currentItem,
-          pageCount
-        )
-      )
-    } else {
-      dispatch(sortUpdatedAC('1updated'))
-      dispatch(
-        getCardsTC(
-          undefined,
-          undefined,
-          chosenPack,
-          undefined,
-          undefined,
-          '1updated',
-          currentItem,
-          pageCount
-        )
-      )
-    }
+    sortSettings === '1updated'
+      ? dispatch(setSortSettingsAC('0updated'))
+      : dispatch(setSortSettingsAC('1updated'))
   }
 
   return (
@@ -59,7 +21,7 @@ export const MyCardsTableHeader = () => {
       <div className={'answer'}>Answer</div>
       <div className={'lastUpdated'} onClick={getSortCards}>
         Last Updated
-        {sort === '0updated' ? (
+        {sortSettings === '0updated' ? (
           <img src={arrow} alt="" />
         ) : (
           <img src={arrow} alt="" className={'reverse'} />

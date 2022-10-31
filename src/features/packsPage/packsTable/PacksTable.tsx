@@ -11,12 +11,6 @@ import { StyledPacksTable } from './styledPacksTable'
 export const PacksTable = () => {
   const packs = useAppSelector(state => state.packs.cardPacks)
   const myId = useAppSelector(state => state.user.user._id)
-  const meOrAll = useAppSelector(state => state.packs.meOrAll)
-  const sortSettings = useAppSelector(state => state.packs.sort)
-  const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
-  const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
-  const currentItem = useAppSelector(state => state.cards.page)
-  const pageCount = useAppSelector(state => state.cards.pageCount)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
@@ -31,34 +25,7 @@ export const PacksTable = () => {
 
   const deleteMyPack = async (packId: string) => {
     await dispatch(deletePackTC(packId))
-
-    if (meOrAll === 'all') {
-      dispatch(
-        getPackTC(
-          undefined,
-          minCardsCount,
-          maxCardsCount,
-          sortSettings,
-          currentItem,
-          pageCount,
-          undefined,
-          undefined
-        )
-      )
-    } else {
-      dispatch(
-        getPackTC(
-          undefined,
-          minCardsCount,
-          maxCardsCount,
-          sortSettings,
-          currentItem,
-          pageCount,
-          myId,
-          undefined
-        )
-      )
-    }
+    dispatch(getPackTC())
   }
 
   const updatePackName = (packId: string) => {

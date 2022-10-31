@@ -6,10 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import { PATH } from '../../../app/routes/PagesRoutes'
 
 import { BackToPackArea } from './styledBackToPack'
+type propsType = {
+  callback?: () => void
+}
 
-export const BackToPack = () => {
+export const BackToPack = (props: propsType) => {
   const navigate = useNavigate()
   const goToCards = () => {
+    props.callback && props.callback()
     navigate(PATH.HOME_PAGE)
   }
 

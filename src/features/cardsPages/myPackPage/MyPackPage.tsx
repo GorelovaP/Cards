@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
 import { Navigate, useNavigate } from 'react-router-dom'
 
-import { addNewCardTC, getCardsTC, setCurrentCardsPageAC } from '../../../app/cards-reducer'
 import {
-  sortUpdatedAC,
-  updatePackNameTC,
-  changeToggleAC,
-  deletePackTC,
-} from '../../../app/pack-reducer'
+  addNewCardTC,
+  getCardsTC,
+  setCurrentCardsPageAC,
+  setPageCountCardsAC,
+} from '../../../app/cards-reducer'
+import { sortUpdatedAC, updatePackNameTC, deletePackTC } from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import deleteIcon from '../../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../../assets/images/menu/myPackMenu/Edit.svg'
@@ -34,25 +34,23 @@ import { StyledMenuItemMyPackContainer, StyledMyPackPage } from './styledMyPackP
 
 export const MyPackPage = () => {
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
-  const dispatch = useAppDispatch()
   const chosenPack = useAppSelector(state => state.packs.chosenPack)
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const pageCount = useAppSelector(state => state.cards.pageCount)
-  const paginatorPortion = 5
-  const currentItem = useAppSelector(state => state.cards.page)
-  const searchData = useAppSelector(state => state.packs.searchData)
+  const currentPage = useAppSelector(state => state.cards.page)
+  const searchData = useAppSelector(state => state.cards.searchData)
   const chosenPackName = useAppSelector(state => state.cards.packName)
-  const sortSettings = useAppSelector(state => state.packs.sort)
+  const sortSettings = useAppSelector(state => state.cards.sortSettings)
   const isLoading = useAppSelector(state => state.app.isLoading)
+
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const [show, setShow] = useState(false)
 
   useEffect(() => {
-    dispatch(changeToggleAC('all'))
-    dispatch(sortUpdatedAC('0updated'))
-    dispatch(getCardsTC(undefined, undefined, chosenPack))
-  }, [])
+    dispatch(getCardsTC())
+  }, [sortSettings, currentPage, pageCount, chosenPack, searchData])
 
   if (chosenPack === '') {
     navigate(PATH.HOME_PAGE)
@@ -69,22 +67,12 @@ export const MyPackPage = () => {
     await dispatch(
       addNewCardTC({ cardsPack_id: chosenPack, question: 'question1', answer: 'answer1' })
     )
-    dispatch(
-      getCardsTC(
-        undefined,
-        undefined,
-        chosenPack,
-        undefined,
-        undefined,
-        sortSettings,
-        currentItem,
-        pageCount
-      )
-    )
+    dispatch(getCardsTC())
   }
 
-  const deleteMyPack = () => {
-    dispatch(deletePackTC(chosenPack))
+  const deleteMyPack = async () => {
+    await dispatch(deletePackTC(chosenPack))
+    dispatch(getCardsTC())
     setShow(false)
   }
 
@@ -94,33 +82,18 @@ export const MyPackPage = () => {
   }
 
   const setCurrentItem = (item: number) => {
-    dispatch(
-      getCardsTC(
-        undefined,
-        searchData,
-        chosenPack,
-        undefined,
-        undefined,
-        sortSettings,
-        item,
-        pageCount
-      )
-    )
     dispatch(setCurrentCardsPageAC(item))
   }
+
   const changeFieldsNumber = (choice: number) => {
-    dispatch(
-      getCardsTC(
-        undefined,
-        undefined,
-        chosenPack,
-        undefined,
-        undefined,
-        sortSettings,
-        currentItem,
-        choice
-      )
-    )
+    dispatch(setPageCountCardsAC(choice))
+    dispatch(setCurrentCardsPageAC(1))
+  }
+
+  const onExit = () => {
+    dispatch(sortUpdatedAC('0updated'))
+    dispatch(setPageCountCardsAC(4))
+    dispatch(setCurrentCardsPageAC(1))
   }
 
   if (!isLoggedIn) {
@@ -136,7 +109,7 @@ export const MyPackPage = () => {
   } else {
     return (
       <>
-        <BackToPack />
+        <BackToPack callback={onExit} />
         <StyledMyPackPage>
           <StyledPageHeaderWrapper>
             <div className={'menuPosition'}>
@@ -166,9 +139,8 @@ export const MyPackPage = () => {
             <Paginator
               totalItemsCount={cardsTotalCount}
               pageCount={pageCount}
-              paginatorPortion={paginatorPortion}
               setCurrentItem={setCurrentItem}
-              currentItem={currentItem}
+              currentItem={currentPage}
               ChangeFieldsNumber={changeFieldsNumber}
             />
           </>
