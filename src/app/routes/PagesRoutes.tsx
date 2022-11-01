@@ -10,6 +10,7 @@ import { ForgotPasswordPage } from '../../features/initializationPages/forgotPas
 import { PersonalInformationPage } from '../../features/initializationPages/personalInformationPage/PersonalInformationPage'
 import { SignUpPage } from '../../features/initializationPages/signUpPage/SignUpPage'
 import { SignInPage } from '../../features/initializationPages/singInPage/SignInPage'
+import { LearnPage } from '../../features/learnPage/LearnPage'
 import { PacksPage } from '../../features/packsPage/PacksPage'
 import { Page404 } from '../../features/page404/Page404'
 
@@ -24,6 +25,7 @@ export enum PATH {
   HOME_PAGE = '/packs-list',
   MY_PACK = '/my-pack',
   FRIENDS_PACK = '/friends-pack',
+  LEARN = '/learn',
 }
 
 export const PagesRoutes = () => {
@@ -40,7 +42,7 @@ export const PagesRoutes = () => {
         <Route path={PATH.HOME_PAGE} element={<PacksPage />} />
         <Route path={PATH.MY_PACK} element={<MyPackPage />} />
         <Route path={PATH.FRIENDS_PACK} element={<UsersPackPage />} />
-
+        <Route path={PATH.LEARN} element={<LearnPage />} />
         <Route path={PATH.PAGE_404} element={<Page404 />} />
         <Route path={'/*'} element={<Navigate to={PATH.PAGE_404} />} />
       </Routes>

@@ -18,9 +18,9 @@ export const BackToPack = (props: propsType) => {
   }
 
   return (
-    <BackToPackArea>
+    <BackToPackArea onClick={goToCards}>
       <BiArrowBack className={'icon'} />
-      <span onClick={goToCards}>Back to Packs List</span>
+      <span>Back to Packs List</span>
     </BackToPackArea>
   )
 }
