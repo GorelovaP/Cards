@@ -20,7 +20,7 @@ import { Search } from '../../common/components/search/Search'
 import { ToggleSwitch } from '../../common/components/toggleSwitch/ToggleSwitch'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/appHooks'
 import { StyleButtonForMainPageHeader } from '../../common/styledComponents/styledButtons'
-import { H1 } from '../../common/styledComponents/styledHeaders'
+import { H1, NoData } from '../../common/styledComponents/styledHeaders'
 import {
   StyledFeaturesWrapper,
   StyledMainPageWrapper,
@@ -71,7 +71,6 @@ export const PacksPage = () => {
     dispatch(changeToggleAC('all'))
     dispatch(sortUpdatedAC('0updated'))
     dispatch(setMinMaxAC(staticMin!, staticMax!))
-    dispatch(sortUpdatedAC('0updated'))
   }
 
   if (!isLoggedIn) {
@@ -80,7 +79,7 @@ export const PacksPage = () => {
 
   return (
     <StyledPacksPage>
-      <StyledMainPageWrapper className={'mainPageWrapper'}>
+      <StyledMainPageWrapper className="mainPageWrapper">
         <StyledPageHeaderWrapper>
           <H1>Packs list</H1>
           <StyleButtonForMainPageHeader onClick={onClickHandler} disabled={isLoading}>
@@ -96,7 +95,9 @@ export const PacksPage = () => {
           </button>
         </StyledFeaturesWrapper>
         <PacksTable />
-        {totalItemsCount !== 0 && (
+        {totalItemsCount === 0 ? (
+          <NoData>Sorry, there are no such packages</NoData>
+        ) : (
           <Paginator
             totalItemsCount={totalItemsCount}
             pageCount={pageCount}

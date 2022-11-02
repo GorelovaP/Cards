@@ -38,6 +38,10 @@ export const FormInfoText = styled.div`
   line-height: 24px;
   opacity: 0.5;
 `
+export const NoData = styled(H4)`
+  font-size: 18px;
+  margin-top: 50px;
+`
 
 // for Sign forms common bottom styled link
 export const StyledBottomFormLink = styled.div`

@@ -34,7 +34,7 @@ export const LearnPage = () => {
             How &quot;This&quot; works in JavaScript?
           </div>
           <H4 className="headerH4">
-            Количество попыток ответов на вопрос: <b>10</b>
+            Number of attempts to answer the question: <b>10</b>
           </H4>
 
           {show ? (
@@ -53,7 +53,7 @@ export const LearnPage = () => {
                   {rateInfo.map((el, index) => {
                     return (
                       <li className="element" key={index}>
-                        <label>
+                        <label className={`label ${el === value ? 'checked' : ''}`}>
                           <input
                             type="radio"
                             value={el}
@@ -68,7 +68,7 @@ export const LearnPage = () => {
                     )
                   })}
                 </ul>
-                <StyledButton className="answerBtn">Next</StyledButton>
+                <StyledButton className="nextBtn">Next</StyledButton>
               </form>
             </>
           )}

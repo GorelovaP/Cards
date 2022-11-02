@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const BackToPackArea = styled.div`
-  width: 175px;
+  width: fit-content;
   position: relative;
   display: flex;
   align-items: center;
@@ -11,6 +11,9 @@ export const BackToPackArea = styled.div`
   span {
     padding-left: 12px;
     &:hover {
+      cursor: pointer;
+    }
+    .icon {
       cursor: pointer;
     }
   }
