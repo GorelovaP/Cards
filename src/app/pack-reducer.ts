@@ -50,12 +50,6 @@ export const PackReducer = (state = initialState, action: PackActionsType): Pack
         page: 1,
       }
     }
-    case 'PACK/ADD-NEW-PACK': {
-      return { ...state, cardPacks: [action.payload.newPack, ...state.cardPacks] }
-    }
-    case 'PACK/DELETE-PACK': {
-      return { ...state, cardPacks: state.cardPacks.filter(i => i._id !== action.payload.packId) }
-    }
     case 'PACK/UPDATE-PACK-NAME': {
       return {
         ...state,
@@ -93,16 +87,8 @@ export const setMinMaxAC = (min: number, max: number) => {
   return { type: 'PACK/SET-MIN-MAX', payload: { min, max } } as const
 }
 
-export const addNewPackAC = (newPack: PackType) => {
-  return { type: 'PACK/ADD-NEW-PACK', payload: { newPack } } as const
-}
-
 export const chosenPackAC = (chosenPack: string) => {
   return { type: 'PACK/CHOSEN-PACK', payload: { chosenPack } } as const
-}
-
-export const deletePackAC = (packId: string) => {
-  return { type: 'PACK/DELETE-PACK', payload: { packId } } as const
 }
 
 export const resetChosenPackAC = () => {
@@ -150,11 +136,8 @@ export const addNewPackTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-      const res = await packsAPI.addPack(cardsPack)
-
-      const newPack = res.data.newCardsPack
-
-      dispatch(addNewPackAC(newPack))
+      await packsAPI.addPack(cardsPack)
+      dispatch(getPackTC())
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 
@@ -165,14 +148,13 @@ export const addNewPackTC =
   }
 
 export const deletePackTC =
-  (packId: string): AppThunkType =>
+  (packId: string, deleteFromMenu?: boolean): AppThunkType =>
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
       await packsAPI.deletePack(packId)
-
-      dispatch(deletePackAC(packId))
       dispatch(resetChosenPackAC())
+      !deleteFromMenu && dispatch(getPackTC())
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 
@@ -213,9 +195,7 @@ export type PackActionsType =
   | ReturnType<typeof setPageCountAC>
   | ReturnType<typeof setCurrentPageAC>
   | ReturnType<typeof setMinMaxAC>
-  | ReturnType<typeof addNewPackAC>
   | ReturnType<typeof chosenPackAC>
-  | ReturnType<typeof deletePackAC>
   | ReturnType<typeof updatePackNameAC>
   | ReturnType<typeof setSearchDataAC>
   | ReturnType<typeof sortUpdatedAC>

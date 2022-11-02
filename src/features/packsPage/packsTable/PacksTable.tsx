@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-import { chosenPackAC, deletePackTC, getPackTC, updatePackNameTC } from '../../../app/pack-reducer'
+import { chosenPackAC, deletePackTC, updatePackNameTC } from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/appHooks'
 
@@ -25,7 +25,6 @@ export const PacksTable = () => {
 
   const deleteMyPack = async (packId: string) => {
     await dispatch(deletePackTC(packId))
-    dispatch(getPackTC())
   }
 
   const updatePackName = (packId: string) => {

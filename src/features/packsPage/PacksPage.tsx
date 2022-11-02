@@ -58,7 +58,6 @@ export const PacksPage = () => {
 
   const onClickHandler = async () => {
     await dispatch(addNewPackTC({ name: 'some pack...' }))
-    dispatch(getPackTC())
   }
 
   const resetFilter = () => {
