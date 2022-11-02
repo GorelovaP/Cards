@@ -39,18 +39,14 @@ export const PackReducer = (state = initialState, action: PackActionsType): Pack
       return {
         ...state,
         ...action.payload.packData,
-        staticMin: action.payload.packData.minCardsCount,
-        staticMax: action.payload.packData.maxCardsCount,
         cardPacks: action.payload.packData.cardPacks.map(tl => ({ ...tl })),
       }
     }
     case 'PACK/SET-MIN-MAX': {
-      debugger
-
       return {
         ...state,
-        minCardsCount: action.payload.minCardsCount,
-        maxCardsCount: action.payload.maxCardsCount,
+        min: action.payload.min,
+        max: action.payload.max,
         page: 1,
       }
     }
@@ -93,8 +89,8 @@ export const setCurrentPageAC = (page: number) => {
   return { type: 'PACK/SET-CURRENT-PAGE', payload: { page } } as const
 }
 
-export const setMinMaxAC = (minCardsCount: number, maxCardsCount: number) => {
-  return { type: 'PACK/SET-MIN-MAX', payload: { minCardsCount, maxCardsCount } } as const
+export const setMinMaxAC = (min: number, max: number) => {
+  return { type: 'PACK/SET-MIN-MAX', payload: { min, max } } as const
 }
 
 export const addNewPackAC = (newPack: PackType) => {
@@ -135,18 +131,9 @@ export const getPackTC = (): AppThunkType => async (dispatch, getState) => {
 
   try {
     const userId = getState().user.user._id
-    const { searchData, maxCardsCount, minCardsCount, sort, page, pageCount, meOrAll } =
-      getState().packs
+    const { searchData, min, max, sort, page, pageCount, meOrAll } = getState().packs
     const user_id = meOrAll === 'me' ? userId : ''
-    const res = await packsAPI.getPack(
-      searchData,
-      minCardsCount,
-      maxCardsCount,
-      sort,
-      page,
-      pageCount,
-      user_id
-    )
+    const res = await packsAPI.getPack(searchData, min, max, sort, page, pageCount, user_id)
 
     dispatch(getPacksAC(res.data))
   } catch (err) {
@@ -247,8 +234,8 @@ type PackStateType = {
   searchData: string
   sort: sortType
   resetFilter: boolean
-  staticMin?: number
-  staticMax?: number
+  min?: number
+  max?: number
 }
 type meOrAllType = 'me' | 'all'
 export type sortType = '0updated' | '1updated'

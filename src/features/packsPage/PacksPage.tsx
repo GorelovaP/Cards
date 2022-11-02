@@ -39,16 +39,13 @@ export const PacksPage = () => {
   const pageCount = useAppSelector(state => state.packs.pageCount)
   const currentPage = useAppSelector(state => state.packs.page)
   const meOrAll = useAppSelector(state => state.packs.meOrAll)
-  const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
-  const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
-  const staticMax = useAppSelector(state => state.packs.staticMax)
-  const staticMin = useAppSelector(state => state.packs.staticMin)
+  const max = useAppSelector(state => state.packs.max)
+  const min = useAppSelector(state => state.packs.min)
   const searchData = useAppSelector(state => state.packs.searchData)
 
   useEffect(() => {
-    debugger
     dispatch(getPackTC())
-  }, [searchData, minCardsCount, maxCardsCount, sortSettings, currentPage, pageCount, meOrAll])
+  }, [searchData, min, max, sortSettings, currentPage, pageCount, meOrAll])
 
   const setCurrentItem = (item: number) => {
     dispatch(setCurrentPageAC(item))
@@ -70,7 +67,7 @@ export const PacksPage = () => {
     dispatch(setCurrentPageAC(1))
     dispatch(changeToggleAC('all'))
     dispatch(sortUpdatedAC('0updated'))
-    dispatch(setMinMaxAC(staticMin!, staticMax!))
+    dispatch(setMinMaxAC(min!, max!))
   }
 
   if (!isLoggedIn) {

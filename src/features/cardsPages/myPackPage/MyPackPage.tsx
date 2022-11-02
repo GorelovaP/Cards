@@ -9,7 +9,12 @@ import {
   setCurrentCardsPageAC,
   setPageCountCardsAC,
 } from '../../../app/cards-reducer'
-import { sortUpdatedAC, updatePackNameTC, deletePackTC } from '../../../app/pack-reducer'
+import {
+  sortUpdatedAC,
+  updatePackNameTC,
+  deletePackTC,
+  setCurrentPageAC,
+} from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import deleteIcon from '../../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../../assets/images/menu/myPackMenu/Edit.svg'
@@ -94,6 +99,7 @@ export const MyPackPage = () => {
     dispatch(sortUpdatedAC('0updated'))
     dispatch(setPageCountCardsAC(4))
     dispatch(setCurrentCardsPageAC(1))
+    dispatch(setCurrentPageAC(1))
   }
 
   if (!isLoggedIn) {

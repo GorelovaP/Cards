@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const StyledPaginator = styled.div`
   margin-top: 36px;
-  margin-bottom: 30px;
+  padding-bottom: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;

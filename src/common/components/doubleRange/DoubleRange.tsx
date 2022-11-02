@@ -10,34 +10,34 @@ const minDistance = 1
 
 export const DoubleRange = () => {
   const isLoading = useAppSelector(state => state.app.isLoading)
-  let min = useAppSelector(state => state.packs.minCardsCount)
-  let max = useAppSelector(state => state.packs.maxCardsCount)
-  let staticMin = useAppSelector(state => state.packs.staticMin)
-  let staticMax = useAppSelector(state => state.packs.staticMax)
+  let staticMin = useAppSelector(state => state.packs.minCardsCount)
+  let staticMax = useAppSelector(state => state.packs.maxCardsCount)
+  let min = useAppSelector(state => state.packs.min)
+  let max = useAppSelector(state => state.packs.max)
 
   let dispatch = useAppDispatch()
 
-  useEffect(() => {
-    setValue1([min, max])
-  }, [min, max])
+  const [value, setValue1] = useState<number[]>([min!, max!])
 
   useEffect(() => {
-    setValue1([staticMin!, staticMax!])
+    setValue1([staticMin, staticMax])
   }, [staticMin, staticMax])
 
-  const [value, setValue1] = useState<number[]>([min, max])
+  useEffect(() => {
+    setValue1([min!, max!])
+  }, [min, max])
 
   const handleChange1 = (event: Event, newValue: number | number[], activeThumb: number) => {
     if (!Array.isArray(newValue)) {
       return
     }
-
     if (activeThumb === 0) {
       setValue1([Math.min(newValue[0], value[1] - minDistance), value[1]])
     } else {
       setValue1([value[0], Math.max(newValue[1], value[0] + minDistance)])
     }
   }
+
   const setMinMax = () => {
     dispatch(setMinMaxAC(value[0], value[1]))
   }

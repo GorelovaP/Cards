@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { getCardsTC, setCurrentCardsPageAC, setPageCountCardsAC } from '../../../app/cards-reducer'
-import { sortUpdatedAC } from '../../../app/pack-reducer'
+import { setCurrentPageAC, sortUpdatedAC } from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
 import { LoadingProcess } from '../../../common/components/loadingProgress/LoadingProcess'
@@ -28,7 +28,7 @@ export const UsersPackPage = () => {
   const currentPage = useAppSelector(state => state.cards.page)
   const sortSettings = useAppSelector(state => state.cards.sortSettings)
   const chosenPackName = useAppSelector(state => state.cards.packName)
-  let isLoading = useAppSelector(state => state.app.isLoading)
+  const isLoading = useAppSelector(state => state.app.isLoading)
 
   const dispatch = useAppDispatch()
 
@@ -48,6 +48,7 @@ export const UsersPackPage = () => {
     dispatch(sortUpdatedAC('0updated'))
     dispatch(setPageCountCardsAC(4))
     dispatch(setCurrentCardsPageAC(1))
+    dispatch(setCurrentPageAC(1))
   }
 
   if (!isLoggedIn) {

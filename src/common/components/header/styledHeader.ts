@@ -9,6 +9,7 @@ export const StyleHeader = styled.div`
   width: 100%;
   background-color: #fcfcfc;
   box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  z-index: 20;
 `
 export const StyleHeaderSecond = styled(StyledMainWrapper)`
   display: flex;
