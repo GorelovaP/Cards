@@ -31,8 +31,6 @@ export const Paginator = (props: PaginatorPropsType) => {
 
   const chooseCurrentPage = (page: number | null) => {
     if (isLoading) {
-      debugger
-
       return
     }
     props.setCurrentItem(page!)

@@ -132,7 +132,7 @@ export const getPackTC = (): AppThunkType => async (dispatch, getState) => {
 }
 
 export const addNewPackTC =
-  (cardsPack: { name: string }): AppThunkType =>
+  (cardsPack: { name: string; private: boolean }): AppThunkType =>
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))

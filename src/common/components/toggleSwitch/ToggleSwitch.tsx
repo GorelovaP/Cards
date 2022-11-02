@@ -10,7 +10,7 @@ import { StyledToggleSwitch } from './styledToggleSwitch'
 export const ToggleSwitch = () => {
   const dispatch = useAppDispatch()
   const isLoading = useAppSelector(state => state.app.isLoading)
-  let meOrAll = useAppSelector(state => state.packs.meOrAll)
+  const meOrAll = useAppSelector(state => state.packs.meOrAll)
 
   const onClickMe = () => {
     dispatch(changeToggleAC('me'))

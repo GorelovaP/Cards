@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import {
-  addNewPackTC,
   changeToggleAC,
   getPackTC,
   resetFilterAC,
@@ -27,7 +26,7 @@ import {
   StyledPageHeaderWrapper,
 } from '../../common/styledComponents/styledWrappers'
 
-import { PacksModal } from './packsModal/PacksModal'
+import { NewPacksModal } from './packsModal/NewPacksModal'
 import { PacksTable } from './packsTable/PacksTable'
 import { StyledPacksPage } from './styledPacksPage'
 
@@ -63,9 +62,8 @@ export const PacksPage = () => {
     dispatch(setCurrentPageAC(1))
   }
 
-  const onClickHandler = async () => {
+  const onClickHandler = () => {
     setOpenPacksModal(true)
-    await dispatch(addNewPackTC({ name: 'some pack...' }))
   }
 
   const resetFilter = () => {
@@ -110,7 +108,7 @@ export const PacksPage = () => {
             ChangeFieldsNumber={changeFieldsNumber}
           />
         )}
-        {openPacksModal && <PacksModal open={openPacksModal} onClose={setPacksModalClose} />}
+        {openPacksModal && <NewPacksModal open={openPacksModal} onClose={setPacksModalClose} />}
       </StyledMainPageWrapper>
     </StyledPacksPage>
   )

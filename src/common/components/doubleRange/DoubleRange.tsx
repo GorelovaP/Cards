@@ -10,12 +10,12 @@ const minDistance = 1
 
 export const DoubleRange = () => {
   const isLoading = useAppSelector(state => state.app.isLoading)
-  let staticMin = useAppSelector(state => state.packs.minCardsCount)
-  let staticMax = useAppSelector(state => state.packs.maxCardsCount)
-  let min = useAppSelector(state => state.packs.min)
-  let max = useAppSelector(state => state.packs.max)
+  const staticMin = useAppSelector(state => state.packs.minCardsCount)
+  const staticMax = useAppSelector(state => state.packs.maxCardsCount)
+  const min = useAppSelector(state => state.packs.min)
+  const max = useAppSelector(state => state.packs.max)
 
-  let dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
   const [value, setValue1] = useState<number[]>([min!, max!])
 
