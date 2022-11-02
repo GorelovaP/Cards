@@ -3,13 +3,13 @@ import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
-import { addNewPackTC } from '../../../app/pack-reducer'
-import BasicModal from '../../../common/components/basicModal/BasicModal'
-import { MyCheckBox } from '../../../common/components/styledChackBox/MyCheckBox'
-import { MyInput } from '../../../common/components/styledInput/MyInput'
-import { useAppDispatch, useAppSelector } from '../../../common/hooks/appHooks'
-import { StyledButton } from '../../../common/styledComponents/styledButtons'
-import { StyledErrorArea } from '../../../common/styledComponents/styledErrorArea'
+import { addNewPackTC } from '../../../../app/pack-reducer'
+import BasicModal from '../../../../common/components/basicModal/BasicModal'
+import { MyCheckBox } from '../../../../common/components/styledChackBox/MyCheckBox'
+import { MyInput } from '../../../../common/components/styledInput/MyInput'
+import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHooks'
+import { StyledButton } from '../../../../common/styledComponents/styledButtons'
+import { StyledErrorArea } from '../../../../common/styledComponents/styledErrorArea'
 
 import { StyledAddNewPack } from './styledAddNewPack'
 
@@ -17,7 +17,7 @@ type PropsType = {
   open: boolean
   onClose: () => void
 }
-export const NewPacksModal = (props: PropsType) => {
+export const AddNewPacksModal = (props: PropsType) => {
   const isLoading = useAppSelector(state => state.app.isLoading)
 
   const dispatch = useAppDispatch()
@@ -34,6 +34,7 @@ export const NewPacksModal = (props: PropsType) => {
       const { namePack, privatePack } = values
 
       dispatch(addNewPackTC({ name: namePack, private: privatePack }))
+      props.onClose()
     },
   })
 

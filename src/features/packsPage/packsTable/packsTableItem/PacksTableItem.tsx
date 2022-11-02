@@ -1,7 +1,10 @@
+import React, { useState } from 'react'
+
 import Delete from '../../../../assets/images/table/Delete.svg'
 import Edit from '../../../../assets/images/table/Edit.svg'
 import Learn from '../../../../assets/images/table/teacher.svg'
 import { useAppSelector } from '../../../../common/hooks/appHooks'
+import { DeletePackModal } from '../../packsModal/deletePackModal/DeletePackModal'
 
 import { StyledPacksTableItem } from './styledPacksTableItem'
 
@@ -14,12 +17,20 @@ type PacksListTableItemPropsType = {
   lastUpdated: Date
   userName: string
   onClickHandler: () => void
-  deleteMyPack: () => void
   updatePackName: () => void
 }
 export const PacksTableItem = (props: PacksListTableItemPropsType) => {
   let loginUserId = useAppSelector(state => state.user.user._id)
   let date = props.lastUpdated.toString().substring(0, 10).split('-').reverse().join('.')
+  const [openPacksModal, setOpenPacksModal] = useState(false)
+
+  const setPacksModalClose = () => {
+    setOpenPacksModal(false)
+  }
+
+  const onClickDeleteHandler = () => {
+    setOpenPacksModal(true)
+  }
 
   return (
     <StyledPacksTableItem>
@@ -34,10 +45,17 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
         {props.userId === loginUserId && (
           <>
             <img src={Edit} alt="" className={'edit'} onClick={props.updatePackName} />
-            <img src={Delete} alt="" className={'delete'} onClick={props.deleteMyPack} />
+            <img src={Delete} alt="" className={'delete'} onClick={onClickDeleteHandler} />
           </>
         )}
       </div>
+      {openPacksModal && (
+        <DeletePackModal
+          open={openPacksModal}
+          onClose={setPacksModalClose}
+          packId={props.cardsPack_id}
+        />
+      )}
     </StyledPacksTableItem>
   )
 }

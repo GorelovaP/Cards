@@ -26,7 +26,7 @@ import {
   StyledPageHeaderWrapper,
 } from '../../common/styledComponents/styledWrappers'
 
-import { NewPacksModal } from './packsModal/NewPacksModal'
+import { AddNewPacksModal } from './packsModal/addNewPacksModal/AddNewPacksModal'
 import { PacksTable } from './packsTable/PacksTable'
 import { StyledPacksPage } from './styledPacksPage'
 
@@ -108,7 +108,7 @@ export const PacksPage = () => {
             ChangeFieldsNumber={changeFieldsNumber}
           />
         )}
-        {openPacksModal && <NewPacksModal open={openPacksModal} onClose={setPacksModalClose} />}
+        {openPacksModal && <AddNewPacksModal open={openPacksModal} onClose={setPacksModalClose} />}
       </StyledMainPageWrapper>
     </StyledPacksPage>
   )
