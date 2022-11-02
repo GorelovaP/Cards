@@ -29,7 +29,7 @@ export const EmptyPackPage = (props: PropsType) => {
         <div className={'centerContainer'}>
           <H3>This pack is empty. Click &lsquo;Add new card&lsquo; to fill this pack.</H3>
           <StyleButtonForMainPageHeader onClick={props.addNewCard} disabled={isLoading}>
-            Add new pack
+            Add new card
           </StyleButtonForMainPageHeader>
         </div>
       </StyledEmptyPackPage>

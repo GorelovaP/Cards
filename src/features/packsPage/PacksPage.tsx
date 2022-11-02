@@ -46,7 +46,6 @@ export const PacksPage = () => {
   const searchData = useAppSelector(state => state.packs.searchData)
 
   useEffect(() => {
-    debugger
     dispatch(getPackTC())
   }, [searchData, minCardsCount, maxCardsCount, sortSettings, currentPage, pageCount, meOrAll])
 
@@ -61,7 +60,6 @@ export const PacksPage = () => {
 
   const onClickHandler = async () => {
     await dispatch(addNewPackTC({ name: 'some pack...' }))
-    dispatch(getPackTC())
   }
 
   const resetFilter = () => {
