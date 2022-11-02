@@ -16,7 +16,6 @@ import edit from '../../../assets/images/menu/myPackMenu/Edit.svg'
 import learn from '../../../assets/images/menu/myPackMenu/teacher.svg'
 import popUp from '../../../assets/images/popUp.svg'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
-import { LoadingProcess } from '../../../common/components/loadingProgress/LoadingProcess'
 import { MenuItem } from '../../../common/components/menuItem/MenuItem'
 import { Paginator } from '../../../common/components/paginator/Paginator'
 import { Search } from '../../../common/components/search/Search'
@@ -50,11 +49,7 @@ export const MyPackPage = () => {
 
   useEffect(() => {
     dispatch(getCardsTC())
-  }, [sortSettings, currentPage, pageCount, chosenPack, searchData])
-
-  if (chosenPack === '') {
-    navigate(PATH.HOME_PAGE)
-  }
+  }, [sortSettings, currentPage, pageCount, searchData])
 
   const popUpHandler = () => {
     setShow(!show)
@@ -65,15 +60,13 @@ export const MyPackPage = () => {
 
   const addNewCard = async () => {
     await dispatch(
-      addNewCardTC({ cardsPack_id: chosenPack, question: 'question1', answer: 'answer1' })
+      addNewCardTC({ cardsPack_id: chosenPack, question: 'question23', answer: 'answer23' })
     )
-    dispatch(getCardsTC())
   }
 
   const deleteMyPack = async () => {
-    await dispatch(deletePackTC(chosenPack))
-    dispatch(getCardsTC())
-    setShow(false)
+    await dispatch(deletePackTC(chosenPack, true))
+    navigate(PATH.HOME_PAGE)
   }
 
   const updatePackName = () => {
@@ -98,10 +91,6 @@ export const MyPackPage = () => {
 
   if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN} />
-  }
-
-  if (isLoading) {
-    return <LoadingProcess />
   }
 
   if (cardsTotalCount === 0) {

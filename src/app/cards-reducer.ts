@@ -36,12 +36,6 @@ export const CardsReducer = (state = initialState, action: CardsActionsType): Ca
         cards: action.payload.cardsData.cards.map(tl => ({ ...tl })),
       }
     }
-    case 'CARDS/ADD-NEW-CARD': {
-      return { ...state, cards: [action.payload.card, ...state.cards] }
-    }
-    case 'CARDS/DELETE-CARD': {
-      return { ...state, cards: state.cards.filter(i => i._id !== action.payload.id) }
-    }
     case 'CARDS/UPDATE-CARD-INFO': {
       return {
         ...state,
@@ -64,14 +58,6 @@ export const getCardsAC = (cardsData: getCardsResponseType) => {
 
 export const setCurrentCardsPageAC = (page: number) => {
   return { type: 'CARDS/SET-CURRENT-PAGE', payload: { page } } as const
-}
-
-export const addNewCardAC = (card: CardsType) => {
-  return { type: 'CARDS/ADD-NEW-CARD', payload: { card } } as const
-}
-
-export const deleteCardAC = (id: string) => {
-  return { type: 'CARDS/DELETE-CARD', payload: { id } } as const
 }
 
 export const updateCardInfoAC = (id: string, question: string, answer: string) => {
@@ -139,11 +125,8 @@ export const addNewCardTC =
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-      const res = await cardsAPI.addNewCard(card)
-
-      const newCard = res.data.newCard
-
-      dispatch(addNewCardAC(newCard))
+      await cardsAPI.addNewCard(card)
+      dispatch(getCardsTC())
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 
@@ -158,8 +141,7 @@ export const deleteCardTC =
     try {
       dispatch(isLoadingAC(true))
       await cardsAPI.deleteCard(id)
-
-      dispatch(deleteCardAC(id))
+      dispatch(getCardsTC())
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 
@@ -190,8 +172,6 @@ export const updateCardInfoTC =
 export type CardsActionsType =
   | ReturnType<typeof getCardsAC>
   | ReturnType<typeof setCurrentCardsPageAC>
-  | ReturnType<typeof addNewCardAC>
-  | ReturnType<typeof deleteCardAC>
   | ReturnType<typeof updateCardInfoAC>
   | ReturnType<typeof setPageCountCardsAC>
   | ReturnType<typeof updateInsidePackNameAC>

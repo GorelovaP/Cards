@@ -6,7 +6,6 @@ import { getCardsTC, setCurrentCardsPageAC, setPageCountCardsAC } from '../../..
 import { sortUpdatedAC } from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
-import { LoadingProcess } from '../../../common/components/loadingProgress/LoadingProcess'
 import { Paginator } from '../../../common/components/paginator/Paginator'
 import { Search } from '../../../common/components/search/Search'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/appHooks'
@@ -28,13 +27,14 @@ export const UsersPackPage = () => {
   const currentPage = useAppSelector(state => state.cards.page)
   const sortSettings = useAppSelector(state => state.cards.sortSettings)
   const chosenPackName = useAppSelector(state => state.cards.packName)
-  let isLoading = useAppSelector(state => state.app.isLoading)
+  const isLoading = useAppSelector(state => state.app.isLoading)
+  const searchData = useAppSelector(state => state.cards.searchData)
 
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(getCardsTC())
-  }, [sortSettings, currentPage, pageCount, chosenPack])
+  }, [sortSettings, currentPage, pageCount, chosenPack, searchData])
 
   const setCurrentItem = (item: number) => {
     dispatch(setCurrentCardsPageAC(item))
@@ -57,42 +57,38 @@ export const UsersPackPage = () => {
     return <Navigate to={PATH.HOME_PAGE} />
   }
 
-  if (isLoading) {
-    return <LoadingProcess />
-  } else {
-    return (
-      <>
-        <BackToPack callback={onExit} />
-        <StyledUsersPackPage>
-          <StyledPageHeaderWrapper>
-            <div>
-              <H1>{chosenPackName}</H1>
-            </div>
-            {cardsTotalCount !== 0 && (
-              <StyleButtonForMainPageHeader disabled={isLoading}>
-                Learn this pack
-              </StyleButtonForMainPageHeader>
-            )}
-          </StyledPageHeaderWrapper>
-          {cardsTotalCount !== 0 ? (
-            <>
-              <StyledFeaturesWrapper>
-                <Search className="mainPageSearch" />
-              </StyledFeaturesWrapper>
-              <UsersCardsTable />
-              <Paginator
-                totalItemsCount={cardsTotalCount}
-                pageCount={pageCount}
-                setCurrentItem={setCurrentItem}
-                currentItem={currentPage}
-                ChangeFieldsNumber={changeFieldsNumber}
-              />
-            </>
-          ) : (
-            <H3 className="emptyHeader">This pack is empty.</H3>
+  return (
+    <>
+      <BackToPack callback={onExit} />
+      <StyledUsersPackPage>
+        <StyledPageHeaderWrapper>
+          <div>
+            <H1>{chosenPackName}</H1>
+          </div>
+          {cardsTotalCount !== 0 && (
+            <StyleButtonForMainPageHeader disabled={isLoading}>
+              Learn this pack
+            </StyleButtonForMainPageHeader>
           )}
-        </StyledUsersPackPage>
-      </>
-    )
-  }
+        </StyledPageHeaderWrapper>
+        {cardsTotalCount !== 0 ? (
+          <>
+            <StyledFeaturesWrapper>
+              <Search className="mainPageSearch" />
+            </StyledFeaturesWrapper>
+            <UsersCardsTable />
+            <Paginator
+              totalItemsCount={cardsTotalCount}
+              pageCount={pageCount}
+              setCurrentItem={setCurrentItem}
+              currentItem={currentPage}
+              ChangeFieldsNumber={changeFieldsNumber}
+            />
+          </>
+        ) : (
+          <H3 className="emptyHeader">This pack is empty.</H3>
+        )}
+      </StyledUsersPackPage>
+    </>
+  )
 }

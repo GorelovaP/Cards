@@ -1,4 +1,4 @@
-import { deleteCardTC, getCardsTC, updateCardInfoTC } from '../../../../app/cards-reducer'
+import { deleteCardTC, updateCardInfoTC } from '../../../../app/cards-reducer'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHooks'
 
 import { MyCardsTableHeader } from './myCardsTableHeader/MyCardsTableHeader'
@@ -12,7 +12,6 @@ export const MyCardsTable = () => {
 
   const deleteCard = async (cardId: string) => {
     await dispatch(deleteCardTC(cardId))
-    dispatch(getCardsTC())
   }
 
   const updateCardInfo = (_id: string) => {
