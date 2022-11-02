@@ -38,6 +38,14 @@ export const FormInfoText = styled.div`
   line-height: 24px;
   opacity: 0.5;
 `
+
+export const ModalH3 = styled.h3`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+`
+
 export const NoData = styled(H4)`
   font-size: 18px;
   margin-top: 50px;

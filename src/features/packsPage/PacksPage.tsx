@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
@@ -27,6 +27,7 @@ import {
   StyledPageHeaderWrapper,
 } from '../../common/styledComponents/styledWrappers'
 
+import { PacksModal } from './packsModal/PacksModal'
 import { PacksTable } from './packsTable/PacksTable'
 import { StyledPacksPage } from './styledPacksPage'
 
@@ -43,9 +44,15 @@ export const PacksPage = () => {
   const min = useAppSelector(state => state.packs.min)
   const searchData = useAppSelector(state => state.packs.searchData)
 
+  const [openPacksModal, setOpenPacksModal] = useState(false)
+
   useEffect(() => {
     dispatch(getPackTC())
   }, [searchData, min, max, sortSettings, currentPage, pageCount, meOrAll])
+
+  const setPacksModalClose = () => {
+    setOpenPacksModal(false)
+  }
 
   const setCurrentItem = (item: number) => {
     dispatch(setCurrentPageAC(item))
@@ -57,6 +64,7 @@ export const PacksPage = () => {
   }
 
   const onClickHandler = async () => {
+    setOpenPacksModal(true)
     await dispatch(addNewPackTC({ name: 'some pack...' }))
   }
 
@@ -102,6 +110,7 @@ export const PacksPage = () => {
             ChangeFieldsNumber={changeFieldsNumber}
           />
         )}
+        {openPacksModal && <PacksModal open={openPacksModal} onClose={setPacksModalClose} />}
       </StyledMainPageWrapper>
     </StyledPacksPage>
   )
