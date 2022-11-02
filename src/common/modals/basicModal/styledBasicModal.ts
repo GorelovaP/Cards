@@ -17,7 +17,6 @@ export const StyledModalWrapper = styled(StyledSingFormWrapper)`
     align-items: center;
     padding: 19px 24px;
     border-bottom: 1px solid #d9d9d9;
-    margin-bottom: 16px;
   }
   .closeIcon {
     height: 14px;

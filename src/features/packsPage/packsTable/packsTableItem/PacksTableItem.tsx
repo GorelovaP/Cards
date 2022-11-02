@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 
+import { deletePackTC } from '../../../../app/pack-reducer'
 import Delete from '../../../../assets/images/table/Delete.svg'
 import Edit from '../../../../assets/images/table/Edit.svg'
 import Learn from '../../../../assets/images/table/teacher.svg'
-import { useAppSelector } from '../../../../common/hooks/appHooks'
-import { DeletePackModal } from '../../packsModal/deletePackModal/DeletePackModal'
+import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHooks'
+import { DeleteModal } from '../../../../common/modals/deleteModal/DeleteModal'
 
 import { StyledPacksTableItem } from './styledPacksTableItem'
 
@@ -20,9 +21,10 @@ type PacksListTableItemPropsType = {
   updatePackName: () => void
 }
 export const PacksTableItem = (props: PacksListTableItemPropsType) => {
-  let loginUserId = useAppSelector(state => state.user.user._id)
-  let date = props.lastUpdated.toString().substring(0, 10).split('-').reverse().join('.')
+  const loginUserId = useAppSelector(state => state.user.user._id)
+  const date = props.lastUpdated.toString().substring(0, 10).split('-').reverse().join('.')
   const [openPacksModal, setOpenPacksModal] = useState(false)
+  const dispatch = useAppDispatch()
 
   const setPacksModalClose = () => {
     setOpenPacksModal(false)
@@ -30,6 +32,11 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
 
   const onClickDeleteHandler = () => {
     setOpenPacksModal(true)
+  }
+
+  const deletePack = () => {
+    props.cardsPack_id && dispatch(deletePackTC(props.cardsPack_id))
+    setPacksModalClose()
   }
 
   return (
@@ -50,10 +57,11 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
         )}
       </div>
       {openPacksModal && (
-        <DeletePackModal
+        <DeleteModal
           open={openPacksModal}
           onClose={setPacksModalClose}
-          packId={props.cardsPack_id}
+          onClick={deletePack}
+          name={props.name}
         />
       )}
     </StyledPacksTableItem>

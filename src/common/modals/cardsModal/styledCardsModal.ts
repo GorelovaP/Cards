@@ -1,11 +1,8 @@
 import styled from 'styled-components'
 
-export const StyledAddNewPack = styled.div`
-  .myCheckBox {
-    padding-top: 5px;
-    margin-bottom: 35px;
-  }
+export const StyledCardsModal = styled.div`
   .buttonsContainer {
+    margin-top: 35px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

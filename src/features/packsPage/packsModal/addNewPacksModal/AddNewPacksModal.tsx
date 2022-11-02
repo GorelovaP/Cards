@@ -4,10 +4,10 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 import { addNewPackTC } from '../../../../app/pack-reducer'
-import BasicModal from '../../../../common/components/basicModal/BasicModal'
 import { MyCheckBox } from '../../../../common/components/styledChackBox/MyCheckBox'
 import { MyInput } from '../../../../common/components/styledInput/MyInput'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHooks'
+import BasicModal from '../../../../common/modals/basicModal/BasicModal'
 import { StyledButton } from '../../../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../../../common/styledComponents/styledErrorArea'
 

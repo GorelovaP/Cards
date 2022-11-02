@@ -19,12 +19,13 @@ import { PATH } from '../../../app/routes/PagesRoutes'
 import deleteIcon from '../../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../../assets/images/menu/myPackMenu/Edit.svg'
 import learn from '../../../assets/images/menu/myPackMenu/teacher.svg'
-import popUp from '../../../assets/images/popUp.svg'
+import popUp from '../../../assets/images/PopUp.svg'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
 import { MenuItem } from '../../../common/components/menuItem/MenuItem'
 import { Paginator } from '../../../common/components/paginator/Paginator'
 import { Search } from '../../../common/components/search/Search'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/appHooks'
+import { CardsModal } from '../../../common/modals/cardsModal/CardsModal'
 import { StyleButtonForMainPageHeader } from '../../../common/styledComponents/styledButtons'
 import { H1 } from '../../../common/styledComponents/styledHeaders'
 import {
@@ -51,6 +52,7 @@ export const MyPackPage = () => {
   const navigate = useNavigate()
 
   const [show, setShow] = useState(false)
+  const [openAddModal, setOpenAddModal] = useState(false)
 
   useEffect(() => {
     dispatch(getCardsTC())
@@ -61,6 +63,13 @@ export const MyPackPage = () => {
   }
   const handleClickAway = () => {
     setShow(false)
+  }
+  const setAddModalClose = () => {
+    setOpenAddModal(false)
+  }
+
+  const onClickHandler = () => {
+    setOpenAddModal(true)
   }
 
   const addNewCard = async () => {
@@ -122,7 +131,7 @@ export const MyPackPage = () => {
                 )}
               </div>
             </div>
-            <StyleButtonForMainPageHeader onClick={addNewCard} disabled={isLoading}>
+            <StyleButtonForMainPageHeader onClick={onClickHandler} disabled={isLoading}>
               Add new card
             </StyleButtonForMainPageHeader>
           </StyledPageHeaderWrapper>
@@ -139,6 +148,15 @@ export const MyPackPage = () => {
               ChangeFieldsNumber={changeFieldsNumber}
             />
           </>
+          {openAddModal && (
+            <CardsModal
+              open={openAddModal}
+              onClose={setAddModalClose}
+              initialAnswer={''}
+              initialQuestion={''}
+              title={'Add new card'}
+            />
+          )}
         </StyledMyPackPage>
       </>
     )
