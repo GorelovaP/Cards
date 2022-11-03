@@ -9,12 +9,7 @@ import {
   setCurrentCardsPageAC,
   setPageCountCardsAC,
 } from '../../../app/cards-reducer'
-import {
-  sortUpdatedAC,
-  updatePackNameTC,
-  deletePackTC,
-  setCurrentPageAC,
-} from '../../../app/pack-reducer'
+import { sortUpdatedAC, deletePackTC, setCurrentPageAC } from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import deleteIcon from '../../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../../assets/images/menu/myPackMenu/Edit.svg'
@@ -26,12 +21,14 @@ import { Paginator } from '../../../common/components/paginator/Paginator'
 import { Search } from '../../../common/components/search/Search'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/appHooks'
 import { CardsModal } from '../../../common/modals/cardsModal/CardsModal'
+import { DeleteModal } from '../../../common/modals/deleteModal/DeleteModal'
 import { StyleButtonForMainPageHeader } from '../../../common/styledComponents/styledButtons'
 import { H1 } from '../../../common/styledComponents/styledHeaders'
 import {
   StyledFeaturesWrapper,
   StyledPageHeaderWrapper,
 } from '../../../common/styledComponents/styledWrappers'
+import { EditPackNameModal } from '../../packsPage/packsModal/editPackNameModal/EditPackNameModal'
 import { EmptyPackPage } from '../emptyPackPage/EmptyPackPage'
 
 import { MyCardsTable } from './myCardsTable/MyCardsTable'
@@ -53,6 +50,8 @@ export const MyPackPage = () => {
 
   const [show, setShow] = useState(false)
   const [openAddModal, setOpenAddModal] = useState(false)
+  const [openEditPackNameModal, setOpenEditPackNameModal] = useState(false)
+  const [openDeletePackModal, setOpenDeletePackModal] = useState(false)
 
   useEffect(() => {
     dispatch(getCardsTC())
@@ -67,6 +66,12 @@ export const MyPackPage = () => {
   const setAddModalClose = () => {
     setOpenAddModal(false)
   }
+  const setEditPackNameModalClose = () => {
+    setOpenEditPackNameModal(false)
+  }
+  const setDeletePackModalClose = () => {
+    setOpenDeletePackModal(false)
+  }
 
   const onClickHandler = () => {
     setOpenAddModal(true)
@@ -78,15 +83,18 @@ export const MyPackPage = () => {
     )
   }
 
-  const deleteMyPack = async () => {
-    await dispatch(deletePackTC(chosenPack, true))
+  const openDeleteMyPackModal = () => {
+    setOpenDeletePackModal(true)
+    setShow(false)
+  }
+
+  const deleteHandler = () => {
+    dispatch(deletePackTC(chosenPack, true))
     navigate(PATH.HOME_PAGE)
   }
 
   const updatePackName = () => {
-    dispatch(
-      updatePackNameTC({ _id: chosenPack, name: 'updated pack title', private: false }, true)
-    )
+    setOpenEditPackNameModal(true)
     setShow(false)
   }
 
@@ -130,7 +138,11 @@ export const MyPackPage = () => {
                   <ClickAwayListener onClickAway={handleClickAway}>
                     <StyledMenuItemMyPackContainer>
                       <MenuItem text={'Edit'} icon={edit} onClickHandler={updatePackName} />
-                      <MenuItem text={'Delete'} icon={deleteIcon} onClickHandler={deleteMyPack} />
+                      <MenuItem
+                        text={'Delete'}
+                        icon={deleteIcon}
+                        onClickHandler={openDeleteMyPackModal}
+                      />
                       <MenuItem text={'Learn'} icon={learn} onClickHandler={learnMyPack} />
                     </StyledMenuItemMyPackContainer>
                   </ClickAwayListener>
@@ -161,6 +173,23 @@ export const MyPackPage = () => {
               initialAnswer={''}
               initialQuestion={''}
               title={'Add new card'}
+            />
+          )}
+          {openEditPackNameModal && (
+            <EditPackNameModal
+              open={openEditPackNameModal}
+              onClose={setEditPackNameModalClose}
+              name={chosenPackName}
+              id={chosenPack}
+              menu={true}
+            />
+          )}
+          {openDeletePackModal && (
+            <DeleteModal
+              open={openDeletePackModal}
+              onClose={setDeletePackModalClose}
+              onClick={deleteHandler}
+              name={chosenPackName}
             />
           )}
         </StyledMyPackPage>
