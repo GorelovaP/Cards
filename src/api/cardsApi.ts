@@ -53,6 +53,12 @@ export const cardsAPI = {
       AxiosResponse<UpdateCardInfoType>
     >(`cards/card`, { card })
   },
+  setGrades(grade: number, card_id: string) {
+    return instance.put<{ grade: number; card_id: string }, AxiosResponse<SetGradesType>>(
+      `cards/grade`,
+      { grade, card_id }
+    )
+  },
 }
 
 // =============== Types for Cards API ==============
@@ -77,14 +83,14 @@ export type CardsType = {
   answer: string
   cardsPack_id: string
   comments: string
-  created: Date
+  created: string
   grade: number
   more_id: string
   question: string
   rating: number
   shots: number
   type: string
-  updated: Date
+  updated: string
   user_id: string
   __v: number
   _id: string
@@ -120,4 +126,15 @@ type AddNewCardType = {
   questionImg?: string
   questionVideo?: string
   answerVideo?: string
+}
+
+type SetGradesType = {
+  updatedGrade: {
+    _id: string
+    cardsPack_id: string
+    card_id: string
+    user_id: string
+    grade: number
+    shots: number
+  }
 }

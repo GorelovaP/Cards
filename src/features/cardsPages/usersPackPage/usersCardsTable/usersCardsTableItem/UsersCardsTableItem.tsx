@@ -4,7 +4,7 @@ import { UsersItemGoldenStars } from './usersItemGoldenStars/UsersItemGoldenStar
 type FriendsCardsTableItemPropsType = {
   question: string
   answer: string
-  lastUpdated: Date
+  lastUpdated: string
   grade: number
 }
 

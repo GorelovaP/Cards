@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import { deletePackTC } from '../../../../app/pack-reducer'
+import { chosenPackAC, deletePackTC } from '../../../../app/pack-reducer'
 import { PATH } from '../../../../app/routes/PagesRoutes'
 import Delete from '../../../../assets/images/table/Delete.svg'
 import Edit from '../../../../assets/images/table/Edit.svg'
@@ -52,6 +52,7 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
     setPacksModalClose()
   }
   const goToLearnPage = () => {
+    dispatch(chosenPackAC(props.cardsPack_id))
     navigate(PATH.LEARN)
   }
 

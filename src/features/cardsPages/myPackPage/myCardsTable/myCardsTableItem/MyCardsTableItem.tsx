@@ -14,7 +14,7 @@ type CardsTableItemType = {
   itemId: string
   question: string
   answer: string
-  lastUpdated: Date
+  lastUpdated: string
   grade: number
 }
 export const MyCardsTableItem = (props: CardsTableItemType) => {
