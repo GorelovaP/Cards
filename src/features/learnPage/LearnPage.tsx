@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 
 import { CardsType } from '../../api/cardsApi'
 import { getCardsTC, setGradesTC } from '../../app/cards-reducer'
+import { setMinMaxAC } from '../../app/pack-reducer'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/appHooks'
 import { StyledButton } from '../../common/styledComponents/styledButtons'
@@ -34,6 +35,8 @@ export const LearnPage = () => {
   const packName = useAppSelector(state => state.cards.packName)
   const cards = useAppSelector(state => state.cards.cards)
   const packId = useAppSelector(state => state.packs.chosenPack)
+  const staticMin = useAppSelector(state => state.packs.minCardsCount)
+  const staticMax = useAppSelector(state => state.packs.maxCardsCount)
   const dispatch = useAppDispatch()
   const [show, setShow] = useState<boolean>(true)
   const [first, setFirst] = useState<boolean>(true)
@@ -62,18 +65,18 @@ export const LearnPage = () => {
   })
 
   useEffect(() => {
-    console.log('LearnContainer useEffect')
+    //console.log('LearnContainer useEffect')
 
     if (first) {
       dispatch(getCardsTC())
       setFirst(false)
     }
 
-    console.log('cards', cards)
+    //console.log('cards', cards)
     if (cards.length > 0) setCard(getCard(cards))
 
     return () => {
-      console.log('LearnContainer useEffect off')
+      //log('LearnContainer useEffect off')
     }
   }, [dispatch, packId, cards, first])
 
@@ -82,6 +85,10 @@ export const LearnPage = () => {
 
     dispatch(setGradesTC(grades, card._id))
     setCard(getCard(cards))
+  }
+
+  const onBackToPack = () => {
+    dispatch(setMinMaxAC(staticMin, staticMax))
   }
 
   const onRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -119,7 +126,7 @@ export const LearnPage = () => {
   return (
     <StyledPacksPage>
       <StyledMainWrapper>
-        <BackToPack />
+        <BackToPack callback={onBackToPack} />
         <H1 className="headerH1">{`Learn ${packName}`}</H1>
         <StyledSingFormWrapper className="learnWrapper">
           <div>
