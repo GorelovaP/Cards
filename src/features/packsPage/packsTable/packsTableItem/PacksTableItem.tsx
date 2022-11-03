@@ -65,7 +65,11 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
       <div className={'lastUpdated'}>{date}</div>
       <div className={'createdBy'}>{props.userName}</div>
       <div className={'actions'}>
-        <img src={Learn} alt="" className={'learn'} onClick={goToLearnPage} />
+        {props.cards > 0 ? (
+          <img src={Learn} alt="" className={'learn'} onClick={goToLearnPage} />
+        ) : (
+          <img src={Learn} alt="" className={'learnIsRestricted'} />
+        )}
         {props.userId === loginUserId && (
           <>
             <img src={Edit} alt="" className={'edit'} onClick={onClickEditHandler} />

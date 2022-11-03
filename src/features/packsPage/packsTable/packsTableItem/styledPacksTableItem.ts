@@ -52,6 +52,12 @@ export const StyledPacksTableItem = styled.div`
         left: 1px;
       }
     }
+    .learnIsRestricted {
+      position: absolute;
+      top: 15px;
+      left: 0;
+      opacity: 0.5;
+    }
     .edit {
       position: absolute;
       top: 15px;
