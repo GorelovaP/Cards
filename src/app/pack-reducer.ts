@@ -165,7 +165,7 @@ export const deletePackTC =
   }
 
 export const updatePackNameTC =
-  (cardsPack: { _id: string; name?: string }, menu?: boolean): AppThunkType =>
+  (cardsPack: { _id: string; name: string; private: boolean }, menu?: boolean): AppThunkType =>
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))

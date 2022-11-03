@@ -6,6 +6,7 @@ import Edit from '../../../../assets/images/table/Edit.svg'
 import Learn from '../../../../assets/images/table/teacher.svg'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHooks'
 import { DeleteModal } from '../../../../common/modals/deleteModal/DeleteModal'
+import { EditPackNameModal } from '../../packsModal/editPackNameModal/EditPackNameModal'
 
 import { StyledPacksTableItem } from './styledPacksTableItem'
 
@@ -18,24 +19,32 @@ type PacksListTableItemPropsType = {
   lastUpdated: Date
   userName: string
   onClickHandler: () => void
-  updatePackName: () => void
 }
 export const PacksTableItem = (props: PacksListTableItemPropsType) => {
   const loginUserId = useAppSelector(state => state.user.user._id)
   const date = props.lastUpdated.toString().substring(0, 10).split('-').reverse().join('.')
   const [openPacksModal, setOpenPacksModal] = useState(false)
+  const [openEditPacksNameModal, setOpenEditPacksNameModal] = useState(false)
   const dispatch = useAppDispatch()
 
   const setPacksModalClose = () => {
     setOpenPacksModal(false)
   }
 
+  const setEditPacksNameModalClose = () => {
+    setOpenEditPacksNameModal(false)
+  }
+
   const onClickDeleteHandler = () => {
     setOpenPacksModal(true)
   }
 
+  const onClickEditHandler = () => {
+    setOpenEditPacksNameModal(true)
+  }
+
   const deletePack = () => {
-    props.cardsPack_id && dispatch(deletePackTC(props.cardsPack_id))
+    dispatch(deletePackTC(props.cardsPack_id))
     setPacksModalClose()
   }
 
@@ -51,7 +60,7 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
         <img src={Learn} alt="" className={'learn'} />
         {props.userId === loginUserId && (
           <>
-            <img src={Edit} alt="" className={'edit'} onClick={props.updatePackName} />
+            <img src={Edit} alt="" className={'edit'} onClick={onClickEditHandler} />
             <img src={Delete} alt="" className={'delete'} onClick={onClickDeleteHandler} />
           </>
         )}
@@ -62,6 +71,14 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
           onClose={setPacksModalClose}
           onClick={deletePack}
           name={props.name}
+        />
+      )}
+      {openEditPacksNameModal && (
+        <EditPackNameModal
+          open={openEditPacksNameModal}
+          onClose={setEditPacksNameModalClose}
+          name={props.name}
+          id={props.cardsPack_id}
         />
       )}
     </StyledPacksTableItem>

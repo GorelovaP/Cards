@@ -3,7 +3,7 @@ import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
-import { addNewPackTC } from '../../../../app/pack-reducer'
+import { updatePackNameTC } from '../../../../app/pack-reducer'
 import { MyCheckBox } from '../../../../common/components/styledChackBox/MyCheckBox'
 import { MyInput } from '../../../../common/components/styledInput/MyInput'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHooks'
@@ -11,13 +11,16 @@ import BasicModal from '../../../../common/modals/basicModal/BasicModal'
 import { StyledButton } from '../../../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../../../common/styledComponents/styledErrorArea'
 
-import { StyledAddNewPack } from './styledAddNewPack'
+import { StyledEditPackNameModal } from './styledEditPackNameModal'
 
 type PropsType = {
   open: boolean
   onClose: () => void
+  name: string
+  id: string
 }
-export const AddNewPacksModal = (props: PropsType) => {
+
+export const EditPackNameModal = (props: PropsType) => {
   const isLoading = useAppSelector(state => state.app.isLoading)
 
   const dispatch = useAppDispatch()
@@ -27,20 +30,20 @@ export const AddNewPacksModal = (props: PropsType) => {
       namePack: Yup.string().min(1).max(30).required('* field is required'),
     }),
     initialValues: {
-      namePack: 'Name Pack',
+      namePack: props.name,
       privatePack: false,
     },
     onSubmit: values => {
       const { namePack, privatePack } = values
 
-      dispatch(addNewPackTC({ name: namePack, private: privatePack }))
+      dispatch(updatePackNameTC({ _id: props.id, name: namePack, private: privatePack }))
       props.onClose()
     },
   })
 
   return (
-    <BasicModal open={props.open} onClose={props.onClose} title={'Add new pack'}>
-      <StyledAddNewPack>
+    <BasicModal open={props.open} onClose={props.onClose} title={'Edit pack'}>
+      <StyledEditPackNameModal>
         <form onSubmit={formik.handleSubmit}>
           <div className={'inputErrorHandlerForm'}>
             <MyInput
@@ -74,7 +77,7 @@ export const AddNewPacksModal = (props: PropsType) => {
             </StyledButton>
           </div>
         </form>
-      </StyledAddNewPack>
+      </StyledEditPackNameModal>
     </BasicModal>
   )
 }

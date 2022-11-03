@@ -84,7 +84,9 @@ export const MyPackPage = () => {
   }
 
   const updatePackName = () => {
-    dispatch(updatePackNameTC({ _id: chosenPack, name: 'updated pack title' }, true))
+    dispatch(
+      updatePackNameTC({ _id: chosenPack, name: 'updated pack title', private: false }, true)
+    )
     setShow(false)
   }
 
