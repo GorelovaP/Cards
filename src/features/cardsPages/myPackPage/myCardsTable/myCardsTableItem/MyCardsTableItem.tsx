@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { deleteCardTC } from '../../../../../app/cards-reducer'
 import Delete from '../../../../../assets/images/table/Delete.svg'
 import Edit from '../../../../../assets/images/table/Edit.svg'
-import { useAppDispatch } from '../../../../../common/hooks/appHooks'
+import { useAppDispatch, useAppSelector } from '../../../../../common/hooks/appHooks'
 import { CardsModal } from '../../../../../common/modals/cardsModal/CardsModal'
 import { DeleteModal } from '../../../../../common/modals/deleteModal/DeleteModal'
 
@@ -18,6 +18,8 @@ type CardsTableItemType = {
   grade: number
 }
 export const MyCardsTableItem = (props: CardsTableItemType) => {
+  const isLoading = useAppSelector(state => state.app.isLoading)
+
   const date = props.lastUpdated.toString().substring(0, 10).split('-').reverse().join('.')
 
   const [openCardsDeleteModal, setOpenCardsDeleteModal] = useState(false)
@@ -53,8 +55,16 @@ export const MyCardsTableItem = (props: CardsTableItemType) => {
         <MyItemGradeStars grade={props.grade} />
       </div>
       <div className={'options'}>
-        <img src={Edit} alt="" className={'edit'} onClick={onClickChangeHandler} />{' '}
-        <img src={Delete} alt="" className={'delete'} onClick={onClickDeleteHandler} />
+        {!isLoading ? (
+          <img src={Edit} alt="" className={'edit'} onClick={onClickChangeHandler} />
+        ) : (
+          <img src={Edit} alt="" className={'editIsRestricted'} />
+        )}
+        {!isLoading ? (
+          <img src={Delete} alt="" className={'delete'} onClick={onClickDeleteHandler} />
+        ) : (
+          <img src={Delete} alt="" className={'deleteIsRestricted'} />
+        )}
       </div>
       {openCardsDeleteModal && (
         <DeleteModal

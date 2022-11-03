@@ -25,9 +25,12 @@ type PacksListTableItemPropsType = {
 }
 export const PacksTableItem = (props: PacksListTableItemPropsType) => {
   const loginUserId = useAppSelector(state => state.user.user._id)
-  const date = props.lastUpdated.toString().substring(0, 10).split('-').reverse().join('.')
+  const isLoading = useAppSelector(state => state.app.isLoading)
+
   const [openPacksModal, setOpenPacksModal] = useState(false)
   const [openEditPacksNameModal, setOpenEditPacksNameModal] = useState(false)
+  const date = props.lastUpdated.toString().substring(0, 10).split('-').reverse().join('.')
+
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -65,15 +68,23 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
       <div className={'lastUpdated'}>{date}</div>
       <div className={'createdBy'}>{props.userName}</div>
       <div className={'actions'}>
-        {props.cards > 0 ? (
+        {props.cards > 0 && !isLoading ? (
           <img src={Learn} alt="" className={'learn'} onClick={goToLearnPage} />
         ) : (
           <img src={Learn} alt="" className={'learnIsRestricted'} />
         )}
         {props.userId === loginUserId && (
           <>
-            <img src={Edit} alt="" className={'edit'} onClick={onClickEditHandler} />
-            <img src={Delete} alt="" className={'delete'} onClick={onClickDeleteHandler} />
+            {!isLoading ? (
+              <img src={Edit} alt="" className={'edit'} onClick={onClickEditHandler} />
+            ) : (
+              <img src={Edit} alt="" className={'editIsRestricted'} />
+            )}
+            {!isLoading ? (
+              <img src={Delete} alt="" className={'delete'} onClick={onClickDeleteHandler} />
+            ) : (
+              <img src={Delete} alt="" className={'deleteIsRestricted'} />
+            )}
           </>
         )}
       </div>

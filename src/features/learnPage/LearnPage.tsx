@@ -27,8 +27,6 @@ const getCard = (cards: CardsType[]) => {
     { sum: 0, id: -1 }
   )
 
-  console.log('test: ', sum, rand, res)
-
   return cards[res.id + 1]
 }
 

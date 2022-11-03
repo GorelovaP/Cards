@@ -70,6 +70,12 @@ export const StyledPacksTableItem = styled.div`
         left: 31px;
       }
     }
+    .editIsRestricted {
+      position: absolute;
+      top: 15px;
+      left: 30px;
+      opacity: 0.5;
+    }
     .delete {
       position: absolute;
       top: 15px;
@@ -81,6 +87,12 @@ export const StyledPacksTableItem = styled.div`
         top: 16px;
         left: 61px;
       }
+    }
+    .deleteIsRestricted {
+      position: absolute;
+      top: 15px;
+      left: 60px;
+      opacity: 0.5;
     }
   }
 `

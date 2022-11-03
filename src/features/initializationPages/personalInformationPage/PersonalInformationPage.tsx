@@ -4,6 +4,7 @@ import { IoMdLogOut } from 'react-icons/io'
 import { Navigate } from 'react-router-dom'
 
 import { singOutTC } from '../../../app/app-reducer'
+import { setMinMaxAC } from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import avatar from '../../../assets/images/initialization/avatar.png'
 import photo from '../../../assets/images/initialization/photo.png'
@@ -21,12 +22,18 @@ import {
 export const PersonalInformationPage = () => {
   const dispatch = useAppDispatch()
 
-  let isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
-  let email = useAppSelector(state => state.user.user.email)
+  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
+  const email = useAppSelector(state => state.user.user.email)
   const isLoading = useAppSelector(state => state.app.isLoading)
+  const staticMin = useAppSelector(state => state.packs.minCardsCount)
+  const staticMax = useAppSelector(state => state.packs.maxCardsCount)
 
   const logOut = () => {
     dispatch(singOutTC())
+  }
+
+  const onBackToPack = () => {
+    dispatch(setMinMaxAC(staticMin, staticMax))
   }
 
   if (!isLoggedIn) {
@@ -35,7 +42,7 @@ export const PersonalInformationPage = () => {
 
   return (
     <>
-      <BackToPack />
+      <BackToPack callback={onBackToPack} />
       <StyledPersonalFormWrapper>
         <StyledPersonalInformationPage>
           <H2>Personal Information</H2>
