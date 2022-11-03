@@ -82,12 +82,6 @@ export const LearnPage = () => {
     setShow(true)
     // dispatch
     setCard(getCard(cards))
-    /*if (cards.length > 0) {
-      // dispatch
-      setCard(getCard(cards))
-    } else {
-      console.log('Hello')
-    }*/
   }
 
   const onRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
