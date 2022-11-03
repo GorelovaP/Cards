@@ -14,4 +14,10 @@ export const SnackbarArea = styled.div`
   .error {
     padding: 5px 15px;
   }
+  .cross {
+    cursor: pointer;
+    &:active {
+      transform: translate(1px, 1px);
+    }
+  }
 `

@@ -4,7 +4,7 @@ import { AppError } from '../api/appApi'
 import { cardsAPI, CardsType, getCardsResponseType, SetGradesType } from '../api/cardsApi'
 import { errorHandler } from '../common/helpers/errorHandler'
 
-import { isLoadingAC } from './app-reducer'
+import { isLoadingAC, setAppSuccessAC } from './app-reducer'
 import { sortType } from './pack-reducer'
 import { AppThunkType } from './store'
 
@@ -140,6 +140,7 @@ export const addNewCardTC =
       dispatch(isLoadingAC(true))
       await cardsAPI.addNewCard(card)
       dispatch(getCardsTC())
+      dispatch(setAppSuccessAC('You successfully add new card!'))
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 
@@ -155,6 +156,7 @@ export const deleteCardTC =
       dispatch(isLoadingAC(true))
       await cardsAPI.deleteCard(id)
       dispatch(getCardsTC())
+      dispatch(setAppSuccessAC('You successfully delete card!'))
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 
@@ -173,6 +175,7 @@ export const updateCardInfoTC =
       const { _id, question, answer } = updatedCard
 
       dispatch(updateCardInfoAC(_id, question, answer))
+      dispatch(setAppSuccessAC('You successfully update card name!'))
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 

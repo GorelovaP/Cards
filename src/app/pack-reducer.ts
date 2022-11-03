@@ -4,7 +4,7 @@ import { AppError } from '../api/appApi'
 import { PackType, packsAPI, CommonPackType } from '../api/packsApi'
 import { errorHandler } from '../common/helpers/errorHandler'
 
-import { isLoadingAC } from './app-reducer'
+import { isLoadingAC, setAppSuccessAC } from './app-reducer'
 import { updateInsidePackNameAC } from './cards-reducer'
 import { AppThunkType } from './store'
 
@@ -138,6 +138,7 @@ export const addNewPackTC =
       dispatch(isLoadingAC(true))
       await packsAPI.addPack(cardsPack)
       dispatch(getPackTC())
+      dispatch(setAppSuccessAC('You successfully add new package!'))
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 
@@ -155,6 +156,7 @@ export const deletePackTC =
       await packsAPI.deletePack(packId)
       dispatch(resetChosenPackAC())
       !deleteFromMenu && dispatch(getPackTC())
+      dispatch(setAppSuccessAC('You successfully delete package!'))
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 
@@ -178,6 +180,7 @@ export const updatePackNameTC =
       } else {
         dispatch(updateInsidePackNameAC(name))
       }
+      dispatch(setAppSuccessAC('You successfully update package name!'))
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 

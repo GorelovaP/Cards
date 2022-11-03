@@ -2,7 +2,7 @@ import React, { memo, useEffect } from 'react'
 
 import { VscChromeClose } from 'react-icons/vsc'
 
-import { setAppErrorAC } from '../../../app/app-reducer'
+import { setAppErrorAC, setAppSuccessAC } from '../../../app/app-reducer'
 import { useAppDispatch } from '../../hooks/appHooks'
 
 import { SnackbarArea } from './styledSnackBar'
@@ -11,6 +11,7 @@ export const MySnackbar = memo((props: SnackbarPropsType) => {
   const dispatch = useAppDispatch()
   const onClickAction = () => {
     dispatch(setAppErrorAC(''))
+    dispatch(setAppSuccessAC(''))
   }
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export const MySnackbar = memo((props: SnackbarPropsType) => {
   return (
     <SnackbarArea color={props.color}>
       <span className={'error'}>{props.text}</span>
-      <VscChromeClose onClick={onClickAction} size={'20px'} />
+      <VscChromeClose className={'cross'} onClick={onClickAction} size={'20px'} />
     </SnackbarArea>
   )
 })

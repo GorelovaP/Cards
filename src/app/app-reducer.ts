@@ -11,6 +11,7 @@ const initialState = {
   registered: false,
   isLoggedIn: false,
   appError: '',
+  appSuccess: '',
   passwordRecoveryEmail: '',
   passwordRecoveryEmailSent: false,
   newPasswordCreated: false,
@@ -57,6 +58,9 @@ export const newPasswordCreatedAC = (newPasswordCreated: boolean) =>
 
 export const setAppErrorAC = (appError: string) =>
   ({ type: 'APP/SET-APP-ERROR', payload: { appError } } as const)
+
+export const setAppSuccessAC = (appSuccess: string) =>
+  ({ type: 'APP/SET-APP-ERROR', payload: { appSuccess } } as const)
 
 export const isLoadingAC = (isLoading: boolean) =>
   ({ type: 'APP/IS-LOADING', payload: { isLoading } } as const)
@@ -193,6 +197,7 @@ export type AppReducerActionsType =
   | ReturnType<typeof passwordRecoveryEmailSentAC>
   | ReturnType<typeof newPasswordCreatedAC>
   | ReturnType<typeof setAppErrorAC>
+  | ReturnType<typeof setAppSuccessAC>
   | ReturnType<typeof isLoadingAC>
   | ReturnType<typeof signInAC>
   | ReturnType<typeof signOutAC>

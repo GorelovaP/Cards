@@ -3,7 +3,7 @@ import { AxiosError } from 'axios'
 import { appAPI, AppError } from '../api/appApi'
 import { errorHandler } from '../common/helpers/errorHandler'
 
-import { isLoadingAC } from './app-reducer'
+import { isLoadingAC, setAppSuccessAC } from './app-reducer'
 import { AppThunkType } from './store'
 
 export type UserReducerStateType = {
@@ -66,6 +66,7 @@ export const changeUserNameTC =
       const res = await appAPI.changeUserName(name)
 
       dispatch(changeUserNameAC(res.data.updatedUser.name))
+      dispatch(setAppSuccessAC('You successfully change user name!'))
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 

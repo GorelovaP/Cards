@@ -18,6 +18,7 @@ function App() {
   const dispatch = useAppDispatch()
   const isInitialized = useAppSelector(state => state.app.isInitialized)
   const appError = useAppSelector(state => state.app.appError)
+  const appSuccess = useAppSelector(state => state.app.appSuccess)
   const match = useMatch('/:routeKey')
 
   useEffect(() => {
@@ -36,7 +37,8 @@ function App() {
           {match?.params.routeKey !== '404' && <Header />}
           <PagesRoutes />
         </StyledMainWrapper>
-        {appError && <MySnackbar text={appError} color={'rgb(211, 47, 47)'} />}
+        {appError && <MySnackbar text={appError} color={'rgb(211,47,47)'} />}
+        {appSuccess && <MySnackbar text={appSuccess} color={'rgb(60,170,35)'} />}
       </ThemeProvider>
     </div>
   )
