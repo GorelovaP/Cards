@@ -18,6 +18,7 @@ type PropsType = {
   onClose: () => void
   name: string
   id: string
+  menu?: boolean
 }
 
 export const EditPackNameModal = (props: PropsType) => {
@@ -36,7 +37,9 @@ export const EditPackNameModal = (props: PropsType) => {
     onSubmit: values => {
       const { namePack, privatePack } = values
 
-      dispatch(updatePackNameTC({ _id: props.id, name: namePack, private: privatePack }))
+      dispatch(
+        updatePackNameTC({ _id: props.id, name: namePack, private: privatePack }, props.menu)
+      )
       props.onClose()
     },
   })
