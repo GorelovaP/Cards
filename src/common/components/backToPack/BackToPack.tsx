@@ -12,6 +12,7 @@ type propsType = {
 
 export const BackToPack = (props: propsType) => {
   const navigate = useNavigate()
+
   const goToCards = () => {
     props.callback && props.callback()
     navigate(PATH.HOME_PAGE)

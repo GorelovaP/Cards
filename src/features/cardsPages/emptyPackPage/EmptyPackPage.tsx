@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
 import { PATH } from '../../../app/routes/PagesRoutes'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
 import { useAppSelector } from '../../../common/hooks/appHooks'
+import { CardsModal } from '../../../common/modals/cardsModal/CardsModal'
 import { StyleButtonForMainPageHeader } from '../../../common/styledComponents/styledButtons'
 import { H1, H3 } from '../../../common/styledComponents/styledHeaders'
 import { StyledPageHeaderWrapper } from '../../../common/styledComponents/styledWrappers'
@@ -14,6 +15,15 @@ import { StyledEmptyPackPage } from './styledEmptyPackPage'
 export const EmptyPackPage = (props: PropsType) => {
   const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   const isLoading = useAppSelector(state => state.app.isLoading)
+
+  const [openAddModal, setOpenAddModal] = useState(false)
+
+  const setAddModalClose = () => {
+    setOpenAddModal(false)
+  }
+  const onClickHandler = () => {
+    setOpenAddModal(true)
+  }
 
   if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN} />
@@ -28,10 +38,19 @@ export const EmptyPackPage = (props: PropsType) => {
         </StyledPageHeaderWrapper>
         <div className={'centerContainer'}>
           <H3>This pack is empty. Click &lsquo;Add new card&lsquo; to fill this pack.</H3>
-          <StyleButtonForMainPageHeader onClick={props.addNewCard} disabled={isLoading}>
+          <StyleButtonForMainPageHeader onClick={onClickHandler} disabled={isLoading}>
             Add new card
           </StyleButtonForMainPageHeader>
         </div>
+        {openAddModal && (
+          <CardsModal
+            open={openAddModal}
+            onClose={setAddModalClose}
+            initialAnswer={''}
+            initialQuestion={''}
+            title={'Add new card'}
+          />
+        )}
       </StyledEmptyPackPage>
     </>
   )
@@ -39,5 +58,4 @@ export const EmptyPackPage = (props: PropsType) => {
 
 type PropsType = {
   chosenPackName: string
-  addNewCard: () => void
 }

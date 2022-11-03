@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios'
 
 import { AppError } from '../api/appApi'
-import { cardsAPI, CardsType, getCardsResponseType } from '../api/cardsApi'
+import { cardsAPI, CardsType, getCardsResponseType, SetGradesType } from '../api/cardsApi'
 import { errorHandler } from '../common/helpers/errorHandler'
 
 import { isLoadingAC } from './app-reducer'
@@ -46,6 +46,16 @@ export const CardsReducer = (state = initialState, action: CardsActionsType): Ca
         ),
       }
     }
+    case 'CARDS/SET-GRADES': {
+      return {
+        ...state,
+        cards: state.cards.map(i =>
+          i._id === action.payload.updateData.updatedGrade.card_id
+            ? { ...i, grade: action.payload.updateData.updatedGrade.grade }
+            : i
+        ),
+      }
+    }
     default:
       return state
   }
@@ -78,6 +88,9 @@ export const setSortSettingsAC = (sortSettings: sortType) => {
 
 export const setSearchDataCardsAC = (searchData: string) => {
   return { type: 'CARDS/SET-SEARCH-DATA', payload: { searchData } } as const
+}
+export const setGradesAC = (updateData: SetGradesType) => {
+  return { type: 'CARDS/SET-GRADES', payload: { updateData } } as const
 }
 
 // ================ Thunk creators ================
@@ -169,6 +182,23 @@ export const updateCardInfoTC =
     }
   }
 
+export const setGradesTC =
+  (grade: number, card_id: string): AppThunkType =>
+  async dispatch => {
+    try {
+      dispatch(isLoadingAC(true))
+      const res = await cardsAPI.setGrades(grade, card_id)
+
+      dispatch(setGradesAC(res.data))
+    } catch (err) {
+      const error = err as Error | AxiosError<AppError>
+
+      errorHandler({ error, dispatch })
+    } finally {
+      dispatch(isLoadingAC(false))
+    }
+  }
+
 export type CardsActionsType =
   | ReturnType<typeof getCardsAC>
   | ReturnType<typeof setCurrentCardsPageAC>
@@ -177,6 +207,7 @@ export type CardsActionsType =
   | ReturnType<typeof updateInsidePackNameAC>
   | ReturnType<typeof setSortSettingsAC>
   | ReturnType<typeof setSearchDataCardsAC>
+  | ReturnType<typeof setGradesAC>
 
 type CardStateType = {
   cards: CardsType[]

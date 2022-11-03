@@ -59,6 +59,7 @@ export const CardsModal = (props: PropsType) => {
               text={'text'}
               label={'Question'}
               maxLength={100}
+              placeholder={'Enter question'}
               {...formik.getFieldProps('question')}
             />
             <div className={'formErrorPlacement'}>
@@ -73,6 +74,7 @@ export const CardsModal = (props: PropsType) => {
               text={'text'}
               label={'Answer'}
               maxLength={100}
+              placeholder={'Enter answer'}
               {...formik.getFieldProps('answer')}
             />
             <div className={'formErrorPlacement'}>

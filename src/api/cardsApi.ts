@@ -128,7 +128,7 @@ type AddNewCardType = {
   answerVideo?: string
 }
 
-type SetGradesType = {
+export type SetGradesType = {
   updatedGrade: {
     _id: string
     cardsPack_id: string

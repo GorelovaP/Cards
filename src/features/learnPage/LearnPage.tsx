@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
 import { CardsType } from '../../api/cardsApi'
-import { getCardsTC } from '../../app/cards-reducer'
+import { getCardsTC, setGradesTC } from '../../app/cards-reducer'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/appHooks'
 import { StyledButton } from '../../common/styledComponents/styledButtons'
@@ -41,6 +41,7 @@ export const LearnPage = () => {
   const [first, setFirst] = useState<boolean>(true)
 
   const [value, setOnChangeRadio] = useState(rateInfo[0])
+  const [grades, setGrades] = useState(1)
 
   const [card, setCard] = useState<CardsType>({
     _id: 'fake',
@@ -80,12 +81,37 @@ export const LearnPage = () => {
 
   const onNext = () => {
     setShow(true)
-    // dispatch
+
+    dispatch(setGradesTC(grades, card._id))
     setCard(getCard(cards))
   }
 
   const onRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     setOnChangeRadio(e.currentTarget.value)
+    switch (e.currentTarget.value) {
+      case rateInfo[0]: {
+        setGrades(1)
+        break
+      }
+      case rateInfo[1]: {
+        setGrades(2)
+        break
+      }
+      case rateInfo[2]: {
+        setGrades(3)
+        break
+      }
+      case rateInfo[3]: {
+        setGrades(4)
+        break
+      }
+      case rateInfo[4]: {
+        setGrades(5)
+        break
+      }
+      default:
+        return setGrades(1)
+    }
   }
 
   const showAnswer = () => {

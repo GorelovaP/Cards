@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { changeToggleAC, sortUpdatedAC } from '../../../app/pack-reducer'
+import { changeToggleAC, setMinMaxAC, sortUpdatedAC } from '../../../app/pack-reducer'
 import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import { ToggleBtn } from '../../styledComponents/styledButtons'
 import { StyledLabel } from '../../styledComponents/styledLabel'
@@ -15,10 +15,12 @@ export const ToggleSwitch = () => {
   const onClickMe = () => {
     dispatch(changeToggleAC('me'))
     dispatch(sortUpdatedAC('0updated'))
+    dispatch(setMinMaxAC(undefined, undefined))
   }
   const onClickAll = () => {
     dispatch(changeToggleAC('all'))
     dispatch(sortUpdatedAC('0updated'))
+    dispatch(setMinMaxAC(undefined, undefined))
   }
 
   return (

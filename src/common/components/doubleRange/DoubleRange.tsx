@@ -17,7 +17,10 @@ export const DoubleRange = () => {
 
   const dispatch = useAppDispatch()
 
-  const [value, setValue1] = useState<number[]>([min!, max!])
+  const [value, setValue1] = useState<number[]>([min ? min : staticMin, max ? max : staticMax])
+
+  console.log(staticMin, staticMax)
+  console.log(value)
 
   useEffect(() => {
     setValue1([staticMin, staticMax])

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 import { getCardsTC, setCurrentCardsPageAC, setPageCountCardsAC } from '../../../app/cards-reducer'
-import { setCurrentPageAC, sortUpdatedAC } from '../../../app/pack-reducer'
+import { setCurrentPageAC, setMinMaxAC, sortUpdatedAC } from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
 import { Paginator } from '../../../common/components/paginator/Paginator'
@@ -29,6 +29,8 @@ export const UsersPackPage = () => {
   const chosenPackName = useAppSelector(state => state.cards.packName)
   const isLoading = useAppSelector(state => state.app.isLoading)
   const searchData = useAppSelector(state => state.cards.searchData)
+  const staticMin = useAppSelector(state => state.packs.minCardsCount)
+  const staticMax = useAppSelector(state => state.packs.maxCardsCount)
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -50,6 +52,7 @@ export const UsersPackPage = () => {
     dispatch(setPageCountCardsAC(4))
     dispatch(setCurrentCardsPageAC(1))
     dispatch(setCurrentPageAC(1))
+    dispatch(setMinMaxAC(staticMin, staticMax))
   }
 
   const goToLearnPage = () => {

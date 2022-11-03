@@ -83,7 +83,7 @@ export const setCurrentPageAC = (page: number) => {
   return { type: 'PACK/SET-CURRENT-PAGE', payload: { page } } as const
 }
 
-export const setMinMaxAC = (min: number, max: number) => {
+export const setMinMaxAC = (min: number | undefined, max: number | undefined) => {
   return { type: 'PACK/SET-MIN-MAX', payload: { min, max } } as const
 }
 

@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
 import { Navigate, useNavigate } from 'react-router-dom'
 
+import { getCardsTC, setCurrentCardsPageAC, setPageCountCardsAC } from '../../../app/cards-reducer'
 import {
-  addNewCardTC,
-  getCardsTC,
-  setCurrentCardsPageAC,
-  setPageCountCardsAC,
-} from '../../../app/cards-reducer'
-import { sortUpdatedAC, deletePackTC, setCurrentPageAC } from '../../../app/pack-reducer'
+  sortUpdatedAC,
+  deletePackTC,
+  setCurrentPageAC,
+  setMinMaxAC,
+} from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import deleteIcon from '../../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../../assets/images/menu/myPackMenu/Edit.svg'
@@ -44,6 +44,8 @@ export const MyPackPage = () => {
   const chosenPackName = useAppSelector(state => state.cards.packName)
   const sortSettings = useAppSelector(state => state.cards.sortSettings)
   const isLoading = useAppSelector(state => state.app.isLoading)
+  const staticMin = useAppSelector(state => state.packs.minCardsCount)
+  const staticMax = useAppSelector(state => state.packs.maxCardsCount)
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -77,12 +79,6 @@ export const MyPackPage = () => {
     setOpenAddModal(true)
   }
 
-  const addNewCard = async () => {
-    await dispatch(
-      addNewCardTC({ cardsPack_id: chosenPack, question: 'question23', answer: 'answer23' })
-    )
-  }
-
   const openDeleteMyPackModal = () => {
     setOpenDeletePackModal(true)
     setShow(false)
@@ -112,6 +108,7 @@ export const MyPackPage = () => {
     dispatch(setPageCountCardsAC(4))
     dispatch(setCurrentCardsPageAC(1))
     dispatch(setCurrentPageAC(1))
+    dispatch(setMinMaxAC(staticMin, staticMax))
   }
 
   const learnMyPack = () => {
@@ -123,7 +120,7 @@ export const MyPackPage = () => {
   }
 
   if (cardsTotalCount === 0) {
-    return <EmptyPackPage chosenPackName={chosenPackName} addNewCard={addNewCard} />
+    return <EmptyPackPage chosenPackName={chosenPackName} />
   } else {
     return (
       <>

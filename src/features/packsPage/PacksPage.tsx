@@ -39,8 +39,10 @@ export const PacksPage = () => {
   const pageCount = useAppSelector(state => state.packs.pageCount)
   const currentPage = useAppSelector(state => state.packs.page)
   const meOrAll = useAppSelector(state => state.packs.meOrAll)
-  const max = useAppSelector(state => state.packs.max)
+  const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
+  const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
   const min = useAppSelector(state => state.packs.min)
+  const max = useAppSelector(state => state.packs.max)
   const searchData = useAppSelector(state => state.packs.searchData)
 
   const [openPacksModal, setOpenPacksModal] = useState(false)
@@ -72,7 +74,7 @@ export const PacksPage = () => {
     dispatch(setCurrentPageAC(1))
     dispatch(changeToggleAC('all'))
     dispatch(sortUpdatedAC('0updated'))
-    dispatch(setMinMaxAC(min!, max!))
+    dispatch(setMinMaxAC(minCardsCount, maxCardsCount))
   }
 
   if (!isLoggedIn) {
