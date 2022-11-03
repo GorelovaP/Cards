@@ -8,7 +8,7 @@ export const SnackbarArea = styled.div`
   padding: 5px 10px 5px 5px;
   left: 20px;
   background: ${props => props.color};
-  color: white;
+  color: #ffffff;
   border-radius: 20px;
 
   .error {

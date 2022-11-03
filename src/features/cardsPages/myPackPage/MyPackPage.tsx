@@ -106,6 +106,10 @@ export const MyPackPage = () => {
     dispatch(setCurrentPageAC(1))
   }
 
+  const learnMyPack = () => {
+    navigate(PATH.LEARN)
+  }
+
   if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN} />
   }
@@ -127,7 +131,7 @@ export const MyPackPage = () => {
                     <StyledMenuItemMyPackContainer>
                       <MenuItem text={'Edit'} icon={edit} onClickHandler={updatePackName} />
                       <MenuItem text={'Delete'} icon={deleteIcon} onClickHandler={deleteMyPack} />
-                      <MenuItem text={'Learn'} icon={learn} onClickHandler={() => {}} />
+                      <MenuItem text={'Learn'} icon={learn} onClickHandler={learnMyPack} />
                     </StyledMenuItemMyPackContainer>
                   </ClickAwayListener>
                 )}

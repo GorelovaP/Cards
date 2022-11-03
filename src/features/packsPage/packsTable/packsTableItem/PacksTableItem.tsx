@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
 import { deletePackTC } from '../../../../app/pack-reducer'
+import { PATH } from '../../../../app/routes/PagesRoutes'
 import Delete from '../../../../assets/images/table/Delete.svg'
 import Edit from '../../../../assets/images/table/Edit.svg'
 import Learn from '../../../../assets/images/table/teacher.svg'
@@ -26,6 +29,7 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
   const [openPacksModal, setOpenPacksModal] = useState(false)
   const [openEditPacksNameModal, setOpenEditPacksNameModal] = useState(false)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const setPacksModalClose = () => {
     setOpenPacksModal(false)
@@ -47,6 +51,9 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
     dispatch(deletePackTC(props.cardsPack_id))
     setPacksModalClose()
   }
+  const goToLearnPage = () => {
+    navigate(PATH.LEARN)
+  }
 
   return (
     <StyledPacksTableItem>
@@ -57,7 +64,7 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
       <div className={'lastUpdated'}>{date}</div>
       <div className={'createdBy'}>{props.userName}</div>
       <div className={'actions'}>
-        <img src={Learn} alt="" className={'learn'} />
+        <img src={Learn} alt="" className={'learn'} onClick={goToLearnPage} />
         {props.userId === loginUserId && (
           <>
             <img src={Edit} alt="" className={'edit'} onClick={onClickEditHandler} />

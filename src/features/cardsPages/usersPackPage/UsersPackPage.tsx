@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import { getCardsTC, setCurrentCardsPageAC, setPageCountCardsAC } from '../../../app/cards-reducer'
 import { setCurrentPageAC, sortUpdatedAC } from '../../../app/pack-reducer'
@@ -31,6 +31,7 @@ export const UsersPackPage = () => {
   const searchData = useAppSelector(state => state.cards.searchData)
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getCardsTC())
@@ -51,6 +52,10 @@ export const UsersPackPage = () => {
     dispatch(setCurrentPageAC(1))
   }
 
+  const goToLearnPage = () => {
+    navigate(PATH.LEARN)
+  }
+
   if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN} />
   }
@@ -67,7 +72,7 @@ export const UsersPackPage = () => {
             <H1>{chosenPackName}</H1>
           </div>
           {cardsTotalCount !== 0 && (
-            <StyleButtonForMainPageHeader disabled={isLoading}>
+            <StyleButtonForMainPageHeader onClick={goToLearnPage} disabled={isLoading}>
               Learn this pack
             </StyleButtonForMainPageHeader>
           )}

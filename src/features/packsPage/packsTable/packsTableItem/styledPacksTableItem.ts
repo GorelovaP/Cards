@@ -44,6 +44,13 @@ export const StyledPacksTableItem = styled.div`
       position: absolute;
       top: 15px;
       left: 0;
+      &:hover {
+        cursor: pointer;
+      }
+      &:active {
+        top: 16px;
+        left: 1px;
+      }
     }
     .edit {
       position: absolute;
