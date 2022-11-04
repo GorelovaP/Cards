@@ -17,6 +17,7 @@ export const MySnackbar = memo((props: SnackbarPropsType) => {
   useEffect(() => {
     let showError = setTimeout(() => {
       dispatch(setAppErrorAC(''))
+      dispatch(setAppSuccessAC(''))
     }, 7000)
 
     return () => clearTimeout(showError)

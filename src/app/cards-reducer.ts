@@ -4,7 +4,7 @@ import { AppError } from '../api/appApi'
 import { cardsAPI, CardsType, getCardsResponseType, SetGradesType } from '../api/cardsApi'
 import { errorHandler } from '../common/helpers/errorHandler'
 
-import { isLoadingAC, setAppSuccessAC } from './app-reducer'
+import { isLoadingAC, setAppSuccessAC, setFirstRenderAC } from './app-reducer'
 import { sortType } from './pack-reducer'
 import { AppThunkType } from './store'
 
@@ -120,6 +120,7 @@ export const getCardsTC = (): AppThunkType => async (dispatch, getState) => {
     errorHandler({ error, dispatch })
   } finally {
     dispatch(isLoadingAC(false))
+    dispatch(setFirstRenderAC(false))
   }
 }
 

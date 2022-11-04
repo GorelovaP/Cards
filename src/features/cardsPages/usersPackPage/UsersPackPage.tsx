@@ -6,6 +6,7 @@ import { getCardsTC, setCurrentCardsPageAC, setPageCountCardsAC } from '../../..
 import { setCurrentPageAC, setMinMaxAC, sortUpdatedAC } from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
+import { Loading } from '../../../common/components/loading/Loading'
 import { Paginator } from '../../../common/components/paginator/Paginator'
 import { Search } from '../../../common/components/search/Search'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/appHooks'
@@ -31,6 +32,7 @@ export const UsersPackPage = () => {
   const searchData = useAppSelector(state => state.cards.searchData)
   const staticMin = useAppSelector(state => state.packs.minCardsCount)
   const staticMax = useAppSelector(state => state.packs.maxCardsCount)
+  const firstRender = useAppSelector(state => state.app.firstRender)
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -64,6 +66,10 @@ export const UsersPackPage = () => {
   }
   if (!chosenPack) {
     return <Navigate to={PATH.HOME_PAGE} />
+  }
+
+  if (firstRender) {
+    return <Loading />
   }
 
   return (

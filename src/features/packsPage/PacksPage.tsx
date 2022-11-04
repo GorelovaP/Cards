@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
+import { setFirstRenderAC } from '../../app/app-reducer'
 import {
   changeToggleAC,
   getPackTC,
@@ -44,10 +45,14 @@ export const PacksPage = () => {
   const min = useAppSelector(state => state.packs.min)
   const max = useAppSelector(state => state.packs.max)
   const searchData = useAppSelector(state => state.packs.searchData)
+  const firstRender = useAppSelector(state => state.app.firstRender)
 
   const [openPacksModal, setOpenPacksModal] = useState(false)
 
   useEffect(() => {
+    if (!firstRender) {
+      dispatch(setFirstRenderAC(true))
+    }
     dispatch(getPackTC())
   }, [searchData, min, max, sortSettings, currentPage, pageCount, meOrAll])
 

@@ -44,7 +44,6 @@ export const CardsModal = (props: PropsType) => {
       props.initialAnswer === ''
         ? dispatch(addNewCardTC({ cardsPack_id: chosenPack, question: question, answer: answer }))
         : dispatch(updateCardInfoTC({ _id: props.cardId!, question: question, answer: answer }))
-      console.log(chosenPack)
       props.onClose()
     },
   })

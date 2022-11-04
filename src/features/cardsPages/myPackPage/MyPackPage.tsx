@@ -16,6 +16,7 @@ import edit from '../../../assets/images/menu/myPackMenu/Edit.svg'
 import learn from '../../../assets/images/menu/myPackMenu/teacher.svg'
 import popUp from '../../../assets/images/PopUp.svg'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
+import { Loading } from '../../../common/components/loading/Loading'
 import { MenuItem } from '../../../common/components/menuItem/MenuItem'
 import { Paginator } from '../../../common/components/paginator/Paginator'
 import { Search } from '../../../common/components/search/Search'
@@ -46,6 +47,7 @@ export const MyPackPage = () => {
   const isLoading = useAppSelector(state => state.app.isLoading)
   const staticMin = useAppSelector(state => state.packs.minCardsCount)
   const staticMax = useAppSelector(state => state.packs.maxCardsCount)
+  const firstRender = useAppSelector(state => state.app.firstRender)
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -117,6 +119,10 @@ export const MyPackPage = () => {
 
   if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN} />
+  }
+
+  if (firstRender) {
+    return <Loading />
   }
 
   if (cardsTotalCount === 0) {

@@ -1,9 +1,10 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 
 import { CardsType } from '../../api/cardsApi'
 import { getCardsTC, setGradesTC } from '../../app/cards-reducer'
 import { setMinMaxAC } from '../../app/pack-reducer'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'
+import { Loading } from '../../common/components/loading/Loading'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/appHooks'
 import { StyledButton } from '../../common/styledComponents/styledButtons'
 import { H1, H4 } from '../../common/styledComponents/styledHeaders'
@@ -37,6 +38,8 @@ export const LearnPage = () => {
   const packId = useAppSelector(state => state.packs.chosenPack)
   const staticMin = useAppSelector(state => state.packs.minCardsCount)
   const staticMax = useAppSelector(state => state.packs.maxCardsCount)
+  const firstRender = useAppSelector(state => state.app.firstRender)
+
   const dispatch = useAppDispatch()
   const [show, setShow] = useState<boolean>(true)
   const [first, setFirst] = useState<boolean>(true)
@@ -123,6 +126,10 @@ export const LearnPage = () => {
     setShow(false)
   }
 
+  if (firstRender) {
+    return <Loading />
+  }
+
   return (
     <StyledPacksPage>
       <StyledMainWrapper>
@@ -168,7 +175,7 @@ export const LearnPage = () => {
                     )
                   })}
                 </ul>
-                <StyledButton className="nextBtn" onClick={onNext}>
+                <StyledButton className="nextBtn" onClick={onNext} type={'button'}>
                   Next
                 </StyledButton>
               </form>

@@ -16,6 +16,7 @@ const initialState = {
   passwordRecoveryEmailSent: false,
   newPasswordCreated: false,
   isLoading: false,
+  firstRender: true,
 }
 
 export const AppReducer = (
@@ -31,6 +32,7 @@ export const AppReducer = (
     case 'APP/SET-APP-ERROR':
     case 'APP/IS-LOADING':
     case 'AUTH/SET-IS-LOGGED-IN':
+    case 'APP/SET-FIRST-RENDER':
       return { ...state, ...action.payload }
     case 'AUTH/SET-IS-LOGGED-OUT': {
       return { ...state, isLoggedIn: false }
@@ -43,6 +45,9 @@ export const AppReducer = (
 // ==================== Action creators ==================
 export const setAppInitializedAC = (isInitialized: boolean) =>
   ({ type: 'APP/SET-INITIALIZED', payload: { isInitialized } } as const)
+
+export const setFirstRenderAC = (firstRender: boolean) =>
+  ({ type: 'APP/SET-FIRST-RENDER', payload: { firstRender } } as const)
 
 export const signUpAC = (registered: boolean) =>
   ({ type: 'APP/SIGNUP', payload: { registered } } as const)
@@ -201,3 +206,4 @@ export type AppReducerActionsType =
   | ReturnType<typeof isLoadingAC>
   | ReturnType<typeof signInAC>
   | ReturnType<typeof signOutAC>
+  | ReturnType<typeof setFirstRenderAC>
