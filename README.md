@@ -50,7 +50,7 @@ DoWhatYouL0ve
 
 GorelovaP
 
-- LinkedIn: https://www.linkedin.com/in/polina-gorelova/
+- LinkedIn: https://www.linkedin.com/in/polin%D0%B0-gorelova/
 - GitHub: https://github.com/GorelovaP
 - Email: gorelic2000p@gmail.com
 <hr/>

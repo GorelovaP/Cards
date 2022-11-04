@@ -28,7 +28,6 @@ export const MyCardsTableItem = (props: CardsTableItemType) => {
   const dispatch = useAppDispatch()
 
   const setCardsDeleteModalClose = () => {
-    console.log(props.itemId)
     setOpenCardsDeleteModal(false)
   }
   const onClickDeleteHandler = () => {

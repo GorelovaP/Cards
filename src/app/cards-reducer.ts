@@ -51,7 +51,11 @@ export const CardsReducer = (state = initialState, action: CardsActionsType): Ca
         ...state,
         cards: state.cards.map(i =>
           i._id === action.payload.updateData.updatedGrade.card_id
-            ? { ...i, grade: action.payload.updateData.updatedGrade.grade }
+            ? {
+                ...i,
+                grade: action.payload.updateData.updatedGrade.grade,
+                shots: action.payload.updateData.updatedGrade.shots,
+              }
             : i
         ),
       }

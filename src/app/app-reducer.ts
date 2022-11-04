@@ -86,9 +86,7 @@ export const initializeAppTC = (): AppThunkType => async dispatch => {
     dispatch(setUserAC(res.data))
     dispatch(signInAC(true))
   } catch (err) {
-    const error = err as Error | AxiosError<AppError>
-
-    errorHandler({ error, dispatch })
+    //const error = err as Error | AxiosError<AppError>
   } finally {
     dispatch(setAppInitializedAC(true))
   }

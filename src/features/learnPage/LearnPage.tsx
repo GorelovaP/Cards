@@ -136,7 +136,7 @@ export const LearnPage = () => {
             {card.question}
           </div>
           <H4 className="headerH4">
-            Number of attempts to answer the question: <b>10</b>
+            Number of attempts to answer the question: <b>{card.shots}</b>
           </H4>
 
           {show ? (
