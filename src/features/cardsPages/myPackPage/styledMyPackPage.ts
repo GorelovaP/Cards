@@ -24,6 +24,18 @@ export const StyledMenuItemMyPackContainer = styled(StyledMenuItemContainer)`
   top: 35px;
   left: -88px;
   padding-bottom: 5px;
+  &:before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid #cfcfcf;
+    border-left: 1px solid #cfcfcf;
+    top: -5px;
+    left: calc(50% - -43px);
+    transform: rotate(45deg);
+    background: ${({ theme }) => theme.colors.colorWhite};
+  }
   span {
     padding-left: 10px;
     &:active {

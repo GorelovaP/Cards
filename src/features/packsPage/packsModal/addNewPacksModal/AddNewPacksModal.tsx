@@ -69,7 +69,7 @@ export const AddNewPacksModal = (props: PropsType) => {
             <StyledButton className={'cancel'} onClick={props.onClose}>
               Cancel
             </StyledButton>
-            <StyledButton className={'save'} type="submit" disabled={isLoading}>
+            <StyledButton className={'save'} type={'submit'} disabled={isLoading}>
               Save
             </StyledButton>
           </div>

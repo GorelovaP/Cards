@@ -20,14 +20,27 @@ export const StyledMenuItemContainer = styled.div`
   width: 116px;
   padding: 16px 0 12px;
   background-color: ${({ theme }) => theme.colors.colorWhite};
+  border: 1px solid #cfcfcf;
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 50px;
-  left: 45px;
+  left: -7px;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
   letter-spacing: -0.01em;
+  &:before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid #cfcfcf;
+    border-left: 1px solid #cfcfcf;
+    top: -5px;
+    left: calc(50% - -35px);
+    transform: rotate(45deg);
+    background: ${({ theme }) => theme.colors.colorWhite};
+  }
 `
