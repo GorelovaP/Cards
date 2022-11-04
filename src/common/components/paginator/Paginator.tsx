@@ -40,7 +40,7 @@ export const Paginator = (props: PaginatorPropsType) => {
     <StyledPaginator>
       <List>
         {items.map(({ page, type, selected, ...item }, index) => {
-          let children = null
+          let children
 
           if (type === 'start-ellipsis' || type === 'end-ellipsis') {
             children = '…'
@@ -57,7 +57,7 @@ export const Paginator = (props: PaginatorPropsType) => {
           } else if (type === 'previous') {
             children = (
               <button type="button" {...item} className={'paginatorBtn'}>
-                {item.disabled ? (
+                {item.disabled || isLoading ? (
                   <AiOutlineLeft color={'#EFEFEF'} {...item} />
                 ) : (
                   <AiOutlineLeft color={'#000000'} {...item} />
@@ -67,7 +67,7 @@ export const Paginator = (props: PaginatorPropsType) => {
           } else if (type === 'next') {
             children = (
               <button type="button" {...item} className={'paginatorBtn'}>
-                {item.disabled ? (
+                {item.disabled || isLoading ? (
                   <AiOutlineRight color={'#EFEFEF'} />
                 ) : (
                   <AiOutlineRight color={'#000000'} />
@@ -96,6 +96,7 @@ export const Paginator = (props: PaginatorPropsType) => {
       </List>
       <span className={'beforeSelect'}>Show</span>
       <PaginatorSelect
+        disabled={isLoading}
         selected={props.pageCount}
         options={options}
         onChangeOption={props.ChangeFieldsNumber}

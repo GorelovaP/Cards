@@ -1,23 +1,20 @@
 <hr/>
 
-Projects Title: 
----------------
+## Projects Title:
 
 Cards
 
 <hr/>
 
-About The Project:
-------------------
+## About The Project:
 
-This application is a learning cards application which allows users to create their own packs with cards or use others packs previously created by another users.  
+This application is a learning cards application which allows users to create their own packs with cards or use others packs previously created by another users.
 
-While creating a new pack of cards you will be providing the question and the answer on it for every card. After that you just need to start learning process and every time you answer the question evaluate it according to the grades inside how good do you know the answer. Application has a special randomizer that analyze your grades to the question and will show you more often those of the questions that you mentioned as most difficult. 
+While creating a new pack of cards you will be providing the question and the answer on it for every card. After that you just need to start learning process and every time you answer the question evaluate it according to the grades inside how good do you know the answer. Application has a special randomizer that analyze your grades to the question and will show you more often those of the questions that you mentioned as most difficult.
 
 <hr/>
 
-Built With:
------------
+## Built With:
 
 - React
 - Redux
@@ -29,15 +26,13 @@ Built With:
 
 <hr/>
 
-Usage:
-------
+## Usage:
 
 To use the project you need to Sign Up firstly. After that just Sing In and go to main Packs List Page. There you will have a possibility to learn and create you personal packs.
 
 <hr/>
 
-Development Team:
------------------
+## Development Team:
 
 - DoWhatYouL0ve
 - GorelovaP
@@ -45,18 +40,22 @@ Development Team:
 
 <hr/>
 
-Contact:
---------
+## Contact:
 
 DoWhatYouL0ve
+
 - LinkedIn: https://www.linkedin.com/in/williamr0ss/
 - GitHub: https://github.com/DoWhatYouL0ve
 - Email: william_ross@mailfence.com
 
+GorelovaP
+
+- LinkedIn: https://www.linkedin.com/in/polina-gorelova/
+- GitHub: https://github.com/GorelovaP
+- Email: gorelic2000p@gmail.com
 <hr/>
 
-License:
---------
+## License:
 
 MIT License
 

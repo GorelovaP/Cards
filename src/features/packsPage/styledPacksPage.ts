@@ -22,6 +22,11 @@ export const StyledPacksPage = styled.div`
     border: 1px solid #d9d9d9;
     border-radius: 2px;
     cursor: pointer;
+    &:disabled:hover,
+    &:disabled {
+      background: white;
+      opacity: 0.5;
+    }
 
     &:hover {
       background: #d9d9d9;

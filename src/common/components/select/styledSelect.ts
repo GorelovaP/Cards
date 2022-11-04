@@ -21,7 +21,4 @@ export const StyledSelect = styled.div`
     background: url(${arrow}) no-repeat right;
     background-position-x: calc(100% - 8px);
   }
-  .option {
-    padding: 8px 12px;
-  }
 `

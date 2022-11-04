@@ -17,9 +17,16 @@ export const StyledSlider = styled(Slider)<SliderProps>(() => ({
       boxShadow: `0px 0px 0px 14px ${alpha(theme.colors.buttonPrimaryBg, 0.16)}`,
     },
   },
+  '&.Mui-disabled  .MuiSlider-thumb': {
+    border: `4px solid #ebebeb`,
+  },
   '& .MuiSlider-rail': {
     color: alpha(theme.colors.buttonPrimaryBg, 0.5),
     width: 155,
+  },
+
+  '&.Mui-disabled .MuiSlider-track': {
+    color: '#ebebeb',
   },
   '& .MuiSlider-track': {
     color: theme.colors.buttonPrimaryBg,
@@ -31,6 +38,9 @@ export const StyledDoubleRange = styled.div`
   width: 251px;
   height: 62px;
 
+  &:disabled {
+    opacity: 0.5;
+  }
   .rangeBlock {
     display: flex;
     flex-direction: row;

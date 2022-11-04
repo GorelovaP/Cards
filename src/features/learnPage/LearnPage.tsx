@@ -68,19 +68,14 @@ export const LearnPage = () => {
   })
 
   useEffect(() => {
-    //console.log('LearnContainer useEffect')
-
     if (first) {
       dispatch(getCardsTC())
       setFirst(false)
     }
 
-    //console.log('cards', cards)
     if (cards.length > 0) setCard(getCard(cards))
 
-    return () => {
-      //log('LearnContainer useEffect off')
-    }
+    return () => {}
   }, [dispatch, packId, cards, first])
 
   const onNext = () => {

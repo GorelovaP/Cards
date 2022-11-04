@@ -16,6 +16,7 @@ type SuperSelectPropsType = DefaultSelectPropsType & {
 export const PaginatorSelect: React.FC<SuperSelectPropsType> = ({
   options,
   onChangeOption,
+  disabled,
   onChange,
   selected,
   ...restProps
@@ -39,7 +40,13 @@ export const PaginatorSelect: React.FC<SuperSelectPropsType> = ({
 
   return (
     <StyledPaginatorSelect>
-      <select value={selected} onChange={onChangeCallback} {...restProps} className={'select'}>
+      <select
+        disabled={disabled}
+        value={selected}
+        onChange={onChangeCallback}
+        {...restProps}
+        className={'select'}
+      >
         {mappedOptions}
       </select>
     </StyledPaginatorSelect>

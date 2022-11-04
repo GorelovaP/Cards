@@ -36,7 +36,7 @@ export const ToggleSwitch = () => {
         </ToggleBtn>
         <ToggleBtn
           disabled={meOrAll !== 'me' || isLoading}
-          className={`right ${meOrAll !== 'me' ? 'blue' : ''}`}
+          className={`right ${meOrAll !== 'me' ? 'blue' : ''} `}
           onClick={onClickAll}
         >
           All

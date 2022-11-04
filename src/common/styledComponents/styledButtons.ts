@@ -11,6 +11,12 @@ export const StyledButton = styled.button`
   line-height: 20px;
   letter-spacing: 0.01em;
   color: ${({ theme }) => theme.colors.colorWhite};
+  &:disabled:active,
+  &:disabled {
+    cursor: auto;
+    top: 0;
+    left: 0;
+  }
 
   &:hover {
     cursor: pointer;

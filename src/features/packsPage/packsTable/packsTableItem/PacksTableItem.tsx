@@ -61,9 +61,13 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
 
   return (
     <StyledPacksTableItem>
-      <div className={'name'} onClick={props.onClickHandler}>
-        {props.name}
-      </div>
+      {!isLoading ? (
+        <div className={'name'} onClick={props.onClickHandler}>
+          {props.name}
+        </div>
+      ) : (
+        <div className={'name'}>{props.name}</div>
+      )}
       <div className={'cards'}>{props.cards}</div>
       <div className={'lastUpdated'}>{date}</div>
       <div className={'createdBy'}>{props.userName}</div>

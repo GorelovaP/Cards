@@ -9,7 +9,8 @@ import { StyledPacksTableHeader } from './styledPacksTableHeader'
 export const PacksTableHeader = () => {
   const dispatch = useAppDispatch()
 
-  let sortSettings = useAppSelector(state => state.packs.sort)
+  const isLoading = useAppSelector(state => state.app.isLoading)
+  const sortSettings = useAppSelector(state => state.packs.sort)
 
   const [sort, setSort] = useState<sortType>(sortSettings)
 
@@ -18,7 +19,10 @@ export const PacksTableHeader = () => {
   }, [sortSettings])
 
   const rotate = () => {
-    sort === '1updated' ? dispatch(sortUpdatedAC('0updated')) : dispatch(sortUpdatedAC('1updated'))
+    if (isLoading) {
+      return
+    }
+    dispatch(sort === '1updated' ? sortUpdatedAC('0updated') : sortUpdatedAC('1updated'))
   }
 
   return (
