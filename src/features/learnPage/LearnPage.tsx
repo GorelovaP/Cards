@@ -15,7 +15,18 @@ import {
 
 import { StyledPacksPage } from './styledLearnPage'
 
-const rateInfo = ['Did not know', 'Forgot', 'A lot of thought', 'Confused', 'Knew the answer']
+type RateInfoType = {
+  value: string
+  rating: number
+}
+
+const rateInfo: RateInfoType[] = [
+  { value: 'Did not know', rating: 1 },
+  { value: 'Forgot', rating: 2 },
+  { value: 'A lot of thought', rating: 3 },
+  { value: 'Confused', rating: 4 },
+  { value: 'Knew the answer', rating: 5 },
+]
 
 const getCard = (cards: CardsType[]) => {
   const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0)
@@ -44,7 +55,7 @@ export const LearnPage = () => {
   const [show, setShow] = useState<boolean>(true)
   const [first, setFirst] = useState<boolean>(true)
 
-  const [value, setOnChangeRadio] = useState(rateInfo[0])
+  const [value, setOnChangeRadio] = useState(rateInfo[0].value)
   const [grades, setGrades] = useState(1)
 
   const [card, setCard] = useState<CardsType>({
@@ -89,32 +100,9 @@ export const LearnPage = () => {
     dispatch(setMinMaxAC(staticMin, staticMax))
   }
 
-  const onRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onRadioChange = (e: ChangeEvent<HTMLInputElement>, element: RateInfoType) => {
     setOnChangeRadio(e.currentTarget.value)
-    switch (e.currentTarget.value) {
-      case rateInfo[0]: {
-        setGrades(1)
-        break
-      }
-      case rateInfo[1]: {
-        setGrades(2)
-        break
-      }
-      case rateInfo[2]: {
-        setGrades(3)
-        break
-      }
-      case rateInfo[3]: {
-        setGrades(4)
-        break
-      }
-      case rateInfo[4]: {
-        setGrades(5)
-        break
-      }
-      default:
-        return setGrades(1)
-    }
+    setGrades(element.rating)
   }
 
   const showAnswer = () => {
@@ -136,7 +124,7 @@ export const LearnPage = () => {
             {card.question}
           </div>
           <H4 className="headerH4">
-            Number of attempts to answer the question: <b>{card.shots}</b>
+            Number of attempts to answer the question: <b>{card.shots + 1}</b>
           </H4>
 
           {show ? (
@@ -155,16 +143,16 @@ export const LearnPage = () => {
                   {rateInfo.map((el, index) => {
                     return (
                       <li className="element" key={index}>
-                        <label className={`label ${el === value ? 'checked' : ''}`}>
+                        <label className={`label ${el.value === value ? 'checked' : ''}`}>
                           <input
                             type="radio"
-                            value={el}
-                            checked={el === value}
+                            value={el.value}
+                            checked={el.value === value}
                             onChange={e => {
-                              onRadioChange(e)
+                              onRadioChange(e, el)
                             }}
                           />
-                          <span>{el}</span>
+                          <span>{el.value}</span>
                         </label>
                       </li>
                     )

@@ -27,5 +27,7 @@ export const StyledUsersCardsTableItem = styled.div`
   }
   .grade {
     width: 96px;
+    display: flex;
+    align-items: center;
   }
 `

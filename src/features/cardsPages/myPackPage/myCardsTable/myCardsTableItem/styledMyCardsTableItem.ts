@@ -34,6 +34,8 @@ export const StyledMyCardsTableItem = styled.div`
 
   .grade {
     width: 132px;
+    display: flex;
+    align-items: center;
   }
 
   .options {

@@ -221,4 +221,4 @@ type PackStateType = {
   max?: number
 }
 type meOrAllType = 'me' | 'all'
-export type sortType = '0updated' | '1updated'
+export type sortType = '0updated' | '1updated' | '0cardsCount' | '1cardsCount'

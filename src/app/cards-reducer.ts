@@ -19,6 +19,7 @@ const initialState: CardStateType = {
   packName: '',
   sortSettings: '0updated',
   searchData: '',
+  packPrivate: false,
 }
 
 export const CardsReducer = (state = initialState, action: CardsActionsType): CardStateType => {
@@ -228,4 +229,5 @@ type CardStateType = {
   packName: string
   sortSettings: sortType
   searchData: string
+  packPrivate: boolean
 }

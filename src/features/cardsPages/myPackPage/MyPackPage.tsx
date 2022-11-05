@@ -3,9 +3,13 @@ import React, { useEffect, useState } from 'react'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
 import { Navigate, useNavigate } from 'react-router-dom'
 
-import { getCardsTC, setCurrentCardsPageAC, setPageCountCardsAC } from '../../../app/cards-reducer'
 import {
-  sortUpdatedAC,
+  getCardsTC,
+  setCurrentCardsPageAC,
+  setPageCountCardsAC,
+  setSortSettingsAC,
+} from '../../../app/cards-reducer'
+import {
   deletePackTC,
   setCurrentPageAC,
   setMinMaxAC,
@@ -48,6 +52,7 @@ export const MyPackPage = () => {
   const staticMin = useAppSelector(state => state.packs.minCardsCount)
   const staticMax = useAppSelector(state => state.packs.maxCardsCount)
   const firstRender = useAppSelector(state => state.app.firstRender)
+  const packPrivate = useAppSelector(state => state.cards.packPrivate)
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -106,7 +111,7 @@ export const MyPackPage = () => {
   }
 
   const onExit = () => {
-    dispatch(sortUpdatedAC('0updated'))
+    dispatch(setSortSettingsAC('0updated'))
     dispatch(setPageCountCardsAC(4))
     dispatch(setCurrentCardsPageAC(1))
     dispatch(setCurrentPageAC(1))
@@ -183,6 +188,7 @@ export const MyPackPage = () => {
               open={openEditPackNameModal}
               onClose={setEditPackNameModalClose}
               name={chosenPackName}
+              private={packPrivate}
               id={chosenPack}
               menu={true}
             />

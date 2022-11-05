@@ -2,8 +2,13 @@ import React, { useEffect } from 'react'
 
 import { Navigate, useNavigate } from 'react-router-dom'
 
-import { getCardsTC, setCurrentCardsPageAC, setPageCountCardsAC } from '../../../app/cards-reducer'
-import { setCurrentPageAC, setMinMaxAC, sortUpdatedAC } from '../../../app/pack-reducer'
+import {
+  getCardsTC,
+  setCurrentCardsPageAC,
+  setPageCountCardsAC,
+  setSortSettingsAC,
+} from '../../../app/cards-reducer'
+import { setCurrentPageAC, setMinMaxAC } from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
 import { Loading } from '../../../common/components/loading/Loading'
@@ -50,7 +55,7 @@ export const UsersPackPage = () => {
   }
 
   const onExit = () => {
-    dispatch(sortUpdatedAC('0updated'))
+    dispatch(setSortSettingsAC('0updated'))
     dispatch(setPageCountCardsAC(4))
     dispatch(setCurrentCardsPageAC(1))
     dispatch(setCurrentPageAC(1))

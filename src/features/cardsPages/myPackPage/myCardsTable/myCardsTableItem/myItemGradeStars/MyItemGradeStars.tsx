@@ -1,19 +1,19 @@
-import star1 from '../../../../../../assets/images/table/Star 1.svg'
-import star4 from '../../../../../../assets/images/table/Star 4.svg'
-import star5 from '../../../../../../assets/images/table/Star 5.svg'
+import * as React from 'react'
+
+import Rating from '@mui/material/Rating'
+import Stack from '@mui/material/Stack'
 
 import { StyledMyItemGradeStars } from './styledMyItemGradeStars'
+
 type ItemGradeStarsPropsType = {
   grade: number
 }
 export const MyItemGradeStars = (props: ItemGradeStarsPropsType) => {
   return (
     <StyledMyItemGradeStars>
-      <img src={star1} alt="" />
-      <img src={star1} alt="" />
-      <img src={star1} alt="" />
-      <img src={star4} alt="" />
-      <img src={star5} alt="" />
+      <Stack spacing={1}>
+        <Rating name="half-rating-read" defaultValue={props.grade} precision={0.1} readOnly />
+      </Stack>
     </StyledMyItemGradeStars>
   )
 }

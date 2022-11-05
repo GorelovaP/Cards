@@ -22,6 +22,7 @@ type PacksListTableItemPropsType = {
   lastUpdated: Date
   userName: string
   onClickHandler: () => void
+  private: boolean
 }
 export const PacksTableItem = (props: PacksListTableItemPropsType) => {
   const loginUserId = useAppSelector(state => state.user.user._id)
@@ -105,6 +106,7 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
           open={openEditPacksNameModal}
           onClose={setEditPacksNameModalClose}
           name={props.name}
+          private={props.private}
           id={props.cardsPack_id}
         />
       )}

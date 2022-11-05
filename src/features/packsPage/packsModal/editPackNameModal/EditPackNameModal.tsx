@@ -19,6 +19,7 @@ type PropsType = {
   name: string
   id: string
   menu?: boolean
+  private: boolean
 }
 
 export const EditPackNameModal = (props: PropsType) => {
@@ -32,10 +33,14 @@ export const EditPackNameModal = (props: PropsType) => {
     }),
     initialValues: {
       namePack: props.name,
-      privatePack: false,
+      privatePack: props.private,
     },
     onSubmit: values => {
       const { namePack, privatePack } = values
+
+      if (namePack === props.name && privatePack === props.private) {
+        return props.onClose()
+      }
 
       dispatch(
         updatePackNameTC({ _id: props.id, name: namePack, private: privatePack }, props.menu)

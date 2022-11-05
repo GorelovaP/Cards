@@ -21,11 +21,11 @@ type PropsType = {
   initialAnswer: string
   cardId?: string
 }
+const questionFormat = ['Text', 'Image']
 
 export const CardsModal = (props: PropsType) => {
   const isLoading = useAppSelector(state => state.app.isLoading)
   const chosenPack = useAppSelector(state => state.packs.chosenPack)
-  const questionFormat = ['Text', 'Image']
 
   const dispatch = useAppDispatch()
 
@@ -40,6 +40,10 @@ export const CardsModal = (props: PropsType) => {
     },
     onSubmit: values => {
       const { question, answer } = values
+
+      if (question === props.initialQuestion && answer === props.initialAnswer) {
+        return props.onClose()
+      }
 
       props.initialAnswer === ''
         ? dispatch(addNewCardTC({ cardsPack_id: chosenPack, question: question, answer: answer }))

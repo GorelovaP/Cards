@@ -5,7 +5,7 @@ import { useNavigate, useMatch } from 'react-router-dom'
 
 import { singOutTC } from '../../../app/app-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
-import logo from '../../../assets/images/header/logo.svg'
+import logo from '../../../assets/images/header/Logo.svg'
 import avatar from '../../../assets/images/initialization/avatar.png'
 import logout from '../../../assets/images/menu/logout.svg'
 import user from '../../../assets/images/menu/user.svg'

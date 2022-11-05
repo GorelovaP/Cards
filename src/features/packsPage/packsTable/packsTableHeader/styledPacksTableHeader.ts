@@ -15,6 +15,21 @@ export const StyledPacksTableHeader = styled.div`
   }
   .cards {
     width: 231px;
+    position: relative;
+    img {
+      position: absolute;
+      top: 21px;
+      left: 50px;
+    }
+    .reverse {
+      rotate: 180deg;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      line-height: 50px;
+    }
   }
   .lastUpdated {
     width: 216px;
