@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 
 import { newPasswordCreatedAC, setAppErrorAC, signUpAC, singInTC } from '../../../app/app-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
-import { MyCheckBox } from '../../../common/components/styledChackBox/MyCheckBox'
+import { MyCheckBox } from '../../../common/components/styledCheckBox/MyCheckBox'
 import { MyInput } from '../../../common/components/styledInput/MyInput'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/appHooks'
 import { StyleButtonFormAdjusted } from '../../../common/styledComponents/styledButtons'

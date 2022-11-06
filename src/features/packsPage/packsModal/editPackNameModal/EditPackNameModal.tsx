@@ -4,7 +4,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 import { updatePackNameTC } from '../../../../app/pack-reducer'
-import { MyCheckBox } from '../../../../common/components/styledChackBox/MyCheckBox'
+import { MyCheckBox } from '../../../../common/components/styledCheckBox/MyCheckBox'
 import { MyInput } from '../../../../common/components/styledInput/MyInput'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHooks'
 import BasicModal from '../../../../common/modals/basicModal/BasicModal'

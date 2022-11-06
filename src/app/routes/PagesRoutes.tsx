@@ -32,7 +32,7 @@ export const PagesRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path={'/'} element={<Navigate to={PATH.PROFILE} />} />
+        <Route path={'/'} element={<Navigate to={PATH.LOGIN} />} />
         <Route path={PATH.PROFILE} element={<PersonalInformationPage />} />
         <Route path={PATH.REGISTRATION} element={<SignUpPage />} />
         <Route path={PATH.LOGIN} element={<SignInPage />} />
