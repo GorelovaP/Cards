@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { Navigate } from 'react-router-dom'
-
 import { setFirstRenderAC } from '../../app/app-reducer'
 import {
   changeToggleAC,
@@ -12,7 +10,6 @@ import {
   setPageCountAC,
   sortUpdatedAC,
 } from '../../app/pack-reducer'
-import { PATH } from '../../app/routes/PagesRoutes'
 import removeFilter from '../../assets/images/Filter-Remove.png'
 import { DoubleRange } from '../../common/components/doubleRange/DoubleRange'
 import { Paginator } from '../../common/components/paginator/Paginator'
@@ -33,7 +30,6 @@ import { StyledPacksPage } from './styledPacksPage'
 
 export const PacksPage = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   const isLoading = useAppSelector(state => state.app.isLoading)
   const sortSettings = useAppSelector(state => state.packs.sort)
   const totalItemsCount = useAppSelector(state => state.packs.cardPacksTotalCount)
@@ -80,10 +76,6 @@ export const PacksPage = () => {
     dispatch(changeToggleAC('all'))
     dispatch(sortUpdatedAC('0updated'))
     dispatch(setMinMaxAC(minCardsCount, maxCardsCount))
-  }
-
-  if (!isLoggedIn) {
-    return <Navigate to={PATH.LOGIN} />
   }
 
   return (

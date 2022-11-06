@@ -26,7 +26,6 @@ import { StyledUsersPackPage } from './styledUsersPackPage'
 import { UsersCardsTable } from './usersCardsTable/UsersCardsTable'
 
 export const UsersPackPage = () => {
-  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   const chosenPack = useAppSelector(state => state.packs.chosenPack)
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const pageCount = useAppSelector(state => state.cards.pageCount)
@@ -66,9 +65,6 @@ export const UsersPackPage = () => {
     navigate(PATH.LEARN)
   }
 
-  if (!isLoggedIn) {
-    return <Navigate to={PATH.LOGIN} />
-  }
   if (!chosenPack) {
     return <Navigate to={PATH.HOME_PAGE} />
   }

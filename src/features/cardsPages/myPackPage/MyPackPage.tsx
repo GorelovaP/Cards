@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import ClickAwayListener from '@mui/material/ClickAwayListener'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import {
   getCardsTC,
@@ -36,7 +36,6 @@ import { MyCardsTable } from './myCardsTable/MyCardsTable'
 import { StyledMenuItemMyPackContainer, StyledMyPackPage } from './styledMyPackPage'
 
 export const MyPackPage = () => {
-  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   const chosenPack = useAppSelector(state => state.packs.chosenPack)
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const pageCount = useAppSelector(state => state.cards.pageCount)
@@ -116,10 +115,6 @@ export const MyPackPage = () => {
 
   const learnMyPack = () => {
     navigate(PATH.LEARN)
-  }
-
-  if (!isLoggedIn) {
-    return <Navigate to={PATH.LOGIN} />
   }
 
   if (firstRender) {

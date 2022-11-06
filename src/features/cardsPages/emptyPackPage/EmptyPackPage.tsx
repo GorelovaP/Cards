@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
 
-import { Navigate } from 'react-router-dom'
-
-import { PATH } from '../../../app/routes/PagesRoutes'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
 import { useAppSelector } from '../../../common/hooks/appHooks'
 import { CardsModal } from '../../../common/modals/cardsModal/CardsModal'
@@ -13,7 +10,6 @@ import { StyledPageHeaderWrapper } from '../../../common/styledComponents/styled
 import { StyledEmptyPackPage } from './styledEmptyPackPage'
 
 export const EmptyPackPage = (props: PropsType) => {
-  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   const isLoading = useAppSelector(state => state.app.isLoading)
 
   const [openAddModal, setOpenAddModal] = useState(false)
@@ -23,10 +19,6 @@ export const EmptyPackPage = (props: PropsType) => {
   }
   const onClickHandler = () => {
     setOpenAddModal(true)
-  }
-
-  if (!isLoggedIn) {
-    return <Navigate to={PATH.LOGIN} />
   }
 
   return (

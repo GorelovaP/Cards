@@ -14,6 +14,8 @@ import { LearnPage } from '../../features/learnPage/LearnPage'
 import { PacksPage } from '../../features/packsPage/PacksPage'
 import { Page404 } from '../../features/page404/Page404'
 
+import { ProtectedSignInRoute } from './protectedRoutes/ProtectedSignInRoute'
+
 export enum PATH {
   PROFILE = '/profile',
   REGISTRATION = '/sign-up',
@@ -33,16 +35,20 @@ export const PagesRoutes = () => {
     <>
       <Routes>
         <Route path={'/'} element={<Navigate to={PATH.LOGIN} />} />
-        <Route path={PATH.PROFILE} element={<PersonalInformationPage />} />
-        <Route path={PATH.REGISTRATION} element={<SignUpPage />} />
         <Route path={PATH.LOGIN} element={<SignInPage />} />
-        <Route path={PATH.CHECK_EMAIL} element={<CheckEmailPage />} />
+        <Route path={PATH.REGISTRATION} element={<SignUpPage />} />
         <Route path={PATH.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
+        <Route path={PATH.CHECK_EMAIL} element={<CheckEmailPage />} />
         <Route path={PATH.CREATE_NEW_PASSWORD} element={<CreateNewPasswordPage />} />
-        <Route path={PATH.HOME_PAGE} element={<PacksPage />} />
-        <Route path={PATH.MY_PACK} element={<MyPackPage />} />
-        <Route path={PATH.FRIENDS_PACK} element={<UsersPackPage />} />
-        <Route path={PATH.LEARN} element={<LearnPage />} />
+
+        <Route element={<ProtectedSignInRoute />}>
+          <Route path={PATH.PROFILE} element={<PersonalInformationPage />} />
+          <Route path={PATH.HOME_PAGE} element={<PacksPage />} />
+          <Route path={PATH.MY_PACK} element={<MyPackPage />} />
+          <Route path={PATH.FRIENDS_PACK} element={<UsersPackPage />} />
+          <Route path={PATH.LEARN} element={<LearnPage />} />
+        </Route>
+
         <Route path={PATH.PAGE_404} element={<Page404 />} />
         <Route path={'/*'} element={<Navigate to={PATH.PAGE_404} />} />
       </Routes>

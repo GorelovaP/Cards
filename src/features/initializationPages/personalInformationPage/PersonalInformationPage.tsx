@@ -1,11 +1,9 @@
 import React from 'react'
 
 import { IoMdLogOut } from 'react-icons/io'
-import { Navigate } from 'react-router-dom'
 
 import { singOutTC } from '../../../app/app-reducer'
 import { setMinMaxAC } from '../../../app/pack-reducer'
-import { PATH } from '../../../app/routes/PagesRoutes'
 import avatar from '../../../assets/images/initialization/avatar.png'
 import photo from '../../../assets/images/initialization/photo.png'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
@@ -22,7 +20,6 @@ import {
 export const PersonalInformationPage = () => {
   const dispatch = useAppDispatch()
 
-  const isLoggedIn = useAppSelector(state => state.app.isLoggedIn)
   const email = useAppSelector(state => state.user.user.email)
   const isLoading = useAppSelector(state => state.app.isLoading)
   const staticMin = useAppSelector(state => state.packs.minCardsCount)
@@ -34,10 +31,6 @@ export const PersonalInformationPage = () => {
 
   const onBackToPack = () => {
     dispatch(setMinMaxAC(staticMin, staticMax))
-  }
-
-  if (!isLoggedIn) {
-    return <Navigate to={PATH.LOGIN} />
   }
 
   return (
