@@ -10,6 +10,8 @@ export const StyledMyCardsTableItem = styled.div`
   border-bottom: 1px solid #d9d9d9;
 
   .question {
+    display: flex;
+    align-items: center;
     width: 344px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -18,6 +20,8 @@ export const StyledMyCardsTableItem = styled.div`
   }
 
   .answer {
+    display: flex;
+    align-items: center;
     width: 316px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -26,6 +30,8 @@ export const StyledMyCardsTableItem = styled.div`
   }
 
   .lastUpdated {
+    display: flex;
+    align-items: center;
     width: 136px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -33,12 +39,14 @@ export const StyledMyCardsTableItem = styled.div`
   }
 
   .grade {
-    width: 132px;
     display: flex;
     align-items: center;
+    width: 132px;
   }
 
   .options {
+    display: flex;
+    align-items: center;
     width: 44px;
     position: relative;
 
@@ -57,13 +65,6 @@ export const StyledMyCardsTableItem = styled.div`
       }
     }
 
-    .editIsRestricted {
-      position: absolute;
-      top: 15px;
-      left: 0;
-      opacity: 0.5;
-    }
-
     .delete {
       position: absolute;
       top: 15px;
@@ -77,13 +78,6 @@ export const StyledMyCardsTableItem = styled.div`
         top: 16px;
         left: 31px;
       }
-    }
-
-    .deleteIsRestricted {
-      position: absolute;
-      top: 15px;
-      left: 30px;
-      opacity: 0.5;
     }
   }
 `

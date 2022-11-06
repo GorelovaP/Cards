@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import Skeleton from '@mui/material/Skeleton'
 import { useNavigate } from 'react-router-dom'
 
 import { chosenPackAC, deletePackTC } from '../../../../app/pack-reducer'
@@ -67,28 +68,36 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
           {props.name}
         </div>
       ) : (
-        <div className={'name'}>{props.name}</div>
+        <div className={'name'}>
+          <Skeleton variant="rounded" height={16} width={'100%'} />
+        </div>
       )}
-      <div className={'cards'}>{props.cards}</div>
-      <div className={'lastUpdated'}>{date}</div>
-      <div className={'createdBy'}>{props.userName}</div>
+      <div className={'cards'}>
+        {!isLoading ? props.cards : <Skeleton variant="rounded" height={16} width={'90%'} />}
+      </div>
+      <div className={'lastUpdated'}>
+        {' '}
+        {!isLoading ? date : <Skeleton variant="rounded" height={16} width={'90%'} />}
+      </div>
+      <div className={'createdBy'}>
+        {!isLoading ? props.userName : <Skeleton variant="rounded" height={16} width={'100%'} />}
+      </div>
       <div className={'actions'}>
-        {props.cards > 0 && !isLoading ? (
-          <img src={Learn} alt="" className={'learn'} onClick={goToLearnPage} />
+        {isLoading ? (
+          <Skeleton variant="rounded" height={16} width={'100%'} />
         ) : (
-          <img src={Learn} alt="" className={'learnIsRestricted'} />
-        )}
-        {props.userId === loginUserId && (
           <>
-            {!isLoading ? (
-              <img src={Edit} alt="" className={'edit'} onClick={onClickEditHandler} />
-            ) : (
-              <img src={Edit} alt="" className={'editIsRestricted'} />
+            {' '}
+            {props.userId === loginUserId && (
+              <>
+                <img src={Edit} alt="" className={'edit'} onClick={onClickEditHandler} />
+                <img src={Delete} alt="" className={'delete'} onClick={onClickDeleteHandler} />
+              </>
             )}
-            {!isLoading ? (
-              <img src={Delete} alt="" className={'delete'} onClick={onClickDeleteHandler} />
+            {props.cards > 0 ? (
+              <img src={Learn} alt="" className={'learn'} onClick={goToLearnPage} />
             ) : (
-              <img src={Delete} alt="" className={'deleteIsRestricted'} />
+              <img src={Learn} alt="" className={'learnIsRestricted'} />
             )}
           </>
         )}

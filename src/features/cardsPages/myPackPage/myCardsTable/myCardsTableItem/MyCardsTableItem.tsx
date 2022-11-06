@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import Skeleton from '@mui/material/Skeleton'
+
 import { deleteCardTC } from '../../../../../app/cards-reducer'
 import Delete from '../../../../../assets/images/table/Delete.svg'
 import Edit from '../../../../../assets/images/table/Edit.svg'
@@ -47,22 +49,30 @@ export const MyCardsTableItem = (props: CardsTableItemType) => {
 
   return (
     <StyledMyCardsTableItem>
-      <div className={'question'}>{props.question}</div>
-      <div className={'answer'}>{props.answer}</div>
-      <div className={'lastUpdated'}>{date}</div>
+      <div className={'question'}>
+        {!isLoading ? props.question : <Skeleton variant="rounded" height={16} width={'100%'} />}
+      </div>
+      <div className={'answer'}>
+        {!isLoading ? props.answer : <Skeleton variant="rounded" height={16} width={'100%'} />}
+      </div>
+      <div className={'lastUpdated'}>
+        {!isLoading ? date : <Skeleton variant="rounded" height={16} width={'90%'} />}
+      </div>
       <div className={'grade'}>
-        <MyItemGradeStars grade={props.grade} />
+        {!isLoading ? (
+          <MyItemGradeStars grade={props.grade} />
+        ) : (
+          <Skeleton variant="rounded" height={16} width={'90%'} />
+        )}
       </div>
       <div className={'options'}>
         {!isLoading ? (
-          <img src={Edit} alt="" className={'edit'} onClick={onClickChangeHandler} />
+          <>
+            <img src={Edit} alt="" className={'edit'} onClick={onClickChangeHandler} />
+            <img src={Delete} alt="" className={'delete'} onClick={onClickDeleteHandler} />
+          </>
         ) : (
-          <img src={Edit} alt="" className={'editIsRestricted'} />
-        )}
-        {!isLoading ? (
-          <img src={Delete} alt="" className={'delete'} onClick={onClickDeleteHandler} />
-        ) : (
-          <img src={Delete} alt="" className={'deleteIsRestricted'} />
+          <Skeleton variant="rounded" height={16} width={'100%'} />
         )}
       </div>
       {openCardsDeleteModal && (

@@ -9,8 +9,6 @@ type FriendsItemGoldenStarsPropsType = {
   grade: number
 }
 export const UsersItemGoldenStars = (props: FriendsItemGoldenStarsPropsType) => {
-  console.log(props.grade)
-
   return (
     <StyledUsersItemGoldenStars>
       <Stack spacing={1}>

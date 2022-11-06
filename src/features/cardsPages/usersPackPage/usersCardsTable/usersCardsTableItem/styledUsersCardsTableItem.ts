@@ -9,6 +9,8 @@ export const StyledUsersCardsTableItem = styled.div`
   background-color: ${({ theme }) => theme.colors.colorWhite};
   border-bottom: 1px solid #d9d9d9;
   .question {
+    display: flex;
+    align-items: center;
     width: 344px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -16,6 +18,8 @@ export const StyledUsersCardsTableItem = styled.div`
     padding-right: 20px;
   }
   .answer {
+    display: flex;
+    align-items: center;
     width: 384px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -23,11 +27,13 @@ export const StyledUsersCardsTableItem = styled.div`
     padding-right: 20px;
   }
   .lastUpdated {
+    display: flex;
+    align-items: center;
     width: 136px;
   }
   .grade {
-    width: 96px;
     display: flex;
     align-items: center;
+    width: 96px;
   }
 `

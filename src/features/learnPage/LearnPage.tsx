@@ -1,5 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 
+import Skeleton from '@mui/material/Skeleton'
+
 import { CardsType } from '../../api/cardsApi'
 import { getCardsTC, setGradesTC } from '../../app/cards-reducer'
 import { setMinMaxAC } from '../../app/pack-reducer'
@@ -50,6 +52,7 @@ export const LearnPage = () => {
   const staticMin = useAppSelector(state => state.packs.minCardsCount)
   const staticMax = useAppSelector(state => state.packs.maxCardsCount)
   const firstRender = useAppSelector(state => state.app.firstRender)
+  const loading = useAppSelector(state => state.app.isLoading)
 
   const dispatch = useAppDispatch()
   const [show, setShow] = useState<boolean>(true)
@@ -119,14 +122,24 @@ export const LearnPage = () => {
         <BackToPack callback={onBackToPack} />
         <H1 className="headerH1">{`Learn ${packName}`}</H1>
         <StyledSingFormWrapper className="learnWrapper">
-          <div>
-            <b>Question: </b>
-            {card.question}
+          <div className={'questionArea'}>
+            <span className={'questionSpan'}>
+              <b>Question: </b>
+            </span>
+            <div className={'questionDiv'}>
+              {loading ? <Skeleton variant="text" sx={{ fontSize: '16px' }} /> : card.question}
+            </div>
           </div>
-          <H4 className="headerH4">
-            Number of attempts to answer the question: <b>{card.shots + 1}</b>
-          </H4>
-
+          <div className={'shotsArea'}>
+            <H4 className="headerH4">Number of attempts to answer the question:</H4>
+            <span className={'shotsNumber'}>
+              {loading ? (
+                <Skeleton variant="text" sx={{ fontSize: '16px' }} width={'27px'} />
+              ) : (
+                <b>{card.shots + 1}</b>
+              )}
+            </span>
+          </div>
           {show ? (
             <StyledButton className="answerBtn" onClick={showAnswer}>
               Show answer
