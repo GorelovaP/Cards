@@ -175,6 +175,8 @@ export const singOutTC = (): AppThunkType => async dispatch => {
     dispatch(deleteUserInformationAC())
   } catch (err) {
     const error = err as Error | AxiosError<AppError>
+
+    errorHandler({ error, dispatch })
   } finally {
     dispatch(isLoadingAC(false))
   }

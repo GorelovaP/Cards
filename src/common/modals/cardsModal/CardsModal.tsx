@@ -4,7 +4,8 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 import { addNewCardTC, updateCardInfoTC } from '../../../app/cards-reducer'
-import { Select } from '../../components/select/Select'
+//import { Select } from '../../components/select/Select'
+import { SelectStyled } from '../../components/select/SelectStyled'
 import { MyInput } from '../../components/styledInput/MyInput'
 import { useAppDispatch, useAppSelector } from '../../hooks/appHooks'
 import { StyledButton } from '../../styledComponents/styledButtons'
@@ -21,7 +22,6 @@ type PropsType = {
   initialAnswer: string
   cardId?: string
 }
-const questionFormat = ['Text', 'Image']
 
 export const CardsModal = (props: PropsType) => {
   const isLoading = useAppSelector(state => state.app.isLoading)
@@ -57,7 +57,8 @@ export const CardsModal = (props: PropsType) => {
       <StyledCardsModal>
         <form onSubmit={formik.handleSubmit}>
           <div className={'inputErrorHandlerForm'}>
-            <Select options={questionFormat} label={'Choose a question format'} />
+            {/*<Select options={questionFormat} label={'Choose a question format'} />*/}
+            <SelectStyled />
             <MyInput
               text={'text'}
               label={'Question'}

@@ -80,7 +80,7 @@ export const LearnPage = () => {
 
   useEffect(() => {
     if (first) {
-      dispatch(getCardsTC())
+      dispatch(getCardsTC(true))
       setFirst(false)
     }
 

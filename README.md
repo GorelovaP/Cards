@@ -4,7 +4,7 @@
 
 Cards
 
-![Cards](src/assets/images/Cards.JPG)
+![Cards](src/assets/images/Cards.png)
 
 <hr/>
 

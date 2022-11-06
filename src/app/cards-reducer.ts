@@ -99,35 +99,50 @@ export const setGradesAC = (updateData: SetGradesType) => {
 }
 
 // ================ Thunk creators ================
-export const getCardsTC = (): AppThunkType => async (dispatch, getState) => {
-  try {
-    dispatch(isLoadingAC(true))
+export const getCardsTC =
+  (learn?: boolean): AppThunkType =>
+  async (dispatch, getState) => {
+    try {
+      dispatch(isLoadingAC(true))
 
-    const { page, pageCount, sortSettings, minGrade, maxGrade, searchData } = getState().cards
+      const { page, pageCount, sortSettings, minGrade, maxGrade, searchData } = getState().cards
 
-    const { chosenPack } = getState().packs
+      const { chosenPack, cardPacksTotalCount } = getState().packs
 
-    const res = await cardsAPI.getCards(
-      undefined,
-      searchData,
-      chosenPack,
-      minGrade,
-      maxGrade,
-      sortSettings,
-      page,
-      pageCount
-    )
+      let res
 
-    dispatch(getCardsAC(res.data))
-  } catch (err) {
-    const error = err as Error | AxiosError<AppError>
+      learn
+        ? (res = await cardsAPI.getCards(
+            undefined,
+            undefined,
+            chosenPack,
+            minGrade,
+            maxGrade,
+            sortSettings,
+            page,
+            cardPacksTotalCount
+          ))
+        : (res = await cardsAPI.getCards(
+            undefined,
+            searchData,
+            chosenPack,
+            minGrade,
+            maxGrade,
+            sortSettings,
+            page,
+            pageCount
+          ))
 
-    errorHandler({ error, dispatch })
-  } finally {
-    dispatch(isLoadingAC(false))
-    dispatch(setFirstRenderAC(false))
+      dispatch(getCardsAC(res.data))
+    } catch (err) {
+      const error = err as Error | AxiosError<AppError>
+
+      errorHandler({ error, dispatch })
+    } finally {
+      dispatch(isLoadingAC(false))
+      dispatch(setFirstRenderAC(false))
+    }
   }
-}
 
 export const addNewCardTC =
   (card: {
