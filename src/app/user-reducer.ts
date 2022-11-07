@@ -36,7 +36,7 @@ export const UserReducer = (
       return { ...state, user: { ...action.userData } }
     }
     case 'USER/CHANGE-USERS-NAME': {
-      return { ...state, user: { ...state.user, name: action.userName } }
+      return { ...state, user: { ...state.user, name: action.userName, avatar: action.avatar } }
     }
     case 'USER/SET-SING-OUT': {
       return { ...state, user: { ...initialState.user } }
@@ -52,21 +52,22 @@ export const setUserAC = (userData: UserType) => {
 export const deleteUserInformationAC = () => {
   return { type: 'USER/SET-SING-OUT' } as const
 }
-export const changeUserNameAC = (userName: string) => {
-  return { type: 'USER/CHANGE-USERS-NAME', userName } as const
+export const changeUserNameOrAvatarAC = (userName: string, avatar: string) => {
+  return { type: 'USER/CHANGE-USERS-NAME', userName, avatar } as const
 }
-
 // ================ Thunk creators ================
 
-export const changeUserNameTC =
-  (name: string): AppThunkType =>
+export const changeUserNameOrImageTC =
+  (name: string, avatar: string): AppThunkType =>
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
-      const res = await appAPI.changeUserName(name)
+      const res = await appAPI.changeUserNameOrImage(name, avatar)
 
-      dispatch(changeUserNameAC(res.data.updatedUser.name))
-      dispatch(setAppSuccessAC('You successfully change user name!'))
+      dispatch(setAppSuccessAC('You successfully update profile!'))
+      if (res.data.updatedUser.avatar) {
+        dispatch(changeUserNameOrAvatarAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
+      }
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 
@@ -98,5 +99,5 @@ export type UserType = {
 //common type for reducer and to be merged in store
 export type UserReducerActionsType =
   | ReturnType<typeof setUserAC>
-  | ReturnType<typeof changeUserNameAC>
+  | ReturnType<typeof changeUserNameOrAvatarAC>
   | ReturnType<typeof deleteUserInformationAC>

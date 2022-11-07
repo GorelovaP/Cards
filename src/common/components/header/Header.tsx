@@ -23,7 +23,8 @@ export const Header = () => {
   const navigate = useNavigate()
   const match = useMatch('/:routeKey/*')
   const userName = useAppSelector(state => state.user.user.name)
-
+  const userPhoto = useAppSelector(state => state.user.user.avatar)
+  const setUserPhoto = userPhoto ? userPhoto : avatar
   const isLoading = useAppSelector(store => store.app.isLoading)
 
   const handleClickAway = () => {
@@ -65,7 +66,7 @@ export const Header = () => {
               <img
                 className={'personalIcon'}
                 alt={'personalIcon'}
-                src={avatar}
+                src={setUserPhoto}
                 onClick={popUpHandler}
               />
               {show && (

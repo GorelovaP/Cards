@@ -22,6 +22,7 @@ export const StyledPersonalInformationPage = styled.div`
     }
 
     .buttonForPhoto {
+      cursor: pointer;
       height: 32px;
       width: 32px;
       border-radius: 50%;
@@ -29,6 +30,9 @@ export const StyledPersonalInformationPage = styled.div`
       top: 95px;
       left: 65px;
       border: 2px solid white;
+      &:hover {
+        transform: scale(1.1);
+      }
     }
 
     .logOutBtn {
