@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
 export const StyledDeleteModal = styled.div`
+  img {
+    width: 100%;
+    height: 150px;
+  }
   .buttonsContainer {
     margin-top: 35px;
     display: flex;

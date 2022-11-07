@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import checked from '../../../assets/images/Checked.svg'
 
 export const StyledCheckboxItem = styled.div`
-  margin-bottom: 28px;
+  margin: 14px 0 28px;
   position: relative;
 
   .checkbox {

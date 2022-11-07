@@ -5,7 +5,14 @@ import { StyledMainPageWrapper } from '../../../common/styledComponents/styledWr
 
 export const StyledMyPackPage = styled(StyledMainPageWrapper)`
   H1 {
+    max-width: 700px;
     display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    position: relative;
+    top: 5px;
+    left: 0;
   }
   .menuPosition {
     position: relative;

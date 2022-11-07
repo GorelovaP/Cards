@@ -39,6 +39,7 @@ export const PacksTable = () => {
           lastUpdated={item.updated}
           userName={item.user_name}
           private={item.private}
+          deckCover={item.deckCover}
           onClickHandler={() => onClickHandler(item._id, item.user_id)}
         />
       ))}

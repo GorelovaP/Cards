@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -8,6 +8,7 @@ import { MyCheckBox } from '../../../../common/components/styledCheckBox/MyCheck
 import { MyInput } from '../../../../common/components/styledInput/MyInput'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHooks'
 import BasicModal from '../../../../common/modals/basicModal/BasicModal'
+import { InputTypeFile } from '../../../../common/modals/uploadInput/UploadInput'
 import { StyledButton } from '../../../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../../../common/styledComponents/styledErrorArea'
 
@@ -20,12 +21,16 @@ type PropsType = {
   id: string
   menu?: boolean
   private: boolean
+  deckCover?: string
 }
 
 export const EditPackNameModal = (props: PropsType) => {
   const isLoading = useAppSelector(state => state.app.isLoading)
 
   const dispatch = useAppDispatch()
+
+  const initialImg = props.deckCover
+  const [coverPic, setCoverPic] = useState(props.deckCover || '')
 
   const formik = useFormik({
     validationSchema: Yup.object({
@@ -38,12 +43,15 @@ export const EditPackNameModal = (props: PropsType) => {
     onSubmit: values => {
       const { namePack, privatePack } = values
 
-      if (namePack === props.name && privatePack === props.private) {
+      if (namePack === props.name && privatePack === props.private && initialImg === coverPic) {
         return props.onClose()
       }
 
       dispatch(
-        updatePackNameTC({ _id: props.id, name: namePack, private: privatePack }, props.menu)
+        updatePackNameTC(
+          { _id: props.id, name: namePack, private: privatePack, deckCover: coverPic },
+          props.menu
+        )
       )
       props.onClose()
     },
@@ -53,6 +61,11 @@ export const EditPackNameModal = (props: PropsType) => {
     <BasicModal open={props.open} onClose={props.onClose} title={'Edit pack'}>
       <StyledEditPackNameModal>
         <form onSubmit={formik.handleSubmit}>
+          <InputTypeFile
+            getCoverHandler={cover => setCoverPic(cover)}
+            imgName={'Cover'}
+            coverPic={coverPic}
+          />
           <div className={'inputErrorHandlerForm'}>
             <MyInput
               text={'text'}

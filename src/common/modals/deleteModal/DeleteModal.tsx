@@ -11,6 +11,7 @@ type PropsType = {
   onClose: () => void
   onClick: () => void
   name: string
+  deckCover?: string
 }
 
 export const DeleteModal = (props: PropsType) => {
@@ -19,6 +20,7 @@ export const DeleteModal = (props: PropsType) => {
   return (
     <BasicModal open={props.open} onClose={props.onClose} title={'Delete pack'}>
       <StyledDeleteModal>
+        <img src={props.deckCover} alt="" />
         <p>
           Do you really want to delete <b>{props.name}</b>?
         </p>

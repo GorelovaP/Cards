@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHook
 import { DeleteModal } from '../../../../common/modals/deleteModal/DeleteModal'
 import { EditPackNameModal } from '../../packsModal/editPackNameModal/EditPackNameModal'
 
+import noCover from './../../../../assets/images/table/noCover.jpg'
 import { StyledPacksTableItem } from './styledPacksTableItem'
 
 type PacksListTableItemPropsType = {
@@ -22,6 +23,7 @@ type PacksListTableItemPropsType = {
   cards: number
   lastUpdated: Date
   userName: string
+  deckCover: string
   onClickHandler: () => void
   private: boolean
 }
@@ -65,7 +67,10 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
     <StyledPacksTableItem>
       {!isLoading ? (
         <div className={'name'} onClick={props.onClickHandler}>
-          {props.name}
+          <div className={'packImage'}>
+            <img src={props.deckCover ? props.deckCover : noCover} alt={'img'} />
+          </div>
+          <div className={'nameText'}>{props.name}</div>
         </div>
       ) : (
         <div className={'name'}>
@@ -108,6 +113,7 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
           onClose={setPacksModalClose}
           onClick={deletePack}
           name={props.name}
+          deckCover={props.deckCover}
         />
       )}
       {openEditPacksNameModal && (
@@ -117,6 +123,7 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
           name={props.name}
           private={props.private}
           id={props.cardsPack_id}
+          deckCover={props.deckCover}
         />
       )}
     </StyledPacksTableItem>

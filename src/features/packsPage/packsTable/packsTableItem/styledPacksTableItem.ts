@@ -11,12 +11,26 @@ export const StyledPacksTableItem = styled.div`
 
   .name {
     width: 262px;
-    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
     padding-right: 20px;
     display: flex;
     align-items: center;
+    .packImage {
+      display: flex;
+      vertical-align: center;
+      img {
+        width: 57px;
+        height: 36px;
+        margin-right: 12px;
+      }
+    }
+    .nameText {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis !important;
+    }
 
     &:hover {
       cursor: pointer;

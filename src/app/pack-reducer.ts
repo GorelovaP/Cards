@@ -54,7 +54,9 @@ export const PackReducer = (state = initialState, action: PackActionsType): Pack
       return {
         ...state,
         cardPacks: state.cardPacks.map(i =>
-          i._id === action.payload._id ? { ...i, name: action.payload.name } : i
+          i._id === action.payload._id
+            ? { ...i, name: action.payload.name, deckCover: action.payload.deckCover }
+            : i
         ),
       }
     }
@@ -95,8 +97,8 @@ export const resetChosenPackAC = () => {
   return { type: 'PACK/RESET-CHOSEN-PACK' } as const
 }
 
-export const updatePackNameAC = (_id: string, name: string) => {
-  return { type: 'PACK/UPDATE-PACK-NAME', payload: { _id, name } } as const
+export const updatePackNameAC = (_id: string, name: string, deckCover: string) => {
+  return { type: 'PACK/UPDATE-PACK-NAME', payload: { _id, name, deckCover } } as const
 }
 
 export const setSearchDataAC = (searchData: string) => {
@@ -132,7 +134,7 @@ export const getPackTC = (): AppThunkType => async (dispatch, getState) => {
 }
 
 export const addNewPackTC =
-  (cardsPack: { name: string; private: boolean }): AppThunkType =>
+  (cardsPack: { name: string; private: boolean; deckCover: string }): AppThunkType =>
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
@@ -167,16 +169,19 @@ export const deletePackTC =
   }
 
 export const updatePackNameTC =
-  (cardsPack: { _id: string; name: string; private: boolean }, menu?: boolean): AppThunkType =>
+  (
+    cardsPack: { _id: string; name: string; private: boolean; deckCover: string },
+    menu?: boolean
+  ): AppThunkType =>
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
       const res = await packsAPI.updatePackName(cardsPack)
       const newPackName = res.data.updatedCardsPack
-      const { _id, name } = newPackName
+      const { _id, name, deckCover } = newPackName
 
       if (!menu) {
-        dispatch(updatePackNameAC(_id, name))
+        dispatch(updatePackNameAC(_id, name, deckCover))
       } else {
         dispatch(updateInsidePackNameAC(name))
       }

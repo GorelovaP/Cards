@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -8,6 +8,7 @@ import { MyCheckBox } from '../../../../common/components/styledCheckBox/MyCheck
 import { MyInput } from '../../../../common/components/styledInput/MyInput'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHooks'
 import BasicModal from '../../../../common/modals/basicModal/BasicModal'
+import { InputTypeFile } from '../../../../common/modals/uploadInput/UploadInput'
 import { StyledButton } from '../../../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../../../common/styledComponents/styledErrorArea'
 
@@ -22,6 +23,8 @@ export const AddNewPacksModal = (props: PropsType) => {
 
   const dispatch = useAppDispatch()
 
+  const [coverPic, setCoverPic] = useState('')
+
   const formik = useFormik({
     validationSchema: Yup.object({
       namePack: Yup.string().min(1).max(30).required('* field is required'),
@@ -33,7 +36,7 @@ export const AddNewPacksModal = (props: PropsType) => {
     onSubmit: values => {
       const { namePack, privatePack } = values
 
-      dispatch(addNewPackTC({ name: namePack, private: privatePack }))
+      dispatch(addNewPackTC({ name: namePack, private: privatePack, deckCover: coverPic }))
       props.onClose()
     },
   })
@@ -42,6 +45,7 @@ export const AddNewPacksModal = (props: PropsType) => {
     <BasicModal open={props.open} onClose={props.onClose} title={'Add new pack'}>
       <StyledAddNewPack>
         <form onSubmit={formik.handleSubmit}>
+          <InputTypeFile getCoverHandler={cover => setCoverPic(cover)} imgName={'Cover'} />
           <div className={'inputErrorHandlerForm'}>
             <MyInput
               text={'text'}

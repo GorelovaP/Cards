@@ -26,20 +26,20 @@ export const packsAPI = {
 
     return instance.get<ParamsType, AxiosResponse<CommonPackType>>(`cards/pack`, { params })
   },
-  addPack(cardsPack: { name?: string }) {
-    return instance.post<{ cardsPack: { name?: string } }, AxiosResponse<NewCardsPackType>>(
-      `cards/pack`,
-      { cardsPack }
-    )
+  addPack(cardsPack: { name: string; private: boolean; deckCover: string }) {
+    return instance.post<
+      { cardsPack: { name: string; private: boolean; deckCover: string } },
+      AxiosResponse<NewCardsPackType>
+    >(`cards/pack`, { cardsPack })
   },
   deletePack(packId: string) {
     return instance.delete<{ packId: string }, AxiosResponse<DeletePackType>>(
       `cards/pack?id=${packId}`
     )
   },
-  updatePackName(cardsPack: { _id: string; name?: string }) {
+  updatePackName(cardsPack: { _id: string; name?: string; deckCover: string }) {
     return instance.put<
-      { cardsPack: { _id: string; name?: string } },
+      { cardsPack: { _id: string; name?: string; deckCover: string } },
       AxiosResponse<UpdatePackNameType>
     >(`cards/pack`, { cardsPack })
   },
@@ -70,6 +70,7 @@ export type PackType = {
   updated: Date
   user_id: string
   user_name: string
+  deckCover: string
   __v: number
   _id: string
 }

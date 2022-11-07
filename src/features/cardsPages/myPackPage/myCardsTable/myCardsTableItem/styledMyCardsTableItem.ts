@@ -17,6 +17,11 @@ export const StyledMyCardsTableItem = styled.div`
     white-space: nowrap;
     overflow: hidden;
     padding-right: 20px;
+    .nameText {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis !important;
+    }
   }
 
   .answer {
@@ -27,6 +32,11 @@ export const StyledMyCardsTableItem = styled.div`
     white-space: nowrap;
     overflow: hidden;
     padding-right: 20px;
+    .nameText {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis !important;
+    }
   }
 
   .lastUpdated {

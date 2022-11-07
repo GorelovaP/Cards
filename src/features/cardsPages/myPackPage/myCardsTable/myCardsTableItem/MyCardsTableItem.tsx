@@ -50,10 +50,18 @@ export const MyCardsTableItem = (props: CardsTableItemType) => {
   return (
     <StyledMyCardsTableItem>
       <div className={'question'}>
-        {!isLoading ? props.question : <Skeleton variant="rounded" height={16} width={'100%'} />}
+        {!isLoading ? (
+          <div className={'nameText'}>{props.question}</div>
+        ) : (
+          <Skeleton variant="rounded" height={16} width={'100%'} />
+        )}
       </div>
       <div className={'answer'}>
-        {!isLoading ? props.answer : <Skeleton variant="rounded" height={16} width={'100%'} />}
+        {!isLoading ? (
+          <div className={'nameText'}>{props.answer}</div>
+        ) : (
+          <Skeleton variant="rounded" height={16} width={'100%'} />
+        )}
       </div>
       <div className={'lastUpdated'}>
         {!isLoading ? date : <Skeleton variant="rounded" height={16} width={'90%'} />}

@@ -13,7 +13,7 @@ export const cardsAPI = {
     page?: number,
     pageCount?: number
   ) {
-    const params = {
+    const params: ParamsType = {
       cardAnswer,
       cardQuestion,
       cardsPack_id,
@@ -24,7 +24,9 @@ export const cardsAPI = {
       pageCount,
     }
 
-    return instance.get<ParamsType, AxiosResponse<getCardsResponseType>>(`cards/card`, { params })
+    return instance.get<ParamsType, AxiosResponse<getCardsResponseType>>(`cards/card/`, {
+      params,
+    })
   },
 
   addNewCard(card: {
