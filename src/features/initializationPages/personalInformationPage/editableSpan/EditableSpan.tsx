@@ -5,14 +5,16 @@ import { BiEditAlt } from 'react-icons/bi'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
-import { changeUserNameTC } from '../../../../app/user-reducer'
+import { changeUserNameOrImageTC } from '../../../../app/user-reducer'
+import avatar from '../../../../assets/images/initialization/avatar.png'
 import { MyInput } from '../../../../common/components/styledInput/MyInput'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHooks'
 import { StyledInnerButton } from '../../../../common/styledComponents/styledButtons'
 import { StyledErrorArea } from '../../../../common/styledComponents/styledErrorArea'
 
 export const EditableSpan = memo(() => {
-  let name = useAppSelector(state => state.user.user.name)
+  const name = useAppSelector(state => state.user.user.name)
+
   const dispatch = useAppDispatch()
 
   const formik = useFormik({
@@ -23,7 +25,7 @@ export const EditableSpan = memo(() => {
       name: name,
     },
     onSubmit: values => {
-      dispatch(changeUserNameTC(values.name))
+      dispatch(changeUserNameOrImageTC(values.name, avatar!))
       setEditMode(false)
     },
   })

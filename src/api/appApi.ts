@@ -37,8 +37,11 @@ export const appAPI = {
       { email, from, message }
     )
   },
-  changeUserName(name: string) {
-    return instance.put<{ name: string }, AxiosResponse<ChangeNameResType>>(`auth/me`, { name })
+  changeUserNameOrImage(name: string, avatar: string) {
+    return instance.put<{ name: string; avatar: string }, AxiosResponse<ChangeNameResType>>(
+      `auth/me`,
+      { name, avatar }
+    )
   },
   createNewPassword(password: string, resetPasswordToken: string) {
     return instance.post<{ newPassword: string; token: string }, AxiosResponse<AppError>>(
