@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import * as Yup from 'yup'
 
 import { changeUserNameOrImageTC } from '../../../../app/user-reducer'
-import avatar from '../../../../assets/images/initialization/avatar.png'
 import { MyInput } from '../../../../common/components/styledInput/MyInput'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/appHooks'
 import { StyledInnerButton } from '../../../../common/styledComponents/styledButtons'
@@ -14,6 +13,7 @@ import { StyledErrorArea } from '../../../../common/styledComponents/styledError
 
 export const EditableSpan = memo(() => {
   const name = useAppSelector(state => state.user.user.name)
+  const avatar = useAppSelector(state => state.user.user.avatar)
 
   const dispatch = useAppDispatch()
 
