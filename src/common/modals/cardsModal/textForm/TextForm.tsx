@@ -59,7 +59,14 @@ export const TextForm = (props: propsType) => {
   })
 
   return (
-    <form onSubmit={formikText.handleSubmit}>
+    <form
+      onSubmit={formikText.handleSubmit}
+      onKeyDown={e => {
+        if (e.key === 'Enter') {
+          formikText.handleSubmit()
+        }
+      }}
+    >
       <div className={'inputErrorHandlerForm'}>
         <MyInput
           text={'text'}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useFormik } from 'formik'
 
@@ -21,14 +21,25 @@ export const ImgForm = (props: PropsType) => {
   const [coverPicQuestion, setCoverPicQuestion] = useState(props.initialQuestionImg || '')
   const [coverPicAnswer, setCoverPicAnswer] = useState(props.initialAnswerImg || '')
 
+  const [errorQuestion, setErrorQuestion] = useState('')
+  const [errorAnswer, setErrorAnswer] = useState('')
+
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    setErrorAnswer('')
+  }, [coverPicAnswer])
+
+  useEffect(() => {
+    setErrorQuestion('')
+  }, [coverPicQuestion])
 
   const formikImg = useFormik({
     initialValues: {
       questionImg: props.initialQuestionImg,
       answerImg: props.initialAnswerImg,
     },
-    onSubmit: () => {
+    onSubmit: (values, actions) => {
       if (
         coverPicQuestion === props.initialQuestionImg &&
         coverPicAnswer === props.initialAnswerImg
@@ -36,41 +47,67 @@ export const ImgForm = (props: PropsType) => {
         return props.onClose()
       }
 
-      !props.initialQuestionImg
-        ? dispatch(
-            addNewCardTC({
-              cardsPack_id: chosenPack,
-              question: ' ',
-              answer: ' ',
-              questionImg: coverPicQuestion,
-              answerImg: coverPicAnswer,
-            })
-          )
-        : dispatch(
-            updateCardInfoTC({
-              _id: props.cardId!,
-              question: ' ',
-              answer: ' ',
-              questionImg: coverPicQuestion,
-              answerImg: coverPicAnswer,
-            })
-          )
+      if (!props.initialQuestionImg) {
+        if (coverPicQuestion === '') {
+          actions.setSubmitting(false)
+          setErrorQuestion('* field is required ')
+
+          return
+        }
+        if (coverPicAnswer === '') {
+          setErrorAnswer('* field is required ')
+          actions.setSubmitting(false)
+
+          return
+        }
+
+        dispatch(
+          addNewCardTC({
+            cardsPack_id: chosenPack,
+            question: ' ',
+            answer: ' ',
+            questionImg: coverPicQuestion,
+            answerImg: coverPicAnswer,
+          })
+        )
+      } else {
+        dispatch(
+          updateCardInfoTC({
+            _id: props.cardId!,
+            question: ' ',
+            answer: ' ',
+            questionImg: coverPicQuestion,
+            answerImg: coverPicAnswer,
+          })
+        )
+      }
+      setErrorQuestion('')
+      setErrorAnswer('')
       props.onClose()
     },
   })
 
   return (
-    <form onSubmit={formikImg.handleSubmit}>
+    <form
+      onSubmit={formikImg.handleSubmit}
+      onKeyDown={e => {
+        if (e.key === 'Enter') {
+          formikImg.handleSubmit()
+        }
+      }}
+    >
       <InputTypeFile
         getCoverHandler={cover => setCoverPicQuestion(cover)}
         imgName={'Question'}
         coverPic={coverPicQuestion}
       />
+      {errorQuestion && <p className={'error'}>{errorQuestion}</p>}
       <InputTypeFile
         getCoverHandler={cover => setCoverPicAnswer(cover)}
         imgName={'Answer'}
         coverPic={coverPicAnswer}
       />
+      {errorAnswer && <p className={'error'}>{errorAnswer}</p>}
       <div className={'buttonsContainer'}>
         <StyledButton className={'cancel'} onClick={props.onClose}>
           Cancel

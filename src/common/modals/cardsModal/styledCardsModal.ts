@@ -16,4 +16,7 @@ export const StyledCardsModal = styled.div`
       box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
   }
+  .error {
+    color: red;
+  }
 `
