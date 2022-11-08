@@ -42,7 +42,13 @@ export const CardsReducer = (state = initialState, action: CardsActionsType): Ca
         ...state,
         cards: state.cards.map(i =>
           i._id === action.payload.id
-            ? { ...i, question: action.payload.question, answer: action.payload.answer }
+            ? {
+                ...i,
+                question: action.payload.question,
+                answer: action.payload.answer,
+                questionImg: action.payload.questionImg,
+                answerImg: action.payload.answerImg,
+              }
             : i
         ),
       }
@@ -75,8 +81,17 @@ export const setCurrentCardsPageAC = (page: number) => {
   return { type: 'CARDS/SET-CURRENT-PAGE', payload: { page } } as const
 }
 
-export const updateCardInfoAC = (id: string, question: string, answer: string) => {
-  return { type: 'CARDS/UPDATE-CARD-INFO', payload: { id, question, answer } } as const
+export const updateCardInfoAC = (
+  id: string,
+  question: string,
+  answer: string,
+  questionImg?: string,
+  answerImg?: string
+) => {
+  return {
+    type: 'CARDS/UPDATE-CARD-INFO',
+    payload: { id, question, answer, questionImg, answerImg },
+  } as const
 }
 
 export const setPageCountCardsAC = (pageCount: number) => {
@@ -187,16 +202,24 @@ export const deleteCardTC =
     }
   }
 export const updateCardInfoTC =
-  (card: { _id: string; question: string; answer: string }): AppThunkType =>
+  (card: {
+    _id: string
+    question?: string
+    answer?: string
+    questionImg?: string
+    answerImg?: string
+  }): AppThunkType =>
   async dispatch => {
     try {
       dispatch(isLoadingAC(true))
+
       const res = await cardsAPI.updateCardInfo(card)
       const updatedCard = res.data.updatedCard
-      const { _id, question, answer } = updatedCard
 
-      dispatch(updateCardInfoAC(_id, question, answer))
-      dispatch(setAppSuccessAC('You successfully update card name!'))
+      const { _id, question, answer, questionImg, answerImg } = updatedCard
+
+      dispatch(updateCardInfoAC(_id, question, answer, questionImg, answerImg))
+      dispatch(setAppSuccessAC('You successfully update card information!'))
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
 
@@ -245,4 +268,5 @@ type CardStateType = {
   sortSettings: sortType
   searchData: string
   packPrivate: boolean
+  packDeckCover?: string
 }

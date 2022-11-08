@@ -49,9 +49,23 @@ export const cardsAPI = {
     return instance.delete<{ id: string }, AxiosResponse<DeletedCardType>>(`cards/card?id=${id}`)
   },
 
-  updateCardInfo(card: { _id: string; question: string; answer: string }) {
+  updateCardInfo(card: {
+    _id: string
+    question?: string
+    answer?: string
+    questionImg?: string
+    answerImg?: string
+  }) {
     return instance.put<
-      { card: { _id: string; question: string; answer: string } },
+      {
+        card: {
+          _id: string
+          question?: string
+          answer?: string
+          questionImg?: string
+          answerImg?: string
+        }
+      },
       AxiosResponse<UpdateCardInfoType>
     >(`cards/card`, { card })
   },
@@ -94,6 +108,8 @@ export type CardsType = {
   type: string
   updated: string
   user_id: string
+  answerImg?: string
+  questionImg?: string
   __v: number
   _id: string
 }

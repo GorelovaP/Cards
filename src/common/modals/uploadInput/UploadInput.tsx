@@ -10,7 +10,9 @@ type PropsType = {
 }
 
 export const InputTypeFile = (props: PropsType) => {
-  const [cover, setCover] = useState(props.coverPic || noCover)
+  const initialCove = props.coverPic === ' ' ? noCover : props.coverPic
+
+  const [cover, setCover] = useState(initialCove || noCover)
   const [isCoverBroken, setIsCoverBroken] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 

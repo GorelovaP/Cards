@@ -38,7 +38,7 @@ export const PersonalInformationPage = () => {
   }
 
   const errorBrokenImage = () => {
-    const error = new Error('Check the selected file')
+    const error = new Error('This picture is broken, please try another one')
 
     errorHandler({ error, dispatch })
   }

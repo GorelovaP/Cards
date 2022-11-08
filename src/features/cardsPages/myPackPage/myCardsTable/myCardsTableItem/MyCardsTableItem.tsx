@@ -16,6 +16,8 @@ type CardsTableItemType = {
   itemId: string
   question: string
   answer: string
+  questionImg?: string
+  answerImg?: string
   lastUpdated: string
   grade: number
 }
@@ -51,14 +53,27 @@ export const MyCardsTableItem = (props: CardsTableItemType) => {
     <StyledMyCardsTableItem>
       <div className={'question'}>
         {!isLoading ? (
-          <div className={'nameText'}>{props.question}</div>
+          <div className={'nameText'}>
+            {props.questionImg && props.questionImg !== ' ' ? (
+              <img className={'image'} src={props.questionImg} alt={'img'} />
+            ) : (
+              props.question
+            )}
+          </div>
         ) : (
           <Skeleton variant="rounded" height={16} width={'100%'} />
         )}
       </div>
       <div className={'answer'}>
         {!isLoading ? (
-          <div className={'nameText'}>{props.answer}</div>
+          <div className={'nameText'}>
+            {' '}
+            {props.answerImg && props.answerImg !== ' ' ? (
+              <img className={'image'} src={props.answerImg} alt={'img'} />
+            ) : (
+              props.answer
+            )}
+          </div>
         ) : (
           <Skeleton variant="rounded" height={16} width={'100%'} />
         )}
@@ -85,10 +100,13 @@ export const MyCardsTableItem = (props: CardsTableItemType) => {
       </div>
       {openCardsDeleteModal && (
         <DeleteModal
+          title={'Delete Card'}
           open={openCardsDeleteModal}
           onClose={setCardsDeleteModalClose}
           onClick={deleteCard}
           name={props.question}
+          cards={true}
+          deckCover={props.questionImg}
         />
       )}
       {openChangeCardsModal && (
@@ -97,6 +115,8 @@ export const MyCardsTableItem = (props: CardsTableItemType) => {
           onClose={setChangeCardsModalClose}
           initialAnswer={props.answer}
           initialQuestion={props.question}
+          initialQuestionImg={props.questionImg}
+          initialAnswerImg={props.answerImg}
           title={'Edit card'}
           cardId={props.itemId}
         />

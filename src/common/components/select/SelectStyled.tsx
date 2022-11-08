@@ -6,13 +6,19 @@ import { DropDownContainer } from './selectStyles'
 
 const options = ['Text', 'Image']
 
-export const SelectStyled = () => {
+type PropsType = {
+  callback: (value: string) => void
+  initialValue: string
+}
+
+export const SelectStyled = (props: PropsType) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedOption, setSelectedOption] = useState('')
+  const [selectedOption, setSelectedOption] = useState(props.initialValue)
 
   const onOptionClicked = (value: string) => {
     setSelectedOption(value)
     setIsOpen(false)
+    props.callback(value)
   }
 
   const toggling = () => setIsOpen(!isOpen)
