@@ -46,6 +46,7 @@ export const MyPackPage = () => {
   const isLoading = useAppSelector(state => state.app.isLoading)
   const staticMin = useAppSelector(state => state.packs.minCardsCount)
   const staticMax = useAppSelector(state => state.packs.maxCardsCount)
+  const deckCover = useAppSelector(state => state.cards.packDeckCover)
   const firstRender = useAppSelector(state => state.app.firstRender)
   const packPrivate = useAppSelector(state => state.cards.packPrivate)
 
@@ -181,15 +182,18 @@ export const MyPackPage = () => {
               name={chosenPackName}
               private={packPrivate}
               id={chosenPack}
+              deckCover={deckCover}
               menu={true}
             />
           )}
           {openDeletePackModal && (
             <DeleteModal
+              title={'Delete Pack'}
               open={openDeletePackModal}
               onClose={setDeletePackModalClose}
               onClick={deleteHandler}
               name={chosenPackName}
+              deckCover={deckCover}
             />
           )}
         </StyledMyPackPage>

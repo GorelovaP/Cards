@@ -109,6 +109,7 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
       </div>
       {openPacksModal && (
         <DeleteModal
+          title={'Delete Pack'}
           open={openPacksModal}
           onClose={setPacksModalClose}
           onClick={deletePack}

@@ -18,9 +18,15 @@ export const StyledMyCardsTableItem = styled.div`
     overflow: hidden;
     padding-right: 20px;
     .nameText {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis !important;
+      .image {
+        max-height: 36px;
+      }
     }
   }
 
@@ -33,9 +39,15 @@ export const StyledMyCardsTableItem = styled.div`
     overflow: hidden;
     padding-right: 20px;
     .nameText {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis !important;
+      .image {
+        max-height: 36px;
+      }
     }
   }
 

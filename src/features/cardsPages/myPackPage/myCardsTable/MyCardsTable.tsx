@@ -17,6 +17,8 @@ export const MyCardsTable = () => {
             itemId={item._id}
             question={item.question}
             answer={item.answer}
+            questionImg={item.questionImg}
+            answerImg={item.answerImg}
             lastUpdated={item.updated}
             grade={item.grade}
           />

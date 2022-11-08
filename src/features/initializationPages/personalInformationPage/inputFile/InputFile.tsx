@@ -31,7 +31,7 @@ export const InputFile = () => {
           dispatch(changeUserNameOrImageTC(name, file64))
         })
       } else {
-        const error = new Error('The file is too large')
+        const error = new Error('Please be informed that maximum file size is 1MB')
 
         errorHandler({ error, dispatch })
       }
