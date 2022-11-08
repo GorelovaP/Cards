@@ -139,7 +139,7 @@ export const addNewPackTC =
     try {
       dispatch(isLoadingAC(true))
       await packsAPI.addPack(cardsPack)
-      dispatch(getPackTC())
+      await dispatch(getPackTC())
       dispatch(setAppSuccessAC('You successfully add new package!'))
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
@@ -157,7 +157,7 @@ export const deletePackTC =
       dispatch(isLoadingAC(true))
       await packsAPI.deletePack(packId)
       dispatch(resetChosenPackAC())
-      !deleteFromMenu && dispatch(getPackTC())
+      !deleteFromMenu && (await dispatch(getPackTC()))
       dispatch(setAppSuccessAC('You successfully delete package!'))
     } catch (err) {
       const error = err as Error | AxiosError<AppError>

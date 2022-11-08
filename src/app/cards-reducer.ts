@@ -160,7 +160,7 @@ export const addNewCardTC =
     try {
       dispatch(isLoadingAC(true))
       await cardsAPI.addNewCard(card)
-      dispatch(getCardsTC())
+      await dispatch(getCardsTC())
       dispatch(setAppSuccessAC('You successfully add new card!'))
     } catch (err) {
       const error = err as Error | AxiosError<AppError>
@@ -176,7 +176,7 @@ export const deleteCardTC =
     try {
       dispatch(isLoadingAC(true))
       await cardsAPI.deleteCard(id)
-      dispatch(getCardsTC())
+      await dispatch(getCardsTC())
       dispatch(setAppSuccessAC('You successfully delete card!'))
     } catch (err) {
       const error = err as Error | AxiosError<AppError>

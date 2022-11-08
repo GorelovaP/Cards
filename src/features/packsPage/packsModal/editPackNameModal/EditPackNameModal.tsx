@@ -60,7 +60,14 @@ export const EditPackNameModal = (props: PropsType) => {
   return (
     <BasicModal open={props.open} onClose={props.onClose} title={'Edit pack'}>
       <StyledEditPackNameModal>
-        <form onSubmit={formik.handleSubmit}>
+        <form
+          onSubmit={formik.handleSubmit}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              formik.handleSubmit()
+            }
+          }}
+        >
           <InputTypeFile
             getCoverHandler={cover => setCoverPic(cover)}
             imgName={'Cover'}

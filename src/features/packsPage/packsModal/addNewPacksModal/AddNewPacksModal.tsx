@@ -44,7 +44,14 @@ export const AddNewPacksModal = (props: PropsType) => {
   return (
     <BasicModal open={props.open} onClose={props.onClose} title={'Add new pack'}>
       <StyledAddNewPack>
-        <form onSubmit={formik.handleSubmit}>
+        <form
+          onSubmit={formik.handleSubmit}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              formik.handleSubmit()
+            }
+          }}
+        >
           <InputTypeFile getCoverHandler={cover => setCoverPic(cover)} imgName={'Cover'} />
           <div className={'inputErrorHandlerForm'}>
             <MyInput

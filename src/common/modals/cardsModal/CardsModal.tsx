@@ -55,7 +55,14 @@ export const CardsModal = (props: PropsType) => {
   return (
     <BasicModal open={props.open} onClose={props.onClose} title={props.title}>
       <StyledCardsModal>
-        <form onSubmit={formik.handleSubmit}>
+        <form
+          onSubmit={formik.handleSubmit}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              formik.handleSubmit()
+            }
+          }}
+        >
           <div className={'inputErrorHandlerForm'}>
             {/*<Select options={questionFormat} label={'Choose a question format'} />*/}
             <SelectStyled />
