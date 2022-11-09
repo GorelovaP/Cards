@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useFormik } from 'formik'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Navigate, NavLink, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { newPasswordCreatedAC, setAppErrorAC, signUpAC, singInTC } from '../../../app/app-reducer'
@@ -61,6 +61,10 @@ export const SignInPage = () => {
       dispatch(singInTC(values))
     },
   })
+
+  if (isLoggedIn) {
+    return <Navigate to={PATH.PROFILE} />
+  }
 
   return (
     <StyledSingFormWrapper>
