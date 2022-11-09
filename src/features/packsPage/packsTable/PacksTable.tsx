@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import { chosenPackAC, sortUpdatedAC } from '../../../app/pack-reducer'
+import { chosenPackAC, setLocalStorageChosenPackTC, sortUpdatedAC } from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/appHooks'
 
@@ -18,6 +18,7 @@ export const PacksTable = () => {
 
   const onClickHandler = (cardsPack_id: string, userId: string) => {
     dispatch(chosenPackAC(cardsPack_id))
+    dispatch(setLocalStorageChosenPackTC(cardsPack_id))
     dispatch(sortUpdatedAC('0updated'))
     if (myId === userId) {
       navigate(PATH.MY_PACK)

@@ -67,7 +67,6 @@ export const MyCardsTableItem = (props: CardsTableItemType) => {
       <div className={'answer'}>
         {!isLoading ? (
           <div className={'nameText'}>
-            {' '}
             {props.answerImg && props.answerImg !== ' ' ? (
               <img className={'image'} src={props.answerImg} alt={'img'} />
             ) : (

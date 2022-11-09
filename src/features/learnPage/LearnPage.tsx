@@ -4,7 +4,7 @@ import Skeleton from '@mui/material/Skeleton'
 
 import { CardsType } from '../../api/cardsApi'
 import { getCardsTC, setGradesTC } from '../../app/cards-reducer'
-import { setMinMaxAC } from '../../app/pack-reducer'
+import { getFromLocalStorageChosenPackTC, setMinMaxAC } from '../../app/pack-reducer'
 import { BackToPack } from '../../common/components/backToPack/BackToPack'
 import { Loading } from '../../common/components/loading/Loading'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/appHooks'
@@ -48,7 +48,6 @@ const getCard = (cards: CardsType[]) => {
 export const LearnPage = () => {
   const packName = useAppSelector(state => state.cards.packName)
   const cards = useAppSelector(state => state.cards.cards)
-  const packId = useAppSelector(state => state.packs.chosenPack)
   const staticMin = useAppSelector(state => state.packs.minCardsCount)
   const staticMax = useAppSelector(state => state.packs.maxCardsCount)
   const firstRender = useAppSelector(state => state.app.firstRender)
@@ -85,18 +84,18 @@ export const LearnPage = () => {
 
   useEffect(() => {
     if (first) {
-      dispatch(getCardsTC(true))
       setFirst(false)
+      dispatch(getFromLocalStorageChosenPackTC())
+      dispatch(getCardsTC(true))
     }
 
     if (cards.length > 0) setCard(getCard(cards))
 
     return () => {}
-  }, [dispatch, packId, cards, first])
+  }, [dispatch, cards, first])
 
   const onNext = () => {
     setShow(true)
-
     dispatch(setGradesTC(grades, card._id))
     setCard(getCard(cards))
   }
@@ -120,7 +119,7 @@ export const LearnPage = () => {
         {card.questionImg && card.questionImg !== ' ' ? (
           <div className={'imageArea'}>
             <br />
-            <img className={'image'} src={card.questionImg}  alt={"question"}/>
+            <img className={'image'} src={card.questionImg} alt={'question'} />
           </div>
         ) : (
           card.question
@@ -172,7 +171,7 @@ export const LearnPage = () => {
                 {card.answerImg && card.answerImg !== ' ' ? (
                   <div className={'imageArea'}>
                     <br />
-                    <img className={'image'} src={card.answerImg} alt={"answer"}/>
+                    <img className={'image'} src={card.answerImg} alt={'answer'} />
                   </div>
                 ) : (
                   card.answer

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import {
   getCardsTC,
@@ -8,7 +8,11 @@ import {
   setPageCountCardsAC,
   setSortSettingsAC,
 } from '../../../app/cards-reducer'
-import { setCurrentPageAC, setMinMaxAC } from '../../../app/pack-reducer'
+import {
+  getFromLocalStorageChosenPackTC,
+  setCurrentPageAC,
+  setMinMaxAC,
+} from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import { BackToPack } from '../../../common/components/backToPack/BackToPack'
 import { Loading } from '../../../common/components/loading/Loading'
@@ -26,7 +30,6 @@ import { StyledUsersPackPage } from './styledUsersPackPage'
 import { UsersCardsTable } from './usersCardsTable/UsersCardsTable'
 
 export const UsersPackPage = () => {
-  const chosenPack = useAppSelector(state => state.packs.chosenPack)
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const pageCount = useAppSelector(state => state.cards.pageCount)
   const currentPage = useAppSelector(state => state.cards.page)
@@ -42,12 +45,17 @@ export const UsersPackPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
+    dispatch(getFromLocalStorageChosenPackTC())
+  }, [])
+
+  useEffect(() => {
     dispatch(getCardsTC())
-  }, [sortSettings, currentPage, pageCount, chosenPack, searchData])
+  }, [sortSettings, currentPage, pageCount, searchData])
 
   const setCurrentItem = (item: number) => {
     dispatch(setCurrentCardsPageAC(item))
   }
+
   const changeFieldsNumber = (choice: number) => {
     dispatch(setPageCountCardsAC(choice))
     dispatch(setCurrentCardsPageAC(1))
@@ -63,10 +71,6 @@ export const UsersPackPage = () => {
 
   const goToLearnPage = () => {
     navigate(PATH.LEARN)
-  }
-
-  if (!chosenPack) {
-    return <Navigate to={PATH.HOME_PAGE} />
   }
 
   if (firstRender) {

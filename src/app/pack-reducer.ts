@@ -194,6 +194,23 @@ export const updatePackNameTC =
       dispatch(isLoadingAC(false))
     }
   }
+
+export const setLocalStorageChosenPackTC =
+  (ChosenPack: string): AppThunkType =>
+  () => {
+    localStorage.setItem('ChosenPack', JSON.stringify(ChosenPack))
+  }
+
+export const getFromLocalStorageChosenPackTC = (): AppThunkType => dispatch => {
+  let ChosenPack = localStorage.getItem('ChosenPack')
+
+  if (ChosenPack) {
+    let NewChosenPack = JSON.parse(ChosenPack)
+
+    dispatch(chosenPackAC(NewChosenPack))
+  }
+}
+
 // ================ Types ====================
 
 //common type for reducer and to be merged in store

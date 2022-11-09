@@ -12,6 +12,8 @@ type FriendsCardsTableItemPropsType = {
   answer: string
   lastUpdated: string
   grade: number
+  questionImg?: string
+  answerImg?: string
 }
 
 export const UsersCardsTableItem = (props: FriendsCardsTableItemPropsType) => {
@@ -23,14 +25,26 @@ export const UsersCardsTableItem = (props: FriendsCardsTableItemPropsType) => {
       <div className={'question'}>
         {' '}
         {!isLoading ? (
-          <div className={'nameText'}>{props.question}</div>
+          <div className={'nameText'}>
+            {props.questionImg && props.questionImg !== ' ' ? (
+              <img className={'image'} src={props.questionImg} alt={'img'} />
+            ) : (
+              props.question
+            )}
+          </div>
         ) : (
           <Skeleton variant="rounded" height={16} width={'100%'} />
         )}
       </div>
       <div className={'answer'}>
         {!isLoading ? (
-          <div className={'nameText'}>{props.answer}</div>
+          <div className={'nameText'}>
+            {props.answerImg && props.answerImg !== ' ' ? (
+              <img className={'image'} src={props.answerImg} alt={'img'} />
+            ) : (
+              props.answer
+            )}
+          </div>
         ) : (
           <Skeleton variant="rounded" height={16} width={'100%'} />
         )}

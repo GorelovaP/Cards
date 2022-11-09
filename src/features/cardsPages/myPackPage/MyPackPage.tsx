@@ -9,7 +9,12 @@ import {
   setPageCountCardsAC,
   setSortSettingsAC,
 } from '../../../app/cards-reducer'
-import { deletePackTC, setCurrentPageAC, setMinMaxAC } from '../../../app/pack-reducer'
+import {
+  deletePackTC,
+  getFromLocalStorageChosenPackTC,
+  setCurrentPageAC,
+  setMinMaxAC,
+} from '../../../app/pack-reducer'
 import { PATH } from '../../../app/routes/PagesRoutes'
 import deleteIcon from '../../../assets/images/menu/myPackMenu/Delete.svg'
 import edit from '../../../assets/images/menu/myPackMenu/Edit.svg'
@@ -57,6 +62,10 @@ export const MyPackPage = () => {
   const [openAddModal, setOpenAddModal] = useState(false)
   const [openEditPackNameModal, setOpenEditPackNameModal] = useState(false)
   const [openDeletePackModal, setOpenDeletePackModal] = useState(false)
+
+  useEffect(() => {
+    dispatch(getFromLocalStorageChosenPackTC())
+  }, [])
 
   useEffect(() => {
     dispatch(getCardsTC())

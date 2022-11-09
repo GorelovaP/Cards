@@ -3,7 +3,11 @@ import React, { useState } from 'react'
 import Skeleton from '@mui/material/Skeleton'
 import { useNavigate } from 'react-router-dom'
 
-import { chosenPackAC, deletePackTC } from '../../../../app/pack-reducer'
+import {
+  chosenPackAC,
+  deletePackTC,
+  setLocalStorageChosenPackTC,
+} from '../../../../app/pack-reducer'
 import { PATH } from '../../../../app/routes/PagesRoutes'
 import Delete from '../../../../assets/images/table/Delete.svg'
 import Edit from '../../../../assets/images/table/Edit.svg'
@@ -60,6 +64,7 @@ export const PacksTableItem = (props: PacksListTableItemPropsType) => {
   }
   const goToLearnPage = () => {
     dispatch(chosenPackAC(props.cardsPack_id))
+    dispatch(setLocalStorageChosenPackTC(props.cardsPack_id))
     navigate(PATH.LEARN)
   }
 
