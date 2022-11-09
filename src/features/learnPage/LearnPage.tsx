@@ -67,6 +67,8 @@ export const LearnPage = () => {
 
     answer: 'answer fake',
     question: 'question fake',
+    answerImg: '',
+    questionImg: '',
     grade: 0,
     shots: 0,
 
@@ -112,6 +114,21 @@ export const LearnPage = () => {
     setShow(false)
   }
 
+  const Question = () => {
+    return (
+      <>
+        {card.questionImg && card.questionImg !== ' ' ? (
+          <div className={'imageArea'}>
+            <br />
+            <img className={'image'} src={card.questionImg}  alt={"question"}/>
+          </div>
+        ) : (
+          card.question
+        )}
+      </>
+    )
+  }
+
   if (firstRender) {
     return <Loading />
   }
@@ -122,12 +139,16 @@ export const LearnPage = () => {
         <BackToPack callback={onBackToPack} />
         <H1 className="headerH1">{`Learn ${packName}`}</H1>
         <StyledSingFormWrapper className="learnWrapper">
-          <div className={'questionArea'}>
+          <div
+            className={`questionArea ${
+              card.questionImg && card.questionImg !== ' ' && 'questionImg'
+            }`}
+          >
             <span className={'questionSpan'}>
               <b>Question: </b>
             </span>
             <div className={'questionDiv'}>
-              {loading ? <Skeleton variant="text" sx={{ fontSize: '16px' }} /> : card.question}
+              {loading ? <Skeleton variant="text" sx={{ fontSize: '16px' }} /> : <Question />}
             </div>
           </div>
           <div className={'shotsArea'}>
@@ -148,7 +169,14 @@ export const LearnPage = () => {
             <>
               <div className="answer">
                 <b>Answer: </b>
-                {card.answer}
+                {card.answerImg && card.answerImg !== ' ' ? (
+                  <div className={'imageArea'}>
+                    <br />
+                    <img className={'image'} src={card.answerImg} alt={"answer"}/>
+                  </div>
+                ) : (
+                  card.answer
+                )}
               </div>
               <form>
                 <ul>

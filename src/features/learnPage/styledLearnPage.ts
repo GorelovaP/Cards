@@ -16,6 +16,9 @@ export const StyledPacksPage = styled.div`
         width: 100%;
       }
     }
+    .questionImg {
+      flex-direction: column;
+    }
   }
 
   .headerH1 {
@@ -39,6 +42,15 @@ export const StyledPacksPage = styled.div`
       margin-left: 3px;
       opacity: 0.5;
       max-width: 100%;
+    }
+  }
+  .imageArea {
+    display: flex;
+    justify-content: center;
+    margin-top: 13px;
+    .image {
+      max-height: 200px;
+      margin: 0 auto;
     }
   }
 
