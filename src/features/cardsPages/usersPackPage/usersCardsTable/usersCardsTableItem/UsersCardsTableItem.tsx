@@ -27,7 +27,7 @@ export const UsersCardsTableItem = (props: FriendsCardsTableItemPropsType) => {
         {!isLoading ? (
           <div className={'nameText'}>
             {props.questionImg && props.questionImg !== ' ' ? (
-              <img className={'image'} src={props.questionImg} alt={'img'} />
+              <img className={'image'} src={props.questionImg} alt={'question'} />
             ) : (
               props.question
             )}
@@ -40,7 +40,7 @@ export const UsersCardsTableItem = (props: FriendsCardsTableItemPropsType) => {
         {!isLoading ? (
           <div className={'nameText'}>
             {props.answerImg && props.answerImg !== ' ' ? (
-              <img className={'image'} src={props.answerImg} alt={'img'} />
+              <img className={'image'} src={props.answerImg} alt={'answer'} />
             ) : (
               props.answer
             )}
