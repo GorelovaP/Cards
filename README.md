@@ -14,6 +14,8 @@ This application is a learning cards application which allows users to create th
 
 While creating a new pack of cards you will be providing the question and the answer on it for every card. After that you just need to start learning process and every time you answer the question evaluate it according to the grades inside how good do you know the answer. Application has a special randomizer that analyze your grades to the question and will show you more often those of the questions that you mentioned as most difficult.
 
+DEMO: https://cards-alpha-jade.vercel.app/
+
 <hr/>
 
 ## Built With:
